@@ -59,6 +59,8 @@ class RunTest extends TestCase
      */
     public function testRegisterHandler()
     {
+        $this->markTestSkipped("Need to test exception handler");
+
         $run = $this->getRunInstance();
         $run->register();
 
@@ -67,5 +69,22 @@ class RunTest extends TestCase
 
         throw new RuntimeException('Hi! :)');
 
+        $this->assertCount(2, $handler->exceptions);
+    }
+
+    /**
+     * @covers DamnIt\Run::unregister
+     * @expectedException RuntimeException
+     */
+    public function testUnregisterHandler()
+    {
+        $run = $this->getRunInstance();
+        $run->register();
+
+        $handler = new DummyHandler;
+        $run->addHandler($handler);
+
+        $run->unregister();
+        throw new RuntimeException("I'm not supposed to be caught!");
     }
 }
