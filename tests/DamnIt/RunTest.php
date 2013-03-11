@@ -35,9 +35,9 @@ class RunTest extends TestCase
     }
 
     /**
-     * @covers DamnIt\Run::addHandler
+     * @covers DamnIt\Run::pushHandler
      */
-    public function testAddHandler()
+    public function testPushHandler()
     {
         $run = $this->getRunInstance();
         $run->clearHandlers();
@@ -45,14 +45,43 @@ class RunTest extends TestCase
         $handlerOne = new DummyHandler;
         $handlerTwo = new DummyHandler;
 
-        $run->addHandler($handlerOne);
-        $run->addHandler($handlerTwo);
+        $run->pushHandler($handlerOne);
+        $run->pushHandler($handlerTwo);
 
         $handlers = $run->getHandlers();
 
         $this->assertCount(2, $handlers);
         $this->assertContains($handlerOne, $handlers);
         $this->assertContains($handlerTwo, $handlers);
+    }
+
+    /**
+     * @covers DamnIt\Run::popHandler
+     * @covers DamnIt\Run::getHandlers
+     */
+    public function testPopHandler()
+    {
+        $run = $this->getRunInstance();
+        
+        $handlerOne   = new DummyHandler;
+        $handlerTwo   = new DummyHandler;
+        $handlerThree = new DummyHandler;
+
+        $run->pushHandler($handlerOne);
+        $run->pushHandler($handlerTwo);
+        $run->pushHandler($handlerThree);
+
+        $this->assertSame($handlerThree, $run->popHandler());
+        $this->assertSame($handlerTwo, $run->popHandler());
+        $this->assertSame($handlerOne, $run->popHandler());
+
+        // Should return null if there's nothing else in
+        // the stack
+        $this->assertNull($run->popHandler());
+
+        // Should be empty since we popped everything off
+        // the stack:
+        $this->assertEmpty($run->getHandlers());
     }
 
     /**
@@ -66,7 +95,7 @@ class RunTest extends TestCase
         $run->register();
 
         $handler = new DummyHandler;
-        $run->addHandler($handler);
+        $run->pushHandler($handler);
 
         throw new RuntimeException('Hi! :)');
 
@@ -83,17 +112,17 @@ class RunTest extends TestCase
         $run->register();
 
         $handler = new DummyHandler;
-        $run->addHandler($handler);
+        $run->pushHandler($handler);
 
         $run->unregister();
         throw new RuntimeException("I'm not supposed to be caught!");
     }
 
     /**
-     * @covers DamnIt\Run::addHandler
+     * @covers DamnIt\Run::pushHandler
      * @covers DamnIt\Run::getHandlers
      */
-    public function testHandlerSorting()
+    public function testHandlerHoldsOrder()
     {
         $run = $this->getRunInstance();
 
@@ -102,33 +131,16 @@ class RunTest extends TestCase
         $handlerThree = new DummyHandler;
         $handlerFour  = new DummyHandler;
 
-        // Priority with integer, or no priority:
-        $run->addHandler($handlerOne, 10);
-        $run->addHandler($handlerTwo, 0);
-        $run->addHandler($handlerThree, 25);
-        $run->addHandler($handlerFour, -10);
+        $run->pushHandler($handlerOne);
+        $run->pushHandler($handlerTwo);
+        $run->pushHandler($handlerThree);
+        $run->pushHandler($handlerFour);
 
         $handlers = $run->getHandlers();
-        
-        $this->assertSame($handlers[0], $handlerFour);
+
+        $this->assertSame($handlers[0], $handlerOne);
         $this->assertSame($handlers[1], $handlerTwo);
-        $this->assertSame($handlers[2], $handlerOne);
-        $this->assertSame($handlers[3], $handlerThree);
-
-        // Use priority constants to ensure handlers
-        // go either to the end or start of the stack
-        $run->clearHandlers();
-
-        $run->addHandler($handlerOne, Handler::HIGH_PRIORITY);
-        $run->addHandler($handlerTwo, Handler::HIGH_PRIORITY);
-        $run->addHandler($handlerThree, -2);
-        $run->addHandler($handlerFour, Handler::LOW_PRIORITY);
-
-        $handlers = $run->getHandlers();
-
-        $this->assertSame($handler[0], $handlerFour);
-        $this->assertSame($handler[1], $handlerThree);
-        $this->assertSame($handler[2], $handlerOne);
-        $this->assertSame($handler[3], $handlerTwo);
+        $this->assertSame($handlers[2], $handlerThree);
+        $this->assertSame($handlers[3], $handlerFour);
     }
 }
