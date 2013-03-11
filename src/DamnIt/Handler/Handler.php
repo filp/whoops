@@ -11,17 +11,6 @@ use DamnIt\Run;
 class Handler implements HandlerInterface
 {
     /**
-     * Can be used as priorities with Run::addHandler,
-     * to ensure the handler is added to the end or
-     * beginning of the handler stack.
-     *
-     * @example Low priority handler
-     *     $run->addHandler($myHandler, Handler::LOW_PRIORITY);
-     */
-    const LOW_PRIORITY  = 0x10;
-    const HIGH_PRIORITY = 0x20;
-
-    /**
      * @var DamnIt\Run
      */
     private $run;
