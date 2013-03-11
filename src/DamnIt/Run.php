@@ -7,37 +7,44 @@
 namespace DamnIt;
 
 use DamnIt\Handler\HandlerInterface;
+use Damnit\Handler\Handler;
 
 class Run
 {
     const EXCEPTION_HANDLER = 'handleException';
     const ERROR_HANDLER     = 'handleError';
 
-
     protected $isRegistered;
 
     /**
-     * @var DamnIt\HandlerInterface[]
+     * @var DarnIt\Handler\HandlerInterface[]
      */
     protected $handlerStack = array();
 
     /**
-     * Adds a handler to the stack. By default, it will be added
-     * to the end of the stack, but an optional second argument
-     * can be provided with an integer priority value.
-     *
+     * Pushes a handler to the end of the stack.
      * @param  DamnIt\HandlerInterface $handler
-     * @param  int $priority
      * @return DamnIt\Run
      */
-    public function addHandler(HandlerInterface $handler, $priority = null)
+    public function pushHandler(HandlerInterface $handler)
     {
         $this->handlerStack[] = $handler;
         return $this;
     }
 
     /**
-     * Returns an array with all handlers, sorted by priority.
+     * Removes the last handler in the stack and returns it.
+     * Returns null if there's nothing else to pop.
+     * @return null|DamnIt\Handler\HandlerInterface
+     */
+    public function popHandler()
+    {
+        return array_pop($this->handlerStack);
+    }
+
+    /**
+     * Returns an array with all handlers, in the
+     * order they were added to the stack.
      * @return array
      */
     public function getHandlers()
