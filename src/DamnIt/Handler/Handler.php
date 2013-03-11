@@ -11,6 +11,12 @@ use DamnIt\Run;
 class Handler implements HandlerInterface
 {
     /**
+     * Return constants that can be returned from Handler::handle
+     * to message the handler walker.
+     */
+    const LAST_HANDLER = 0x10;
+
+    /**
      * @var DamnIt\Run
      */
     private $run;

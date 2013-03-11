@@ -109,6 +109,10 @@ class Run
             $handler = $this->handlerStack[$i];
 
             $handlerResponse = $handler->handle($exception);
+
+            if($handlerResponse === Handler::LAST_HANDLER) {
+                break;
+            }
         }
     }
 

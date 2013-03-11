@@ -183,4 +183,29 @@ class RunTest extends TestCase
 
         $this->assertEquals((array) $handlerOrder, array(4, 3, 2, 1));
     }
+
+    /**
+     * @covers DamnIt\Run::handleException
+     */
+    public function testLastHandler()
+    {
+        $run = $this->getRunInstance();
+
+        $handlerOne = new DummyHandler;
+        $handlerTwo = new DummyHandler;
+
+        $run->pushHandler($handlerOne);
+        $run->pushHandler($handlerTwo);
+
+        $test = $this;
+        $handlerOne->onHandle(function() use($test) {
+            $test->fail('$handlerOne should not be called to handle an exception');
+        });
+
+        $handlerTwo->onHandle(function() {
+            return Handler::LAST_HANDLER;
+        });
+
+        $run->handleException(new RuntimeException);
+    }
 }

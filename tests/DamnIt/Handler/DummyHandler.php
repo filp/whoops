@@ -27,7 +27,7 @@ class DummyHandler extends Handler
     {
         $this->exceptions[] = $exception;
         if($this->onHandleCallable) {
-            call_user_func($this->onHandleCallable, $exception);
+            return call_user_func($this->onHandleCallable, $exception);
         }
     }
 
