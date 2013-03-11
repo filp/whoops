@@ -103,6 +103,13 @@ class Run
      */
     public function handleException($exception)
     {
+        // Walk the registered handlers in the reverse order
+        // they were registered, and pass off the exception
+        for($i = count($this->handlerStack) - 1; $i >= 0; $i--) {
+            $handler = $this->handlerStack[$i];
+
+            $handlerResponse = $handler->handle($exception);
+        }
     }
 
     /**
