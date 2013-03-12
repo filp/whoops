@@ -8,6 +8,11 @@ namespace Damnit\Handler;
 use Damnit\Handler\HandlerInterface;
 use Damnit\Run;
 
+/**
+ * Base handler, can be used as a simple text
+ * output handler (but really, you probably shouldn't),
+ * and extended to create custom handlers.
+ */
 class Handler implements HandlerInterface
 {
     /**
@@ -45,7 +50,15 @@ class Handler implements HandlerInterface
      */
     public function handle(\Exception $exception)
     {
-        $this->getRun()->unregister();
-        throw new $exception;
+        $name    = get_class($exception);
+        $message = $exception->getMessage();
+        $file    = $exception->getFile();
+        $line    = $exception->getLine();
+        $trace   = $exception->getTraceAsString();
+
+        print "Uh oh!\n";
+        print "{$name}: $message\n";
+        print "In {$file}:$line\n";
+        print "---\n$trace";
     }
 }
