@@ -1,22 +1,22 @@
-# damnit 
+# Damnit
 php errors for cool kids
 
-[![Build Status](https://travis-ci.org/filp/damnit.png)](https://travis-ci.org/filp/damnit)
+[![Build Status](https://travis-ci.org/filp/Damnit.png)](https://travis-ci.org/filp/Damnit)
 
 -----
 
-`damnit` is an error handler base/framework for PHP. Out-of-the-box, it provides a pretty
+`Damnit` is an error handler base/framework for PHP. Out-of-the-box, it provides a pretty
 error interface that helps you debug your web projects, but at heart it's a simple yet
 powerful stacked error system.
 
 ## Basic Usage:
 
-To use `damnit` with default settings, for a web project, simply create an instance and
+To use `Damnit` with default settings, for a web project, simply create an instance and
 `register()` it:
 
 ```php
 
-$damnit = new DamnIt\Run;
-$damnit->register();
+$Damnit = new Damnit\Run;
+$Damnit->register();
 
 ```

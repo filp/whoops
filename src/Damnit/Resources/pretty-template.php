@@ -1,6 +1,6 @@
 <?php
 /**
-* Template file for DamnIt's pretty error output.
+* Template file for Damnit's pretty error output.
 * Check the $v global variable (stdClass) for what's available
 * to work with.
 * @var $v

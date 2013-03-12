@@ -1,12 +1,12 @@
 <?php
 /**
- * damnit - php errors for cool kids
+ * Damnit - php errors for cool kids
  * @author Filipe Dobreira <http://github.com/filp>
  */
 
-namespace DamnIt\Handler;
-use DamnIt\Handler\HandlerInterface;
-use DamnIt\Run;
+namespace Damnit\Handler;
+use Damnit\Handler\HandlerInterface;
+use Damnit\Run;
 
 class Handler implements HandlerInterface
 {
@@ -17,12 +17,12 @@ class Handler implements HandlerInterface
     const LAST_HANDLER = 0x10;
 
     /**
-     * @var DamnIt\Run
+     * @var Damnit\Run
      */
     private $run;
 
     /**
-     * @param DamnIt\Run $run
+     * @param Damnit\Run $run
      */
     public function __construct(Run $run = null)
     {
@@ -32,7 +32,7 @@ class Handler implements HandlerInterface
     }
 
     /**
-     * @return DamnIt\Run
+     * @return Damnit\Run
      */
     protected function getRun()
     {

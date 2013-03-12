@@ -2,14 +2,14 @@
 
 <phpunit bootstrap="tests/bootstrap.php" colors="true">
     <testsuites>
-        <testsuite name="DamnIt Tests Suite">
-            <directory>tests/DamnIt/</directory>
+        <testsuite name="Damnit Tests Suite">
+            <directory>tests/Damnit/</directory>
         </testsuite>
     </testsuites>
 
     <filter>
         <whitelist>
-            <directory suffix=".php">src/DamnIt/</directory>
+            <directory suffix=".php">src/Damnit/</directory>
         </whitelist>
     </filter>
 </phpunit>

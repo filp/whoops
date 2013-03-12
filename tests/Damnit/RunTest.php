@@ -1,21 +1,21 @@
 <?php
 /**
- * damnit - php errors for cool kids
+ * Damnit - php errors for cool kids
  * @author Filipe Dobreira <http://github.com/filp>
  */
 
-namespace DamnIt;
-use DamnIt\TestCase;
-use DamnIt\Run;
+namespace Damnit;
+use Damnit\TestCase;
+use Damnit\Run;
 use Damnit\Handler\Handler;
-use DamnIt\Handler\DummyHandler;
+use Damnit\Handler\DummyHandler;
 use \RuntimeException;
 use \ArrayObject;
 
 class RunTest extends TestCase
 {
     /**
-     * @return DamnIt\Run
+     * @return Damnit\Run
      */
     protected function getRunInstance()
     {
@@ -23,7 +23,7 @@ class RunTest extends TestCase
     }
 
     /**
-     * @covers DamnIt\Run::clearHandlers
+     * @covers Damnit\Run::clearHandlers
      */
     public function testClearHandlers()
     {
@@ -36,7 +36,7 @@ class RunTest extends TestCase
     }
 
     /**
-     * @covers DamnIt\Run::pushHandler
+     * @covers Damnit\Run::pushHandler
      */
     public function testPushHandler()
     {
@@ -57,13 +57,13 @@ class RunTest extends TestCase
     }
 
     /**
-     * @covers DamnIt\Run::popHandler
-     * @covers DamnIt\Run::getHandlers
+     * @covers Damnit\Run::popHandler
+     * @covers Damnit\Run::getHandlers
      */
     public function testPopHandler()
     {
         $run = $this->getRunInstance();
-        
+
         $handlerOne   = new DummyHandler;
         $handlerTwo   = new DummyHandler;
         $handlerThree = new DummyHandler;
@@ -86,7 +86,7 @@ class RunTest extends TestCase
     }
 
     /**
-     * @covers DamnIt\Run::register
+     * @covers Damnit\Run::register
      */
     public function testRegisterHandler()
     {
@@ -104,7 +104,7 @@ class RunTest extends TestCase
     }
 
     /**
-     * @covers DamnIt\Run::unregister
+     * @covers Damnit\Run::unregister
      * @expectedException RuntimeException
      */
     public function testUnregisterHandler()
@@ -120,8 +120,8 @@ class RunTest extends TestCase
     }
 
     /**
-     * @covers DamnIt\Run::pushHandler
-     * @covers DamnIt\Run::getHandlers
+     * @covers Damnit\Run::pushHandler
+     * @covers Damnit\Run::getHandlers
      */
     public function testHandlerHoldsOrder()
     {
@@ -148,7 +148,7 @@ class RunTest extends TestCase
     /**
      * @todo possibly split this up a bit and move
      *       some of this test to Handler unit tests?
-     * @covers DamnIt\Run::handleException
+     * @covers Damnit\Run::handleException
      */
     public function testHandlersGonnaHandle()
     {
@@ -175,7 +175,7 @@ class RunTest extends TestCase
         // are given the handler, and in the inverse order they were
         // registered.
         $run->handleException($exception);
-        
+
         $this->assertContains($exception, $handlerOne->exceptions);
         $this->assertContains($exception, $handlerTwo->exceptions);
         $this->assertContains($exception, $handlerThree->exceptions);
@@ -185,7 +185,7 @@ class RunTest extends TestCase
     }
 
     /**
-     * @covers DamnIt\Run::handleException
+     * @covers Damnit\Run::handleException
      */
     public function testLastHandler()
     {

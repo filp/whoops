@@ -1,10 +1,10 @@
 <?php
 /**
- * damnit - php errors for cool kids
+ * Damnit - php errors for cool kids
  * @author Filipe Dobreira <http://github.com/filp>
  */
 
-namespace DamnIt\Handler;
+namespace Damnit\Handler;
 
 interface HandlerInterface
 {

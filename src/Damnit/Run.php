@@ -1,12 +1,12 @@
 <?php
 /**
- * damnit - php errors for cool kids
+ * Damnit - php errors for cool kids
  * @author Filipe Dobreira <http://github.com/filp>
  */
 
-namespace DamnIt;
+namespace Damnit;
 
-use DamnIt\Handler\HandlerInterface;
+use Damnit\Handler\HandlerInterface;
 use Damnit\Handler\Handler;
 
 class Run
@@ -23,8 +23,8 @@ class Run
 
     /**
      * Pushes a handler to the end of the stack.
-     * @param  DamnIt\HandlerInterface $handler
-     * @return DamnIt\Run
+     * @param  Damnit\HandlerInterface $handler
+     * @return Damnit\Run
      */
     public function pushHandler(HandlerInterface $handler)
     {
@@ -35,7 +35,7 @@ class Run
     /**
      * Removes the last handler in the stack and returns it.
      * Returns null if there's nothing else to pop.
-     * @return null|DamnIt\Handler\HandlerInterface
+     * @return null|Damnit\Handler\HandlerInterface
      */
     public function popHandler()
     {
@@ -55,7 +55,7 @@ class Run
     /**
      * Clears all handlers in the handlerStack, including
      * the default PrettyPage handler.
-     * @return DamnIt\Run
+     * @return Damnit\Run
      */
     public function clearHandlers()
     {
@@ -65,7 +65,7 @@ class Run
 
     /**
      * Registers this instance as an error handler.
-     * @return DamnIt\Run
+     * @return Damnit\Run
      */
     public function register()
     {
@@ -80,8 +80,8 @@ class Run
     }
 
     /**
-     * Unregisters all handlers registered by this DamnIt\Run instance
-     * @return DamnIt\Run
+     * Unregisters all handlers registered by this Damnit\Run instance
+     * @return Damnit\Run
      */
     public function unregister()
     {
@@ -96,7 +96,7 @@ class Run
     }
 
     /**
-     * Handles an exception, ultimately generating a DamnIt error
+     * Handles an exception, ultimately generating a Damnit error
      * page.
      *
      * @param \Exception $exception

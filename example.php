@@ -1,13 +1,13 @@
 <?php
 /**
- * damnit - php errors for cool kids
+ * Damnit - php errors for cool kids
  * @author Filipe Dobreira <http://github.com/filp>
  */
 require __DIR__ . '/vendor/autoload.php';
 
-// Using DamnIt with a specific Handler:
-$run     = new DamnIt\Run;
-$handler = new DamnIt\Handler\BasicHandler;
+// Using Damnit with a specific Handler:
+$run     = new Damnit\Run;
+$handler = new Damnit\Handler\BasicHandler;
 $run->pushHandler($handler);
 $run->register();
 

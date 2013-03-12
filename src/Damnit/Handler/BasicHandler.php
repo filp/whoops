@@ -1,11 +1,11 @@
 <?php
 /**
- * damnit - php errors for cool kids
+ * Damnit - php errors for cool kids
  * @author Filipe Dobreira <http://github.com/filp>
  */
 
-namespace DamnIt\Handler;
-use DamnIt\Handler\HandlerInterface;
+namespace Damnit\Handler;
+use Damnit\Handler\HandlerInterface;
 
 class BasicHandler extends Handler
 {

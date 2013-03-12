@@ -4,7 +4,7 @@
     },
     "autoload": {
         "psr-0": {
-            "DamnIt": "src/"
+            "Damnit": "src/"
         }
     }
 }
