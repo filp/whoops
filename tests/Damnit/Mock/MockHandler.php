@@ -4,10 +4,10 @@
  * @author Filipe Dobreira <http://github.com/filp>
  */
 
-namespace Damnit\Handler;
+namespace Damnit\Mock;
 use Damnit\Handler\Handler;
 
-class DummyHandler extends Handler
+class MockHandler extends Handler
 {
     /**
      * @var \Exception[]
@@ -32,7 +32,7 @@ class DummyHandler extends Handler
     }
 
     /**
-     * Set a callable to be executed when DummyHandler::handle
+     * Set a callable to be executed when MockHandler::handle
      * is executed. The callable receives the exception passed
      * to the method.
      */

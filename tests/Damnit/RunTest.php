@@ -6,9 +6,9 @@
 
 namespace Damnit;
 use Damnit\TestCase;
+use Damnit\Mock\MockHandler;
 use Damnit\Run;
 use Damnit\Handler\Handler;
-use Damnit\Handler\DummyHandler;
 use \RuntimeException;
 use \ArrayObject;
 
@@ -43,8 +43,8 @@ class RunTest extends TestCase
         $run = $this->getRunInstance();
         $run->clearHandlers();
 
-        $handlerOne = new DummyHandler;
-        $handlerTwo = new DummyHandler;
+        $handlerOne = new MockHandler;
+        $handlerTwo = new MockHandler;
 
         $run->pushHandler($handlerOne);
         $run->pushHandler($handlerTwo);
@@ -64,9 +64,9 @@ class RunTest extends TestCase
     {
         $run = $this->getRunInstance();
 
-        $handlerOne   = new DummyHandler;
-        $handlerTwo   = new DummyHandler;
-        $handlerThree = new DummyHandler;
+        $handlerOne   = new MockHandler;
+        $handlerTwo   = new MockHandler;
+        $handlerThree = new MockHandler;
 
         $run->pushHandler($handlerOne);
         $run->pushHandler($handlerTwo);
@@ -95,7 +95,7 @@ class RunTest extends TestCase
         $run = $this->getRunInstance();
         $run->register();
 
-        $handler = new DummyHandler;
+        $handler = new MockHandler;
         $run->pushHandler($handler);
 
         throw new RuntimeException('Hi! :)');
@@ -112,7 +112,7 @@ class RunTest extends TestCase
         $run = $this->getRunInstance();
         $run->register();
 
-        $handler = new DummyHandler;
+        $handler = new MockHandler;
         $run->pushHandler($handler);
 
         $run->unregister();
@@ -127,10 +127,10 @@ class RunTest extends TestCase
     {
         $run = $this->getRunInstance();
 
-        $handlerOne   = new DummyHandler;
-        $handlerTwo   = new DummyHandler;
-        $handlerThree = new DummyHandler;
-        $handlerFour  = new DummyHandler;
+        $handlerOne   = new MockHandler;
+        $handlerTwo   = new MockHandler;
+        $handlerThree = new MockHandler;
+        $handlerFour  = new MockHandler;
 
         $run->pushHandler($handlerOne);
         $run->pushHandler($handlerTwo);
@@ -156,10 +156,10 @@ class RunTest extends TestCase
         $exception    = new RuntimeException;
         $handlerOrder = new ArrayObject;
 
-        $handlerOne   = new DummyHandler;
-        $handlerTwo   = new DummyHandler;
-        $handlerThree = new DummyHandler;
-        $handlerFour  = new DummyHandler;
+        $handlerOne   = new MockHandler;
+        $handlerTwo   = new MockHandler;
+        $handlerThree = new MockHandler;
+        $handlerFour  = new MockHandler;
 
         $handlerOne   ->onHandle(function() use($handlerOrder) {$handlerOrder[] = 1;});
         $handlerTwo   ->onHandle(function() use($handlerOrder) {$handlerOrder[] = 2;});
@@ -191,8 +191,8 @@ class RunTest extends TestCase
     {
         $run = $this->getRunInstance();
 
-        $handlerOne = new DummyHandler;
-        $handlerTwo = new DummyHandler;
+        $handlerOne = new MockHandler;
+        $handlerTwo = new MockHandler;
 
         $run->pushHandler($handlerOne);
         $run->pushHandler($handlerTwo);
