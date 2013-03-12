@@ -17,7 +17,7 @@ class FrameTest extends TestCase
     private function getFrameData()
     {
         return array(
-            'file'     => __DIR__ . '/../../Fixtures/frame.lines-test.php',
+            'file'     => __DIR__ . '/../../fixtures/frame.lines-test.php',
             'line'     => 0,
             'function' => 'test',
             'class'    => 'MyClass',
