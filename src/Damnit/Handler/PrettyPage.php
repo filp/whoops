@@ -16,18 +16,15 @@ class PrettyPage extends Handler
     private $resourcesPath;
 
     /**
-     * @param \Exception
      * @return int|null
      */
-    public function handle(\Exception $exception)
+    public function handle()
     {
         // Check conditions for outputting HTML:
         // @todo: make this more robust
         if(php_sapi_name() === 'cli') {
             return;
         }
-
-
 
         return Handler::LAST_HANDLER;
     }

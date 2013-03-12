@@ -35,6 +35,10 @@ class RunTest extends TestCase
             ->shouldReceive('setInspector')
                 ->andReturn(null)
             ->mock()
+
+            ->shouldReceive('setException')
+                ->andReturn(null)
+            ->mock()
         ;
     }
 

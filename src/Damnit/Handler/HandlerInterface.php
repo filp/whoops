@@ -8,20 +8,24 @@ namespace Damnit\Handler;
 
 use Damnit\Exception\Inspector;
 use Damnit\Run;
+use \Exception;
 
 interface HandlerInterface
 {
     /**
-     * @param \Exception
      * @return int|null  A handler may return nothing, or a Handler::HANDLE_* constant
      */
-    public function handle(\Exception $exception);
+    public function handle();
 
     /**
      * @param Damnit\Run
      */
     public function setRun(Run $run);
 
+    /**
+     * @param Exception
+     */
+    public function setException(Exception $exception);
 
     /**
      * @param Damnit\Exception\Inspector

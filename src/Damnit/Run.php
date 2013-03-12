@@ -115,6 +115,7 @@ class Run
 
             $handler->setRun($this);
             $handler->setInspector($inspector);
+            $handler->setException($exception);
 
             $handlerResponse = $handler->handle($exception);
 
