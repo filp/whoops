@@ -26,6 +26,29 @@ class PrettyPage extends Handler
             return;
         }
 
+        // Get the 'pretty-template.php' template file
+        // @todo: this can be made more dynamic &&|| cleaned-up
+        if(!($resources = $this->getResourcesPath())) {
+            $resources = __DIR__ . '/../Resources';
+        }
+        $templateFile = "$resources/pretty-template.php";
+
+        // Prepare the $v global variable that will pass relevant
+        // information to the template
+        $inspector = $this->getInspector();
+        $frames = $inspector->getFrames();
+
+        $v = (object) array(
+            'name'      => explode('\\', $inspector->getExceptionName()),
+            'message'   => $inspector->getException()->getMessage(),
+            'frames'    => $frames,
+            'hasFrames' => !!count($frames)
+        );
+
+        call_user_func(function() use($templateFile, $v) {
+            require $templateFile;
+        });
+
         return Handler::LAST_HANDLER;
     }
 

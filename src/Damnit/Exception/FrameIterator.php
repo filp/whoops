@@ -52,12 +52,12 @@ class FrameIterator implements Iterator, Countable
 
     public function next()
     {
-        next($this->current);
+        next($this->frames);
     }
 
     public function rewind()
     {
-        reset($this->current);
+        reset($this->frames);
     }
 
     /**

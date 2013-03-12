@@ -25,13 +25,17 @@
 
       header {
         padding: 30px 20px;
-        border-bottom: 1px solid #9A9A9A;
+        border-bottom: 1px solid #B7B7B7;
+        border-top: 6px solid #B7B7B70;
       }
 
       .exc-title {
         margin: 0;
-        color: #CD3F3F;
+        color: #616161;
+
+        text-shadow: 0 1px 2px rgba(0, 0, 0, .1);
       }
+        .exc-title-primary { color: #CD3F3F; }
 
       .exc-message {
         font-size: 32px;
@@ -80,7 +84,6 @@
       .frame-code {
         padding: 10px;
         background: #BDBDBD;
-        border-left: 2px solid #2B2B2B;
       }
 
       .code-block {
@@ -132,23 +135,30 @@
     <div class="container">
       <header>
         <div class="exception">
-          <h3 class="exc-title">Goddamnit\Exception</h3>
+          <h3 class="exc-title">
+            <?php foreach($v->name as $i => $nameSection): ?>
+              <?php if($i == count($v->name) - 1): ?>
+                <span class="exc-title-primary"><?php echo $nameSection ?></span>
+              <?php else: ?>
+                <?php echo $nameSection . '\\' ?>
+              <?php endif ?>
+            <?php endforeach ?>
+          </h3>
           <p class="exc-message">
-            You can't do that, stupid!
+            <?php echo $v->message ?>
           </p>
         </div>
       </header>
       <div class="stack-container">
-        <div class="frames-container clearfix">
-          <div class="frame active">
-            <span class="frame-file">/var/www/router.php<span class="frame-line">42</span></span>
-          </div>
-          <div class="frame">
-            <span class="frame-file">/var/www/index.php<span class="frame-line">23</span></span>
-          </div>
+        <div class="frames-container clearfix <?php echo (!$v->hasFrames ? 'empty' : '') ?>">
+          <?php foreach($v->frames as $i => $frame): ?>
+            <div class="frame <?php echo ($i == 0 ? 'active' : '') ?>">
+              <span class="frame-file"><?php echo $frame->getFile() ?><span class="frame-line"><?php echo $frame->getLine() ?></span></span>
+            </div>
+          <?php endforeach ?>
         </div>
         <div class="details-container clearfix">
-          <div class="frame-code">
+          <div class="frame-code <?php echo (!$v->hasFrames ? 'empty' : '') ?>">
             <pre class="code-block prettyprint linenums:42">&lt;?php /* hi */ if("hi") { (bool) true && 11.3 + false && fc(); }</pre>
           </div>
         </div>
