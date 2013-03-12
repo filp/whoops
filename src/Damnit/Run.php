@@ -8,6 +8,9 @@ namespace Damnit;
 
 use Damnit\Handler\HandlerInterface;
 use Damnit\Handler\Handler;
+use Damnit\Exception\Inspector;
+use \ErrorException;
+use \Exception;
 
 class Run
 {
@@ -105,8 +108,13 @@ class Run
     {
         // Walk the registered handlers in the reverse order
         // they were registered, and pass off the exception
+        $inspector = $this->getInspector($exception);
+
         for($i = count($this->handlerStack) - 1; $i >= 0; $i--) {
             $handler = $this->handlerStack[$i];
+
+            $handler->setRun($this);
+            $handler->setInspector($inspector);
 
             $handlerResponse = $handler->handle($exception);
 
@@ -135,5 +143,14 @@ class Run
                 $message, $level, 0, $file, $line
             )
         );
+    }
+
+    /**
+     * @param  Exception $exception
+     * @return Damnit\Exception\Inspector
+     */
+    protected function getInspector(Exception $exception)
+    {
+        return new Inspector($exception);
     }
 }

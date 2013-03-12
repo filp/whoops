@@ -6,12 +6,16 @@
 
 namespace Damnit\Handler;
 use Damnit\Handler\HandlerInterface;
+use Damnit\Exception\Inspector;
 use Damnit\Run;
 
 /**
  * Base handler, can be used as a simple text
  * output handler (but really, you probably shouldn't),
  * and extended to create custom handlers.
+ *
+ * @todo : cleanup interface, namely the exception, run & inspector
+ *         portion of it.
  */
 class Handler implements HandlerInterface
 {
@@ -29,11 +33,9 @@ class Handler implements HandlerInterface
     /**
      * @param Damnit\Run $run
      */
-    public function __construct(Run $run = null)
+    public function setRun(Run $run)
     {
-        if($run !== null) {
-            $this->run = $run;
-        }
+        $this->run = $run;
     }
 
     /**
@@ -42,6 +44,22 @@ class Handler implements HandlerInterface
     protected function getRun()
     {
         return $this->run;
+    }
+
+    /**
+     * @param Damnit\Exception\Inspector $inspector
+     */
+    public function setInspector(Inspector $inspector)
+    {
+        $this->inspector = $inspector;
+    }
+
+    /**
+     * @return Damnit\Run
+     */
+    protected function getInspector()
+    {
+        return $this->inspector;
     }
 
     /**

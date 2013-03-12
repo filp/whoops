@@ -5,6 +5,7 @@
  */
 
 namespace Damnit\Handler;
+use Damnit\Handler\Handler;
 use \InvalidArgumentException;
 
 class PrettyPage extends Handler
@@ -20,7 +21,15 @@ class PrettyPage extends Handler
      */
     public function handle(\Exception $exception)
     {
+        // Check conditions for outputting HTML:
+        // @todo: make this more robust
+        if(php_sapi_name() === 'cli') {
+            return;
+        }
 
+
+
+        return Handler::LAST_HANDLER;
     }
 
     /**

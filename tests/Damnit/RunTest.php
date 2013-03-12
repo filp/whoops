@@ -27,7 +27,15 @@ class RunTest extends TestCase
      */
     protected function getHandler()
     {
-        return m::mock('Damnit\\Handler\\Handler');
+        return m::mock('Damnit\\Handler\\Handler')
+            ->shouldReceive('setRun')
+                ->andReturn(null)
+            ->mock()
+
+            ->shouldReceive('setInspector')
+                ->andReturn(null)
+            ->mock()
+        ;
     }
 
     /**
