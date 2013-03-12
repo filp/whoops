@@ -138,14 +138,14 @@
           <h3 class="exc-title">
             <?php foreach($v->name as $i => $nameSection): ?>
               <?php if($i == count($v->name) - 1): ?>
-                <span class="exc-title-primary"><?php echo $nameSection ?></span>
+                <span class="exc-title-primary"><?php echo $e($nameSection) ?></span>
               <?php else: ?>
-                <?php echo $nameSection . '\\' ?>
+                <?php echo $e($nameSection) . '\\' ?>
               <?php endif ?>
             <?php endforeach ?>
           </h3>
           <p class="exc-message">
-            <?php echo $v->message ?>
+            <?php echo $e($v->message) ?>
           </p>
         </div>
       </header>
@@ -153,7 +153,10 @@
         <div class="frames-container clearfix <?php echo (!$v->hasFrames ? 'empty' : '') ?>">
           <?php foreach($v->frames as $i => $frame): ?>
             <div class="frame <?php echo ($i == 0 ? 'active' : '') ?>">
-              <span class="frame-file"><?php echo $frame->getFile() ?><span class="frame-line"><?php echo $frame->getLine() ?></span></span>
+              <span class="frame-file">
+                <?php echo $e($frame->getFile()) ?><!-- get rid of ugly whitespace
+                --><span class="frame-line"><?php echo (int) $frame->getLine() ?></span>
+              </span>
             </div>
           <?php endforeach ?>
         </div>

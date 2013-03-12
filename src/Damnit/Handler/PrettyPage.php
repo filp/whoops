@@ -46,6 +46,9 @@ class PrettyPage extends Handler
         );
 
         call_user_func(function() use($templateFile, $v) {
+            // $e -> cleanup output
+            $e = function($_) { return htmlspecialchars($_, ENT_QUOTES, 'UTF-8'); };
+
             require $templateFile;
         });
 
