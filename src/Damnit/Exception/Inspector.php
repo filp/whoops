@@ -5,13 +5,9 @@
  */
 
 namespace Damnit\Exception;
+use Damnit\Exception\FrameIterator;
 use \Exception;
 
-/**
- * The Inspector is able to lazily inspect an
- * exception, and gather information about its
- * related components.
- */
 class Inspector
 {
     /**
@@ -33,5 +29,16 @@ class Inspector
     public function getException()
     {
         return $this->exception;
+    }
+
+    /**
+     * Returns an iterator for the inspected exception's
+     * frames.
+     * @return DamnIt\Exception\FrameIterator
+     */
+    public function getFrames()
+    {
+        $iterator = new FrameIterator($this->exception->getTrace());
+        return $iterator;
     }
 }

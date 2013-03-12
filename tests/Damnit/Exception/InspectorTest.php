@@ -22,8 +22,8 @@ class InspectorTest extends TestCase
     }
 
     /**
-     * @covers DamnIt\Exception\Inspector::__construct
-     * @covers DamnIt\Exception\Inspector::getException
+     * @covers Damnit\Exception\Inspector::__construct
+     * @covers Damnit\Exception\Inspector::getException
      */
     public function testExceptionIsStoredAndReturned()
     {
@@ -31,5 +31,16 @@ class InspectorTest extends TestCase
         $inspector = $this->getInspectorInstance($exception);
 
         $this->assertSame($exception, $inspector->getException());
+    }
+
+    /**
+     * @covers Damnit\Exception\Inspector::getFrames
+     */
+    public function testGetFramesReturnsIterator()
+    {
+        $exception = new RuntimeException;
+        $inspector = $this->getInspectorInstance($exception);
+
+        $this->assertInstanceOf('Damnit\\Exception\\FrameIterator', $inspector->getFrames());
     }
 }
