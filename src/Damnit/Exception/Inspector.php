@@ -32,6 +32,14 @@ class Inspector
     }
 
     /**
+     * @return string
+     */
+    public function getExceptionName()
+    {
+        return get_class($this->exception);
+    }
+
+    /**
      * Returns an iterator for the inspected exception's
      * frames.
      * @return DamnIt\Exception\FrameIterator

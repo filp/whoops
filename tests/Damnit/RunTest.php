@@ -31,15 +31,6 @@ class RunTest extends TestCase
     }
 
     /**
-     * @param string $message
-     * @return Exception
-     */
-    protected function getException($message = null)
-    {
-        return m::mock('Exception', array($message));
-    }
-
-    /**
      * @covers Damnit\Run::clearHandlers
      */
     public function testClearHandlers()
