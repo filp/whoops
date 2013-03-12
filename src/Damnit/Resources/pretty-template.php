@@ -9,18 +9,157 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Damn it! - An error ocurred.</title>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/2.1.0/normalize.css">
-    <style>
+    <meta charset="utf-8">
+    <title>Damn it! - There was an error.</title>
 
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/normalize/2.1.0/normalize.css">
+    <style>
+      body {
+        font: 14px helvetica, arial, sans-serif;
+        color: #2B2B2B;
+        background-color: #DADADA;
+
+        padding:0;
+        margin: 0;
+      }
+
+      header {
+        padding: 30px 20px;
+        border-bottom: 1px solid #9A9A9A;
+      }
+
+      .exc-title {
+        margin: 0;
+        color: #CD3F3F;
+      }
+
+      .exc-message {
+        font-size: 32px;
+        margin: 5px 0;
+      }
+
+      .frames-container {
+        float: left;
+        min-width: 30%;
+        max-width: 480px;
+      }
+
+      .details-container {
+        float: right;
+        max-width: 100%;
+        min-width: 70%;
+      }
+
+      .frame {
+        height: 20px;
+        padding: 14px;
+        background: #F3F3F3;
+        cursor: pointer;
+      }
+        .frame.active {
+          background-color: #4288CE;
+          color: #F3F3F3;
+        }
+
+        .frame:not(.active):hover {
+          background: #BEE9EA;
+        }
+
+        .frame-file {
+          font-family: consolas, monospace;
+        }
+          .frame-line {
+            font-weight: bold;
+            color: #4288CE;
+          }
+            .active .frame-line { color: #BEE9EA; }
+          .frame-line:before {
+            content: ":";
+          }
+
+      .frame-code {
+        padding: 10px;
+        background: #BDBDBD;
+        border-left: 2px solid #2B2B2B;
+      }
+
+      .code-block {
+        padding: 10px;
+        margin: 0;
+        border: 1px solid rgba(0, 0, 0, .4);
+        border-radius: 4px;
+        box-shadow: 0 0 6px rgba(0, 0, 0, .2);
+      }
+        .linenums {
+          margin: 0;
+        }
+
+      /* prettify code style
+       Uses the Doxy theme as a base */
+      pre .str, code .str { color: #79E3E1; }  /* string  */
+      pre .kwd, code .kwd { color: #FDFF62;  font-weight: bold; }  /* keyword*/
+      pre .com, code .com { color: #A5A5A5; font-weight: bold; } /* comment */
+      pre .typ, code .typ { color: #E16CA1; }  /* type  */
+      pre .lit, code .lit { color: #49DF9D; }  /* literal */
+      pre .pun, code .pun { color: #51D743; font-weight: bold;  } /* punctuation  */
+      pre .pln, code .pln { color: #BBBBBB; }  /* plaintext  */
+      pre .tag, code .tag { color: #9c9cff; }  /* html/xml tag  */
+      pre .htm, code .htm { color: #dda0dd; }  /* html tag */
+      pre .xsl, code .xsl { color: #d0a0d0; }  /* xslt tag */
+      pre .atn, code .atn { color: #46eeee; font-weight: normal;} /* html/xml attribute name */
+      pre .atv, code .atv { color: #EEB4B4; }  /* html/xml attribute value  */
+      pre .dec, code .dec { color: #3387CC; }  /* decimal  */
+
+      a {
+        text-decoration: none;
+      }
+      pre.prettyprint, code.prettyprint {
+        font-family: consolas, monospace;
+        background: #272727;
+        color: #929292;
+      }
+
+      pre.prettyprint {
+        white-space: pre-wrap;
+      }
+
+      pre.prettyprint a, code.prettyprint a {
+         text-decoration:none;
+      }
     </style>
   </head>
-  <body>
+  <body onload="__damnit_ready();">
     <div class="container">
-      <h1>There was an error</h1>
-      <p>
-        But it's gone now.
-      </p>
+      <header>
+        <div class="exception">
+          <h3 class="exc-title">Goddamnit\Exception</h3>
+          <p class="exc-message">
+            You can't do that, stupid!
+          </p>
+        </div>
+      </header>
+      <div class="stack-container">
+        <div class="frames-container clearfix">
+          <div class="frame active">
+            <span class="frame-file">/var/www/router.php<span class="frame-line">42</span></span>
+          </div>
+          <div class="frame">
+            <span class="frame-file">/var/www/index.php<span class="frame-line">23</span></span>
+          </div>
+        </div>
+        <div class="details-container clearfix">
+          <div class="frame-code">
+            <pre class="code-block prettyprint linenums:42">&lt;?php /* hi */ if("hi") { (bool) true && 11.3 + false && fc(); }</pre>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.js"></script>
+    <script>
+      window.__damnit_ready = function() {
+        prettyPrint();
+      };
+    </script>
   </body>
 </html>
