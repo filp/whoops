@@ -5,9 +5,74 @@
  */
 
 namespace Damnit\Exception;
-use \ArrayIterator;
+use Damnit\Exception\Frame;
+use \Iterator;
+use \Countable;
 
 /**
- * @todo  might be removed soon-ish
+ * Mostly just implements iterator methods, the only
+ * notable aspects is that it is read-only, and instantiates
+ * Frame objects on demand.
  */
-class FrameIterator extends ArrayIterator {}
+class FrameIterator implements Iterator
+{
+    /**
+     * @var array[]
+     */
+    private $frames;
+
+    /**
+     * @return Damnit\Exception\Frame|false
+     */
+    public function current()
+    {
+        $current = current($this->frames);
+        if($current !== false) {
+
+        }
+
+        return false;
+    }
+
+    /**
+     * @param array[]
+     */
+    public function __construct(array $frames)
+    {
+        $this->frames = $frames;
+    }
+
+    /**
+     * @return bool
+     */
+    public function valid()
+    {
+        return $this->current() !== false;
+    }
+
+    public function next()
+    {
+        next($this->current);
+    }
+
+    public function rewind()
+    {
+        reset($this->current);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function key()
+    {
+        return key($this->frames);
+    }
+
+    /**
+     * @return int
+     */
+    public function count()
+    {
+        return count($this->frames);
+    }
+}
