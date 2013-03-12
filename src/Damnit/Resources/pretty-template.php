@@ -84,7 +84,11 @@
       .frame-code {
         padding: 10px;
         background: #BDBDBD;
+        display: none;
       }
+        .frame-code.active {
+          display: block;
+        }
 
       .code-block {
         padding: 10px;
@@ -131,7 +135,7 @@
       }
     </style>
   </head>
-  <body onload="__damnit_ready();">
+  <body>
     <div class="container">
       <header>
         <div class="exception">
@@ -150,9 +154,10 @@
         </div>
       </header>
       <div class="stack-container">
+
         <div class="frames-container clearfix <?php echo (!$v->hasFrames ? 'empty' : '') ?>">
           <?php foreach($v->frames as $i => $frame): ?>
-            <div class="frame <?php echo ($i == 0 ? 'active' : '') ?>">
+            <div class="frame <?php echo ($i == 0 ? 'active' : '') ?>" id="frame-line-<?php echo $i ?>">
               <span class="frame-file">
                 <?php echo $e($frame->getFile()) ?><!-- get rid of ugly whitespace
                 --><span class="frame-line"><?php echo (int) $frame->getLine() ?></span>
@@ -160,19 +165,55 @@
             </div>
           <?php endforeach ?>
         </div>
+
         <div class="details-container clearfix">
-          <div class="frame-code <?php echo (!$v->hasFrames ? 'empty' : '') ?>">
-            <pre class="code-block prettyprint linenums:42">&lt;?php /* hi */ if("hi") { (bool) true && 11.3 + false && fc(); }</pre>
+          <div class="frame-code-container <?php echo (!$v->hasFrames ? 'empty' : '') ?>">
+            <?php foreach($v->frames as $i => $frame): ?>
+              <div class="frame-code <?php echo ($i == 0 ) ? 'active' : '' ?>" id="frame-code-<?php echo $i ?>">
+                <?php
+                  $line  = $frame->getLine();
+
+                  // the $line is 1-indexed, we nab -1 where needed to account for this
+                  $range = $frame->getFileLines($line - 4, $line);
+                  $start = key($range) + 1;
+                  $code  = join("\n", $range);
+                ?>
+                <pre class="code-block prettyprint linenums:<?php echo $start ?>"><?php echo $e($code) ?></pre>
+              </div>
+            <?php endforeach ?>
           </div>
         </div>
+
       </div>
     </div>
 
     <script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script>
-      window.__damnit_ready = function() {
+      $(function() {
         prettyPrint();
-      };
+
+        var $frameLines  = $('[id^="frame-line-"]');
+        var $activeLine  = $('.frames-container .active');
+        var $activeFrame = $('.active[id^="frame-code-"]').show();
+
+        $frameLines.click(function() {
+          var $this  = $(this);
+          var id     = /frame\-line\-([\d]*)/.exec($this.attr('id'))[1];
+          var $codeFrame = $('#frame-code-' + id);
+
+          if($codeFrame) {
+            $activeLine.removeClass('active');
+            $activeFrame.removeClass('active');
+
+            $this.addClass('active');
+            $codeFrame.addClass('active');
+
+            $activeLine  = $this;
+            $activeFrame = $codeFrame;
+          }
+        });
+      });
     </script>
   </body>
 </html>
