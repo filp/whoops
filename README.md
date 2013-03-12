@@ -1,7 +1,7 @@
 # Damnit
 php errors for cool kids
 
-[![Build Status](https://travis-ci.org/filp/Damnit.png)](https://travis-ci.org/filp/Damnit)
+[![Build Status](https://travis-ci.org/filp/damnit.png?branch=master)](https://travis-ci.org/filp/damnit)
 
 -----
 
