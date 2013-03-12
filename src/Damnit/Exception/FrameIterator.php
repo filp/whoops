@@ -14,7 +14,7 @@ use \Countable;
  * notable aspects is that it is read-only, and instantiates
  * Frame objects on demand.
  */
-class FrameIterator implements Iterator
+class FrameIterator implements Iterator, Countable
 {
     /**
      * @var array[]
@@ -28,7 +28,7 @@ class FrameIterator implements Iterator
     {
         $current = current($this->frames);
         if($current !== false) {
-
+            return new Frame($current);
         }
 
         return false;
