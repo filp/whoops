@@ -16,6 +16,7 @@ class Run
 {
     const EXCEPTION_HANDLER = 'handleException';
     const ERROR_HANDLER     = 'handleError';
+    const SHUTDOWN_HANDLER  = 'handleShutdown';
 
     protected $isRegistered;
 
@@ -75,6 +76,7 @@ class Run
         if(!$this->isRegistered) {
             set_error_handler(array($this, self::ERROR_HANDLER));
             set_exception_handler(array($this, self::EXCEPTION_HANDLER));
+            register_shutdown_function(array($this, self::SHUTDOWN_HANDLER));
 
             $this->isRegistered = true;
         }
@@ -123,6 +125,10 @@ class Run
                 break;
             }
 	   }
+
+       // And we're done!
+       $this->unregister();
+       exit;
     }
 
     /**
@@ -144,6 +150,21 @@ class Run
                 $message, $level, 0, $file, $line
             )
         );
+    }
+
+    /**
+     * Special case to deal with Fatal errors and the like.
+     */
+    public function handleShutdown()
+    {
+        if($this->isRegistered && $error = error_get_last()) {
+            $this->handleError(
+                $error['type'],
+                $error['message'],
+                $error['file'],
+                $error['line']
+            );
+        }
     }
 
     /**
