@@ -55,6 +55,7 @@
       .frame {
         padding: 14px;
         background: #F3F3F3;
+        border-right: 1px solid rgba(0, 0, 0, .2);
         cursor: pointer;
       }
         .frame.active {
@@ -81,8 +82,10 @@
 
       .frame-code {
         padding: 10px;
+        padding-left: 5px;
         background: #BDBDBD;
         display: none;
+        border-left: 5px solid #4288CE;
       }
         .frame-code.active {
           display: block;
@@ -92,8 +95,8 @@
         padding: 10px;
         margin: 0;
         border: 1px solid rgba(0, 0, 0, .4);
-        border-radius: 4px;
-        box-shadow: 0 0 6px rgba(0, 0, 0, .2);
+        border-radius: 2px;
+        box-shadow: 0 0 3px rgba(0, 0, 0, .2);
       }
         .linenums {
           margin: 0;
