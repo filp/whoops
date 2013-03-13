@@ -22,7 +22,7 @@ class Frame
     /**
      * @var array[]
      */
-    protected $comments;
+    protected $comments = array();
 
     /**
      * @param array[]

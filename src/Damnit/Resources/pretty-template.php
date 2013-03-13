@@ -127,13 +127,45 @@
         padding: 10px;
         margin: 0;
         box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
-
-        border-bottom-right-radius: 2px;
-        border-bottom-left-radius: 2px;
       }
         .linenums {
           margin: 0;
         }
+
+      .frame-comments {
+        box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+        border: 1px solid rgba(0, 0, 0, .2);
+        border-top: none;
+
+        border-bottom-right-radius: 6px;
+        border-bottom-left-radius:  6px;
+
+        padding: 5px;
+        font-size: 12px;
+        background: #404040;
+      }
+        .frame-comments.empty {
+          padding: 8px 15px;
+        }
+          .frame-comments.empty:before {
+            content: "No comments for this stack frame.";
+            font-style: italic;
+            color: #828282;
+          }
+
+        .frame-comment {
+          padding: 10px;
+          color: #D2D2D2;
+        }
+          .frame-comment:not(:last-child) {
+            border-bottom: 1px dotted rgba(0, 0, 0, .3);
+          }
+
+          .frame-comment-context {
+            font-size: 10px;
+            font-weight: bold;
+            color: #86D2B6;
+          }
 
       .data-table-container label {
         font-size: 16px;
@@ -279,6 +311,21 @@
                     <strong><?php echo $e($frame->getFile()) ?></strong>
                   </div>
                   <pre class="code-block prettyprint linenums:<?php echo $start ?>"><?php echo $e($code) ?></pre>
+
+                  <?php
+                    /* Append comments for this frame */
+                    $comments = $frame->getComments();
+                  ?>
+                  <div class="frame-comments <?php echo empty($comments) ? 'empty' : '' ?>">
+                    <?php foreach($comments as $commentNo => $comment): ?>
+                      <?php extract($comment) ?>
+                      <div class="frame-comment" id="comment-<?php echo $i . '-' . $commentNo ?>">
+                        <span class="frame-comment-context"><?php echo $e($context) ?></span>
+                        <?php echo $e($comment) ?>
+                      </div>
+                    <?php endforeach ?>
+                  </div>
+
                 </div>
               <?php endif ?>
             <?php endforeach ?>
@@ -301,10 +348,10 @@
                         </tr>
                       </thead>
                     <?php foreach($data as $k => $value): ?>
-                    <tr>
-                      <td><?php echo $e($k) ?></td>
-                      <td><?php echo $e(print_r($value, true)) ?></td>
-                    </tr>
+                      <tr>
+                        <td><?php echo $e($k) ?></td>
+                        <td><?php echo $e(print_r($value, true)) ?></td>
+                      </tr>
                     <?php endforeach ?>
                     </table>
 
