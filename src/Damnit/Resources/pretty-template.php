@@ -282,7 +282,7 @@
           <?php foreach($v->frames as $i => $frame): ?>
             <div class="frame <?php echo ($i == 0 ? 'active' : '') ?>" id="frame-line-<?php echo $i ?>">
               <span class="frame-file">
-                <?php echo $e($frame->getFile()) ?><!-- get rid of ugly whitespace
+                <?php echo $e($frame->getFile() ?: '<#unknown>') ?><!-- get rid of ugly whitespace
                 --><span class="frame-line"><?php echo (int) $frame->getLine() ?></span>
               </span>
             </div>
@@ -297,21 +297,22 @@
                  * we get 200 frames to process. */ ?>
           <div class="frame-code-container <?php echo (!$v->hasFrames ? 'empty' : '') ?>">
             <?php foreach($v->frames as $i => $frame): ?>
-
               <?php $line = $frame->getLine(); ?>
-              <?php if($line !== null): ?>
                 <div class="frame-code <?php echo ($i == 0 ) ? 'active' : '' ?>" id="frame-code-<?php echo $i ?>">
+                  <div class="frame-file">
+                    <strong><?php echo $e($frame->getFile() ?: '<#unknown>') ?></strong>
+                  </div>
                   <?php
+                    // Do nothing if there's no line to work off
+                    if($line !== null): 
+
                     // the $line is 1-indexed, we nab -1 where needed to account for this
                     $range = $frame->getFileLines($line - 3, 4);
                     $start = key($range) + 1;
                     $code  = join("\n", $range);
                   ?>
-
-                  <div class="frame-file">
-                    <strong><?php echo $e($frame->getFile()) ?></strong>
-                  </div>
                   <pre class="code-block prettyprint linenums:<?php echo $start ?>"><?php echo $e($code) ?></pre>
+                  <?php endif ?>
 
                   <?php
                     /* Append comments for this frame */
@@ -328,7 +329,6 @@
                   </div>
 
                 </div>
-              <?php endif ?>
             <?php endforeach ?>
           </div>
 
