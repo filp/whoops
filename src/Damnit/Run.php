@@ -9,6 +9,7 @@ namespace Damnit;
 use Damnit\Handler\HandlerInterface;
 use Damnit\Handler\Handler;
 use Damnit\Exception\Inspector;
+use \InvalidArgumentException;
 use \ErrorException;
 use \Exception;
 
@@ -31,8 +32,19 @@ class Run
      * @param  Damnit\HandlerInterface $handler
      * @return Damnit\Run
      */
-    public function pushHandler(HandlerInterface $handler)
+    public function pushHandler($handler)
     {
+        if(is_callable($handler)) {
+            $handler = new CallbackHandler($handler);
+        }
+
+        if(!$handler instanceof HandlerInterface) {
+            throw new InvalidArgumentException(
+                  'Argument to ' . __METHOD__ . ' must be a callable, or instance of'
+                . 'Damnit\\Handler\\HandlerInterface'
+            );
+        }
+
         $this->handlerStack[] = $handler;
         return $this;
     }
