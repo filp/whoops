@@ -123,10 +123,10 @@ class FrameTest extends TestCase
         $data  = $this->getFrameData();
         $frame = $this->getFrameInstance($data);
 
-        $lines = $frame->getFileLines(1, 3);
+        $lines = $frame->getFileLines(0, 3);
 
+        $this->assertEquals($lines[0], '<?php');
         $this->assertEquals($lines[1], '// Line 2');
         $this->assertEquals($lines[2], '// Line 3');
-        $this->assertEquals($lines[3], '// Line 4');
     }
 }

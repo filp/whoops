@@ -83,39 +83,39 @@ class Frame
 
     /**
      * Returns the contents of the file for this frame as an
-     * array of lines, and optionally as clamped range of lines.
+     * array of lines, and optionally as a clamped range of lines.
+     *
+     * NOTE: lines are 0-indexed
      *
      * @example
+     *     Get all lines for this file
      *     $frame->getFileLines(); // => array( 0 => '<?php', 1 => '...', ...)
      * @example
-     *     $frame->getFileLines(10, 15); // array( 10 => '...', 11 => '...', ...)
+     *     Get one line for this file, starting at line 10 (zero-indexed, remember!)
+     *     $frame->getFileLines(9, 1); // array( 10 => '...', 11 => '...')
      *
      * @param  int $start
-     * @param  int $end
+     * @param  int $length
      * @return array|null
      */
-    public function getFileLines($start = 0, $end = null)
+    public function getFileLines($start = 0, $length = null)
     {
         if(null !== ($contents = $this->getFileContents())) {
             $lines = explode("\n", $contents);
 
             // Get a subset of lines from $start to $end
-            if($end !== null)
+            if($length !== null)
             {
-                $start = (int) $start;
-                $end   = (int) $end;
+                $start  = (int) $start;
+                $length = (int) $length;
 
-                if($end <= $start) {
+                if($length <= 0) {
                     throw new InvalidArgumentException(
-                        "\$end($end) cannot be lower or equal to \$start($start)"
+                        "\$length($length) cannot be lower or equal to 0"
                     );
                 }
 
-                // Clamp the range to the number of lines:
-                $start = max(0, $start);
-                $end   = min(count($lines)-1, $end);
-
-                $lines = array_slice($lines, $start, $end - $start, true);
+                $lines = array_slice($lines, $start, $length, true);
             }
 
             return $lines;
