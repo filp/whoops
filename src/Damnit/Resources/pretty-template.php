@@ -66,6 +66,9 @@
         float: right;
         width: 70%;
       }
+        .details {
+          margin: 10px;
+        }
 
       .frame {
         padding: 14px;
@@ -137,7 +140,7 @@
         font-weight: bold;
         color: #4288CE;
         margin: 10px 0;
-        padding: 10px;
+        padding: 10px 0;
 
         display: block;
         margin-bottom: 5px;
@@ -171,7 +174,16 @@
             white-space: pre-wrap;
           }
 
-        .superglobal
+        .handler {
+          padding: 10px;
+          font: 14px monospace;
+        }
+          .handler.active {
+            color: #BBBBBB;
+            background: #989898;
+            font-weight: bold;
+          }
+
       /* prettify code style
        Uses the Doxy theme as a base */
       pre .str, code .str { color: #79E3E1; }  /* string  */
@@ -230,6 +242,10 @@
       <div class="stack-container">
 
         <div class="frames-container cf <?php echo (!$v->hasFrames ? 'empty' : '') ?>">
+
+          <?php /* List file names & line numbers for all stack frames;
+                   clicking these links/buttons will display the code view
+                   for that particular frame */ ?>
           <?php foreach($v->frames as $i => $frame): ?>
             <div class="frame <?php echo ($i == 0 ? 'active' : '') ?>" id="frame-line-<?php echo $i ?>">
               <span class="frame-file">
@@ -238,9 +254,14 @@
               </span>
             </div>
           <?php endforeach ?>
+
         </div>
 
         <div class="details-container cf">
+
+          <?php /* Display a code block for all frames in the stack.
+                 * @todo: This should PROBABLY be done on-demand, lest
+                 * we get 200 frames to process. */ ?>
           <div class="frame-code-container <?php echo (!$v->hasFrames ? 'empty' : '') ?>">
             <?php foreach($v->frames as $i => $frame): ?>
 
@@ -263,34 +284,49 @@
             <?php endforeach ?>
           </div>
 
-          <div class="data-table-container" id="superglobals">
-            <?php foreach($v->super as $label => $data): ?>
-              <?php if(!empty($data)): ?>
+          <?php /* List superglobal values, i.e: $_SERVER, $_GET, .... */ ?>
+          <div class="details">
+            <div class="data-table-container" id="superglobals">
+              <?php foreach($v->super as $label => $data): ?>
+                <?php if(!empty($data)): ?>
 
-                <div class="superglobal" id="sg-<?php echo $e($slug($label)) ?>">
-                  <label><?php echo $e($label) ?></label>
+                  <div class="superglobal" id="sg-<?php echo $e($slug($label)) ?>">
+                    <label><?php echo $e($label) ?></label>
 
-                  <table class="data-table">
-                    <thead>
-                      <tr>
-                        <td class="superglobal-k">Key</td>
-                        <td class="superglobal-v">Value</td>
-                      </tr>
-                    </thead>
-                  <?php foreach($data as $k => $v): ?>
-                  <tr>
-                    <td><?php echo $e($k) ?></td>
-                    <td><?php echo $e(print_r($v, true)) ?></td>
-                  </tr>
-                  <?php endforeach ?>
-                  </table>
+                    <table class="data-table">
+                      <thead>
+                        <tr>
+                          <td class="superglobal-k">Key</td>
+                          <td class="superglobal-v">Value</td>
+                        </tr>
+                      </thead>
+                    <?php foreach($data as $k => $value): ?>
+                    <tr>
+                      <td><?php echo $e($k) ?></td>
+                      <td><?php echo $e(print_r($value, true)) ?></td>
+                    </tr>
+                    <?php endforeach ?>
+                    </table>
 
+                  </div>
+
+                <?php endif ?>
+              <?php endforeach ?>
+            </div>
+
+            <?php /* List registered handlers, in order of first to last registered */ ?>
+            <div class="data-table-container" id="handlers">
+              <label>Registered Handlers</label>
+              <?php $handlersCount = count($v->handlers) - 1; ?>
+              <?php for($i = $handlersCount; $i >= 0; $i--): ?>
+                <?php $handler = $v->handlers[$i]; ?>
+                <div class="handler <?php echo ($handler == $v->handler) ? 'active' : ''?>">
+                  <?php echo  $handlersCount - $i?>. <?php echo $e(get_class($handler)) ?>
                 </div>
+              <?php endfor ?>
+            </div>
 
-              <?php endif ?>
-            <?php endforeach ?>
-          </div>
-
+          </div> <!-- .details -->
         </div>
 
       </div>

@@ -43,6 +43,8 @@ class PrettyPage extends Handler
             'message'     => $inspector->getException()->getMessage(),
             'frames'      => $frames,
             'hasFrames'   => !!count($frames),
+            'handler'     => $this,
+            'handlers'    => $this->getRun()->getHandlers(),
 
             'super'       => array(
                 'GET Data'              => $_GET,
