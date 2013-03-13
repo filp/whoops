@@ -26,7 +26,7 @@
       header {
         padding: 30px 20px;
         color: white;
-        background: #2F2F2F;
+        background: #272727;
       }
 
       .exc-title {
