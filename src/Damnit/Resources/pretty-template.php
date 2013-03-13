@@ -17,7 +17,7 @@
     body {
       font: 14px helvetica, arial, sans-serif;
       color: #2B2B2B;
-      background-color: #DADADA;
+      background-color: #D4D4D4;
       padding:0;
       margin: 0;
     }
@@ -55,9 +55,12 @@
     .details-container {
       float: right;
       width: 70%;
+      background: #DADADA;
     }
       .details {
-        margin: 10px;
+        padding: 10px;
+        padding-left: 5px;
+        border-left: 5px solid rgba(0, 0, 0, .1);
       }
 
     .frames-container {
