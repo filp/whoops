@@ -8,7 +8,7 @@ namespace Damnit\Handler;
 use Damnit\Handler\Handler;
 use InvalidArgumentException;
 
-class PrettyPage extends Handler
+class PrettyPageHandler extends Handler
 {
     /**
      * @var string

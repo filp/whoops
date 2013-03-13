@@ -15,7 +15,7 @@
 
 namespace Damnit\Example;
 use Damnit\Run;
-use Damnit\Handler\PrettyPage;
+use Damnit\Handler\PrettyPageHandler;
 use Exception as BaseException;
 
 require __DIR__ . '/vendor/autoload.php';   
@@ -23,7 +23,7 @@ require __DIR__ . '/vendor/autoload.php';
 class Exception extends BaseException {}
 
 $run = new Run;
-$run->pushHandler(new PrettyPage);
+$run->pushHandler(new PrettyPageHandler);
 
 // Example: tag all frames with a comment
 $run->pushHandler(function($exception, $inspector, $run) {
