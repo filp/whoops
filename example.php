@@ -40,8 +40,7 @@ $run->pushHandler(function($exception, $inspector, $run) {
 $run->register();
 
 function fooBar() {
-    // throw new Exception("Something broke!");
-    file("FAIILL");
+    throw new Exception("Something broke!");
 }
 
 function bar()
