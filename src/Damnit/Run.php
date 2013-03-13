@@ -122,9 +122,7 @@ class Run
             if($handlerResponse === Handler::LAST_HANDLER) {
                 break;
             }
-	}
-
-	exit(1);
+	   }
     }
 
     /**
