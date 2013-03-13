@@ -10,9 +10,9 @@ use Damnit\Handler\HandlerInterface;
 use Damnit\Handler\Handler;
 use Damnit\Handler\CallbackHandler;
 use Damnit\Exception\Inspector;
-use \InvalidArgumentException;
-use \ErrorException;
-use \Exception;
+use InvalidArgumentException;
+use ErrorException;
+use Exception;
 
 class Run
 {

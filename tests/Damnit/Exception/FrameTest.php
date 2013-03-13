@@ -7,7 +7,7 @@
 namespace Damnit\Exception;
 use Damnit\Exception\Frame;
 use Damnit\TestCase;
-use \Mockery as m;
+use Mockery as m;
 
 class FrameTest extends TestCase
 {

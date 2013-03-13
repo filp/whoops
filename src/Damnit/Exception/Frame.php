@@ -5,7 +5,7 @@
  */
 
 namespace Damnit\Exception;
-use \InvalidArgumentException;
+use InvalidArgumentException;
 
 class Frame
 {

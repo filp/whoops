@@ -8,9 +8,9 @@ namespace Damnit;
 use Damnit\TestCase;
 use Damnit\Run;
 use Damnit\Handler\Handler;
-use \RuntimeException;
-use \ArrayObject;
-use \Mockery as m;
+use RuntimeException;
+use ArrayObject;
+use Mockery as m;
 
 class RunTest extends TestCase
 {

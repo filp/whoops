@@ -8,7 +8,7 @@ namespace Damnit\Handler;
 
 use Damnit\Exception\Inspector;
 use Damnit\Run;
-use \Exception;
+use Exception;
 
 interface HandlerInterface
 {

@@ -7,8 +7,8 @@
 namespace Damnit\Exception;
 use Damnit\Exception\Inspector;
 use Damnit\TestCase;
-use \RuntimeException;
-use \Exception;
+use RuntimeException;
+use Exception;
 
 class InspectorTest extends TestCase
 {

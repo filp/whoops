@@ -6,7 +6,7 @@
 
 namespace Damnit\Handler;
 use Damnit\Handler\Handler;
-use \InvalidArgumentException;
+use InvalidArgumentException;
 
 class PrettyPage extends Handler
 {

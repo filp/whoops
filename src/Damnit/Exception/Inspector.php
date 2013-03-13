@@ -6,7 +6,7 @@
 
 namespace Damnit\Exception;
 use Damnit\Exception\FrameIterator;
-use \Exception;
+use Exception;
 
 class Inspector
 {

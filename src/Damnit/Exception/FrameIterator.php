@@ -6,8 +6,8 @@
 
 namespace Damnit\Exception;
 use Damnit\Exception\Frame;
-use \Iterator;
-use \Countable;
+use Iterator;
+use Countable;
 
 /**
  * Mostly just implements iterator methods, the only
