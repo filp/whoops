@@ -129,4 +129,54 @@ class FrameTest extends TestCase
         $this->assertEquals($lines[1], '// Line 2');
         $this->assertEquals($lines[2], '// Line 3');
     }
+
+    /**
+     * @covers Damnit\Exception\Frame::addComment
+     * @covers Damnit\Exception\Frame::getComments
+     */
+    public function testGetComments()
+    {
+        $frame    = $this->getFrameInstance();
+        $testComments = array(
+            'Dang, yo!',
+            'Errthangs broken!',
+            'Dayumm!'
+        );
+
+        $frame->addComment($testComments[0]);
+        $frame->addComment($testComments[1]);
+        $frame->addComment($testComments[2]);
+
+        $comments = $frame->getComments();
+
+        $this->assertCount(3, $comments);
+
+        $this->assertEquals($comments[0]['comment'], $testComments[0]);
+        $this->assertEquals($comments[1]['comment'], $testComments[1]);
+        $this->assertEquals($comments[2]['comment'], $testComments[2]);
+    }
+
+    /**
+     * @covers Damnit\Exception\Frame::addComment
+     * @covers Damnit\Exception\Frame::getComments
+     */
+    public function testGetFilteredComments()
+    {
+        $frame    = $this->getFrameInstance();
+        $testComments = array(
+            array('Dang, yo!', 'test'),
+            array('Errthangs broken!', 'test'),
+            'Dayumm!'
+        );
+
+        $frame->addComment($testComments[0][0], $testComments[0][1]);
+        $frame->addComment($testComments[1][0], $testComments[1][1]);
+        $frame->addComment($testComments[2][0], $testComments[2][1]);
+
+        $comments = $frame->getComments('test');
+
+        $this->assertCount(2, $comments);
+        $this->assertEquals($comments[0]['comment'], $testComments[0][0]);
+        $this->assertEquals($comments[1]['comment'], $testComments[1][0]);
+    }
 }

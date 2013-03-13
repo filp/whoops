@@ -20,6 +20,11 @@ class Frame
     protected $fileContentsCache;
 
     /**
+     * @var array[]
+     */
+    protected $comments;
+
+    /**
      * @param array[]
      */
     public function __construct(array $frame)
@@ -82,6 +87,46 @@ class Frame
     }
 
     /**
+     * Adds a comment to this frame, that can be received and
+     * used by other handlers. For example, the PrettyPage handler
+     * can attach these comments under the code for each frame.
+     *
+     * An interesting use for this would be, for example, code analysis
+     * & annotations.
+     *
+     * @param string $message
+     * @param string $context Optional string identifying the origin of the comment
+     */
+    public function addComment($comment, $context = 'global')
+    {
+        $this->comments[] = array(
+            'comment' => $comment,
+            'context' => $context
+        );
+    }
+
+    /**
+     * Returns all comments for this frame. Optionally allows
+     * a filter to only retrieve comments from a specific
+     * context.
+     *
+     * @param  string $filter
+     * @return array[]
+     */
+    public function getComments($filter = null)
+    {
+        $comments = $this->comments;
+
+        if($filter !== null) {
+            $comments = array_filter($comments, function($c) use($filter) {
+                return $c['context'] == $filter;
+            });
+        }
+
+        return $comments;
+    }
+
+    /**
      * Returns the contents of the file for this frame as an
      * array of lines, and optionally as a clamped range of lines.
      *
@@ -96,7 +141,7 @@ class Frame
      *
      * @param  int $start
      * @param  int $length
-     * @return array|null
+     * @return string[]|null
      */
     public function getFileLines($start = 0, $length = null)
     {
