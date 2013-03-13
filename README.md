@@ -17,23 +17,23 @@ This library is currently in a **heavy development phase, and not yet ready for 
 
 If you want to help, great! Here's a couple of steps/guidelines:
 
-1. Fork/clone this repo, and update dev dependencies using Composer
+- Fork/clone this repo, and update dev dependencies using Composer
 
-```shell
+```bash
 $ git clone git@github.com:filp/damnit.git
 $ cd damnit
 $ composer install --dev
 ```
 
-2. Create a new branch for your feature or fix
+- Create a new branch for your feature or fix
 
-```shell
+```bash
 $ git checkout -b feature/flames-on-the-side
 ```
 
-3. Add your changes & tests for those changes (in `tests/`).
-4. Remember to stick to the existing code style as best as possible. When in doubt, follow `PSR-2`.
-5. Send me a pull request!
+- Add your changes & tests for those changes (in `tests/`).
+- Remember to stick to the existing code style as best as possible. When in doubt, follow `PSR-2`.
+- Send me a pull request!
 
 ### TODO/tasks (very short & rough list of current goals)
 - Get rid of jquery in the `PrettyPage` template
