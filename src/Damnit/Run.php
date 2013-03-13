@@ -5,7 +5,6 @@
  */
 
 namespace Damnit;
-
 use Damnit\Handler\HandlerInterface;
 use Damnit\Handler\Handler;
 use Damnit\Handler\CallbackHandler;
