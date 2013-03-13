@@ -87,7 +87,6 @@ class Handler implements HandlerInterface
     }
 
     /**
-     * @param \Exception
      * @return int|null
      */
     public function handle()
