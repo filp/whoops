@@ -6,6 +6,7 @@
 
 namespace Damnit\Exception;
 use Damnit\Exception\FrameIterator;
+use Damnit\Exception\ErrorException;
 use Exception;
 
 class Inspector
@@ -53,9 +54,16 @@ class Inspector
     {
         if($this->framesIterator === null) {
             $frames     = $this->exception->getTrace();
-            $firstFrame = $this->getFrameFromException($this->exception);
-
-            array_unshift($frames, $firstFrame);
+            
+            // If we're handling an ErrorException thrown by Damnit,
+            // get rid of the last, which matches the handleError method,
+            // and do not add the current exception to trace
+            if($this->exception instanceof ErrorException) {
+                array_shift($frames);
+            } else {
+                $firstFrame = $this->getFrameFromException($this->exception);
+                array_unshift($frames, $firstFrame);
+            }
             $this->framesIterator = new FrameIterator($frames);
         }
 
