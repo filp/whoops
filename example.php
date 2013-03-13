@@ -30,6 +30,10 @@ $run->pushHandler(function($exception, $inspector, $run) {
     $frames = $inspector->getFrames();
     foreach($frames as $i => $frame) {
         $frame->addComment('This is frame number ' . $i, 'example');
+
+        if($function = $frame->getFunction()) {
+            $frame->addComment("This frame is within function '$function'", 'cpt-obvious');
+        }
     }
 });
 
