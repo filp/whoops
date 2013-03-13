@@ -39,15 +39,32 @@ class PrettyPage extends Handler
         $frames = $inspector->getFrames();
 
         $v = (object) array(
-            'name'      => explode('\\', $inspector->getExceptionName()),
-            'message'   => $inspector->getException()->getMessage(),
-            'frames'    => $frames,
-            'hasFrames' => !!count($frames)
+            'name'        => explode('\\', $inspector->getExceptionName()),
+            'message'     => $inspector->getException()->getMessage(),
+            'frames'      => $frames,
+            'hasFrames'   => !!count($frames),
+
+            'super'       => array(
+                'Server/Request Data'   => $_SERVER,
+                'Files'                 => $_FILES,
+                'GET Data'              => $_GET,
+                'POST Data'             => $_POST,
+                'Cookies'               => $_COOKIE,
+                'Session'               => isset($_SESSION) ? $_SESSION:  array(),
+                'Environment Variables' => $_ENV
+            )
         );
 
         call_user_func(function() use($templateFile, $v) {
             // $e -> cleanup output
-            $e = function($_) { return htmlspecialchars($_, ENT_QUOTES, 'UTF-8'); };
+            $e    = function($_) { return htmlspecialchars($_, ENT_QUOTES, 'UTF-8'); };
+
+            // $slug -> sluggify string (i.e: Hello world! -> hello-world)
+            $slug = function($_) {
+                $_ = str_replace(" ", "-", $_);
+                $_ = preg_replace('/[^\w\d\-\_]/i', '', $_);
+                return strtolower($_);
+            };
 
             require $templateFile;
         });

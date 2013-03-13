@@ -182,6 +182,14 @@
               </div>
             <?php endforeach ?>
           </div>
+          <div class="superglobals-container">
+            <?php foreach($v->super as $label => $data): ?>
+              <div class="superglobal" id="sg-<?php echo $e($slug($label)) ?>">
+                <label><?php echo $e($label) ?></label>
+                <pre class="prettyprint"><?php echo $e(print_r($data, true)); ?></pre>
+              </div>
+            <?php endforeach ?>
+          </div>
         </div>
 
       </div>
