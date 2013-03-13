@@ -19,6 +19,7 @@ class Run
     const SHUTDOWN_HANDLER  = 'handleShutdown';
 
     protected $isRegistered;
+    protected $exitWhenDone = true;
 
     /**
      * @var DarnIt\Handler\HandlerInterface[]
@@ -101,6 +102,17 @@ class Run
     }
 
     /**
+     * Should Damnit quit the script once all handlers have executed?
+     * Mosty useful for unit testing.
+     *
+     * @param bool $exit
+     */
+    public function exitWhenDone($exit = true)
+    {
+        $this->exitWhenDone = (bool) $exit;
+    }
+
+    /**
      * Handles an exception, ultimately generating a Damnit error
      * page.
      *
@@ -128,7 +140,10 @@ class Run
 
        // And we're done!
        $this->unregister();
-       exit;
+
+        if($this->exitWhenDone) {
+            exit;
+        }
     }
 
     /**

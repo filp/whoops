@@ -19,7 +19,10 @@ class RunTest extends TestCase
      */
     protected function getRunInstance()
     {
-        return new Run;
+        $run = new Run;
+        $run->exitWhenDone(false);
+
+        return $run;
     }
 
     /**
