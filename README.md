@@ -40,3 +40,4 @@ $ git checkout -b feature/flames-on-the-side
 - Get rid of prettify, move syntax highlighting to PHP (the idea is to have no external dependencies)
 - Add extension hooks for `PrettyPage`
 - Improve test coverage
+- Move PrettyPage template to Twig or something, otherwise it will quickly grow unmaintainable
