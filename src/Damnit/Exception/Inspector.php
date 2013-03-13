@@ -16,6 +16,11 @@ class Inspector
     private $exception;
 
     /**
+     * @var Damnit\Exception\FrameIterator
+     */
+    private $framesIterator;
+
+    /**
      * @param Exception $exception The exception to inspect
      */
     public function __construct(Exception $exception)
@@ -46,13 +51,15 @@ class Inspector
      */
     public function getFrames()
     {
-        $frames     = $this->exception->getTrace();
-        $firstFrame = $this->getFrameFromException($this->exception);
+        if($this->framesIterator === null) {
+            $frames     = $this->exception->getTrace();
+            $firstFrame = $this->getFrameFromException($this->exception);
 
-        array_unshift($frames, $firstFrame);
-        $iterator = new FrameIterator($frames);
+            array_unshift($frames, $firstFrame);
+            $this->framesIterator = new FrameIterator($frames);
+        }
 
-        return $iterator;
+        return $this->framesIterator;
     }
 
     /**

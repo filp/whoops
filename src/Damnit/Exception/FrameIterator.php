@@ -27,11 +27,16 @@ class FrameIterator implements Iterator, Countable
     public function current()
     {
         $current = current($this->frames);
-        if($current !== false) {
-            return new Frame($current);
+        
+        if($current === false) {
+            return false;
         }
 
-        return false;
+        if(!$current instanceof Frame) {
+            $current = $this->frames[$this->key()] = new Frame($current);
+        }
+
+        return $current;
     }
 
     /**

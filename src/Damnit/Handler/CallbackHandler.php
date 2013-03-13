@@ -13,7 +13,7 @@ use InvalidArgumentException;
  * directly, or will be instantiated automagically by Damnit\Run
  * if passed to Run::pushHandler
  */
-class Handler implements HandlerInterface
+class CallbackHandler extends Handler
 {
     /**
      * @var callable
@@ -39,6 +39,10 @@ class Handler implements HandlerInterface
      */
     public function handle()
     {
-        return call_user_func($this->callable, $this);     
+        $exception = $this->getException();
+        $inspector = $this->getInspector();
+        $run       = $this->getRun();
+
+        return call_user_func($this->callable, $exception, $inspector, $run);
     }
 }

@@ -18,12 +18,18 @@ use Damnit\Run;
 use Damnit\Handler\PrettyPage;
 use Exception as BaseException;
 
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/vendor/autoload.php';   
 
 class Exception extends BaseException {}
 
 $run = new Run;
 $run->pushHandler(new PrettyPage);
+$run->pushHandler(function($exception, $inspector, $run) {
+    $frames = $inspector->getFrames();
+    foreach($frames as $i => $frame) {
+        $frame->addComment('This is frame number ' . $i);
+    }
+});
 $run->register();
 
 function fooBar() {

@@ -364,13 +364,11 @@
             <?php /* List registered handlers, in order of first to last registered */ ?>
             <div class="data-table-container" id="handlers">
               <label>Registered Handlers</label>
-              <?php $handlersCount = count($v->handlers) - 1; ?>
-              <?php for($i = $handlersCount; $i >= 0; $i--): ?>
-                <?php $handler = $v->handlers[$i]; ?>
-                <div class="handler <?php echo ($handler == $v->handler) ? 'active' : ''?>">
-                  <?php echo  $handlersCount - $i?>. <?php echo $e(get_class($handler)) ?>
+              <?php foreach($v->handlers as $i => $handler): ?>
+                <div class="handler <?php echo ($handler === $v->handler) ? 'active' : ''?>">
+                  <?php echo $i ?>. <?php echo $e(get_class($handler)) ?>
                 </div>
-              <?php endfor ?>
+              <?php endforeach ?>
             </div>
 
           </div> <!-- .details -->
