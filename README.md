@@ -5,18 +5,38 @@ php errors for cool kids
 
 -----
 
+![Damnit!](http://i.imgur.com/dsfWPvz.png)
+
 `Damnit` is an error handler base/framework for PHP. Out-of-the-box, it provides a pretty
 error interface that helps you debug your web projects, but at heart it's a simple yet
 powerful stacked error handling system.
 
-## Basic Usage:
+This library is currently in a **heavy development phase, and not yet ready for consumption.**
 
-To use `Damnit` with default settings, for a web project, simply create an instance and
-`register()` it:
+## Contributing
 
-```php
+If you want to help, great! Here's a couple of steps/guidelines:
 
-$damnit = new Damnit\Run;
-$damnit->register();
+1. Fork/clone this repo, and update dev dependencies using Composer
 
+```shell
+$ git clone git@github.com:filp/damnit.git
+$ cd damnit
+$ composer install --dev
 ```
+
+2. Create a new branch for your feature or fix
+
+```shell
+$ git checkout -b feature/flames-on-the-side
+```
+
+3. Add your changes & tests for those changes (in `tests/`).
+4. Remember to stick to the existing code style as best as possible. When in doubt, follow `PSR-2`.
+5. Send me a pull request!
+
+### TODO/tasks (very short & rough list of current goals)
+- Get rid of jquery in the `PrettyPage` template
+- Get rid of prettify, move syntax highlighting to PHP (the idea is to have no external dependencies)
+- Add extension hooks for `PrettyPage`
+- Improve test coverage
