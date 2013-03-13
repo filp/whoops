@@ -17,7 +17,7 @@ This library is currently in a **heavy development phase, and not yet ready for 
 
 If you want to help, great! Here's a couple of steps/guidelines:
 
-1. Clone this repo, and update dev dependencies using Composer
+1. Fork/clone this repo, and update dev dependencies using Composer
 
 ```shell
 $ git clone git@github.com:filp/damnit.git
