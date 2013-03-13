@@ -44,18 +44,15 @@
 
       .frames-container {
         float: left;
-        min-width: 30%;
-        max-width: 480px;
+        width: 30%;
       }
 
       .details-container {
         float: right;
-        max-width: 100%;
-        min-width: 70%;
+        width: 70%;
       }
 
       .frame {
-        height: 20px;
         padding: 14px;
         background: #F3F3F3;
         cursor: pointer;
@@ -71,6 +68,7 @@
 
         .frame-file {
           font-family: consolas, monospace;
+          word-wrap:break-word;
         }
           .frame-line {
             font-weight: bold;
@@ -114,7 +112,6 @@
         border-bottom: 1px dotted rgba(0, 0, 0, .2);
       }
         .data-table {
-          width: 100%;
           margin: 10px 0;
 
           font: 13px consolas, monospace;
