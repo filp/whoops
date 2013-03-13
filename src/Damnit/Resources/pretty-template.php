@@ -101,6 +101,49 @@
           margin: 0;
         }
 
+      .superglobals-container {
+        margin: 10px 0;
+        padding: 10px;
+      }
+      .superglobal label {
+        font-size: 16px;
+        font-weight: bold;
+        color: #4288CE;
+
+        display: block;
+        margin-bottom: 5px;
+        padding-bottom: 5px;
+        border-bottom: 1px dotted rgba(0, 0, 0, .2);
+      }
+        .superglobal-data {
+          width: 100%;
+          margin: 10px 0;
+
+          font: 13px consolas, monospace;
+        }
+          .superglobal-data thead {
+            display: none;
+          }
+
+        .superglobal-data tr {
+          padding: 5px 0;
+        }
+          .superglobal-data td:first-child {
+            width: 15%;
+            min-width: 130px;
+            overflow: hidden;
+            font-weight: bold;
+
+            color: #463C54;
+            padding-right: 5px;
+          }
+
+          .superglobal-data td:last-child {
+            width: 80%;
+            white-space: pre-wrap;
+          }
+
+        .superglobal
       /* prettify code style
        Uses the Doxy theme as a base */
       pre .str, code .str { color: #79E3E1; }  /* string  */
@@ -182,13 +225,31 @@
               </div>
             <?php endforeach ?>
           </div>
+
           <div class="superglobals-container">
             <?php foreach($v->super as $label => $data): ?>
               <?php if(!empty($data)): ?>
+
                 <div class="superglobal" id="sg-<?php echo $e($slug($label)) ?>">
                   <label><?php echo $e($label) ?></label>
-                  <pre class="prettyprint"><?php echo $e(print_r($data, true)); ?></pre>
+
+                  <table class="superglobal-data">
+                    <thead>
+                      <tr>
+                        <td class="superglobal-k">Key</td>
+                        <td class="superglobal-v">Value</td>
+                      </tr>
+                    </thead>
+                  <?php foreach($data as $k => $v): ?>
+                  <tr>
+                    <td><?php echo $e($k) ?></td>
+                    <td><?php echo $e(print_r($v, true)) ?></td>
+                  </tr>
+                  <?php endforeach ?>
+                  </table>
+
                 </div>
+
               <?php endif ?>
             <?php endforeach ?>
           </div>
