@@ -12,17 +12,22 @@
  *
  * Or just run it through apache/nginx/what-have-yous as usual.
  */
-require __DIR__ . '/vendor/autoload.php';
 
+namespace Damnit\Example;
 use Damnit\Run;
 use Damnit\Handler\PrettyPage;
+use Exception as BaseException;
+
+require __DIR__ . '/vendor/autoload.php';
+
+class Exception extends BaseException {}
 
 $run = new Run;
 $run->pushHandler(new PrettyPage);
 $run->register();
 
 function fooBar() {
-    throw new RuntimeException("hello, world!");
+    throw new Exception("Something broke!");
 }
 
 function bar()
