@@ -13,63 +13,57 @@
     <title>Damn it! - There was an error.</title>
 
     <style>
-      .cf:before,
-      .cf:after {content: " "; /* 1 */
-                 display: table; /* 2 */}
-      .cf:after {clear: both;}
-      .cf {*zoom: 1;}
-      body {
-        font: 14px helvetica, arial, sans-serif;
-        color: #2B2B2B;
-        background-color: #DADADA;
-
-        padding:0;
-        margin: 0;
+    .cf:before, .cf:after {content: " ";display: table;} .cf:after {clear: both;} .cf {*zoom: 1;}
+    body {
+      font: 14px helvetica, arial, sans-serif;
+      color: #2B2B2B;
+      background-color: #DADADA;
+      padding:0;
+      margin: 0;
+    }
+      a {
+        text-decoration: none;
       }
 
-      .branding {
-        position: absolute;
-        top: 10px;
-        right: 20px;
-        color: #777777;
-        font-size: 10px;
-      }
-        .branding a {
-          color: #CD3F3F;
-        }
-
-      header {
-        padding: 30px 20px;
-        color: white;
-        background: #272727;
+    .branding {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      color: #777777;
+      font-size: 10px;
+    }
+      .branding a {
+        color: #CD3F3F;
       }
 
+    header {
+      padding: 30px 20px;
+      color: white;
+      background: #272727;
+    }
       .exc-title {
         margin: 0;
         color: #616161;
-
         text-shadow: 0 1px 2px rgba(0, 0, 0, .1);
       }
         .exc-title-primary { color: #CD3F3F; }
-
-      .exc-message {
-        font-size: 32px;
-        margin: 5px 0;
-      }
-
-      .frames-container {
-        float: left;
-        width: 30%;
-      }
-
-      .details-container {
-        float: right;
-        width: 70%;
-      }
-        .details {
-          margin: 10px;
+        .exc-message {
+          font-size: 32px;
+          margin: 5px 0;
         }
 
+    .details-container {
+      float: right;
+      width: 70%;
+    }
+      .details {
+        margin: 10px;
+      }
+
+    .frames-container {
+      float: left;
+      width: 30%;
+    }
       .frame {
         padding: 14px;
         background: #F3F3F3;
@@ -89,22 +83,25 @@
           font-family: consolas, monospace;
           word-wrap:break-word;
         }
-          .frame-line {
-            font-weight: bold;
-            color: #4288CE;
-          }
-            .active .frame-line { color: #BEE9EA; }
-          .frame-line:before {
-            content: ":";
-          }
 
-      .frame-code {
-        padding: 10px;
-        padding-left: 5px;
-        background: #BDBDBD;
-        display: none;
-        border-left: 5px solid #4288CE;
-      }
+        .frame-line {
+          font-weight: bold;
+          color: #4288CE;
+        }
+
+        .active .frame-line { color: #BEE9EA; }
+        .frame-line:before {
+          content: ":";
+        }
+
+        .frame-code {
+          padding: 10px;
+          padding-left: 5px;
+          background: #BDBDBD;
+          display: none;
+          border-left: 5px solid #4288CE;
+        }
+
         .frame-code.active {
           display: block;
         }
@@ -123,130 +120,131 @@
           box-shadow: inset 0 1px 0 #DADADA;
         }
 
-      .code-block {
-        padding: 10px;
-        margin: 0;
-        box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
-      }
+        .code-block {
+          padding: 10px;
+          margin: 0;
+          box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+        }
+
         .linenums {
           margin: 0;
         }
 
-      .frame-comments {
-        box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
-        border: 1px solid rgba(0, 0, 0, .2);
-        border-top: none;
+        .frame-comments {
+          box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+          border: 1px solid rgba(0, 0, 0, .2);
+          border-top: none;
 
-        border-bottom-right-radius: 6px;
-        border-bottom-left-radius:  6px;
+          border-bottom-right-radius: 6px;
+          border-bottom-left-radius:  6px;
 
-        padding: 5px;
-        font-size: 12px;
-        background: #404040;
-      }
+          padding: 5px;
+          font-size: 12px;
+          background: #404040;
+        }
+
         .frame-comments.empty {
           padding: 8px 15px;
         }
-          .frame-comments.empty:before {
-            content: "No comments for this stack frame.";
-            font-style: italic;
-            color: #828282;
-          }
+
+        .frame-comments.empty:before {
+          content: "No comments for this stack frame.";
+          font-style: italic;
+          color: #828282;
+        }
 
         .frame-comment {
           padding: 10px;
           color: #D2D2D2;
         }
-          .frame-comment:not(:last-child) {
-            border-bottom: 1px dotted rgba(0, 0, 0, .3);
-          }
 
-          .frame-comment-context {
-            font-size: 10px;
-            font-weight: bold;
-            color: #86D2B6;
-          }
+        .frame-comment:not(:last-child) {
+          border-bottom: 1px dotted rgba(0, 0, 0, .3);
+        }
 
-      .data-table-container label {
-        font-size: 16px;
-        font-weight: bold;
-        color: #4288CE;
+        .frame-comment-context {
+          font-size: 10px;
+          font-weight: bold;
+          color: #86D2B6;
+        }
+
+    .data-table-container label {
+      font-size: 16px;
+      font-weight: bold;
+      color: #4288CE;
+      margin: 10px 0;
+      padding: 10px 0;
+
+      display: block;
+      margin-bottom: 5px;
+      padding-bottom: 5px;
+      border-bottom: 1px dotted rgba(0, 0, 0, .2);
+    }
+      .data-table {
         margin: 10px 0;
-        padding: 10px 0;
-
-        display: block;
-        margin-bottom: 5px;
-        padding-bottom: 5px;
-        border-bottom: 1px dotted rgba(0, 0, 0, .2);
-      }
-        .data-table {
-          margin: 10px 0;
-
-          font: 13px consolas, monospace;
-        }
-          .data-table thead {
-            display: none;
-          }
-
-        .data-table tr {
-          padding: 5px 0;
-        }
-          .data-table td:first-child {
-            width: 15%;
-            min-width: 130px;
-            overflow: hidden;
-            font-weight: bold;
-
-            color: #463C54;
-            padding-right: 5px;
-          }
-
-          .data-table td:last-child {
-            width: 80%;
-            white-space: pre-wrap;
-          }
-
-        .handler {
-          padding: 10px;
-          font: 14px monospace;
-        }
-          .handler.active {
-            color: #BBBBBB;
-            background: #989898;
-            font-weight: bold;
-          }
-
-      /* prettify code style
-       Uses the Doxy theme as a base */
-      pre .str, code .str { color: #79E3E1; }  /* string  */
-      pre .kwd, code .kwd { color: #FDFF62;  font-weight: bold; }  /* keyword*/
-      pre .com, code .com { color: #A5A5A5; font-weight: bold; } /* comment */
-      pre .typ, code .typ { color: #E16CA1; }  /* type  */
-      pre .lit, code .lit { color: #49DF9D; }  /* literal */
-      pre .pun, code .pun { color: #51D743; font-weight: bold;  } /* punctuation  */
-      pre .pln, code .pln { color: #BBBBBB; }  /* plaintext  */
-      pre .tag, code .tag { color: #9c9cff; }  /* html/xml tag  */
-      pre .htm, code .htm { color: #dda0dd; }  /* html tag */
-      pre .xsl, code .xsl { color: #d0a0d0; }  /* xslt tag */
-      pre .atn, code .atn { color: #46eeee; font-weight: normal;} /* html/xml attribute name */
-      pre .atv, code .atv { color: #EEB4B4; }  /* html/xml attribute value  */
-      pre .dec, code .dec { color: #3387CC; }  /* decimal  */
-
-      a {
-        text-decoration: none;
-      }
-      pre.prettyprint, code.prettyprint {
-        font-family: consolas, monospace;
-        background: #272727;
-        color: #929292;
+        font: 13px consolas, monospace;
       }
 
+      .data-table thead {
+        display: none;
+      }
+
+      .data-table tr {
+        padding: 5px 0;
+      }
+
+      .data-table td:first-child {
+        width: 15%;
+        min-width: 130px;
+        overflow: hidden;
+        font-weight: bold;
+
+        color: #463C54;
+        padding-right: 5px;
+      }
+
+      .data-table td:last-child {
+        width: 80%;
+        white-space: pre-wrap;
+      }
+
+    .handler {
+      padding: 10px;
+      font: 14px monospace;
+    }
+
+    .handler.active {
+      color: #BBBBBB;
+      background: #989898;
+      font-weight: bold;
+    }
+
+    /* prettify code style
+    Uses the Doxy theme as a base */
+    pre .str, code .str { color: #79E3E1; }  /* string  */
+    pre .kwd, code .kwd { color: #FDFF62;  font-weight: bold; }  /* keyword*/
+    pre .com, code .com { color: #A5A5A5; font-weight: bold; } /* comment */
+    pre .typ, code .typ { color: #E16CA1; }  /* type  */
+    pre .lit, code .lit { color: #49DF9D; }  /* literal */
+    pre .pun, code .pun { color: #51D743; font-weight: bold;  } /* punctuation  */
+    pre .pln, code .pln { color: #BBBBBB; }  /* plaintext  */
+    pre .tag, code .tag { color: #9c9cff; }  /* html/xml tag  */
+    pre .htm, code .htm { color: #dda0dd; }  /* html tag */
+    pre .xsl, code .xsl { color: #d0a0d0; }  /* xslt tag */
+    pre .atn, code .atn { color: #46eeee; font-weight: normal;} /* html/xml attribute name */
+    pre .atv, code .atv { color: #EEB4B4; }  /* html/xml attribute value  */
+    pre .dec, code .dec { color: #3387CC; }  /* decimal  */
+    pre.prettyprint, code.prettyprint {
+      font-family: consolas, monospace;
+      background: #272727;
+      color: #929292;
+    }
       pre.prettyprint {
         white-space: pre-wrap;
       }
 
       pre.prettyprint a, code.prettyprint a {
-         text-decoration:none;
+        text-decoration:none;
       }
     </style>
   </head>
