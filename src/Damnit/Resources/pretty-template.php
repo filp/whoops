@@ -215,7 +215,7 @@
                   $line  = $frame->getLine();
 
                   // the $line is 1-indexed, we nab -1 where needed to account for this
-                  $range = $frame->getFileLines($line - 4, $line);
+                  $range = $frame->getFileLines($line - 3, $line + 3);
                   $start = key($range) + 1;
                   $code  = join("\n", $range);
                 ?>

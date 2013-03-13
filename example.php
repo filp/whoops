@@ -16,15 +16,18 @@ require __DIR__ . '/vendor/autoload.php';
 
 use Damnit\Run;
 use Damnit\Handler\PrettyPage;
-use Damnit\Handler\Handler;
 
 $run = new Run;
 $run->pushHandler(new PrettyPage);
 $run->register();
 
-
 function fooBar() {
     throw new RuntimeException("hello, world!");
 }
 
-fooBar();
+function bar()
+{
+    fooBar();
+}
+
+bar();

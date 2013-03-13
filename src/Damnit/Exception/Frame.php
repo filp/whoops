@@ -111,7 +111,11 @@ class Frame
                     );
                 }
 
-                $lines = array_slice($lines, $start, $end, true);
+                // Clamp the range to the number of lines:
+                $start = max(0, $start);
+                $end   = min(count($lines)-1, $end);
+
+                $lines = array_slice($lines, $start, $end - $start, true);
             }
 
             return $lines;
