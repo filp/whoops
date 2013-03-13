@@ -262,7 +262,7 @@
               <?php if($i == count($v->name) - 1): ?>
                 <span class="exc-title-primary"><?php echo $e($nameSection) ?></span>
               <?php else: ?>
-                <?php echo $e($nameSection) . '\\' ?>
+                <?php echo $e($nameSection) . ' \\' ?>
               <?php endif ?>
             <?php endforeach ?>
           </h3>
