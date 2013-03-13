@@ -12,8 +12,12 @@
     <meta charset="utf-8">
     <title>Damn it! - There was an error.</title>
 
-    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/normalize/2.1.0/normalize.css">
     <style>
+      .cf:before,
+      .cf:after {content: " "; /* 1 */
+                 display: table; /* 2 */}
+      .cf:after {clear: both;}
+      .cf {*zoom: 1;}
       body {
         font: 14px helvetica, arial, sans-serif;
         color: #2B2B2B;
@@ -196,7 +200,7 @@
       </header>
       <div class="stack-container">
 
-        <div class="frames-container clearfix <?php echo (!$v->hasFrames ? 'empty' : '') ?>">
+        <div class="frames-container cf <?php echo (!$v->hasFrames ? 'empty' : '') ?>">
           <?php foreach($v->frames as $i => $frame): ?>
             <div class="frame <?php echo ($i == 0 ? 'active' : '') ?>" id="frame-line-<?php echo $i ?>">
               <span class="frame-file">
@@ -207,7 +211,7 @@
           <?php endforeach ?>
         </div>
 
-        <div class="details-container clearfix">
+        <div class="details-container cf">
           <div class="frame-code-container <?php echo (!$v->hasFrames ? 'empty' : '') ?>">
             <?php foreach($v->frames as $i => $frame): ?>
               <div class="frame-code <?php echo ($i == 0 ) ? 'active' : '' ?>" id="frame-code-<?php echo $i ?>">
