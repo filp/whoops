@@ -25,8 +25,8 @@
 
       header {
         padding: 30px 20px;
-        border-bottom: 1px solid #B7B7B7;
-        border-top: 6px solid #B7B7B7;
+        color: white;
+        background: #2F2F2F;
       }
 
       .exc-title {
@@ -101,34 +101,32 @@
           margin: 0;
         }
 
-      .superglobals-container {
-        margin: 10px 0;
-        padding: 10px;
-      }
-      .superglobal label {
+      .data-table-container label {
         font-size: 16px;
         font-weight: bold;
         color: #4288CE;
+        margin: 10px 0;
+        padding: 10px;
 
         display: block;
         margin-bottom: 5px;
         padding-bottom: 5px;
         border-bottom: 1px dotted rgba(0, 0, 0, .2);
       }
-        .superglobal-data {
+        .data-table {
           width: 100%;
           margin: 10px 0;
 
           font: 13px consolas, monospace;
         }
-          .superglobal-data thead {
+          .data-table thead {
             display: none;
           }
 
-        .superglobal-data tr {
+        .data-table tr {
           padding: 5px 0;
         }
-          .superglobal-data td:first-child {
+          .data-table td:first-child {
             width: 15%;
             min-width: 130px;
             overflow: hidden;
@@ -138,7 +136,7 @@
             padding-right: 5px;
           }
 
-          .superglobal-data td:last-child {
+          .data-table td:last-child {
             width: 80%;
             white-space: pre-wrap;
           }
@@ -226,14 +224,14 @@
             <?php endforeach ?>
           </div>
 
-          <div class="superglobals-container">
+          <div class="data-table-container" id="superglobals">
             <?php foreach($v->super as $label => $data): ?>
               <?php if(!empty($data)): ?>
 
                 <div class="superglobal" id="sg-<?php echo $e($slug($label)) ?>">
                   <label><?php echo $e($label) ?></label>
 
-                  <table class="superglobal-data">
+                  <table class="data-table">
                     <thead>
                       <tr>
                         <td class="superglobal-k">Key</td>
@@ -253,6 +251,7 @@
               <?php endif ?>
             <?php endforeach ?>
           </div>
+
         </div>
 
       </div>
