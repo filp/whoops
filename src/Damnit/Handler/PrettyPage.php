@@ -45,12 +45,12 @@ class PrettyPage extends Handler
             'hasFrames'   => !!count($frames),
 
             'super'       => array(
-                'Server/Request Data'   => $_SERVER,
-                'Files'                 => $_FILES,
                 'GET Data'              => $_GET,
                 'POST Data'             => $_POST,
+                'Files'                 => $_FILES,
                 'Cookies'               => $_COOKIE,
                 'Session'               => isset($_SESSION) ? $_SESSION:  array(),
+                'Server/Request Data'   => $_SERVER,
                 'Environment Variables' => $_ENV
             )
         );
