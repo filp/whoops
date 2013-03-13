@@ -106,12 +106,27 @@
           display: block;
         }
 
+        .frame-code .frame-file {
+          background: #C6C6C6;
+          color: #525252;
+          text-shadow: 0 1px 0 #E7E7E7;
+          padding: 10px 10px 5px 10px;
+
+          border-top-right-radius: 6px;
+          border-top-left-radius:  6px;
+
+          border: 1px solid rgba(0, 0, 0, .1);
+          border-bottom: none;
+          box-shadow: inset 0 1px 0 #DADADA;
+        }
+
       .code-block {
         padding: 10px;
         margin: 0;
-        border: 1px solid rgba(0, 0, 0, .4);
-        border-radius: 2px;
-        box-shadow: 0 0 3px rgba(0, 0, 0, .2);
+        box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+
+        border-bottom-right-radius: 2px;
+        border-bottom-left-radius: 2px;
       }
         .linenums {
           margin: 0;
@@ -239,6 +254,9 @@
                     $code  = join("\n", $range);
                   ?>
 
+                  <div class="frame-file">
+                    <strong><?php echo $e($frame->getFile()) ?></strong>
+                  </div>
                   <pre class="code-block prettyprint linenums:<?php echo $start ?>"><?php echo $e($code) ?></pre>
                 </div>
               <?php endif ?>
