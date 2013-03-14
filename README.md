@@ -13,6 +13,31 @@ powerful stacked error handling system.
 
 This library is currently in a **heavy development phase, and not yet ready for consumption.**
 
+## Installing
+
+- Install [Composer](http://getcomposer.org) and place the executable somewhere in your `$PATH` (for the rest of this README,
+I'll reference it as just `composer`)
+
+- Add `filp/damnit` to your project's `composer.json:
+
+```json
+{
+    "require": {
+        "filp/damnit": "dev-master"
+    }
+}
+```
+
+- Install/update your dependencies
+
+```bash
+$ cd my_project
+$ composer install
+```
+
+And you're good to go! Have a look at the **example files**: `example.php` and `example-silex.php` to get a look at
+how things work.
+
 ## Integrating with Silex
 
 `Damnit` comes packaged with a Silex Service Provider: `Damnit\Silex\DamnitServiceProvider`. Using it
