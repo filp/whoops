@@ -30,13 +30,11 @@ class DamnitServiceProvider implements ServiceProviderInterface
         });
 
         $app->error(array($app['damnit'], Run::EXCEPTION_HANDLER));
+        $app['damnit']->register();
     }
 
     /**
      * @see Silex\ServiceProviderInterface::boot
      */
-    public function boot(Application $app)
-    {
-        $app['damnit']->register();
-    }
+    public function boot(Application $app) {}
 }
