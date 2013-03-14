@@ -71,13 +71,13 @@
         padding: 14px;
         background: #F3F3F3;
         border-right: 1px solid rgba(0, 0, 0, .2);
-        box-shadow: inset -2px 0 0 rgba(255, 255, 255, .1);
-        text-shadow: 0 1px 0 rgba(0, 0, 0, .2);
         cursor: pointer;
       }
         .frame.active {
           background-color: #4288CE;
           color: #F3F3F3;
+                  box-shadow: inset -2px 0 0 rgba(255, 255, 255, .1);
+          text-shadow: 0 1px 0 rgba(0, 0, 0, .2);
         }
 
         .frame:not(.active):hover {
