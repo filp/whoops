@@ -1,4 +1,4 @@
-# Damnit
+# damnit
 php errors for cool kids
 
 [![Build Status](https://travis-ci.org/filp/damnit.png?branch=master)](https://travis-ci.org/filp/damnit)
@@ -7,11 +7,11 @@ php errors for cool kids
 
 ![Damnit!](http://i.imgur.com/sBUMl5s.png)
 
-`Damnit` is an error handler base/framework for PHP. Out-of-the-box, it provides a pretty
+**damnit** is an error handler base/framework for PHP. Out-of-the-box, it provides a pretty
 error interface that helps you debug your web projects, but at heart it's a simple yet
 powerful stacked error handling system.
 
-This library is currently in a **heavy development phase, and not yet ready for consumption.**
+This library is currently in a **heavy development phase, and may catch on fire at any moment.**
 
 ## (current) Features
 
