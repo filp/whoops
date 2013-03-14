@@ -1,4 +1,17 @@
 {
+    "name": "filp/damnit",
+    "license": "MIT",
+    "description": "php error handling for cool kids",
+    "version": "0.8.0-dev",
+    "keywords": ["library", "error", "handling", "exception", "silex", "provider", "damnit"],
+    "homepage": "https://github.com/filp/damnit",
+    "authors": [
+        {
+            "name": "Filipe Dobreira",
+            "homepage": "https://github.com/filp",
+            "role": "Developer"
+        }
+    ],
     "require": {
         "php": ">=5.3.0"
     },
