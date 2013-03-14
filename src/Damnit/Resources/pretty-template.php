@@ -320,10 +320,10 @@
                   </div>
                   <?php
                     // Do nothing if there's no line to work off
-                    if($line !== null): 
+                    if($line !== null):
 
                     // the $line is 1-indexed, we nab -1 where needed to account for this
-                    $range = $frame->getFileLines($line - 3, 4);
+                    $range = $frame->getFileLines($line - 6, 8);
                     $start = key($range) + 1;
                     $code  = join("\n", $range);
                   ?>
