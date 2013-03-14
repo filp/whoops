@@ -15,7 +15,7 @@ This library is currently in a **heavy development phase, and not yet ready for 
 
 ## Integrating with Silex
 
-`Damnit` comes packages with a Silex Service Provider: `Damnit\Silex\DamnitServiceProvider`. Using it
+`Damnit` comes packaged with a Silex Service Provider: `Damnit\Silex\DamnitServiceProvider`. Using it
 in your existing Silex project is easy:
 
 ```php
@@ -69,8 +69,9 @@ $ git checkout -b feature/flames-on-the-side
 - Send me a pull request!
 
 ### TODO/tasks (very short & rough list of current goals)
-- Get rid of jquery in the `PrettyPage` template
-- Get rid of prettify, move syntax highlighting to PHP (the idea is to have no external dependencies)
-- Add extension hooks for `PrettyPage`
+- Improve code view
+- Improve UI in situations where there's a very long frame list
+- Delay `prettify` until needed, instead of doing it for every frame at once
+- Cleanup API, specially around Frame handling
+- Add extension hooks for `PrettyPageHandler`
 - Improve test coverage
-- Move PrettyPage template to Twig or something, otherwise it will quickly grow unmaintainable
