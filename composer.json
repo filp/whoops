@@ -3,7 +3,8 @@
         "php": ">=5.3.0"
     },
     "require-dev": {
-        "mockery/mockery": "dev-master"
+        "mockery/mockery": "dev-master",
+        "silex/silex": "1.0.*@dev"
     },
     "autoload": {
         "psr-0": {
