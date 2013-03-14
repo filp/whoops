@@ -22,8 +22,18 @@ require __DIR__ . '/../vendor/autoload.php';
 
 class Exception extends BaseException {}
 
-$run = new Run;
-$run->pushHandler(new PrettyPageHandler);
+$run     = new Run;
+$handler = new PrettyPageHandler;
+
+// Add a custom table to the layout:
+$handler->addDataTable('Ice-cream I like', array(
+    'Chocolate' => 'yes',
+    'Coffee & chocolate' => 'a lot',
+    'Strawberry & chocolate' => 'it\'s alright',
+    'Vanilla' => 'ew'
+));
+
+$run->pushHandler($handler);
 
 // Example: tag all frames with a comment
 $run->pushHandler(function($exception, $inspector, $run) {

@@ -16,6 +16,11 @@ class PrettyPageHandler extends Handler
     private $resourcesPath;
 
     /**
+     * @var array[]
+     */
+    private $extraTables = array();
+
+    /**
      * @return int|null
      */
     public function handle()
@@ -57,6 +62,9 @@ class PrettyPageHandler extends Handler
             )
         );
 
+        // Add extra entries to the "super" list of data tables:
+        $v->super = array_merge($v->super, $this->getDataTables());
+
         call_user_func(function() use($templateFile, $v) {
             // $e -> cleanup output
             $e    = function($_) { return htmlspecialchars($_, ENT_QUOTES, 'UTF-8'); };
@@ -72,6 +80,35 @@ class PrettyPageHandler extends Handler
         });
 
         return Handler::LAST_HANDLER;
+    }
+
+    /**
+     * Adds an entry to the list of superglobals displayed in the template.
+     * The expected data is a simple associative array. Any nested arrays
+     * will be flattened with print_r
+     * @param string $label
+     * @param array  $data
+     */
+    public function addDataTable($label, array $data)
+    {
+        $this->extraTables[$label] = $data;
+    }
+
+    /**
+     * Returns all the extra data tables registered with this handler.
+     * Optionally accepts a 'label' parameter, to only return the data
+     * table under that label.
+     * @param string|null $label
+     * @return array[]
+     */
+    public function getDataTables($label = null)
+    {
+        if($label !== null) {
+            return isset($this->extraTables[$label]) ?
+                   $this->extraTables[$labe] : array();
+        }
+
+        return $this->extraTables;
     }
 
     /**
