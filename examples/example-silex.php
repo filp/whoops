@@ -7,17 +7,17 @@
  * within this project using the --dev flag:
  *
  * $ composer install --dev
- * 
+ *
  * Run this example file with the PHP 5.4 web server with:
  *
  * $ cd project_dir
  * $ php -S localhost:8080
  *
- * and access localhost:8080/example.php through your browser
+ * and access localhost:8080/examples/example-silex.php through your browser
  *
  * Or just run it through apache/nginx/what-have-yous as usual.
  */
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 use Damnit\Silex\DamnitServiceProvider;
 use Silex\Application;

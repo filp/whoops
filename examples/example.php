@@ -8,7 +8,7 @@
  * $ cd project_dir
  * $ php -S localhost:8080
  *
- * and access localhost:8080/example.php through your browser
+ * and access localhost:8080/example/example.php through your browser
  *
  * Or just run it through apache/nginx/what-have-yous as usual.
  */
@@ -18,7 +18,7 @@ use Damnit\Run;
 use Damnit\Handler\PrettyPageHandler;
 use Exception as BaseException;
 
-require __DIR__ . '/vendor/autoload.php';   
+require __DIR__ . '/../vendor/autoload.php';
 
 class Exception extends BaseException {}
 
