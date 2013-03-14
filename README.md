@@ -13,6 +13,39 @@ powerful stacked error handling system.
 
 This library is currently in a **heavy development phase, and not yet ready for consumption.**
 
+## Integrating with Silex
+
+`Damnit` comes packages with a Silex Service Provider: `Damnit\Silex\DamnitServiceProvider`. Using it
+in your existing Silex project is easy:
+
+```php
+
+require 'vendor/autoload.php';
+
+use Silex\Application;
+
+// ... some awesome code here ...
+
+if($app['debug']) {
+    $app->register(new Damnit\Silex\DamnitServiceProvider);
+}
+
+// ...
+
+$app->run();
+```
+
+And that's about it. By default, you'll get the pretty error pages if something goes awry in your development
+environment, but you also have full access to the `Damnit` library, obviously. For example, adding a new handler
+into your app is as simple as extending `damnit`:
+
+```php
+$app['damnit'] = $app->extend('damnit', function($damnit) {
+    $damnit->pushHandler(new DeleteWholeProjectHandler);
+    return $damnit;
+});
+```
+
 ## Contributing
 
 If you want to help, great! Here's a couple of steps/guidelines:
