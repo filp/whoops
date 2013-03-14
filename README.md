@@ -5,7 +5,7 @@ php errors for cool kids
 
 -----
 
-![Damnit!](http://i.imgur.com/sBUMl5s.png)
+![Damnit!](http://i.imgur.com/g2a7F34.png)
 
 **damnit** is an error handler base/framework for PHP. Out-of-the-box, it provides a pretty
 error interface that helps you debug your web projects, but at heart it's a simple yet
@@ -50,7 +50,7 @@ I promise it's really simple!
 
 ## Integrating with Silex
 
-`Damnit` comes packaged with a Silex Service Provider: `Damnit\Silex\DamnitServiceProvider`. Using it
+**damnit** comes packaged with a Silex Service Provider: `Damnit\Silex\DamnitServiceProvider`. Using it
 in your existing Silex project is easy:
 
 ```php
@@ -71,7 +71,7 @@ $app->run();
 ```
 
 And that's about it. By default, you'll get the pretty error pages if something goes awry in your development
-environment, but you also have full access to the `Damnit` library, obviously. For example, adding a new handler
+environment, but you also have full access to the **damnit** library, obviously. For example, adding a new handler
 into your app is as simple as extending `damnit`:
 
 ```php
