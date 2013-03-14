@@ -21,7 +21,7 @@ This library is currently in a **heavy development phase, and may catch on fire 
 - Includes a pretty rad error page for your webapp projects
 - Includes a `DamnitServiceProvider` for painless integration with [Silex](http://silex.sensiolabs.org/)
 - Easy to extend and integrate with existing libraries
-- Clean, well-structured & tested code-base
+- Clean, well-structured & tested code-base (well, except `pretty-template.php`, for now...)
 
 ## Installing
 
