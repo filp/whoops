@@ -13,6 +13,15 @@ powerful stacked error handling system.
 
 This library is currently in a **heavy development phase, and not yet ready for consumption.**
 
+## (current) Features
+
+- Stack-based error handling, flexible error handling
+- Stand-alone library with (currently) no required dependencies
+- Simple API for dealing with exceptions, trace frames & their data
+- Includes a pretty rad error page for your webapp projects
+- Includes a `DamnitServiceProvider` for painless integration with [Silex](http://silex.sensiolabs.org/)
+- Easy to extend and integrate with existing libraries
+
 ## Installing
 
 - Install [Composer](http://getcomposer.org) and place the executable somewhere in your `$PATH` (for the rest of this README,
