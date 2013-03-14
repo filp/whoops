@@ -35,8 +35,8 @@ $ cd my_project
 $ composer install
 ```
 
-And you're good to go! Have a look at the **example files**: `example.php` and `example-silex.php` to get a look at
-how things work.
+And you're good to go! Have a look at the **example files** in `examples/` to get a feel for how things work.
+I promise it's really simple!
 
 ## Integrating with Silex
 
