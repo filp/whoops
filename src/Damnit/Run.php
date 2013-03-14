@@ -81,6 +81,15 @@ class Run
     }
 
     /**
+     * @param  Exception $exception
+     * @return Damnit\Exception\Inspector
+     */
+    protected function getInspector(Exception $exception)
+    {
+        return new Inspector($exception);
+    }
+
+    /**
      * Registers this instance as an error handler.
      * @return Damnit\Run
      */
@@ -192,14 +201,5 @@ class Run
                 $error['line']
             );
         }
-    }
-
-    /**
-     * @param  Exception $exception
-     * @return Damnit\Exception\Inspector
-     */
-    protected function getInspector(Exception $exception)
-    {
-        return new Inspector($exception);
     }
 }
