@@ -15,7 +15,7 @@ This library is currently in a **heavy development phase, and not yet ready for 
 
 ## (current) Features
 
-- Stack-based error handling, flexible error handling
+- Flexible, stack-based error handling
 - Stand-alone library with (currently) no required dependencies
 - Simple API for dealing with exceptions, trace frames & their data
 - Includes a pretty rad error page for your webapp projects
