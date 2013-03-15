@@ -437,6 +437,7 @@
         var $frameLines  = $('[id^="frame-line-"]');
         var $activeLine  = $('.frames-container .active');
         var $activeFrame = $('.active[id^="frame-code-"]').show();
+        var $container   = $('.details-container');
 
         $frameLines.click(function() {
           var $this  = $(this);
@@ -452,6 +453,8 @@
 
             $activeLine  = $this;
             $activeFrame = $codeFrame;
+
+            $container.animate({ scrollTop: 0 }, "fast");
           }
         });
       });
