@@ -21,6 +21,11 @@ class PrettyPageHandler extends Handler
     private $extraTables = array();
 
     /**
+     * @var string
+     */
+    private $pageTitle = 'Damn it! There was an error.';
+
+    /**
      * @return int|null
      */
     public function handle()
@@ -44,6 +49,7 @@ class PrettyPageHandler extends Handler
         $frames    = $inspector->getFrames();
 
         $v = (object) array(
+            'title'        => $this->getPageTitle(),
             'name'         => explode('\\', $inspector->getExceptionName()),
             'message'      => $inspector->getException()->getMessage(),
             'frames'       => $frames,
@@ -119,6 +125,22 @@ class PrettyPageHandler extends Handler
         }
 
         return $this->extraTables;
+    }
+
+    /**
+     * @var string
+     */
+    public function setPageTitle($title)
+    {
+        $this->pageTitle = (string) $title;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPageTitle()
+    {
+        return $this->pageTitle;
     }
 
     /**

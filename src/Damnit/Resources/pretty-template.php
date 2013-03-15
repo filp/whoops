@@ -10,7 +10,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Damn it! - There was an error.</title>
+    <title><?php echo $e($v->title) ?></title>
 
     <style>
     .cf:before, .cf:after {content: " ";display: table;} .cf:after {clear: both;} .cf {*zoom: 1;}
