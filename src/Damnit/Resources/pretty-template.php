@@ -43,19 +43,12 @@
       .branding a {
         color: #CD3F3F;
       }
-    * {
-        box-sizing: border-box;
-    }
+
     header {
-      width: 100%;
-      height: 110px;
-      position: absolute;
-      z-index: 99;
-      top: 0;
-      left: 0;
       padding: 30px 20px;
       color: white;
       background: #272727;
+      box-sizing: border-box;
     }
       .exc-title {
         margin: 0;
@@ -66,10 +59,10 @@
         .exc-message {
           font-size: 32px;
           margin: 5px 0;
+          word-wrap: break-word;
         }
     .stack-container{
         height: 100%;
-        padding-top:110px;
         position: relative;
     }
     .details-container {
@@ -296,22 +289,7 @@
   </head>
   <body>
     <div class="container">
-      <header>
-        <div class="exception">
-          <h3 class="exc-title">
-            <?php foreach($v->name as $i => $nameSection): ?>
-              <?php if($i == count($v->name) - 1): ?>
-                <span class="exc-title-primary"><?php echo $e($nameSection) ?></span>
-              <?php else: ?>
-                <?php echo $e($nameSection) . ' \\' ?>
-              <?php endif ?>
-            <?php endforeach ?>
-          </h3>
-          <p class="exc-message">
-            <?php echo $e($v->message) ?>
-          </p>
-        </div>
-      </header>
+
       <div class="stack-container">
 
         <div class="frames-container cf <?php echo (!$v->hasFrames ? 'empty' : '') ?>">
@@ -336,6 +314,23 @@
         </div>
 
         <div class="details-container cf">
+
+          <header>
+            <div class="exception">
+              <h3 class="exc-title">
+                <?php foreach($v->name as $i => $nameSection): ?>
+                  <?php if($i == count($v->name) - 1): ?>
+                    <span class="exc-title-primary"><?php echo $e($nameSection) ?></span>
+                  <?php else: ?>
+                    <?php echo $e($nameSection) . ' \\' ?>
+                  <?php endif ?>
+                <?php endforeach ?>
+              </h3>
+              <p class="exc-message">
+                <?php echo $e($v->message) ?>
+              </p>
+            </div>
+          </header>
 
           <?php /* Display a code block for all frames in the stack.
                  * @todo: This should PROBABLY be done on-demand, lest
@@ -433,6 +428,7 @@
         var $activeLine  = $('.frames-container .active');
         var $activeFrame = $('.active[id^="frame-code-"]').show();
         var $container   = $('.details-container');
+        var headerHeight = $('header').css('height');
 
         $frameLines.click(function() {
           var $this  = $(this);
@@ -449,7 +445,7 @@
             $activeLine  = $this;
             $activeFrame = $codeFrame;
 
-            $container.animate({ scrollTop: 0 }, "fast");
+            $container.animate({ scrollTop: headerHeight }, "fast");
           }
         });
       });
