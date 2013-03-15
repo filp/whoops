@@ -87,6 +87,14 @@ User [@hdias](https://github.com/hdias) contributed a simple guide/example to he
 
 https://gist.github.com/hdias/5169713#file-start-php
 
+## Integrating with Laravel 4/Illuminate
+
+User [@schickling](https://github.com/schickling) contributed a service provider for Laravel 4. Just include this in your app/config/app.php in the "providers" array:
+
+```php
+'Damnit\Illuminate\DamnitServiceProvider'
+```
+
 ## Contributing
 
 If you want to help, great! Here's a couple of steps/guidelines:
