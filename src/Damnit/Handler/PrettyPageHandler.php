@@ -21,11 +21,6 @@ class PrettyPageHandler extends Handler
     private $extraTables = array();
 
     /**
-     * @var bool
-     */
-    private $showBranding = true;
-
-    /**
      * @return int|null
      */
     public function handle()
@@ -55,7 +50,6 @@ class PrettyPageHandler extends Handler
             'hasFrames'    => !!count($frames),
             'handler'      => $this,
             'handlers'     => $this->getRun()->getHandlers(),
-            'showBranding' => $this->showBranding,
 
             'tables'      => array(
                 'GET Data'              => $_GET,
