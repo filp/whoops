@@ -51,7 +51,7 @@ class PrettyPageHandler extends Handler
             'handler'     => $this,
             'handlers'    => $this->getRun()->getHandlers(),
 
-            'super'       => array(
+            'tables'      => array(
                 'GET Data'              => $_GET,
                 'POST Data'             => $_POST,
                 'Files'                 => $_FILES,
@@ -62,8 +62,8 @@ class PrettyPageHandler extends Handler
             )
         );
 
-        // Add extra entries to the "super" list of data tables:
-        $v->super = array_merge($v->super, $this->getDataTables());
+        // Add extra entries list of data tables:
+        $v->tables = array_merge($v->tables, $this->getDataTables());
 
         call_user_func(function() use($templateFile, $v) {
             // $e -> cleanup output
@@ -83,7 +83,7 @@ class PrettyPageHandler extends Handler
     }
 
     /**
-     * Adds an entry to the list of superglobals displayed in the template.
+     * Adds an entry to the list of tables displayed in the template.
      * The expected data is a simple associative array. Any nested arrays
      * will be flattened with print_r
      * @param string $label

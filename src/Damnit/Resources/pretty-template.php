@@ -377,20 +377,20 @@
             <?php endforeach ?>
           </div>
 
-          <?php /* List superglobal values, i.e: $_SERVER, $_GET, .... */ ?>
+          <?php /* List data-table values, i.e: $_SERVER, $_GET, .... */ ?>
           <div class="details">
-            <div class="data-table-container" id="superglobals">
-              <?php foreach($v->super as $label => $data): ?>
+            <div class="data-table-container" id="data-tables">
+              <?php foreach($v->tables as $label => $data): ?>
                 <?php if(!empty($data)): ?>
 
-                  <div class="superglobal" id="sg-<?php echo $e($slug($label)) ?>">
+                  <div class="data-table" id="sg-<?php echo $e($slug($label)) ?>">
                     <label><?php echo $e($label) ?></label>
 
                     <table class="data-table">
                       <thead>
                         <tr>
-                          <td class="superglobal-k">Key</td>
-                          <td class="superglobal-v">Value</td>
+                          <td class="data-table-k">Key</td>
+                          <td class="data-table-v">Value</td>
                         </tr>
                       </thead>
                     <?php foreach($data as $k => $value): ?>
