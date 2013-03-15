@@ -84,9 +84,4 @@ abstract class Handler implements HandlerInterface
     {
         return $this->exception;
     }
-
-    /**
-     * @return int|null
-     */
-    abstract public function handle();
 }
