@@ -41,7 +41,12 @@ class PrettyPageHandler extends Handler
         if(!($resources = $this->getResourcesPath())) {
             $resources = __DIR__ . '/../Resources';
         }
+
         $templateFile = "$resources/pretty-template.php";
+
+        // @todo: Make this more reliable,
+        // possibly by adding methods to append CSS & JS to the page
+        $cssFile = "$resources/pretty-page.css";
 
         // Prepare the $v global variable that will pass relevant
         // information to the template
@@ -56,6 +61,7 @@ class PrettyPageHandler extends Handler
             'hasFrames'    => !!count($frames),
             'handler'      => $this,
             'handlers'     => $this->getRun()->getHandlers(),
+            'pageStyle'    => file_get_contents($cssFile),
 
             'tables'      => array(
                 'GET Data'              => $_GET,
