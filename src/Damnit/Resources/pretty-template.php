@@ -49,6 +49,7 @@
       color: white;
       background: #272727;
       box-sizing: border-box;
+      border-left: 5px solid #CD3F3F;
     }
       .exc-title {
         margin: 0;
