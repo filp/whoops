@@ -27,6 +27,14 @@ $app['debug'] = true;
 
 if($app['debug']) {
     $app->register(new DamnitServiceProvider);
+
+    // Example: Extend the error page to disable the 'damnit' branding
+    // in the top-right corner, so those big-wigs at the office wont'
+    // throw a tantrum:
+    $app['damnit.error_page_handler'] = $app->extend('damnit.error_page_handler', function($handler) {
+        $handler->showBranding(true);
+        return $handler;
+    });
 }
 
 $app->get('/', function() use($app) {

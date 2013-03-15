@@ -21,6 +21,11 @@ class PrettyPageHandler extends Handler
     private $extraTables = array();
 
     /**
+     * @var bool
+     */
+    private $showBranding = true;
+
+    /**
      * @return int|null
      */
     public function handle()
@@ -44,12 +49,13 @@ class PrettyPageHandler extends Handler
         $frames    = $inspector->getFrames();
 
         $v = (object) array(
-            'name'        => explode('\\', $inspector->getExceptionName()),
-            'message'     => $inspector->getException()->getMessage(),
-            'frames'      => $frames,
-            'hasFrames'   => !!count($frames),
-            'handler'     => $this,
-            'handlers'    => $this->getRun()->getHandlers(),
+            'name'         => explode('\\', $inspector->getExceptionName()),
+            'message'      => $inspector->getException()->getMessage(),
+            'frames'       => $frames,
+            'hasFrames'    => !!count($frames),
+            'handler'      => $this,
+            'handlers'     => $this->getRun()->getHandlers(),
+            'showBranding' => $this->showBranding,
 
             'tables'      => array(
                 'GET Data'              => $_GET,
@@ -81,6 +87,15 @@ class PrettyPageHandler extends Handler
 
 
         return Handler::QUIT;
+    }
+
+    /**
+     * Should the `damnit` branding be visible in the top-right corner?
+     * @param bool $showBranding
+     */
+    public function showBranding($showBranding = true)
+    {
+        $this->showBranding = (bool) $showBranding;
     }
 
     /**
