@@ -221,6 +221,7 @@
       border-bottom: 1px dotted rgba(0, 0, 0, .2);
     }
       .data-table {
+        width: 100%;
         margin: 10px 0;
         font: 13px consolas, monospace;
       }
@@ -234,11 +235,10 @@
       }
 
       .data-table td:first-child {
-        width: 18%;
+        width: 20%;
         min-width: 130px;
         overflow: hidden;
         font-weight: bold;
-
         color: #463C54;
         padding-right: 5px;
 
@@ -246,9 +246,12 @@
 
       .data-table td:last-child {
         width: 80%;
-        white-space: pre-wrap;
-        word-wrap: break-word;
-        display: inline-block;
+        -ms-word-break: break-all;
+        word-break: break-all;
+        word-break: break-word;
+        -webkit-hyphens: auto;
+        -moz-hyphens: auto;
+        hyphens: auto;
       }
 
     .handler {
