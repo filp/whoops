@@ -5,7 +5,7 @@ php errors for cool kids
 
 -----
 
-![Damnit!](http://i.imgur.com/g2a7F34.png)
+![Damnit!](http://i.imgur.com/Jvnk6lf.png)
 
 **damnit** is an error handler base/framework for PHP. Out-of-the-box, it provides a pretty
 error interface that helps you debug your web projects, but at heart it's a simple yet
