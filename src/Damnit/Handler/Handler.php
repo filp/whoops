@@ -22,6 +22,7 @@ class Handler implements HandlerInterface
      * to message the handler walker.
      */
     const LAST_HANDLER = 0x10;
+    const QUIT         = 0x20;
 
     /**
      * @var Damnit\Run

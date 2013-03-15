@@ -20,7 +20,7 @@ class Run
     const SHUTDOWN_HANDLER  = 'handleShutdown';
 
     protected $isRegistered;
-    protected $exitWhenDone = true;
+    protected $allowQuit = true;
 
     /**
      * @var DarnIt\Handler\HandlerInterface[]
@@ -123,14 +123,12 @@ class Run
     }
 
     /**
-     * Should Damnit quit the script once all handlers have executed?
-     * Mosty useful for unit testing.
-     *
+     * Should Damnit allow Handlers to force the script to quit?
      * @param bool $exit
      */
-    public function exitWhenDone($exit = true)
+    public function allowQuit($exit = true)
     {
-        $this->exitWhenDone = (bool) $exit;
+        $this->allowQuit = (bool) $exit;
     }
 
     /**
@@ -155,15 +153,21 @@ class Run
             $handlerResponse = $handler->handle($exception);
 
             if($handlerResponse === Handler::LAST_HANDLER) {
+                // The Handler has handled the exception in some way,
+                // or signals that no further handlers should be queried,
+                // but the script execution will continue
                 break;
+            } elseif($handlerResponse === Handler::QUIT) {
+                // The Handler has handled the exception in some way,
+                // and script execution should terminate, unless specifically
+                // disallowed, in which case the behavior is the same as
+                // Handler::LAST_HANDLER
+                if($this->allowQuit) {
+                    exit;
+                } else {
+                    break;
+                }
             }
-	   }
-
-       // And we're done!
-       $this->unregister();
-
-        if($this->exitWhenDone) {
-            exit;
         }
     }
 

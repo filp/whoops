@@ -20,7 +20,7 @@ class RunTest extends TestCase
     protected function getRunInstance()
     {
         $run = new Run;
-        $run->exitWhenDone(false);
+        $run->allowQuit(false);
 
         return $run;
     }

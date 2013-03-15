@@ -41,7 +41,7 @@ class PrettyPageHandler extends Handler
         // Prepare the $v global variable that will pass relevant
         // information to the template
         $inspector = $this->getInspector();
-        $frames = $inspector->getFrames();
+        $frames    = $inspector->getFrames();
 
         $v = (object) array(
             'name'        => explode('\\', $inspector->getExceptionName()),
@@ -79,7 +79,8 @@ class PrettyPageHandler extends Handler
             require $templateFile;
         });
 
-        return Handler::LAST_HANDLER;
+
+        return Handler::QUIT;
     }
 
     /**
