@@ -20,24 +20,40 @@
       background-color: #D4D4D4;
       padding:0;
       margin: 0;
+      max-height: 100%;
     }
       a {
         text-decoration: none;
       }
-
+    .container{
+        height: 100%;
+        width: 100%;
+        position: fixed;
+        margin: 0;
+        padding: 0;
+    }
     .branding {
       position: absolute;
       top: 10px;
       right: 20px;
       color: #777777;
       font-size: 10px;
+        z-index: 100;
     }
       .branding a {
         color: #CD3F3F;
       }
-
+    * {
+        box-sizing: border-box;
+    }
     header {
-      padding: 30px 20px;
+      width: 100%;
+      height: 80px;
+      position: absolute;
+      z-index: 99;
+      top: 0;
+      left: 0;
+      padding: 10px 20px;
       color: white;
       background: #272727;
     }
@@ -51,8 +67,15 @@
           font-size: 32px;
           margin: 5px 0;
         }
-
+    .stack-container{
+        height: 100%;
+        padding-top:80px;
+        position: relative;
+    }
     .details-container {
+      height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
       float: right;
       width: 70%;
       background: #DADADA;
@@ -64,6 +87,8 @@
       }
 
     .frames-container {
+      height: 100%;
+      overflow: auto;
       float: left;
       width: 30%;
     }
@@ -210,18 +235,21 @@
       }
 
       .data-table td:first-child {
-        width: 15%;
+        width: 18%;
         min-width: 130px;
         overflow: hidden;
         font-weight: bold;
 
         color: #463C54;
         padding-right: 5px;
+
       }
 
       .data-table td:last-child {
         width: 80%;
         white-space: pre-wrap;
+        word-wrap: break-word;
+        display: inline-block;
       }
 
     .handler {
