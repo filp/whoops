@@ -108,7 +108,6 @@ If you don't want to go through all this, but still found something wrong or mis
 
 ### TODO/tasks (very short & rough list of current goals)
 - Improve code view
-- Improve UI in situations where there's a very long frame list
 - Delay `prettify` until needed, instead of doing it for every frame at once
 - Cleanup API, specially around Frame handling
 - Add extension hooks for `PrettyPageHandler`
