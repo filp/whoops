@@ -19,7 +19,8 @@ This library is currently in a **heavy development phase, and may catch on fire 
 - Stand-alone library with (currently) no required dependencies
 - Simple API for dealing with exceptions, trace frames & their data
 - Includes a pretty rad error page for your webapp projects
-- Includes a `DamnitServiceProvider` for painless integration with [Silex](http://silex.sensiolabs.org/)
+- Includes a `Silex\DamnitServiceProvider` for painless integration with [Silex](http://silex.sensiolabs.org/)
+- Includes an `Illuminate\DamnitServiceProvider` for equally painless integration with [Laravel 4](http://laravel.com/)
 - Easy to extend and integrate with existing libraries
 - Clean, well-structured & tested code-base (well, except `pretty-template.php`, for now...)
 
@@ -50,7 +51,7 @@ I promise it's really simple!
 
 ## Integrating with Silex
 
-**damnit** comes packaged with a Silex Service Provider: `Damnit\Silex\DamnitServiceProvider`. Using it
+**damnit** comes packaged with a Silex Service Provider: `Damnit\Provider\Silex\DamnitServiceProvider`. Using it
 in your existing Silex project is easy:
 
 ```php
@@ -62,7 +63,7 @@ use Silex\Application;
 // ... some awesome code here ...
 
 if($app['debug']) {
-    $app->register(new Damnit\Silex\DamnitServiceProvider);
+    $app->register(new Damnit\Provider\Silex\DamnitServiceProvider);
 }
 
 // ...
@@ -92,8 +93,10 @@ https://gist.github.com/hdias/5169713#file-start-php
 User [@schickling](https://github.com/schickling) contributed a service provider for Laravel 4. Just include this in your app/config/app.php in the "providers" array:
 
 ```php
-'Damnit\Illuminate\DamnitServiceProvider'
+'Damnit\Provider\Illuminate\DamnitServiceProvider'
 ```
+
+Alternatively, [@dberry37388](https://github.com/dberry37388)'s [laravel4-support](https://github.com/dberry37388/laravel4-support) package also integrates **damnit** into your fancy-schmancy Laravel stack.
 
 ## Contributing
 

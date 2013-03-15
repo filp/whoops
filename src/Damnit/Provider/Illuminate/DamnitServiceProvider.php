@@ -1,4 +1,4 @@
-<?php namespace Damnit\Illuminate;
+<?php namespace Damnit\Provider\Illuminate;
 
 use Illuminate\Support\ServiceProvider;
 

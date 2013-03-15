@@ -19,7 +19,7 @@
  */
 require __DIR__ . '/../vendor/autoload.php';
 
-use Damnit\Silex\DamnitServiceProvider;
+use Damnit\Provider\Silex\DamnitServiceProvider;
 use Silex\Application;
 
 $app = new Application;

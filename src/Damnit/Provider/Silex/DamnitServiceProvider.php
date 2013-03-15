@@ -4,7 +4,7 @@
  * @author Filipe Dobreira <http://github.com/filp>
  */
 
-namespace Damnit\Silex;
+namespace Damnit\Provider\Silex;
 use Damnit\Run;
 use Damnit\Handler\PrettyPageHandler;
 use Silex\ServiceProviderInterface;
