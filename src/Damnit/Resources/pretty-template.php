@@ -74,8 +74,7 @@
     }
     .details-container {
       height: 100%;
-      overflow-y: auto;
-      overflow-x: hidden;
+      overflow: auto;
       float: right;
       width: 70%;
       background: #DADADA;
