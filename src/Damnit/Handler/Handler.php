@@ -11,11 +11,9 @@ use Damnit\Run;
 use Exception;
 
 /**
- * Base handler, can be used as a simple text
- * output handler (but really, you probably shouldn't),
- * and extended to create custom handlers.
+ * Abstract implementation of a Handler.
  */
-class Handler implements HandlerInterface
+abstract class Handler implements HandlerInterface
 {
     /**
      * Return constants that can be returned from Handler::handle
@@ -90,19 +88,5 @@ class Handler implements HandlerInterface
     /**
      * @return int|null
      */
-    public function handle()
-    {
-        $exception = $this->getException();
-
-        $name    = get_class($exception);
-        $message = $exception->getMessage();
-        $file    = $exception->getFile();
-        $line    = $exception->getLine();
-        $trace   = $exception->getTraceAsString();
-
-        print "Uh oh!\n";
-        print "{$name}: $message\n";
-        print "In {$file}:$line\n";
-        print "---\n$trace";
-    }
+    abstract public function handle();
 }
