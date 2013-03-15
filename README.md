@@ -81,6 +81,12 @@ $app['damnit'] = $app->extend('damnit', function($damnit) {
 });
 ```
 
+## Integrating with Laravel 3
+
+User @hdias contributed a simple guide/example to help you integrate **damnit** with Laravel 3's IoC container, available at:
+
+https://gist.github.com/hdias/5169713#file-start-php
+
 ## Contributing
 
 If you want to help, great! Here's a couple of steps/guidelines:
