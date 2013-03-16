@@ -72,7 +72,7 @@ abstract class Handler implements HandlerInterface
     }
 
     /**
-     * @param Exception
+     * @param Exception $exception
      */
     public function setException(Exception $exception)
     {
