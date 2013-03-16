@@ -23,7 +23,7 @@ class Run
     protected $allowQuit = true;
 
     /**
-     * @var DarnIt\Handler\HandlerInterface[]
+     * @var Handler[]
      */
     protected $handlerStack = array();
 
@@ -163,6 +163,7 @@ class Run
                 // disallowed, in which case the behavior is the same as
                 // Handler::LAST_HANDLER
                 if($this->allowQuit) {
+                    header( 'HTTP/1.1 500 Internal Server Error' );
                     exit;
                 } else {
                     break;
