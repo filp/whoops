@@ -98,6 +98,14 @@ User [@schickling](https://github.com/schickling) contributed a service provider
 
 Alternatively, [@dberry37388](https://github.com/dberry37388)'s [laravel4-support](https://github.com/dberry37388/laravel4-support) package also integrates **damnit** into your fancy-schmancy Laravel stack.
 
+## Available Handlers
+
+**damnit** currently ships with the following built-in handlers, available in the `Damnit\Handler` namespace:
+
+- [`PrettyPageHandler`](https://github.com/filp/damnit/blob/master/src/Damnit/Handler/PrettyPageHandler.php) - Shows a pretty error page when something goes pants-up
+- [`CallbackHandler`](https://github.com/filp/damnit/blob/master/src/Damnit/Handler/CallbackHandler.php) - Wraps a closure or other callable as a handler. You do not need to use this handler explicitly, **damnit** will automatically wrap any closure or callable you pass to `Damnit\Run::pushHandler`
+- [`JsonResponseHandler`](https://github.com/filp/damnit/blob/master/src/Damnit/Handler/JsonResponseHandler.php) - Captures exceptions and returns information on them as a JSON string. Can be used to, for example, play nice with AJAX requests.
+
 ## Contributing
 
 If you want to help, great! Here's a couple of steps/guidelines:
