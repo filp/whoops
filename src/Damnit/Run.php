@@ -124,10 +124,15 @@ class Run
 
     /**
      * Should Damnit allow Handlers to force the script to quit?
-     * @param bool $exit
+     * @param bool|num $exit
+     * @return bool|null
      */
-    public function allowQuit($exit = true)
+    public function allowQuit($exit = null)
     {
+        if(func_num_args() == 0) {
+            return $this->allowQuit;
+        }
+
         $this->allowQuit = (bool) $exit;
     }
 
@@ -162,7 +167,7 @@ class Run
                 // and script execution should terminate, unless specifically
                 // disallowed, in which case the behavior is the same as
                 // Handler::LAST_HANDLER
-                if($this->allowQuit) {
+                if($this->allowQuit()) {
                     exit;
                 } else {
                     break;
