@@ -17,17 +17,17 @@ interface HandlerInterface
     public function handle();
 
     /**
-     * @param Damnit\Run
+     * @param Damnit\Run $run
      */
     public function setRun(Run $run);
 
     /**
-     * @param Exception
+     * @param Exception $exception
      */
     public function setException(Exception $exception);
 
     /**
-     * @param Damnit\Exception\Inspector
+     * @param Damnit\Exception\Inspector $run
      */
     public function setInspector(Inspector $run);
 }

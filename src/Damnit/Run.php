@@ -186,7 +186,6 @@ class Run
      * @param string $message
      * @param string $file
      * @param int    $line
-     * @param array  $context
      */
     public function handleError($level, $message, $file = null, $line = null)
     {

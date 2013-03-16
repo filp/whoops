@@ -94,7 +94,7 @@ class Frame
      * An interesting use for this would be, for example, code analysis
      * & annotations.
      *
-     * @param string $message
+     * @param string $comment
      * @param string $context Optional string identifying the origin of the comment
      */
     public function addComment($comment, $context = 'global')
