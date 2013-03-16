@@ -46,6 +46,14 @@ class Inspector
     }
 
     /**
+     * @return string
+     */
+    public function getExceptionMessage()
+    {
+        return $this->exception->getMessage();
+    }
+
+    /**
      * Returns an iterator for the inspected exception's
      * frames.
      * @return DamnIt\Exception\FrameIterator

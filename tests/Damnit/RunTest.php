@@ -15,17 +15,6 @@ use Mockery as m;
 class RunTest extends TestCase
 {
     /**
-     * @return Damnit\Run
-     */
-    protected function getRunInstance()
-    {
-        $run = new Run;
-        $run->allowQuit(false);
-
-        return $run;
-    }
-
-    /**
      * @return Damnit\Handler\Handler
      */
     protected function getHandler()
