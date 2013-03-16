@@ -19,8 +19,10 @@ abstract class Handler implements HandlerInterface
      * Return constants that can be returned from Handler::handle
      * to message the handler walker.
      */
-    const LAST_HANDLER = 0x10;
-    const QUIT         = 0x20;
+    const DONE         = 0x10; // returning this is optional, only exists for
+                               // semantic purposes
+    const LAST_HANDLER = 0x20;
+    const QUIT         = 0x30;
 
     /**
      * @var Damnit\Run

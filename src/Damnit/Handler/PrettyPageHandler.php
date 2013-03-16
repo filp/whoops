@@ -33,7 +33,7 @@ class PrettyPageHandler extends Handler
         // Check conditions for outputting HTML:
         // @todo: make this more robust
         if(php_sapi_name() === 'cli') {
-            return;
+            return Handler::DONE;
         }
 
         // Get the 'pretty-template.php' template file
