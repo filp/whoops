@@ -88,6 +88,8 @@ User [@hdias](https://github.com/hdias) contributed a simple guide/example to he
 
 https://gist.github.com/hdias/5169713#file-start-php
 
+(**note:** This example still references **whoops** by its old name (**damnit**), be sure to update it accordingly)
+
 ## Integrating with Laravel 4/Illuminate
 
 User [@schickling](https://github.com/schickling) contributed a service provider for Laravel 4. Just include this in your app/config/app.php in the "providers" array:
