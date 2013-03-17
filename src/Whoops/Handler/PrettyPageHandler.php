@@ -96,15 +96,6 @@ class PrettyPageHandler extends Handler
     }
 
     /**
-     * Should the `whoops` branding be visible in the top-right corner?
-     * @param bool $showBranding
-     */
-    public function showBranding($showBranding = true)
-    {
-        $this->showBranding = (bool) $showBranding;
-    }
-
-    /**
      * Adds an entry to the list of tables displayed in the template.
      * The expected data is a simple associative array. Any nested arrays
      * will be flattened with print_r
