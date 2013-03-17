@@ -23,7 +23,7 @@ class PrettyPageHandler extends Handler
     /**
      * @var string
      */
-    private $pageTitle = 'Damn it! There was an error.';
+    private $pageTitle = 'Whoops! There was an error.';
 
     /**
      * @return int|null
