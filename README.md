@@ -1,3 +1,12 @@
+# HEY!
+
+**damnit**'s will be changed to **whoops** today, to resolve concerns about possible issues with the library's name.
+If you're using this library, and find things stop working all of a sudden, please update to the new name!
+
+- The repository will be renamed to: `filp/whoops`
+- The composer library will be renamed to `filp/whoops`
+- The top namespace for the library will be renamed to `Whoops`
+
 # damnit
 php errors for cool kids
 
