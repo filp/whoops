@@ -32,10 +32,10 @@ class PrettyPageHandler extends Handler
     {
         // Check conditions for outputting HTML:
         // @todo: make this more robust
-        if(php_sapi_name() === 'cli') {
+        if(php_sapi_name() === 'cli' && !isset($_ENV['whoops-test'])) {
             return Handler::DONE;
         }
-
+        
         // Get the 'pretty-template.php' template file
         // @todo: this can be made more dynamic &&|| cleaned-up
         if(!($resources = $this->getResourcesPath())) {

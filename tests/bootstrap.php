@@ -5,5 +5,6 @@
  *
  * Bootstraper for PHPUnit tests.
  */
+$_ENV['whoops-test'] = true;
 $loader = require_once __DIR__ . '/../vendor/autoload.php';
 $loader->add('Whoops\\', __DIR__);
