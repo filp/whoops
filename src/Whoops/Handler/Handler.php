@@ -1,13 +1,13 @@
 <?php
 /**
- * Damnit - php errors for cool kids
+ * Whoops - php errors for cool kids
  * @author Filipe Dobreira <http://github.com/filp>
  */
 
-namespace Damnit\Handler;
-use Damnit\Handler\HandlerInterface;
-use Damnit\Exception\Inspector;
-use Damnit\Run;
+namespace Whoops\Handler;
+use Whoops\Handler\HandlerInterface;
+use Whoops\Exception\Inspector;
+use Whoops\Run;
 use Exception;
 
 /**
@@ -25,12 +25,12 @@ abstract class Handler implements HandlerInterface
     const QUIT         = 0x30;
 
     /**
-     * @var Damnit\Run
+     * @var Whoops\Run
      */
     private $run;
 
     /**
-     * @var Damnit\Exception\Inspector $inspector
+     * @var Whoops\Exception\Inspector $inspector
      */
     private $inspector;
 
@@ -40,7 +40,7 @@ abstract class Handler implements HandlerInterface
     private $exception;
 
     /**
-     * @param Damnit\Run $run
+     * @param Whoops\Run $run
      */
     public function setRun(Run $run)
     {
@@ -48,7 +48,7 @@ abstract class Handler implements HandlerInterface
     }
 
     /**
-     * @return Damnit\Run
+     * @return Whoops\Run
      */
     protected function getRun()
     {
@@ -56,7 +56,7 @@ abstract class Handler implements HandlerInterface
     }
 
     /**
-     * @param Damnit\Exception\Inspector $inspector
+     * @param Whoops\Exception\Inspector $inspector
      */
     public function setInspector(Inspector $inspector)
     {
@@ -64,7 +64,7 @@ abstract class Handler implements HandlerInterface
     }
 
     /**
-     * @return Damnit\Run
+     * @return Whoops\Run
      */
     protected function getInspector()
     {

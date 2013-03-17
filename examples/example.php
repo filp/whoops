@@ -1,6 +1,6 @@
 <?php
 /**
- * Damnit - php errors for cool kids
+ * Whoops - php errors for cool kids
  * @author Filipe Dobreira <http://github.com/filp>
  *
  * Run this example file with the PHP 5.4 web server with:
@@ -13,9 +13,9 @@
  * Or just run it through apache/nginx/what-have-yous as usual.
  */
 
-namespace Damnit\Example;
-use Damnit\Run;
-use Damnit\Handler\PrettyPageHandler;
+namespace Whoops\Example;
+use Whoops\Run;
+use Whoops\Handler\PrettyPageHandler;
 use Exception as BaseException;
 
 require __DIR__ . '/../vendor/autoload.php';

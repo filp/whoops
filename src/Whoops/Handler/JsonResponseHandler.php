@@ -1,11 +1,11 @@
 <?php
 /**
- * Damnit - php errors for cool kids
+ * Whoops - php errors for cool kids
  * @author Filipe Dobreira <http://github.com/filp>
  */
 
-namespace Damnit\Handler;
-use Damnit\Handler\Handler;
+namespace Whoops\Handler;
+use Whoops\Handler\Handler;
 
 /**
  * Catches an exception and converts it to a JSON 

@@ -1,10 +1,10 @@
 {
-    "name": "filp/damnit",
+    "name": "filp/whoops",
     "license": "MIT",
     "description": "php error handling for cool kids",
     "version": "0.8.4",
-    "keywords": ["library", "error", "handling", "exception", "silex-provider", "damnit"],
-    "homepage": "https://github.com/filp/damnit",
+    "keywords": ["library", "error", "handling", "exception", "silex-provider", "whoops"],
+    "homepage": "https://github.com/filp/whoops",
     "authors": [
         {
             "name": "Filipe Dobreira",
@@ -21,7 +21,7 @@
     },
     "autoload": {
         "psr-0": {
-            "Damnit": "src/"
+            "Whoops": "src/"
         }
     }
 }

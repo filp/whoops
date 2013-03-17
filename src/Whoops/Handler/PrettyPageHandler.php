@@ -1,11 +1,11 @@
 <?php
 /**
- * Damnit - php errors for cool kids
+ * Whoops - php errors for cool kids
  * @author Filipe Dobreira <http://github.com/filp>
  */
 
-namespace Damnit\Handler;
-use Damnit\Handler\Handler;
+namespace Whoops\Handler;
+use Whoops\Handler\Handler;
 use InvalidArgumentException;
 
 class PrettyPageHandler extends Handler
@@ -96,7 +96,7 @@ class PrettyPageHandler extends Handler
     }
 
     /**
-     * Should the `damnit` branding be visible in the top-right corner?
+     * Should the `whoops` branding be visible in the top-right corner?
      * @param bool $showBranding
      */
     public function showBranding($showBranding = true)

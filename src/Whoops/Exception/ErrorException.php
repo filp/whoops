@@ -1,10 +1,10 @@
 <?php
 /**
- * Damnit - php errors for cool kids
+ * Whoops - php errors for cool kids
  * @author Filipe Dobreira <http://github.com/filp>
  */
 
-namespace Damnit\Exception;
+namespace Whoops\Exception;
 use ErrorException as BaseErrorException;
 
 /**

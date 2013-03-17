@@ -1,17 +1,17 @@
 <?php
 /**
- * Damnit - php errors for cool kids
+ * Whoops - php errors for cool kids
  * @author Filipe Dobreira <http://github.com/filp>
  */
 
-namespace Damnit;
-use Damnit\Run;
+namespace Whoops;
+use Whoops\Run;
 use Mockery as m;
 
 class TestCase extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @return Damnit\Run
+     * @return Whoops\Run
      */
     protected function getRunInstance()
     {

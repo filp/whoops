@@ -1,6 +1,6 @@
 <?php
 /**
- * Damnit - php errors for cool kids
+ * Whoops - php errors for cool kids
  * @author Filipe Dobreira <http://github.com/filp>
  *
  * NOTE: Requires silex/silex, can be installed with composer
@@ -19,14 +19,14 @@
  */
 require __DIR__ . '/../vendor/autoload.php';
 
-use Damnit\Provider\Silex\DamnitServiceProvider;
+use Whoops\Provider\Silex\WhoopsServiceProvider;
 use Silex\Application;
 
 $app = new Application;
 $app['debug'] = true;
 
 if($app['debug']) {
-    $app->register(new DamnitServiceProvider);
+    $app->register(new WhoopsServiceProvider);
 }
 
 $app->get('/', function() use($app) {

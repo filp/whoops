@@ -1,18 +1,18 @@
 <?php
 /**
- * Damnit - php errors for cool kids
+ * Whoops - php errors for cool kids
  * @author Filipe Dobreira <http://github.com/filp>
  */
 
-namespace Damnit\Handler;
-use Damnit\TestCase;
-use Damnit\Handler\JsonResponseHandler;
+namespace Whoops\Handler;
+use Whoops\TestCase;
+use Whoops\Handler\JsonResponseHandler;
 use RuntimeException;
 
 class JsonResponseHandlerTest extends TestCase
 {
     /**
-     * @return Damnit\Handler\JsonResponseHandler
+     * @return Whoops\Handler\JsonResponseHandler
      */
     private function getHandler()
     {
@@ -52,8 +52,8 @@ class JsonResponseHandlerTest extends TestCase
     }
 
     /**
-     * @covers Damnit\Handler\JsonResponseHandler::addTraceToOutput
-     * @covers Damnit\Handler\JsonResponseHandler::handle
+     * @covers Whoops\Handler\JsonResponseHandler::addTraceToOutput
+     * @covers Whoops\Handler\JsonResponseHandler::handle
      */
     public function testReturnsWithoutFrames()
     {
@@ -75,8 +75,8 @@ class JsonResponseHandlerTest extends TestCase
     }
 
     /**
-     * @covers Damnit\Handler\JsonResponseHandler::addTraceToOutput
-     * @covers Damnit\Handler\JsonResponseHandler::handle
+     * @covers Whoops\Handler\JsonResponseHandler::addTraceToOutput
+     * @covers Whoops\Handler\JsonResponseHandler::handle
      */
     public function testReturnsWithFrames()
     {

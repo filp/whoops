@@ -1,12 +1,12 @@
 <?php
 /**
- * Damnit - php errors for cool kids
+ * Whoops - php errors for cool kids
  * @author Filipe Dobreira <http://github.com/filp>
  */
 
-namespace Damnit\Exception;
-use Damnit\Exception\Inspector;
-use Damnit\TestCase;
+namespace Whoops\Exception;
+use Whoops\Exception\Inspector;
+use Whoops\TestCase;
 use RuntimeException;
 use Exception;
 
@@ -14,7 +14,7 @@ class InspectorTest extends TestCase
 {
     /**
      * @param  Exception $exception|null
-     * @return Damnit\Exception\Inspector
+     * @return Whoops\Exception\Inspector
      */
     protected function getInspectorInstance(Exception $exception = null)
     {
@@ -22,7 +22,7 @@ class InspectorTest extends TestCase
     }
 
     /**
-     * @covers Damnit\Exception\Inspector::getExceptionName
+     * @covers Whoops\Exception\Inspector::getExceptionName
      */
     public function testReturnsCorrectExceptionName()
     {
@@ -33,8 +33,8 @@ class InspectorTest extends TestCase
     }
 
     /**
-     * @covers Damnit\Exception\Inspector::__construct
-     * @covers Damnit\Exception\Inspector::getException
+     * @covers Whoops\Exception\Inspector::__construct
+     * @covers Whoops\Exception\Inspector::getException
      */
     public function testExceptionIsStoredAndReturned()
     {
@@ -45,13 +45,13 @@ class InspectorTest extends TestCase
     }
 
     /**
-     * @covers Damnit\Exception\Inspector::getFrames
+     * @covers Whoops\Exception\Inspector::getFrames
      */
     public function testGetFramesReturnsIterator()
     {
         $exception = $this->getException();
         $inspector = $this->getInspectorInstance($exception);
 
-        $this->assertInstanceOf('Damnit\\Exception\\FrameIterator', $inspector->getFrames());
+        $this->assertInstanceOf('Whoops\\Exception\\FrameIterator', $inspector->getFrames());
     }
 }

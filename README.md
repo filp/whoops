@@ -1,22 +1,13 @@
-# HEY!
-
-**damnit**'s name will be changed to **whoops** today, to resolve concerns about possible issues with the library's name.
-If you're using this library, and find things stop working all of a sudden, please update to the new name!
-
-- The repository will be renamed to: `filp/whoops`
-- The composer library will be renamed to `filp/whoops`
-- The top namespace for the library will be renamed to `Whoops`
-
-# damnit
+# whoops
 php errors for cool kids
 
-[![Build Status](https://travis-ci.org/filp/damnit.png?branch=master)](https://travis-ci.org/filp/damnit)
+[![Build Status](https://travis-ci.org/filp/whoops.png?branch=master)](https://travis-ci.org/filp/whoops)
 
 -----
 
-![Damnit!](http://i.imgur.com/Jvnk6lf.png)
+![Whoops!](http://i.imgur.com/Jvnk6lf.png)
 
-**damnit** is an error handler base/framework for PHP. Out-of-the-box, it provides a pretty
+**whoops** is an error handler base/framework for PHP. Out-of-the-box, it provides a pretty
 error interface that helps you debug your web projects, but at heart it's a simple yet
 powerful stacked error handling system.
 
@@ -28,8 +19,8 @@ This library is currently in a **heavy development phase, and may catch on fire 
 - Stand-alone library with (currently) no required dependencies
 - Simple API for dealing with exceptions, trace frames & their data
 - Includes a pretty rad error page for your webapp projects
-- Includes a `Silex\DamnitServiceProvider` for painless integration with [Silex](http://silex.sensiolabs.org/)
-- Includes an `Illuminate\DamnitServiceProvider` for equally painless integration with [Laravel 4](http://laravel.com/)
+- Includes a `Silex\WhoopsServiceProvider` for painless integration with [Silex](http://silex.sensiolabs.org/)
+- Includes an `Illuminate\WhoopsServiceProvider` for equally painless integration with [Laravel 4](http://laravel.com/)
 - Easy to extend and integrate with existing libraries
 - Clean, well-structured & tested code-base (well, except `pretty-template.php`, for now...)
 
@@ -38,12 +29,12 @@ This library is currently in a **heavy development phase, and may catch on fire 
 - Install [Composer](http://getcomposer.org) and place the executable somewhere in your `$PATH` (for the rest of this README,
 I'll reference it as just `composer`)
 
-- Add `filp/damnit` to your project's `composer.json:
+- Add `filp/whoops` to your project's `composer.json:
 
 ```json
 {
     "require": {
-        "filp/damnit": "dev-master"
+        "filp/whoops": "dev-master"
     }
 }
 ```
@@ -60,7 +51,7 @@ I promise it's really simple!
 
 ## Integrating with Silex
 
-**damnit** comes packaged with a Silex Service Provider: `Damnit\Provider\Silex\DamnitServiceProvider`. Using it
+**whoops** comes packaged with a Silex Service Provider: `Whoops\Provider\Silex\WhoopsServiceProvider`. Using it
 in your existing Silex project is easy:
 
 ```php
@@ -72,7 +63,7 @@ use Silex\Application;
 // ... some awesome code here ...
 
 if($app['debug']) {
-    $app->register(new Damnit\Provider\Silex\DamnitServiceProvider);
+    $app->register(new Whoops\Provider\Silex\WhoopsServiceProvider);
 }
 
 // ...
@@ -81,19 +72,19 @@ $app->run();
 ```
 
 And that's about it. By default, you'll get the pretty error pages if something goes awry in your development
-environment, but you also have full access to the **damnit** library, obviously. For example, adding a new handler
-into your app is as simple as extending `damnit`:
+environment, but you also have full access to the **whoops** library, obviously. For example, adding a new handler
+into your app is as simple as extending `whoops`:
 
 ```php
-$app['damnit'] = $app->extend('damnit', function($damnit) {
-    $damnit->pushHandler(new DeleteWholeProjectHandler);
-    return $damnit;
+$app['whoops'] = $app->extend('whoops', function($whoops) {
+    $whoops->pushHandler(new DeleteWholeProjectHandler);
+    return $whoops;
 });
 ```
 
 ## Integrating with Laravel 3
 
-User [@hdias](https://github.com/hdias) contributed a simple guide/example to help you integrate **damnit** with Laravel 3's IoC container, available at:
+User [@hdias](https://github.com/hdias) contributed a simple guide/example to help you integrate **whoops** with Laravel 3's IoC container, available at:
 
 https://gist.github.com/hdias/5169713#file-start-php
 
@@ -102,18 +93,18 @@ https://gist.github.com/hdias/5169713#file-start-php
 User [@schickling](https://github.com/schickling) contributed a service provider for Laravel 4. Just include this in your app/config/app.php in the "providers" array:
 
 ```php
-'Damnit\Provider\Illuminate\DamnitServiceProvider'
+'Whoops\Provider\Illuminate\WhoopsServiceProvider'
 ```
 
-Alternatively, [@dberry37388](https://github.com/dberry37388)'s [laravel4-support](https://github.com/dberry37388/laravel4-support) package also integrates **damnit** into your fancy-schmancy Laravel stack.
+Alternatively, [@dberry37388](https://github.com/dberry37388)'s [laravel4-support](https://github.com/dberry37388/laravel4-support) package also integrates **whoops** into your fancy-schmancy Laravel stack.
 
 ## Available Handlers
 
-**damnit** currently ships with the following built-in handlers, available in the `Damnit\Handler` namespace:
+**whoops** currently ships with the following built-in handlers, available in the `Whoops\Handler` namespace:
 
-- [`PrettyPageHandler`](https://github.com/filp/damnit/blob/master/src/Damnit/Handler/PrettyPageHandler.php) - Shows a pretty error page when something goes pants-up
-- [`CallbackHandler`](https://github.com/filp/damnit/blob/master/src/Damnit/Handler/CallbackHandler.php) - Wraps a closure or other callable as a handler. You do not need to use this handler explicitly, **damnit** will automatically wrap any closure or callable you pass to `Damnit\Run::pushHandler`
-- [`JsonResponseHandler`](https://github.com/filp/damnit/blob/master/src/Damnit/Handler/JsonResponseHandler.php) - Captures exceptions and returns information on them as a JSON string. Can be used to, for example, play nice with AJAX requests.
+- [`PrettyPageHandler`](https://github.com/filp/whoops/blob/master/src/Whoops/Handler/PrettyPageHandler.php) - Shows a pretty error page when something goes pants-up
+- [`CallbackHandler`](https://github.com/filp/whoops/blob/master/src/Whoops/Handler/CallbackHandler.php) - Wraps a closure or other callable as a handler. You do not need to use this handler explicitly, **whoops** will automatically wrap any closure or callable you pass to `Whoops\Run::pushHandler`
+- [`JsonResponseHandler`](https://github.com/filp/whoops/blob/master/src/Whoops/Handler/JsonResponseHandler.php) - Captures exceptions and returns information on them as a JSON string. Can be used to, for example, play nice with AJAX requests.
 
 ## Contributing
 
@@ -122,8 +113,8 @@ If you want to help, great! Here's a couple of steps/guidelines:
 - Fork/clone this repo, and update dev dependencies using Composer
 
 ```bash
-$ git clone git@github.com:filp/damnit.git
-$ cd damnit
+$ git clone git@github.com:filp/whoops.git
+$ cd whoops
 $ composer install --dev
 ```
 

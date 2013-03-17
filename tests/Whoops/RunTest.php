@@ -1,13 +1,13 @@
 <?php
 /**
- * Damnit - php errors for cool kids
+ * Whoops - php errors for cool kids
  * @author Filipe Dobreira <http://github.com/filp>
  */
 
-namespace Damnit;
-use Damnit\TestCase;
-use Damnit\Run;
-use Damnit\Handler\Handler;
+namespace Whoops;
+use Whoops\TestCase;
+use Whoops\Run;
+use Whoops\Handler\Handler;
 use RuntimeException;
 use ArrayObject;
 use Mockery as m;
@@ -15,11 +15,11 @@ use Mockery as m;
 class RunTest extends TestCase
 {
     /**
-     * @return Damnit\Handler\Handler
+     * @return Whoops\Handler\Handler
      */
     protected function getHandler()
     {
-        return m::mock('Damnit\\Handler\\Handler')
+        return m::mock('Whoops\\Handler\\Handler')
             ->shouldReceive('setRun')
                 ->andReturn(null)
             ->mock()
@@ -35,7 +35,7 @@ class RunTest extends TestCase
     }
 
     /**
-     * @covers Damnit\Run::clearHandlers
+     * @covers Whoops\Run::clearHandlers
      */
     public function testClearHandlers()
     {
@@ -48,7 +48,7 @@ class RunTest extends TestCase
     }
 
     /**
-     * @covers Damnit\Run::pushHandler
+     * @covers Whoops\Run::pushHandler
      */
     public function testPushHandler()
     {
@@ -69,8 +69,8 @@ class RunTest extends TestCase
     }
 
     /**
-     * @covers Damnit\Run::popHandler
-     * @covers Damnit\Run::getHandlers
+     * @covers Whoops\Run::popHandler
+     * @covers Whoops\Run::getHandlers
      */
     public function testPopHandler()
     {
@@ -98,7 +98,7 @@ class RunTest extends TestCase
     }
 
     /**
-     * @covers Damnit\Run::register
+     * @covers Whoops\Run::register
      */
     public function testRegisterHandler()
     {
@@ -116,7 +116,7 @@ class RunTest extends TestCase
     }
 
     /**
-     * @covers Damnit\Run::unregister
+     * @covers Whoops\Run::unregister
      * @expectedException Exception
      */
     public function testUnregisterHandler()
@@ -132,8 +132,8 @@ class RunTest extends TestCase
     }
 
     /**
-     * @covers Damnit\Run::pushHandler
-     * @covers Damnit\Run::getHandlers
+     * @covers Whoops\Run::pushHandler
+     * @covers Whoops\Run::getHandlers
      */
     public function testHandlerHoldsOrder()
     {
@@ -160,7 +160,7 @@ class RunTest extends TestCase
     /**
      * @todo possibly split this up a bit and move
      *       some of this test to Handler unit tests?
-     * @covers Damnit\Run::handleException
+     * @covers Whoops\Run::handleException
      */
     public function testHandlersGonnaHandle()
     {
@@ -191,7 +191,7 @@ class RunTest extends TestCase
     }
 
     /**
-     * @covers Damnit\Run::handleException
+     * @covers Whoops\Run::handleException
      */
     public function testLastHandler()
     {

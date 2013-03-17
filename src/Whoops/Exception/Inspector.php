@@ -1,12 +1,12 @@
 <?php
 /**
- * Damnit - php errors for cool kids
+ * Whoops - php errors for cool kids
  * @author Filipe Dobreira <http://github.com/filp>
  */
 
-namespace Damnit\Exception;
-use Damnit\Exception\FrameIterator;
-use Damnit\Exception\ErrorException;
+namespace Whoops\Exception;
+use Whoops\Exception\FrameIterator;
+use Whoops\Exception\ErrorException;
 use Exception;
 
 class Inspector
@@ -17,7 +17,7 @@ class Inspector
     private $exception;
 
     /**
-     * @var Damnit\Exception\FrameIterator
+     * @var Whoops\Exception\FrameIterator
      */
     private $framesIterator;
 
@@ -63,7 +63,7 @@ class Inspector
         if($this->framesIterator === null) {
             $frames     = $this->exception->getTrace();
             
-            // If we're handling an ErrorException thrown by Damnit,
+            // If we're handling an ErrorException thrown by Whoops,
             // get rid of the last, which matches the handleError method,
             // and do not add the current exception to trace
             if($this->exception instanceof ErrorException) {
