@@ -1,6 +1,6 @@
 # HEY!
 
-**damnit**'s will be changed to **whoops** today, to resolve concerns about possible issues with the library's name.
+**damnit**'s name will be changed to **whoops** today, to resolve concerns about possible issues with the library's name.
 If you're using this library, and find things stop working all of a sudden, please update to the new name!
 
 - The repository will be renamed to: `filp/whoops`
