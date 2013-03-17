@@ -127,7 +127,7 @@ class PrettyPageHandler extends Handler
     {
         if($label !== null) {
             return isset($this->extraTables[$label]) ?
-                   $this->extraTables[$labe] : array();
+                   $this->extraTables[$label] : array();
         }
 
         return $this->extraTables;

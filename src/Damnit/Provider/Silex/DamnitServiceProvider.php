@@ -44,7 +44,6 @@ class DamnitServiceProvider implements ServiceProviderInterface
             $app['damnit.error_page_handler']->addDataTable('Silex Application (Request)', array(
                 'URI'         => $request->getUri(),
                 'Request URI' => $request->getRequestUri(),
-                'Base URL'    => $request->getBaseUrl(),
                 'Path Info'   => $request->getPathInfo(),
                 'Query String'=> $request->getQueryString() ?: '<none>',
                 'HTTP Method' => $request->getMethod(),
