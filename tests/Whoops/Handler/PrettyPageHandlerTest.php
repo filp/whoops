@@ -39,7 +39,6 @@ class PrettyPageHandlerTest extends TestCase
         $handler = $this->getHandler();
 
         $run->pushHandler($handler);
-        $run->register();
 
         ob_start();
         $run->handleException($this->getException());
