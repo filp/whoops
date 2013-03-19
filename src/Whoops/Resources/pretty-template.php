@@ -157,6 +157,22 @@
         var $container   = $('.details-container');
         var headerHeight = $('header').css('height');
 
+
+        // Mark current line with class `current`
+        $('.frame').each( function(){
+
+			$activeSubLine = $(this).find('.frame-line');
+			if( $activeSubLine.length==1 )
+			{
+				var $lis  = $activeFrame.find('.linenums li'),
+				theLine   = parseInt( $activeSubLine.text(), 10 ),
+				firstLine = $( $lis[0] ).val();
+
+				$( $lis[ theLine - firstLine ] ).addClass( 'current' );
+			}
+		});
+
+
         $frameLines.click(function() {
           var $this  = $(this);
           var id     = /frame\-line\-([\d]*)/.exec($this.attr('id'))[1];
