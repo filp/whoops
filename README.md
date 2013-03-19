@@ -88,7 +88,6 @@ User [@hdias](https://github.com/hdias) contributed a simple guide/example to he
 
 https://gist.github.com/hdias/5169713#file-start-php
 
-(note: This example still references **whoops** by its old name (damnit), be sure to update it accordingly)
 
 ## Integrating with Laravel 4/Illuminate
 
