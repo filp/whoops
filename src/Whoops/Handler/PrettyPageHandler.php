@@ -75,7 +75,7 @@ class PrettyPageHandler extends Handler
         );
 
         // Add extra entries list of data tables:
-        $v->tables = array_merge($v->tables, $this->getDataTables());
+        $v->tables = array_merge($this->getDataTables(), $v->tables);
 
         call_user_func(function() use($templateFile, $v) {
             // $e -> cleanup output
