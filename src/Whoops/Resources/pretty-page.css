@@ -277,22 +277,9 @@ pre.prettyprint, code.prettyprint {
     text-decoration:none;
   }
 
-.frame-code .linenums li.current{
-  background:#F0EB96;
-  color:#FFF;
-}
-.frame-code .linenums li.current .str,
-.frame-code .linenums li.current .kwd,
-.frame-code .linenums li.current .com,
-.frame-code .linenums li.current .typ,
-.frame-code .linenums li.current .lit,
-.frame-code .linenums li.current .pun,
-.frame-code .linenums li.current .pln,
-.frame-code .linenums li.current .tag,
-.frame-code .linenums li.current .html,
-.frame-code .linenums li.current .xsl,
-.frame-code .linenums li.current .atn,
-.frame-code .linenums li.current .atv,
-.frame-code .linenums li.current .dec{
-  color:#000;
-}
+  .linenums li.current{
+    background: rgba(255, 120, 120, .2);
+    padding-top: 4px;
+    padding-left: 4px;
+    border-radius: 4px;
+  }

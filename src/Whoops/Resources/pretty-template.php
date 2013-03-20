@@ -157,21 +157,16 @@
         var $container   = $('.details-container');
         var headerHeight = $('header').css('height');
 
+        var highlightCurrentLine = function() {
+          // Highlight the active line for this frame:
+          var activeLineNumber = +($activeLine.find('.frame-line').text());
+          var $lines           = $activeFrame.find('.linenums li');
+          var firstLine        = +($lines.first().val());
+          $($lines[activeLineNumber - firstLine]).addClass('current');
+        }
 
-        // Mark current line with class `current`
-        $('.frame').each( function(){
-
-			$activeSubLine = $(this).find('.frame-line');
-			if( $activeSubLine.length==1 )
-			{
-				var $lis  = $activeFrame.find('.linenums li'),
-				theLine   = parseInt( $activeSubLine.text(), 10 ),
-				firstLine = $( $lis[0] ).val();
-
-				$( $lis[ theLine - firstLine ] ).addClass( 'current' );
-			}
-		});
-
+        // Highlight the active for the first frame:
+        highlightCurrentLine();
 
         $frameLines.click(function() {
           var $this  = $(this);
@@ -187,6 +182,8 @@
 
             $activeLine  = $this;
             $activeFrame = $codeFrame;
+
+            highlightCurrentLine();
 
             $container.animate({ scrollTop: headerHeight }, "fast");
           }
