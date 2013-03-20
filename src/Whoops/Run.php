@@ -189,11 +189,13 @@ class Run
      */
     public function handleError($level, $message, $file = null, $line = null)
     {
-        $this->handleException(
-            new ErrorException(
-                $message, $level, 0, $file, $line
-            )
-        );
+        if ($level & error_reporting()) {
+            $this->handleException(
+                new ErrorException(
+                    $message, $level, 0, $file, $line
+                )
+            );
+        }
     }
 
     /**
