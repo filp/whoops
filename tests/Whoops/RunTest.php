@@ -14,6 +14,16 @@ use Mockery as m;
 
 class RunTest extends TestCase
 {
+
+    /**
+     * @param string $message
+     * @return Exception
+     */
+    protected function getException($message = null)
+    {
+        return m::mock('Exception', array($message));
+    }
+    
     /**
      * @return Whoops\Handler\Handler
      */

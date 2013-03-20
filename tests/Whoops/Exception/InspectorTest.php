@@ -9,9 +9,19 @@ use Whoops\Exception\Inspector;
 use Whoops\TestCase;
 use RuntimeException;
 use Exception;
+use Mockery as m;
 
 class InspectorTest extends TestCase
 {
+    /**
+     * @param string $message
+     * @return Exception
+     */
+    protected function getException($message = null)
+    {
+        return m::mock('Exception', array($message));
+    }
+
     /**
      * @param  Exception $exception|null
      * @return Whoops\Exception\Inspector

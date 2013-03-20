@@ -6,7 +6,6 @@
 
 namespace Whoops;
 use Whoops\Run;
-use Mockery as m;
 
 class TestCase extends \PHPUnit_Framework_TestCase
 {
@@ -19,14 +18,5 @@ class TestCase extends \PHPUnit_Framework_TestCase
         $run->allowQuit(false);
 
         return $run;
-    }
-
-    /**
-     * @param string $message
-     * @return Exception
-     */
-    protected function getException($message = null)
-    {
-        return m::mock('Exception', array($message));
     }
 }
