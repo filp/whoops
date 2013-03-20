@@ -218,4 +218,51 @@ class RunTest extends TestCase
 
         $run->handleException($this->getException());
     }
+
+    /**
+     * Test error suppression using @ operator.
+     */
+    public function testErrorSuppression()
+    {
+        $run = $this->getRunInstance();
+        $run->register();
+
+        $handler = $this->getHandler();
+        $run->pushHandler($handler);
+
+        $test = $this;
+        $handler
+            ->shouldReceive('handle')
+            ->andReturnUsing(function () use($test) {
+                $test->fail('$handler should not be called, error not suppressed');
+            })
+        ;
+
+        @trigger_error("Test error suppression");
+    }
+
+    /**
+     * Test to make sure that error_reporting is respected.
+     */
+    public function testErrorReporting()
+    {
+        $run = $this->getRunInstance();
+        $run->register();
+
+        $handler = $this->getHandler();
+        $run->pushHandler($handler);
+
+        $test = $this;
+        $handler
+            ->shouldReceive('handle')
+            ->andReturnUsing(function () use($test) {
+                $test->fail('$handler should not be called, error_reporting not respected');
+            })
+        ;
+
+        $oldLevel = error_reporting(E_ALL ^ E_USER_NOTICE);
+        trigger_error("Test error reporting", E_USER_NOTICE);
+        error_reporting($oldLevel);
+    }
+
 }
