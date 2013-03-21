@@ -32,8 +32,10 @@ class WhoopsServiceProvider extends ServiceProvider {
             return $run->pushHandler($app['whoops.handler']);
         });
 
-        $app->error(function($e) use ($app) {
-            $app['whoops']->handleException($e);
-        });
+        if ($app['config']->get('app.debug')) {
+            $app->error(function($e) use ($app) {
+                $app['whoops']->handleException($e);
+            });
+        }
     }
 }
