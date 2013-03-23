@@ -67,7 +67,7 @@ class Inspector
             // get rid of the last, which matches the handleError method,
             // and do not add the current exception to trace. We ensure that
             // the next frame does have a filename / linenumber, though.
-            if($this->exception instanceof ErrorException) {
+            if($this->exception instanceof ErrorException && empty($frames[1]['line'])) {
                 $frames[1] = $frames[1] + $frames[0];
                 array_shift($frames);
             } else {
