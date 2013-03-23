@@ -65,8 +65,10 @@ class Inspector
             
             // If we're handling an ErrorException thrown by Whoops,
             // get rid of the last, which matches the handleError method,
-            // and do not add the current exception to trace
+            // and do not add the current exception to trace. We ensure that
+            // the next frame does have a filename / linenumber, though.
             if($this->exception instanceof ErrorException) {
+                $frames[1] = $frames[1] + $frames[0];
                 array_shift($frames);
             } else {
                 $firstFrame = $this->getFrameFromException($this->exception);
