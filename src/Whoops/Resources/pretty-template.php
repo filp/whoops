@@ -74,7 +74,7 @@
                     if($line !== null):
 
                     // the $line is 1-indexed, we nab -1 where needed to account for this
-                    $range = $frame->getFileLines($line - 6, 8);
+                    $range = $frame->getFileLines($line - 8, 10);
                     $start = key($range) + 1;
                     $code  = join("\n", $range);
                   ?>
@@ -158,11 +158,14 @@
         var headerHeight = $('header').css('height');
 
         var highlightCurrentLine = function() {
-          // Highlight the active line for this frame:
+          // Highlight the active and neighboring lines for this frame:
           var activeLineNumber = +($activeLine.find('.frame-line').text());
           var $lines           = $activeFrame.find('.linenums li');
           var firstLine        = +($lines.first().val());
-          $($lines[activeLineNumber - firstLine]).addClass('current');
+
+          $($lines[activeLineNumber - firstLine - 1]).addClass('current');
+          $($lines[activeLineNumber - firstLine]).addClass('current active');
+          $($lines[activeLineNumber - firstLine + 1]).addClass('current');
         }
 
         // Highlight the active for the first frame:
