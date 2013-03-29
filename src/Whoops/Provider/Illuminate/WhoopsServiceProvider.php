@@ -34,7 +34,12 @@ class WhoopsServiceProvider extends ServiceProvider {
 
         if ($app['config']->get('app.debug')) {
             $app->error(function($e) use ($app) {
+
+                // TODO solve this with Illuminate\Http\Response
+                header('HTTP/1.0 500 Internal Server Error', true, 500);
+
                 $app['whoops']->handleException($e);
+                
             });
         }
     }
