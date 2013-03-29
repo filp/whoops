@@ -280,6 +280,6 @@ pre.prettyprint, code.prettyprint {
   .linenums li.current{
     background: rgba(255, 120, 120, .2);
     padding-top: 4px;
-    padding-left: 4px;
+    padding-left: 1px;
     border-radius: 4px;
   }
