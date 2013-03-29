@@ -1,11 +1,11 @@
 <?php
 /**
- * Damnit - php errors for cool kids
+ * Whoops - php errors for cool kids
  * @author Filipe Dobreira <http://github.com/filp>
  */
 
-namespace Damnit\Handler;
-use Damnit\Handler\Handler;
+namespace Whoops\Handler;
+use Whoops\Handler\Handler;
 use InvalidArgumentException;
 
 class PrettyPageHandler extends Handler
@@ -21,9 +21,9 @@ class PrettyPageHandler extends Handler
     private $extraTables = array();
 
     /**
-     * @var bool
+     * @var string
      */
-    private $showBranding = true;
+    private $pageTitle = 'Whoops! There was an error.';
 
     /**
      * @return int|null
@@ -32,16 +32,21 @@ class PrettyPageHandler extends Handler
     {
         // Check conditions for outputting HTML:
         // @todo: make this more robust
-        if(php_sapi_name() === 'cli') {
-            return;
+        if(php_sapi_name() === 'cli' && !isset($_ENV['whoops-test'])) {
+            return Handler::DONE;
         }
-
+        
         // Get the 'pretty-template.php' template file
         // @todo: this can be made more dynamic &&|| cleaned-up
         if(!($resources = $this->getResourcesPath())) {
             $resources = __DIR__ . '/../Resources';
         }
+
         $templateFile = "$resources/pretty-template.php";
+
+        // @todo: Make this more reliable,
+        // possibly by adding methods to append CSS & JS to the page
+        $cssFile = "$resources/pretty-page.css";
 
         // Prepare the $v global variable that will pass relevant
         // information to the template
@@ -49,13 +54,14 @@ class PrettyPageHandler extends Handler
         $frames    = $inspector->getFrames();
 
         $v = (object) array(
+            'title'        => $this->getPageTitle(),
             'name'         => explode('\\', $inspector->getExceptionName()),
             'message'      => $inspector->getException()->getMessage(),
             'frames'       => $frames,
             'hasFrames'    => !!count($frames),
             'handler'      => $this,
             'handlers'     => $this->getRun()->getHandlers(),
-            'showBranding' => $this->showBranding,
+            'pageStyle'    => file_get_contents($cssFile),
 
             'tables'      => array(
                 'GET Data'              => $_GET,
@@ -69,7 +75,7 @@ class PrettyPageHandler extends Handler
         );
 
         // Add extra entries list of data tables:
-        $v->tables = array_merge($v->tables, $this->getDataTables());
+        $v->tables = array_merge($this->getDataTables(), $v->tables);
 
         call_user_func(function() use($templateFile, $v) {
             // $e -> cleanup output
@@ -87,15 +93,6 @@ class PrettyPageHandler extends Handler
 
 
         return Handler::QUIT;
-    }
-
-    /**
-     * Should the `damnit` branding be visible in the top-right corner?
-     * @param bool $showBranding
-     */
-    public function showBranding($showBranding = true)
-    {
-        $this->showBranding = (bool) $showBranding;
     }
 
     /**
@@ -121,10 +118,26 @@ class PrettyPageHandler extends Handler
     {
         if($label !== null) {
             return isset($this->extraTables[$label]) ?
-                   $this->extraTables[$labe] : array();
+                   $this->extraTables[$label] : array();
         }
 
         return $this->extraTables;
+    }
+
+    /**
+     * @var string
+     */
+    public function setPageTitle($title)
+    {
+        $this->pageTitle = (string) $title;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPageTitle()
+    {
+        return $this->pageTitle;
     }
 
     /**

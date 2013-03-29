@@ -1,12 +1,12 @@
 <?php
 /**
- * Damnit - php errors for cool kids
+ * Whoops - php errors for cool kids
  * @author Filipe Dobreira <http://github.com/filp>
  */
 
-namespace Damnit\Exception;
-use Damnit\Exception\Frame;
-use Damnit\TestCase;
+namespace Whoops\Exception;
+use Whoops\Exception\Frame;
+use Whoops\TestCase;
 use Mockery as m;
 
 class FrameTest extends TestCase
@@ -26,7 +26,7 @@ class FrameTest extends TestCase
     }
 
     /**
-     * @return Damnit\Exception\Frame
+     * @return Whoops\Exception\Frame
      */
     private function getFrameInstance($data = null)
     {
@@ -38,7 +38,7 @@ class FrameTest extends TestCase
     }
 
     /**
-     * @covers Damnit\Exception\Frame::getFile
+     * @covers Whoops\Exception\Frame::getFile
      */
     public function testGetFile()
     {
@@ -49,7 +49,7 @@ class FrameTest extends TestCase
     }
 
     /**
-     * @covers Damnit\Exception\Frame::getLine
+     * @covers Whoops\Exception\Frame::getLine
      */
     public function testGetLine()
     {
@@ -60,7 +60,7 @@ class FrameTest extends TestCase
     }
 
     /**
-     * @covers Damnit\Exception\Frame::getClass
+     * @covers Whoops\Exception\Frame::getClass
      */
     public function testGetClass()
     {
@@ -71,7 +71,7 @@ class FrameTest extends TestCase
     }
 
     /**
-     * @covers Damnit\Exception\Frame::getFunction
+     * @covers Whoops\Exception\Frame::getFunction
      */
     public function testGetFunction()
     {
@@ -82,7 +82,7 @@ class FrameTest extends TestCase
     }
 
     /**
-     * @covers Damnit\Exception\Frame::getArgs
+     * @covers Whoops\Exception\Frame::getArgs
      */
     public function testGetArgs()
     {
@@ -93,7 +93,7 @@ class FrameTest extends TestCase
     }
 
     /**
-     * @covers Damnit\Exception\Frame::getFileContents
+     * @covers Whoops\Exception\Frame::getFileContents
      */
     public function testGetFileContents()
     {
@@ -104,7 +104,7 @@ class FrameTest extends TestCase
     }
 
     /**
-     * @covers Damnit\Exception\Frame::getFileLines
+     * @covers Whoops\Exception\Frame::getFileLines
      */
     public function testGetFileLines()
     {
@@ -116,7 +116,7 @@ class FrameTest extends TestCase
     }
 
     /**
-     * @covers Damnit\Exception\Frame::getFileLines
+     * @covers Whoops\Exception\Frame::getFileLines
      */
     public function testGetFileLinesRange()
     {
@@ -131,8 +131,8 @@ class FrameTest extends TestCase
     }
 
     /**
-     * @covers Damnit\Exception\Frame::addComment
-     * @covers Damnit\Exception\Frame::getComments
+     * @covers Whoops\Exception\Frame::addComment
+     * @covers Whoops\Exception\Frame::getComments
      */
     public function testGetComments()
     {
@@ -157,8 +157,8 @@ class FrameTest extends TestCase
     }
 
     /**
-     * @covers Damnit\Exception\Frame::addComment
-     * @covers Damnit\Exception\Frame::getComments
+     * @covers Whoops\Exception\Frame::addComment
+     * @covers Whoops\Exception\Frame::getComments
      */
     public function testGetFilteredComments()
     {

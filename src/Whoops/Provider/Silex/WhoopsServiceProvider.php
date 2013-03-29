@@ -1,16 +1,16 @@
 <?php
 /**
- * Damnit - php errors for cool kids
+ * Whoops - php errors for cool kids
  * @author Filipe Dobreira <http://github.com/filp>
  */
 
-namespace Damnit\Silex;
-use Damnit\Run;
-use Damnit\Handler\PrettyPageHandler;
+namespace Whoops\Provider\Silex;
+use Whoops\Run;
+use Whoops\Handler\PrettyPageHandler;
 use Silex\ServiceProviderInterface;
 use Silex\Application;
 
-class DamnitServiceProvider implements ServiceProviderInterface
+class WhoopsServiceProvider implements ServiceProviderInterface
 {
     /**
      * @see Silex\ServiceProviderInterface::register
@@ -19,7 +19,7 @@ class DamnitServiceProvider implements ServiceProviderInterface
     public function register(Application $app)
     {
         // There's only ever going to be one error page...right?
-        $app['damnit.error_page_handler'] = $app->share(function() {
+        $app['whoops.error_page_handler'] = $app->share(function() {
             return new PrettyPageHandler;
         });
 
@@ -28,11 +28,11 @@ class DamnitServiceProvider implements ServiceProviderInterface
         // This works by adding a new handler to the stack that runs
         // before the error page, retrieving the shared page handler
         // instance, and working with it to add new data tables
-        $app['damnit.silex_info_handler'] = $app->protect(function() use($app) {
+        $app['whoops.silex_info_handler'] = $app->protect(function() use($app) {
             $request = $app['request'];
 
             // General application info:
-            $app['damnit.error_page_handler']->addDataTable('Silex Application', array(
+            $app['whoops.error_page_handler']->addDataTable('Silex Application', array(
                 'Charset'          => $app['charset'],
                 'Locale'           => $app['locale'],
                 'Route Class'      => $app['route_class'],
@@ -41,10 +41,9 @@ class DamnitServiceProvider implements ServiceProviderInterface
             ));
 
             // Request info:
-            $app['damnit.error_page_handler']->addDataTable('Silex Application (Request)', array(
+            $app['whoops.error_page_handler']->addDataTable('Silex Application (Request)', array(
                 'URI'         => $request->getUri(),
                 'Request URI' => $request->getRequestUri(),
-                'Base URL'    => $request->getBaseUrl(),
                 'Path Info'   => $request->getPathInfo(),
                 'Query String'=> $request->getQueryString() ?: '<none>',
                 'HTTP Method' => $request->getMethod(),
@@ -57,15 +56,15 @@ class DamnitServiceProvider implements ServiceProviderInterface
             ));
         });
 
-        $app['damnit'] = $app->share(function() use($app) {
+        $app['whoops'] = $app->share(function() use($app) {
             $run = new Run;
-            $run->pushHandler($app['damnit.error_page_handler']);
-            $run->pushHandler($app['damnit.silex_info_handler']);
+            $run->pushHandler($app['whoops.error_page_handler']);
+            $run->pushHandler($app['whoops.silex_info_handler']);
             return $run;
         });
 
-        $app->error(array($app['damnit'], Run::EXCEPTION_HANDLER));
-        $app['damnit']->register();
+        $app->error(array($app['whoops'], Run::EXCEPTION_HANDLER));
+        $app['whoops']->register();
     }
 
     /**

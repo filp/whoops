@@ -1,11 +1,11 @@
 <?php
 /**
- * Damnit - php errors for cool kids
+ * Whoops - php errors for cool kids
  * @author Filipe Dobreira <http://github.com/filp>
  */
 
-namespace Damnit\Exception;
-use Damnit\Exception\Frame;
+namespace Whoops\Exception;
+use Whoops\Exception\Frame;
 use Iterator;
 use Countable;
 
@@ -22,7 +22,7 @@ class FrameIterator implements Iterator, Countable
     private $frames;
 
     /**
-     * @return Damnit\Exception\Frame|false
+     * @return Whoops\Exception\Frame|false
      */
     public function current()
     {

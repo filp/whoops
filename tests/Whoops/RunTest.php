@@ -1,36 +1,35 @@
 <?php
 /**
- * Damnit - php errors for cool kids
+ * Whoops - php errors for cool kids
  * @author Filipe Dobreira <http://github.com/filp>
  */
 
-namespace Damnit;
-use Damnit\TestCase;
-use Damnit\Run;
-use Damnit\Handler\Handler;
+namespace Whoops;
+use Whoops\TestCase;
+use Whoops\Run;
+use Whoops\Handler\Handler;
 use RuntimeException;
 use ArrayObject;
 use Mockery as m;
 
 class RunTest extends TestCase
 {
+
     /**
-     * @return Damnit\Run
+     * @param string $message
+     * @return Exception
      */
-    protected function getRunInstance()
+    protected function getException($message = null)
     {
-        $run = new Run;
-        $run->allowQuit(false);
-
-        return $run;
+        return m::mock('Exception', array($message));
     }
-
+    
     /**
-     * @return Damnit\Handler\Handler
+     * @return Whoops\Handler\Handler
      */
     protected function getHandler()
     {
-        return m::mock('Damnit\\Handler\\Handler')
+        return m::mock('Whoops\\Handler\\Handler')
             ->shouldReceive('setRun')
                 ->andReturn(null)
             ->mock()
@@ -46,7 +45,7 @@ class RunTest extends TestCase
     }
 
     /**
-     * @covers Damnit\Run::clearHandlers
+     * @covers Whoops\Run::clearHandlers
      */
     public function testClearHandlers()
     {
@@ -59,7 +58,7 @@ class RunTest extends TestCase
     }
 
     /**
-     * @covers Damnit\Run::pushHandler
+     * @covers Whoops\Run::pushHandler
      */
     public function testPushHandler()
     {
@@ -80,8 +79,8 @@ class RunTest extends TestCase
     }
 
     /**
-     * @covers Damnit\Run::popHandler
-     * @covers Damnit\Run::getHandlers
+     * @covers Whoops\Run::popHandler
+     * @covers Whoops\Run::getHandlers
      */
     public function testPopHandler()
     {
@@ -109,7 +108,7 @@ class RunTest extends TestCase
     }
 
     /**
-     * @covers Damnit\Run::register
+     * @covers Whoops\Run::register
      */
     public function testRegisterHandler()
     {
@@ -127,7 +126,7 @@ class RunTest extends TestCase
     }
 
     /**
-     * @covers Damnit\Run::unregister
+     * @covers Whoops\Run::unregister
      * @expectedException Exception
      */
     public function testUnregisterHandler()
@@ -143,8 +142,8 @@ class RunTest extends TestCase
     }
 
     /**
-     * @covers Damnit\Run::pushHandler
-     * @covers Damnit\Run::getHandlers
+     * @covers Whoops\Run::pushHandler
+     * @covers Whoops\Run::getHandlers
      */
     public function testHandlerHoldsOrder()
     {
@@ -171,7 +170,7 @@ class RunTest extends TestCase
     /**
      * @todo possibly split this up a bit and move
      *       some of this test to Handler unit tests?
-     * @covers Damnit\Run::handleException
+     * @covers Whoops\Run::handleException
      */
     public function testHandlersGonnaHandle()
     {
@@ -202,7 +201,7 @@ class RunTest extends TestCase
     }
 
     /**
-     * @covers Damnit\Run::handleException
+     * @covers Whoops\Run::handleException
      */
     public function testLastHandler()
     {
@@ -229,4 +228,51 @@ class RunTest extends TestCase
 
         $run->handleException($this->getException());
     }
+
+    /**
+     * Test error suppression using @ operator.
+     */
+    public function testErrorSuppression()
+    {
+        $run = $this->getRunInstance();
+        $run->register();
+
+        $handler = $this->getHandler();
+        $run->pushHandler($handler);
+
+        $test = $this;
+        $handler
+            ->shouldReceive('handle')
+            ->andReturnUsing(function () use($test) {
+                $test->fail('$handler should not be called, error not suppressed');
+            })
+        ;
+
+        @trigger_error("Test error suppression");
+    }
+
+    /**
+     * Test to make sure that error_reporting is respected.
+     */
+    public function testErrorReporting()
+    {
+        $run = $this->getRunInstance();
+        $run->register();
+
+        $handler = $this->getHandler();
+        $run->pushHandler($handler);
+
+        $test = $this;
+        $handler
+            ->shouldReceive('handle')
+            ->andReturnUsing(function () use($test) {
+                $test->fail('$handler should not be called, error_reporting not respected');
+            })
+        ;
+
+        $oldLevel = error_reporting(E_ALL ^ E_USER_NOTICE);
+        trigger_error("Test error reporting", E_USER_NOTICE);
+        error_reporting($oldLevel);
+    }
+
 }

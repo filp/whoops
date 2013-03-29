@@ -1,12 +1,12 @@
 <?php
 /**
- * Damnit - php errors for cool kids
+ * Whoops - php errors for cool kids
  * @author Filipe Dobreira <http://github.com/filp>
  */
 
-namespace Damnit\Exception;
-use Damnit\Exception\FrameIterator;
-use Damnit\Exception\ErrorException;
+namespace Whoops\Exception;
+use Whoops\Exception\FrameIterator;
+use Whoops\Exception\ErrorException;
 use Exception;
 
 class Inspector
@@ -17,7 +17,7 @@ class Inspector
     private $exception;
 
     /**
-     * @var Damnit\Exception\FrameIterator
+     * @var Whoops\Exception\FrameIterator
      */
     private $framesIterator;
 
@@ -46,6 +46,14 @@ class Inspector
     }
 
     /**
+     * @return string
+     */
+    public function getExceptionMessage()
+    {
+        return $this->exception->getMessage();
+    }
+
+    /**
      * Returns an iterator for the inspected exception's
      * frames.
      * @return DamnIt\Exception\FrameIterator
@@ -55,10 +63,12 @@ class Inspector
         if($this->framesIterator === null) {
             $frames     = $this->exception->getTrace();
             
-            // If we're handling an ErrorException thrown by Damnit,
+            // If we're handling an ErrorException thrown by Whoops,
             // get rid of the last, which matches the handleError method,
-            // and do not add the current exception to trace
-            if($this->exception instanceof ErrorException) {
+            // and do not add the current exception to trace. We ensure that
+            // the next frame does have a filename / linenumber, though.
+            if($this->exception instanceof ErrorException && empty($frames[1]['line'])) {
+                $frames[1] = $frames[1] + $frames[0];
                 array_shift($frames);
             } else {
                 $firstFrame = $this->getFrameFromException($this->exception);

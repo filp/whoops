@@ -1,15 +1,15 @@
 <?php
 /**
- * Damnit - php errors for cool kids
+ * Whoops - php errors for cool kids
  * @author Filipe Dobreira <http://github.com/filp>
  */
 
-namespace Damnit;
-use Damnit\Handler\HandlerInterface;
-use Damnit\Handler\Handler;
-use Damnit\Handler\CallbackHandler;
-use Damnit\Exception\Inspector;
-use Damnit\Exception\ErrorException;
+namespace Whoops;
+use Whoops\Handler\HandlerInterface;
+use Whoops\Handler\Handler;
+use Whoops\Handler\CallbackHandler;
+use Whoops\Exception\Inspector;
+use Whoops\Exception\ErrorException;
 use InvalidArgumentException;
 use Exception;
 
@@ -29,8 +29,8 @@ class Run
 
     /**
      * Pushes a handler to the end of the stack.
-     * @param  Damnit\HandlerInterface $handler
-     * @return Damnit\Run
+     * @param  Whoops\HandlerInterface $handler
+     * @return Whoops\Run
      */
     public function pushHandler($handler)
     {
@@ -41,7 +41,7 @@ class Run
         if(!$handler instanceof HandlerInterface) {
             throw new InvalidArgumentException(
                   'Argument to ' . __METHOD__ . ' must be a callable, or instance of'
-                . 'Damnit\\Handler\\HandlerInterface'
+                . 'Whoops\\Handler\\HandlerInterface'
             );
         }
 
@@ -52,7 +52,7 @@ class Run
     /**
      * Removes the last handler in the stack and returns it.
      * Returns null if there's nothing else to pop.
-     * @return null|Damnit\Handler\HandlerInterface
+     * @return null|Whoops\Handler\HandlerInterface
      */
     public function popHandler()
     {
@@ -72,7 +72,7 @@ class Run
     /**
      * Clears all handlers in the handlerStack, including
      * the default PrettyPage handler.
-     * @return Damnit\Run
+     * @return Whoops\Run
      */
     public function clearHandlers()
     {
@@ -82,7 +82,7 @@ class Run
 
     /**
      * @param  Exception $exception
-     * @return Damnit\Exception\Inspector
+     * @return Whoops\Exception\Inspector
      */
     protected function getInspector(Exception $exception)
     {
@@ -91,7 +91,7 @@ class Run
 
     /**
      * Registers this instance as an error handler.
-     * @return Damnit\Run
+     * @return Whoops\Run
      */
     public function register()
     {
@@ -107,8 +107,8 @@ class Run
     }
 
     /**
-     * Unregisters all handlers registered by this Damnit\Run instance
-     * @return Damnit\Run
+     * Unregisters all handlers registered by this Whoops\Run instance
+     * @return Whoops\Run
      */
     public function unregister()
     {
@@ -123,16 +123,21 @@ class Run
     }
 
     /**
-     * Should Damnit allow Handlers to force the script to quit?
-     * @param bool $exit
+     * Should Whoops allow Handlers to force the script to quit?
+     * @param bool|num $exit
+     * @return bool|null
      */
-    public function allowQuit($exit = true)
+    public function allowQuit($exit = null)
     {
+        if(func_num_args() == 0) {
+            return $this->allowQuit;
+        }
+
         $this->allowQuit = (bool) $exit;
     }
 
     /**
-     * Handles an exception, ultimately generating a Damnit error
+     * Handles an exception, ultimately generating a Whoops error
      * page.
      *
      * @param \Exception $exception
@@ -162,7 +167,7 @@ class Run
                 // and script execution should terminate, unless specifically
                 // disallowed, in which case the behavior is the same as
                 // Handler::LAST_HANDLER
-                if($this->allowQuit) {
+                if($this->allowQuit()) {
                     exit;
                 } else {
                     break;
@@ -181,15 +186,16 @@ class Run
      * @param string $message
      * @param string $file
      * @param int    $line
-     * @param array  $context
      */
     public function handleError($level, $message, $file = null, $line = null)
     {
-        $this->handleException(
-            new ErrorException(
-                $message, $level, 0, $file, $line
-            )
-        );
+        if ($level & error_reporting()) {
+            $this->handleException(
+                new ErrorException(
+                    $message, $level, 0, $file, $line
+                )
+            );
+        }
     }
 
     /**
