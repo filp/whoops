@@ -9,6 +9,7 @@ use Whoops\Run;
 use Whoops\Handler\PrettyPageHandler;
 use Silex\ServiceProviderInterface;
 use Silex\Application;
+use RuntimeException;
 
 class WhoopsServiceProvider implements ServiceProviderInterface
 {
@@ -29,7 +30,13 @@ class WhoopsServiceProvider implements ServiceProviderInterface
         // before the error page, retrieving the shared page handler
         // instance, and working with it to add new data tables
         $app['whoops.silex_info_handler'] = $app->protect(function() use($app) {
-            $request = $app['request'];
+            try {
+                $request = $app['request'];
+            } catch (RuntimeException $e) {
+                // This error occurred too early in the application's life
+                // and the request instance is not yet available.
+                return;
+            }
 
             // General application info:
             $app['whoops.error_page_handler']->addDataTable('Silex Application', array(
