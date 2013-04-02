@@ -22,14 +22,20 @@ class WhoopsServiceProvider extends ServiceProvider {
     {
         $app = $this->app;
 
-        $app['whoops.handler'] = $app->share(function($app) {
+        $app['whoops.error_page_handler'] = $app->share(function($app) {
             return new PrettyPageHandler;
         });
 
         $app['whoops'] = $app->share(function($app) {
             $run = new Run;
 
-            return $run->pushHandler($app['whoops.handler']);
+            // Do not register the pretty page handler if we're running
+            // within a console application:
+            if(!$app->runningInConsole() && !$app->runningUnitTests()) {
+                $run->pushHandler($app['whoops.error_page_handler']);
+            }
+
+            return $run;
         });
 
         if ($app['config']->get('app.debug')) {
