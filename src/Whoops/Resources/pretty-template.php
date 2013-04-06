@@ -32,7 +32,7 @@
                 </div>
 
               <span class="frame-file">
-                <?php echo $e($frame->getFile() ?: '<#unknown>') ?><!--
+                <?php echo ($frame->getFile() ?: '<#unknown>') ?><!--
              --><span class="frame-line"><?php echo (int) $frame->getLine() ?></span>
               </span>
             </div>
