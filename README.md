@@ -135,3 +135,4 @@ If you don't want to go through all this, but still found something wrong or mis
 - Cleanup API, specially around Frame handling
 - Add extension hooks for `PrettyPageHandler`
 - Improve test coverage
+- **Document the API**
