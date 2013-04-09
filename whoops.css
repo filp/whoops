@@ -1,0 +1,97 @@
+body {
+  font: 14px 'Source Sans Pro', helvetica, arial, sans-serif;
+  background: #272727;
+  color: white;
+}
+
+.container {
+  width: 80%;
+  max-width: 940px;
+  margin: 0 auto;
+}
+
+.hero {
+  padding-top: 40px;
+  text-shadow: 0 0 8px rgba(0, 0, 0, .4);
+  text-align: center;
+}
+
+.branding {
+  margin: 0;
+  font-weight: 300;
+  font-size: 4.5em;
+}
+
+.hero p {
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.description {
+  margin: 0 auto 10px auto !important;
+  color: #CACACA;
+}
+
+.screenshot {
+  text-align: center;
+  padding: 40px 0 20px 0;
+}
+
+.screenshot img {
+  max-width: 940px;
+  width: 70%;
+
+  -moz-box-shadow: 0 6px 12px rgba(0, 0, 0, .2);
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .2);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, .2);
+}
+
+.content {
+  border-top: 1px solid rgba(0, 0, 0, .3);
+  padding-top: 20px;
+  font-size: 1.3em;
+}
+
+code {
+  font-family: consolas, monospace;
+  font-size: 80%;
+  padding: 2px;
+  color: rgba(255, 255, 255, .6);
+}
+
+ul.simple {
+  list-style-type: none;
+  padding-left: 20px;
+}
+
+ul.simple li {
+  margin-bottom: 5px;
+}
+
+ul.simple li:before {
+  content: "—";
+  color: #CACACA;
+  padding-right: 10px;
+}
+
+.content h2 {
+  color: #CACACA;
+  text-shadow: 0 0 3px rgba(0, 0, 0, .4);
+}
+
+.download-links {
+  margin: 40px 0;
+}
+
+.button {
+  background: #4288CE;
+  color: #F3F3F3;
+  text-decoration: none;
+  font-size: 1.4em;
+  padding: 12px;
+}
+
+.button:hover {
+  background: #31679D;
+}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>whoops! - php errors for cool kids</title>
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/2.1.0/normalize.min.css">
+    <link rel="stylesheet" href="whoops.css">
+  </head>
+  <body>
+    <a href="https://github.com/filp/whoops"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+    <div class="container">
+      <header class="hero">
+        <div class="screenshot">
+          <a href="screen.png">
+            <img src="screen.png" alt="whoops error handler for PHP">
+          </a>
+        </div>
+        <h1 class="branding">whoops</h1>
+        <p class="description">
+          php errors for cool kids
+        </p>
+        <p class="subtext">
+          <b>whoops</b> is a nice little library that helps you develop and maintain
+          your projects better, by helping you deal with errors and exceptions in a less
+          painful way.
+        </p>
+
+        <p class="download-links">
+          <a href="https://github.com/filp/whoops" class="button">view on github</a>
+          <a href="https://github.com/filp/whoops/tags" class="button">download a stable version</a>
+        </p>
+      </header>
+      <div class="content">
+        <h2 id="about">Whoops</h2>
+        <p>
+          <b>whoops</b> is an error handler base/framework for PHP. Out-of-the-box, it provides a pretty error interface that helps you debug your web projects, but at heart it's a simple yet powerful stacked error handling system.
+        </p>
+
+        <h2 id="features">Features</h2>
+        <ul class="simple">
+          <li>Included providers for <b>Silex</b> and <b>Laravel 4</b>, with community-provided support for other platforms and frameworks</li>
+          <li>Detailed &amp; intuitive page for errors and exceptions <code>(PrettyPageHandler)</code></li>
+          <li>Code view for all frames in a stack trace with line highlights <code>(PrettyPageHandler)</code></li>
+          <li>Frame comments &amp; analysis through custom middle-ware/handlers <code>(PrettyPageHandler)</code></li>
+          <li>Request &amp; app-specific information through custom middle-ware/handlers <code>(PrettyPageHandler)</code></li>
+          <li>JSON &amp; AJAX support <code>(JsonResponseHandler)</code></li>
+          <li>Clean and tested code-base that's easy to extend and build on to make it work just right for your project</li>
+        </ul>
+
+        <h2 id="download">Download &amp; Use</h2>
+        <p>
+          <b>With composer:</b><br>
+<pre><code class="block">{
+  "require": {
+    "filp": "1.*"
+  }
+}
+</code></pre>
+        </p>
+
+        <h2 id="learn-more">Learn More</h2>
+        <p>
+          <em>coming soon</em>
+        </p>
+      </div>
+    </div>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <script>
+    $(function() {
+      // Force the .hero to use up all available window space,
+      // with a minimum 500px and a maximum of 900px height
+      var $hero = $('.hero');
+      var windowHeight = Math.min(Math.max(500, $(window).height()), 800);
+
+      $hero.height(windowHeight);
+    });
+    </script>
+  </body>
+</html>
