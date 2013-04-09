@@ -11,8 +11,6 @@ php errors for cool kids
 error interface that helps you debug your web projects, but at heart it's a simple yet
 powerful stacked error handling system.
 
-This library is currently in a **heavy development phase, and may catch on fire at any moment.**
-
 ## (current) Features
 
 - Flexible, stack-based error handling
@@ -34,7 +32,7 @@ I'll reference it as just `composer`)
 ```json
 {
     "require": {
-        "filp/whoops": "dev-master"
+        "filp/whoops": "1.*"
     }
 }
 ```
@@ -133,7 +131,6 @@ If you don't want to go through all this, but still found something wrong or mis
 **open a new issue report** so that I or others may take care of it.
 
 ### TODO/tasks (very short & rough list of current goals)
-- Improve code view
 - Delay `prettify` until needed, instead of doing it for every frame at once
 - Cleanup API, specially around Frame handling
 - Add extension hooks for `PrettyPageHandler`
