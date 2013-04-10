@@ -102,6 +102,7 @@ ul.simple li:before {
 
 .download-links {
   margin: 40px 0;
+  line-height: 45px;
 }
 
 .button {
@@ -110,6 +111,7 @@ ul.simple li:before {
   text-decoration: none;
   font-size: 1.4em;
   padding: 12px;
+  white-space: nowrap;
 }
 
 .button:hover {
@@ -142,4 +144,21 @@ pre.prettyprint, code.prettyprint {
 }
 pre.prettyprint {
   white-space: pre-wrap;
+}
+
+@media (max-width: 480px) {
+  .download-links {
+    line-height: inherit;
+  }
+  .button {
+    white-space: normal;
+    display:block;
+    padding: 10px;
+    margin-bottom: 5px;
+  }
+
+  pre {
+    white-space: pre;
+    word-wrap: break-word;
+  }
 }
