@@ -11,7 +11,7 @@ body {
 }
 
 .hero {
-  padding-top: 40px;
+  padding-top: 20px;
   text-shadow: 0 0 8px rgba(0, 0, 0, .4);
   text-align: center;
 }
@@ -19,7 +19,7 @@ body {
 .branding {
   margin: 0;
   font-weight: 300;
-  font-size: 4.5em;
+  font-size: 54px;
 }
 
 .hero p {
@@ -31,6 +31,12 @@ body {
 .description {
   margin: 0 auto 10px auto !important;
   color: #CACACA;
+}
+
+.subtext {
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 22px;
 }
 
 .screenshot {
