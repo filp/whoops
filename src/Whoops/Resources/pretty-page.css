@@ -238,6 +238,11 @@ header {
     hyphens: auto;
   }
 
+  .data-table .empty {
+    color: rgba(0, 0, 0, .3);
+    font-style: italic;
+  }
+
 .handler {
   padding: 10px;
   font: 14px monospace;

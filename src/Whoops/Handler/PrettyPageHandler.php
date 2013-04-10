@@ -35,7 +35,7 @@ class PrettyPageHandler extends Handler
         if(php_sapi_name() === 'cli' && !isset($_ENV['whoops-test'])) {
             return Handler::DONE;
         }
-        
+
         // Get the 'pretty-template.php' template file
         // @todo: this can be made more dynamic &&|| cleaned-up
         if(!($resources = $this->getResourcesPath())) {
@@ -64,12 +64,12 @@ class PrettyPageHandler extends Handler
             'pageStyle'    => file_get_contents($cssFile),
 
             'tables'      => array(
+                'Server/Request Data'   => $_SERVER,
                 'GET Data'              => $_GET,
                 'POST Data'             => $_POST,
                 'Files'                 => $_FILES,
                 'Cookies'               => $_COOKIE,
                 'Session'               => isset($_SESSION) ? $_SESSION:  array(),
-                'Server/Request Data'   => $_SERVER,
                 'Environment Variables' => $_ENV
             )
         );

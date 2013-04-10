@@ -103,29 +103,27 @@
           <div class="details">
             <div class="data-table-container" id="data-tables">
               <?php foreach($v->tables as $label => $data): ?>
-                <?php if(!empty($data)): ?>
-
-                  <div class="data-table" id="sg-<?php echo $e($slug($label)) ?>">
-                    <label><?php echo $e($label) ?></label>
-
-                    <table class="data-table">
-                      <thead>
+                <div class="data-table" id="sg-<?php echo $e($slug($label)) ?>">
+                  <label><?php echo $e($label) ?></label>
+                  <?php if(!empty($data)): ?>
+                      <table class="data-table">
+                        <thead>
+                          <tr>
+                            <td class="data-table-k">Key</td>
+                            <td class="data-table-v">Value</td>
+                          </tr>
+                        </thead>
+                      <?php foreach($data as $k => $value): ?>
                         <tr>
-                          <td class="data-table-k">Key</td>
-                          <td class="data-table-v">Value</td>
+                          <td><?php echo $e($k) ?></td>
+                          <td><?php echo $e(print_r($value, true)) ?></td>
                         </tr>
-                      </thead>
-                    <?php foreach($data as $k => $value): ?>
-                      <tr>
-                        <td><?php echo $e($k) ?></td>
-                        <td><?php echo $e(print_r($value, true)) ?></td>
-                      </tr>
-                    <?php endforeach ?>
-                    </table>
-
-                  </div>
-
-                <?php endif ?>
+                      <?php endforeach ?>
+                      </table>
+                  <?php else: ?>
+                    <span class="empty">empty</span>
+                  <?php endif ?>
+                </div>
               <?php endforeach ?>
             </div>
 
