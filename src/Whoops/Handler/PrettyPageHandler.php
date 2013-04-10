@@ -26,6 +26,28 @@ class PrettyPageHandler extends Handler
     private $pageTitle = 'Whoops! There was an error.';
 
     /**
+     * A string identifier for a known IDE/text editor, or a closure
+     * that resolves a string that can be used to open a given file
+     * in an editor. If the string contains the special substrings
+     * %file or %line, they will be replaced with the correct data.
+     *
+     * @example
+     *  "txmt://open?url=%file&line=%line"
+     * @var mixed $editor
+     */
+    protected $editor;
+
+    /**
+     * A list of known editor strings
+     * @var array
+     */
+    protected $editors = array(
+        'sublime'  => 'subl://open?url=file://%file&line=%line',
+        'textmate' => 'txmt://open?url=file://%file&line=%line',
+        'emacs'    => 'emacs://open?url=file://%file&line=%line'
+    );
+
+    /**
      * @return int|null
      */
     public function handle()
@@ -122,6 +144,91 @@ class PrettyPageHandler extends Handler
         }
 
         return $this->extraTables;
+    }
+
+    /**
+     * Adds an editor resolver, identified by a string
+     * name, and that may be a string path, or a callable
+     * resolver. If the callable returns a string, it will
+     * be set as the file reference's href attribute.
+     *
+     * @example
+     *  $run->addEditor('macvim', "mvim://open?url=file://%file&line=%line")
+     * @example
+     *   $run->addEditor('remove-it', function($file, $line) {
+     *       unlink($file);
+     *       return "http://stackoverflow.com";
+     *   });
+     * @param  string $identifier
+     * @param  string $resolver
+     */
+    public function addEditor($identifier, $resolver)
+    {
+        $this->editors[$identifier] = $resolver;
+    }
+
+    /**
+     * Set the editor to use to open referenced files, by a string
+     * identifier, or a callable that will be executed for every
+     * file reference, with a $file and $line argument, and should
+     * return a string.
+     *
+     * @example
+     *   $run->setEditor(function($file, $line) { return "file:///{$file}"; });
+     * @example
+     *   $run->setEditor('sublime');
+     *
+     * @param string|callable $editor
+     */
+    public function setEditor($editor)
+    {
+        if(!is_callable($editor) && !isset($this->editors[$editor])) {
+            throw new InvalidArgumentException(
+                "Unknown editor identifier: $editor. Known editors:" .
+                array_join(",", array_keys($this->editors))
+            );
+        }
+
+        $this->editor = $editor;
+    }
+
+    /**
+     * Given a string file path, and an integer file line,
+     * executes the editor resolver and returns, if available,
+     * a string that may be used as the href property for that
+     * file reference.
+     *
+     * @param  string $filePath
+     * @param  int    $line
+     * @return string|false
+     */
+    public function getEditorHref($filePath, $line)
+    {
+        if($this->editor === null) {
+            return false;
+        }
+
+        $editor = $this->editor;
+        if(is_string($editor)) {
+            $editor = $this->editors[$editor];
+        }
+
+        if(is_callable($editor)) {
+            $editor = call_user_func($editor, $filePath, $line);
+        }
+
+        // Check that the editor is a string, and replace the
+        // %line and %file placeholders:
+        if(!is_string($editor)) {
+            throw new InvalidArgumentException(
+                __METHOD__ . " should always resolve to a string; got something else instead"
+            );
+        }
+
+        $editor = str_replace("%line", $line, $editor);
+        $editor = str_replace("%file", $filePath, $editor);
+
+        return $editor;
     }
 
     /**
