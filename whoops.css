@@ -1,13 +1,22 @@
 body {
-  font: 14px 'Source Sans Pro', helvetica, arial, sans-serif;
+  font: 11px 'Source Sans Pro', helvetica, arial, sans-serif;
   background: #272727;
   color: white;
+}
+
+a {
+  color: #82B6EA;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
 }
 
 .container {
   width: 80%;
   max-width: 940px;
   margin: 0 auto;
+  margin-bottom: 50px;
 }
 
 .hero {
@@ -59,6 +68,11 @@ body {
   font-size: 1.3em;
 }
 
+p.center {
+  text-align: center;
+  margin: 30px 0;
+}
+
 code {
   font-family: consolas, monospace;
   font-size: 80%;
@@ -72,7 +86,7 @@ ul.simple {
 }
 
 ul.simple li {
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 ul.simple li:before {
@@ -82,7 +96,7 @@ ul.simple li:before {
 }
 
 .content h2 {
-  color: #CACACA;
+  color: #D4D4D4;
   text-shadow: 0 0 3px rgba(0, 0, 0, .4);
 }
 
@@ -100,4 +114,32 @@ ul.simple li:before {
 
 .button:hover {
   background: #31679D;
+  text-decoration: none;
+}
+
+pre .str, code .str { color: #79E3E1; }  /* string  */
+pre .kwd, code .kwd { color: #FDFF62;  font-weight: bold; }  /* keyword*/
+pre .com, code .com { color: #A5A5A5; font-weight: bold; } /* comment */
+pre .typ, code .typ { color: #E16CA1; }  /* type  */
+pre .lit, code .lit { color: #49DF9D; }  /* literal */
+pre .pun, code .pun { color: #51D743; font-weight: bold;  } /* punctuation  */
+pre .pln, code .pln { color: #BBBBBB; }  /* plaintext  */
+pre .tag, code .tag { color: #9c9cff; }  /* html/xml tag  */
+pre .htm, code .htm { color: #dda0dd; }  /* html tag */
+pre .xsl, code .xsl { color: #d0a0d0; }  /* xslt tag */
+pre .atn, code .atn { color: #46eeee; font-weight: normal;} /* html/xml attribute name */
+pre .atv, code .atv { color: #EEB4B4; }  /* html/xml attribute value  */
+pre .dec, code .dec { color: #3387CC; }  /* decimal  */
+pre.prettyprint, code.prettyprint {
+  font-family: consolas, monospace;
+  font-size: 16px;
+  background: #181818;
+  padding: 20px;
+  color: #929292;
+  -moz-border-radius: 16px;
+  -webkit-border-radius: 16px;
+  border-radius: 16px;
+}
+pre.prettyprint {
+  white-space: pre-wrap;
 }

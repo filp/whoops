@@ -29,6 +29,7 @@
         <p class="download-links">
           <a href="https://github.com/filp/whoops" class="button">view on github</a>
           <a href="https://github.com/filp/whoops/tags" class="button">download a stable version</a>
+          <a href="https://packagist.org/packages/filp/whoops" class="button">view on packagist</a>
         </p>
       </header>
       <div class="content">
@@ -43,25 +44,89 @@
           <li>Clean and tested code-base that's easy to extend and build on to make it work just right for your project</li>
         </ul>
 
-        <h2 id="download">Download &amp; Use</h2>
+        <h2 id="download">Download</h2>
         <p>
-          <b>With composer:</b><br>
-<pre><code class="block">{
+          With <a href="http://getcomposer.org">Composer</a>:<br>
+<pre class="prettyprint"><code>{
   "require": {
     "filp": "1.*"
   }
-}
+}</code></pre>
+
+<pre class="prettyprint"><code>$ cd my_project
+$ composer install</code></pre>
+        </p>
+
+        <h2 id="usage">Use</h2>
+
+        <p>
+          <p>
+            In your <a href="http://silex.sensiolabs.org/">Silex</a> project, register the bundled Service Provider:
+          </p>
+<pre class="prettyprint"><code class="language-php">$app->register(new Whoops\Provider\Silex\WhoopsServiceProvider);</code></pre>
+        </p>
+
+        <p>
+          <p>
+            In your <a href="http://four.laravel.com/">Laravel 4</a> project, add the following to your <code>'providers'</code>
+            array, in your <code>app/config/app.php</code> file:
+          </p>
+<pre class="prettyprint"><code class="language-php">'Whoops\Provider\Illuminate\WhoopsServiceProvider'</code></pre>
+        </p>
+
+        <p>
+          <p>
+            Or if you'd rather take control, integrate it manually and tweak it to fit your needs:
+          </p>
+<pre class="prettyprint"><code class="language-php">require __DIR__ . "/vendor/autoload.php";
+
+use Whoops\Handler\PrettyPageHandler;
+use Whoops\Handler\JsonResponseHandler;
+
+$run     = new Whoops\Run;
+$handler = new PrettyPageHandler;
+
+// Add some custom tables with relevant info about your application,
+// that could prove useful in the error page:
+$handler->addDataTable(array(
+  "Important Data" => $myApp->getImportantData(),
+  "Thingamajig-id" => $someId
+));
+
+// Set the title of the error page:
+$handler->setPageTitle("We're all going to be fired!");
+
+$run->pushHandler($hanlder);
+
+// Add a special handler to deal with AJAX requests with an
+// equally-informative JSON response. Since this handler is
+// first in the stack, it will be executed before the error
+// page handler, and will have a chance to decide if anything
+// needs to be done.
+$run->pushHandler(JsonResponseHandler);
+
+// Register the handler with PHP, and you're set!
+$run->register();
 </code></pre>
         </p>
 
-        <h2 id="learn-more">Learn More</h2>
+        <h2 id="learn-more">Learn More &amp; Contribute</h2>
         <p>
-          <em>coming soon</em>
+          Documentation is still scarce. Find available information and give us a hand with the
+          project in the official repository:
+
+          <p class="center">
+            <a class="button" href="https://github.com/filp/whoops"><b>whoops</b> on github</a>
+          </p>
+        </p>
+
+        <p class="subtext center">
+          Thank you for stopping by!
         </p>
       </div>
     </div>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
+    <script src="//cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.js"></script>
     <script>
     $(function() {
       // Force the .hero to use up all available window space,
@@ -70,6 +135,9 @@
       var windowHeight = Math.min(Math.max(800, $(window).height()), 1100);
 
       $hero.height(windowHeight);
+
+      // Enable google code prettify
+      prettyPrint();
     });
     </script>
   </body>
