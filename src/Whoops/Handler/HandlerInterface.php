@@ -29,5 +29,5 @@ interface HandlerInterface
     /**
      * @param Whoops\Exception\Inspector $run
      */
-    public function setInspector(Inspector $run);
+    public function setInspector(Inspector $inspector);
 }
