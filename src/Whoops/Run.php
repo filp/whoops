@@ -133,16 +133,16 @@ class Run
             return $this->allowQuit;
         }
 
-        $this->allowQuit = (bool) $exit;
+        return $this->allowQuit = (bool) $exit;
     }
 
     /**
      * Handles an exception, ultimately generating a Whoops error
      * page.
      *
-     * @param \Exception $exception
+     * @param Exception $exception
      */
-    public function handleException($exception)
+    public function handleException(Exception $exception)
     {
         // Walk the registered handlers in the reverse order
         // they were registered, and pass off the exception
