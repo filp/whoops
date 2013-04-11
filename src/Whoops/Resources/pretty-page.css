@@ -256,23 +256,23 @@ header {
 
 /* prettify code style
 Uses the Doxy theme as a base */
-pre .str, code .str { color: #79E3E1; }  /* string  */
-pre .kwd, code .kwd { color: #FDFF62;  font-weight: bold; }  /* keyword*/
-pre .com, code .com { color: #A5A5A5; font-weight: bold; } /* comment */
-pre .typ, code .typ { color: #E16CA1; }  /* type  */
-pre .lit, code .lit { color: #49DF9D; }  /* literal */
-pre .pun, code .pun { color: #51D743; font-weight: bold;  } /* punctuation  */
-pre .pln, code .pln { color: #BBBBBB; }  /* plaintext  */
-pre .tag, code .tag { color: #9c9cff; }  /* html/xml tag  */
+pre .str, code .str { color: #BCD42A; }  /* string  */
+pre .kwd, code .kwd { color: #4bb1b1;  font-weight: bold; }  /* keyword*/
+pre .com, code .com { color: #888; font-weight: bold; } /* comment */
+pre .typ, code .typ { color: #ef7c61; }  /* type  */
+pre .lit, code .lit { color: #BCD42A; }  /* literal */
+pre .pun, code .pun { color: #fff; font-weight: bold;  } /* punctuation  */
+pre .pln, code .pln { color: #e9e4e5; }  /* plaintext  */
+pre .tag, code .tag { color: #4bb1b1; }  /* html/xml tag  */
 pre .htm, code .htm { color: #dda0dd; }  /* html tag */
 pre .xsl, code .xsl { color: #d0a0d0; }  /* xslt tag */
-pre .atn, code .atn { color: #46eeee; font-weight: normal;} /* html/xml attribute name */
-pre .atv, code .atv { color: #EEB4B4; }  /* html/xml attribute value  */
-pre .dec, code .dec { color: #3387CC; }  /* decimal  */
+pre .atn, code .atn { color: #ef7c61; font-weight: normal;} /* html/xml attribute name */
+pre .atv, code .atv { color: #bcd42a; }  /* html/xml attribute value  */
+pre .dec, code .dec { color: #606; }  /* decimal  */
 pre.prettyprint, code.prettyprint {
-  font-family: consolas, monospace;
-  background: #272727;
-  color: #929292;
+  font-family: 'Source Code Pro', Monaco, Consolas, "Lucida Console", monospace;;
+  background: #333;
+  color: #e9e4e5;
 }
   pre.prettyprint {
     white-space: pre-wrap;
@@ -283,10 +283,10 @@ pre.prettyprint, code.prettyprint {
   }
 
   .linenums li.current{
-    background: rgba(255, 120, 120, .07);
+    background: rgba(255, 255, 255, .07);
     padding-top: 4px;
     padding-left: 1px;
   }
     .linenums li.current.active {
-      background: rgba(255, 120, 120, .17);
+      background: rgba(255, 255, 255, .17);
     }
