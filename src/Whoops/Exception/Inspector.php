@@ -56,13 +56,13 @@ class Inspector
     /**
      * Returns an iterator for the inspected exception's
      * frames.
-     * @return DamnIt\Exception\FrameIterator
+     * @return Whoops\Exception\FrameIterator
      */
     public function getFrames()
     {
         if($this->framesIterator === null) {
             $frames     = $this->exception->getTrace();
-            
+
             // If we're handling an ErrorException thrown by Whoops,
             // get rid of the last, which matches the handleError method,
             // and do not add the current exception to trace. We ensure that
