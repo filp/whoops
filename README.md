@@ -49,7 +49,7 @@ I promise it's really simple!
 ## API Documentation
 
 Initial API documentation of the whoops library is available here:
-https://github.com/filp/whoops/wiki/API-Documentation
+https://github.com/php-sbfc/whoops/wiki/API-Documentation
 
 ## Usage
 
