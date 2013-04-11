@@ -2,7 +2,7 @@
 php errors for cool kids
 
 # HEY!
-This library has **MOVED** to the The PHP Super Best Friends Club.
+This library has **MOVED** to The PHP Super Best Friends Club.
 
 Find it **here**: https://github.com/php-sbfc/whoops
 
