@@ -99,9 +99,9 @@ https://gist.github.com/hdias/5169713#file-start-php
 
 **whoops** currently ships with the following built-in handlers, available in the `Whoops\Handler` namespace:
 
-- [`PrettyPageHandler`](https://github.com/filp/whoops/blob/master/src/Whoops/Handler/PrettyPageHandler.php) - Shows a pretty error page when something goes pants-up
-- [`CallbackHandler`](https://github.com/filp/whoops/blob/master/src/Whoops/Handler/CallbackHandler.php) - Wraps a closure or other callable as a handler. You do not need to use this handler explicitly, **whoops** will automatically wrap any closure or callable you pass to `Whoops\Run::pushHandler`
-- [`JsonResponseHandler`](https://github.com/filp/whoops/blob/master/src/Whoops/Handler/JsonResponseHandler.php) - Captures exceptions and returns information on them as a JSON string. Can be used to, for example, play nice with AJAX requests.
+- [`PrettyPageHandler`](https://github.com/php-sbfc/whoops/blob/master/src/Whoops/Handler/PrettyPageHandler.php) - Shows a pretty error page when something goes pants-up
+- [`CallbackHandler`](https://github.com/php-sbfc/whoops/blob/master/src/Whoops/Handler/CallbackHandler.php) - Wraps a closure or other callable as a handler. You do not need to use this handler explicitly, **whoops** will automatically wrap any closure or callable you pass to `Whoops\Run::pushHandler`
+- [`JsonResponseHandler`](https://github.com/php-sbfc/whoops/blob/master/src/Whoops/Handler/JsonResponseHandler.php) - Captures exceptions and returns information on them as a JSON string. Can be used to, for example, play nice with AJAX requests.
 
 ## Contributing
 
@@ -110,7 +110,7 @@ If you want to help, great! Here's a couple of steps/guidelines:
 - Fork/clone this repo, and update dev dependencies using Composer
 
 ```bash
-$ git clone git@github.com:filp/whoops.git
+$ git clone git@github.com:php-sbfc/whoops.git
 $ cd whoops
 $ composer install --dev
 ```
@@ -128,9 +128,6 @@ $ git checkout -b feature/flames-on-the-side
 If you don't want to go through all this, but still found something wrong or missing, please
 **open a new issue report** so that I or others may take care of it.
 
-### TODO/tasks (very short & rough list of current goals)
-- Delay `prettify` until needed, instead of doing it for every frame at once
-- Cleanup API, specially around Frame handling
-- Add extension hooks for `PrettyPageHandler`
-- Improve test coverage
-- **Document the API**
+## Authors
+
+This library was primarily developed by [Filipe Dobreira](https://github.com/filp). A lot of awesome fixes and enhancements were also sent in by our contributors, which you can find **[in this page right here]**(https://github.com/php-sbfc/whoops/contributors). 
