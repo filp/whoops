@@ -47,7 +47,14 @@ $ composer install
 And you're good to go! Have a look at the **example files** in `examples/` to get a feel for how things work.
 I promise it's really simple!
 
-## Integrating with Silex
+## API Documentation
+
+Initial API documentation of the whoops library is available here:
+https://github.com/filp/whoops/wiki/API-Documentation
+
+## Usage
+
+### Integrating with Silex
 
 **whoops** comes packaged with a Silex Service Provider: `Whoops\Provider\Silex\WhoopsServiceProvider`. Using it
 in your existing Silex project is easy:
@@ -80,14 +87,14 @@ $app['whoops'] = $app->extend('whoops', function($whoops) {
 });
 ```
 
-## Integrating with Laravel 3
+### Integrating with Laravel 3
 
 User [@hdias](https://github.com/hdias) contributed a simple guide/example to help you integrate **whoops** with Laravel 3's IoC container, available at:
 
 https://gist.github.com/hdias/5169713#file-start-php
 
 
-## Integrating with Laravel 4/Illuminate
+### Integrating with Laravel 4/Illuminate
 
 User [@schickling](https://github.com/schickling) contributed a service provider for Laravel 4. Just include this in your app/config/app.php in the "providers" array:
 
@@ -97,7 +104,7 @@ User [@schickling](https://github.com/schickling) contributed a service provider
 
 Alternatively, [@dberry37388](https://github.com/dberry37388)'s [laravel4-support](https://github.com/dberry37388/laravel4-support) package also integrates **whoops** into your fancy-schmancy Laravel stack.
 
-## Available Handlers
+### Available Handlers
 
 **whoops** currently ships with the following built-in handlers, available in the `Whoops\Handler` namespace:
 
