@@ -130,4 +130,6 @@ If you don't want to go through all this, but still found something wrong or mis
 
 ## Authors
 
-This library was primarily developed by [Filipe Dobreira](https://github.com/filp). A lot of awesome fixes and enhancements were also sent in by our contributors, which you can find **[in this page right here]**(https://github.com/php-sbfc/whoops/contributors). 
+This library was primarily developed by [Filipe Dobreira](https://github.com/filp).
+
+A lot of awesome fixes and enhancements were also sent in by contributors, which you can find **[in this page right here](https://github.com/php-sbfc/whoops/contributors)**.
