@@ -18,7 +18,6 @@ powerful stacked error handling system.
 - Simple API for dealing with exceptions, trace frames & their data
 - Includes a pretty rad error page for your webapp projects
 - Includes a `Silex\WhoopsServiceProvider` for painless integration with [Silex](http://silex.sensiolabs.org/)
-- Includes an `Illuminate\WhoopsServiceProvider` for equally painless integration with [Laravel 4](http://laravel.com/)
 - Easy to extend and integrate with existing libraries
 - Clean, well-structured & tested code-base (well, except `pretty-template.php`, for now...)
 
@@ -86,23 +85,15 @@ $app['whoops'] = $app->extend('whoops', function($whoops) {
     return $whoops;
 });
 ```
+### Integrating with Laravel 4/Illuminate
+
+If you're using Laravel 4, as of [this commit to laravel/framework](https://github.com/laravel/framework/commit/64f3a79aae254b71550a8097880f0b0e09062d24), you're already using Whoops! Yay!
 
 ### Integrating with Laravel 3
 
 User [@hdias](https://github.com/hdias) contributed a simple guide/example to help you integrate **whoops** with Laravel 3's IoC container, available at:
 
 https://gist.github.com/hdias/5169713#file-start-php
-
-
-### Integrating with Laravel 4/Illuminate
-
-User [@schickling](https://github.com/schickling) contributed a service provider for Laravel 4. Just include this in your app/config/app.php in the "providers" array:
-
-```php
-'Whoops\Provider\Illuminate\WhoopsServiceProvider'
-```
-
-Alternatively, [@dberry37388](https://github.com/dberry37388)'s [laravel4-support](https://github.com/dberry37388/laravel4-support) package also integrates **whoops** into your fancy-schmancy Laravel stack.
 
 ### Available Handlers
 
