@@ -161,6 +161,9 @@ class Frame
             {
                 $start  = (int) $start;
                 $length = (int) $length;
+                if ($start < 0) {
+                    $start = 0;
+                }
 
                 if($length <= 0) {
                     throw new InvalidArgumentException(
