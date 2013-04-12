@@ -212,6 +212,9 @@ header {
   .data-table {
     width: 100%;
     margin: 10px 0;
+  }
+  
+  .data-table tbody {
     font: 13px consolas, monospace;
   }
 
