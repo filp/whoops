@@ -17,6 +17,7 @@ powerful stacked error handling system.
 - Stand-alone library with (currently) no required dependencies
 - Simple API for dealing with exceptions, trace frames & their data
 - Includes a pretty rad error page for your webapp projects
+- **NEW** Includes the ability to open referenced files directly in your editor and IDE
 - Includes a `Silex\WhoopsServiceProvider` for painless integration with [Silex](http://silex.sensiolabs.org/)
 - Easy to extend and integrate with existing libraries
 - Clean, well-structured & tested code-base (well, except `pretty-template.php`, for now...)
@@ -52,6 +53,36 @@ Initial API documentation of the whoops library is available here:
 https://github.com/filp/whoops/wiki/API-Documentation
 
 ## Usage
+
+### Opening referenced files with your favorite editor or IDE
+
+When using the pretty error page feature, whoops comes with the ability to
+open referenced files directly in your IDE or editor.
+
+```php
+<?php
+
+use Whoops\Handler\PrettyPageHandler;
+
+$handler = new PrettyPageHandler;
+$handler->setEditor('sublime');
+```
+
+The following editors are currently supported by default.
+
+- `sublime`  - Sublime Text 2
+- `emacs`    - Emacs
+- `textmate` - Textmate
+
+Adding your own editor is simple:
+
+```php
+
+$handler->setEditor(function($file, $line) {
+    return "whatever://open?file=$file&line=$line";
+});
+
+```
 
 ### Integrating with Silex
 
