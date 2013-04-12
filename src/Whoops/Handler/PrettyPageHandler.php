@@ -111,6 +111,13 @@ class PrettyPageHandler extends Handler
                 return strtolower($_);
             };
 
+            // $clamp -> clamp a string's length to a maximum, with trailing
+            // ellipsis if the size is exceeded
+            $clamp = function($_, $max = 85) {
+                return strlen($_) <= $max ?
+                    $_ : (substr($_, 0, $max - 1) . '...');
+            };
+
             // $type -> translate gettype to valid prettyprint class names
             $type = function($_) {
                 static $map = array(
@@ -121,6 +128,8 @@ class PrettyPageHandler extends Handler
 
                 return isset($map[$_]) ? $map[$_] : $_;
             };
+
+            // $trim ->
 
             require $templateFile;
         });

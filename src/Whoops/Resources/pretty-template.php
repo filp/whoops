@@ -106,7 +106,7 @@
                           <span class="argument-n"><?php echo $argN ?></span>
                           <code class="prettyprint <?php echo $type(gettype($arg)) ?>">
                             <?php if(is_string($arg)): ?>
-                              "<?php echo $e($arg) ?>"
+                              "<?php echo $e($clamp($arg)) ?>"
                             <?php elseif(is_object($arg)): ?>
                               &lt;<?php echo get_class($arg) ?>&gt;
                             <?php else: ?>
