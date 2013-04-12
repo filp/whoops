@@ -225,8 +225,8 @@ class PrettyPageHandler extends Handler
             );
         }
 
-        $editor = str_replace("%line", $line, $editor);
-        $editor = str_replace("%file", $filePath, $editor);
+        $editor = str_replace("%line", rawurlencode($line), $editor);
+        $editor = str_replace("%file", rawurlencode($filePath), $editor);
 
         return $editor;
     }
