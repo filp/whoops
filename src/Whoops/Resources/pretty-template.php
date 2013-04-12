@@ -68,7 +68,7 @@
                 <div class="frame-code <?php echo ($i == 0 ) ? 'active' : '' ?>" id="frame-code-<?php echo $i ?>">
                   <div class="frame-file">
                     <?php $filePath = $frame->getFile(); ?>
-                    <?php if($editorHref = $v->handler->getEditorHref($filePath, (int) $line)): ?>
+                    <?php if($filePath && $editorHref = $v->handler->getEditorHref($filePath, (int) $line)): ?>
                       Open:
                       <a href="<?php echo $editorHref ?>" class="editor-link">
                         <strong><?php echo $e($filePath ?: '<#unknown>') ?></strong>
@@ -90,7 +90,7 @@
                   <?php endif ?>
 
                   <?php
-                    /* Append comments for this frame */
+                    // Append comments for this frame */
                     $comments = $frame->getComments();
                   ?>
                   <div class="frame-comments <?php echo empty($comments) ? 'empty' : '' ?>">
