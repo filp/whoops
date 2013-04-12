@@ -49,7 +49,7 @@ I promise it's really simple!
 ## API Documentation
 
 Initial API documentation of the whoops library is available here:
-https://github.com/php-sbfc/whoops/wiki/API-Documentation
+https://github.com/filp/whoops/wiki/API-Documentation
 
 ## Usage
 
@@ -99,9 +99,9 @@ https://gist.github.com/hdias/5169713#file-start-php
 
 **whoops** currently ships with the following built-in handlers, available in the `Whoops\Handler` namespace:
 
-- [`PrettyPageHandler`](https://github.com/php-sbfc/whoops/blob/master/src/Whoops/Handler/PrettyPageHandler.php) - Shows a pretty error page when something goes pants-up
-- [`CallbackHandler`](https://github.com/php-sbfc/whoops/blob/master/src/Whoops/Handler/CallbackHandler.php) - Wraps a closure or other callable as a handler. You do not need to use this handler explicitly, **whoops** will automatically wrap any closure or callable you pass to `Whoops\Run::pushHandler`
-- [`JsonResponseHandler`](https://github.com/php-sbfc/whoops/blob/master/src/Whoops/Handler/JsonResponseHandler.php) - Captures exceptions and returns information on them as a JSON string. Can be used to, for example, play nice with AJAX requests.
+- [`PrettyPageHandler`](https://github.com/filp/whoops/blob/master/src/Whoops/Handler/PrettyPageHandler.php) - Shows a pretty error page when something goes pants-up
+- [`CallbackHandler`](https://github.com/filp/whoops/blob/master/src/Whoops/Handler/CallbackHandler.php) - Wraps a closure or other callable as a handler. You do not need to use this handler explicitly, **whoops** will automatically wrap any closure or callable you pass to `Whoops\Run::pushHandler`
+- [`JsonResponseHandler`](https://github.com/filp/whoops/blob/master/src/Whoops/Handler/JsonResponseHandler.php) - Captures exceptions and returns information on them as a JSON string. Can be used to, for example, play nice with AJAX requests.
 
 ## Contributing
 
@@ -110,7 +110,7 @@ If you want to help, great! Here's a couple of steps/guidelines:
 - Fork/clone this repo, and update dev dependencies using Composer
 
 ```bash
-$ git clone git@github.com:php-sbfc/whoops.git
+$ git clone git@github.com:filp/whoops.git
 $ cd whoops
 $ composer install --dev
 ```
@@ -132,4 +132,4 @@ If you don't want to go through all this, but still found something wrong or mis
 
 This library was primarily developed by [Filipe Dobreira](https://github.com/filp).
 
-A lot of awesome fixes and enhancements were also sent in by contributors, which you can find **[in this page right here](https://github.com/php-sbfc/whoops/contributors)**.
+A lot of awesome fixes and enhancements were also sent in by contributors, which you can find **[in this page right here](https://github.com/filp/whoops/contributors)**.
