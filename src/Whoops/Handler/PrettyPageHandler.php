@@ -44,7 +44,8 @@ class PrettyPageHandler extends Handler
     protected $editors = array(
         'sublime'  => 'subl://open?url=file://%file&line=%line',
         'textmate' => 'txmt://open?url=file://%file&line=%line',
-        'emacs'    => 'emacs://open?url=file://%file&line=%line'
+        'emacs'    => 'emacs://open?url=file://%file&line=%line',
+        'macvim'   => 'mvim://open/?url=file://%file&line=%line'
     );
 
     /**

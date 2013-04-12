@@ -73,6 +73,7 @@ The following editors are currently supported by default.
 - `sublime`  - Sublime Text 2
 - `emacs`    - Emacs
 - `textmate` - Textmate
+- `macvim`   - MacVim
 
 Adding your own editor is simple:
 
