@@ -107,10 +107,15 @@ header {
       word-wrap:break-word;
     }
 
+      .frame-file .editor-link {
+        color: #272727;
+      }
+
     .frame-line {
       font-weight: bold;
       color: #4288CE;
     }
+
 
     .active .frame-line { color: #BEE9EA; }
     .frame-line:before {
