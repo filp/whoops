@@ -111,6 +111,17 @@ class PrettyPageHandler extends Handler
                 return strtolower($_);
             };
 
+            // $type -> translate gettype to valid prettyprint class names
+            $type = function($_) {
+                static $map = array(
+                    'string'  => 'str',
+                    'boolean' => 'kwd',
+                    'object'  => 'typ'
+                );
+
+                return isset($map[$_]) ? $map[$_] : $_;
+            };
+
             require $templateFile;
         });
 

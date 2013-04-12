@@ -159,6 +159,38 @@ header {
       margin-left: 10px;
     }
 
+    .frame-arguments {
+      background: #404040;
+      border-top: 1px solid rgba(255, 255, 255, .1);
+      border-bottom: 1px solid rgba(255, 255, 255, .1);
+      padding: 5px 15px;
+    }
+      .frame-arguments label,
+      .argument-n {
+        color: #B1B1B1;
+        font-weight: bold;
+        font-size: 11px;
+      }
+        .argument-n {
+          font-weight: normal;
+        }
+
+      .frame-arguments .empty {
+        font-weight: normal;
+        font-style: italic;
+        font-size: 12px;
+        color: #888888;
+      }
+
+      .frame-arguments-list {
+        list-style-type: none;
+        padding: 0;
+        margin: 5px 0 0 0;
+      }
+        .frame-arguments-list li {
+          margin-bottom: 5px;
+        }
+
     .frame-comments {
       box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
       border: 1px solid rgba(0, 0, 0, .2);

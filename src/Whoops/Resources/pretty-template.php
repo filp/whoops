@@ -90,6 +90,36 @@
                   <?php endif ?>
 
                   <?php
+                    // Append arguments for this frame/function
+                    $args = $frame->getArgs();
+                  ?>
+                  <div class="frame-arguments <?php echo empty($args) ? 'empty' : '' ?>">
+                    <label>arguments:</label>
+                    <ul class="frame-arguments-list">
+
+                    <?php if(empty($args)): ?>
+                      <li><em class="empty">empty</em></li>
+                    <?php else: ?>
+
+                      <?php foreach($args as $argN => $arg): ?>
+                        <li class="argument">
+                          <span class="argument-n"><?php echo $argN ?></span>
+                          <code class="prettyprint <?php echo $type(gettype($arg)) ?>">
+                            <?php if(is_string($arg)): ?>
+                              "<?php echo $e($arg) ?>"
+                            <?php elseif(is_object($arg)): ?>
+                              &lt;<?php echo get_class($arg) ?>&gt;
+                            <?php else: ?>
+                              <?php echo var_export($arg, true) ?>
+                            <?php endif ?>
+                          </code>
+                        </li>
+                      <?php endforeach ?>
+                    <?php endif ?>
+                    </ul>
+                  </div>
+
+                  <?php
                     /* Append comments for this frame */
                     $comments = $frame->getComments();
                   ?>
