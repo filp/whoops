@@ -104,7 +104,7 @@
                       <?php foreach($args as $argN => $arg): ?>
                         <li class="argument">
                           <span class="argument-n"><?php echo $argN ?></span>
-                          <code class="prettyprint <?php echo $type(gettype($arg)) ?>">
+                          <code class="prettyprint <?php echo gettype($arg) ?>">
                             <?php if(is_string($arg)): ?>
                               "<?php echo $e($clamp($arg)) ?>"
                             <?php elseif(is_object($arg)): ?>
