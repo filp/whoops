@@ -118,4 +118,68 @@ class PrettyPageHandlerTest extends TestCase
         // should return an empty table:
         $this->assertEmpty($handler->getDataTables('ZIMBABWE!'));
     }
+
+    /**
+     * @covers Whoops\Handler\PrettyPageHandler::setEditor
+     * @covers Whoops\Handler\PrettyPageHandler::getEditorHref
+     */
+    public function testSetEditorSimple()
+    {
+        $handler = $this->getHandler();
+        $handler->setEditor('sublime');
+
+        $this->assertEquals(
+            $handler->getEditorHref('/foo/bar.php', 10),
+            'subl://open?url=file://%2Ffoo%2Fbar.php&line=10'
+        );
+
+        $this->assertEquals(
+            $handler->getEditorHref('/foo/with space?.php', 2324),
+            'subl://open?url=file://%2Ffoo%2Fwith%20space%3F.php&line=2324'
+        );
+
+        $this->assertEquals(
+            $handler->getEditorHref('/foo/bar/with-dash.php', 0),
+            'subl://open?url=file://%2Ffoo%2Fbar%2Fwith-dash.php&line=0'
+        );
+    }
+
+    /**
+     * @covers Whoops\Handler\PrettyPageHandler::setEditor
+     * @covers Whoops\Handler\PrettyPageHandler::getEditorHref
+     */
+    public function testSetEditorCallable()
+    {
+        $handler = $this->getHandler();
+        $handler->setEditor(function($file, $line) {
+            $file = rawurlencode($file);
+            $line = rawurlencode($line);
+            return "http://google.com/search/?q=$file:$line";
+        });
+
+        $this->assertEquals(
+            $handler->getEditorHref('/foo/bar.php', 10),
+            'http://google.com/search/?q=%2Ffoo%2Fbar.php:10'
+        );
+    }
+
+    /**
+     * @covers Whoops\Handler\PrettyPageHandler::setEditor
+     * @covers Whoops\Handler\PrettyPageHandler::addEditor
+     * @covers Whoops\Handler\PrettyPageHandler::getEditorHref
+     */
+    public function testAddEditor()
+    {
+        $handler = $this->getHandler();
+        $handler->addEditor('test-editor', function($file, $line) {
+            return "cool beans $file:$line";
+        });
+
+        $handler->setEditor('test-editor');
+
+        $this->assertEquals(
+            $handler->getEditorHref('hello', 20),
+            'cool beans hello:20'
+        );
+    }
 }
