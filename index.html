@@ -40,7 +40,7 @@
       <div class="content">
         <h2 id="features">Features</h2>
         <ul class="simple">
-          <li>Included providers for <b>Silex</b> and <b>Zend Framework 2</b>, with community-provided support for other platforms and frameworks</li>
+          <li>Includes providers for <b>Silex</b> and <b>Zend Framework 2</b>, with community-provided support for other platforms and frameworks</li>
           <li><b>Now included in the <a href="http://four.laravel.com">Laravel 4</a> core</b>!</li>
           <li>Detailed &amp; intuitive page for errors and exceptions <code>(PrettyPageHandler)</code></li>
           <li>Code view for all frames in a stack trace with line highlights <code>(PrettyPageHandler)</code></li>
@@ -73,11 +73,7 @@ $ composer install</code></pre>
         </p>
 
         <p>
-          <p>
-            In your <a href="http://four.laravel.com/">Laravel 4</a> project, add the following to your <code>'providers'</code>
-            array, in your <code>app/config/app.php</code> file:
-          </p>
-<pre class="prettyprint"><code class="language-php">'Whoops\Provider\Illuminate\WhoopsServiceProvider'</code></pre>
+          For integration instructions with other frameworks or platforms, check out the <b><a href="https://github.com/filp/whoops#integrating-with-silex">README</a></b> file.
         </p>
 
         <p>
@@ -94,7 +90,7 @@ $handler = new PrettyPageHandler;
 
 // Add some custom tables with relevant info about your application,
 // that could prove useful in the error page:
-$handler->addDataTable(array(
+$handler->addDataTable('Killer App Details', array(
   "Important Data" => $myApp->getImportantData(),
   "Thingamajig-id" => $someId
 ));
