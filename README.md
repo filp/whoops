@@ -127,6 +127,44 @@ User [@hdias](https://github.com/hdias) contributed a simple guide/example to he
 
 https://gist.github.com/hdias/5169713#file-start-php
 
+### Integrating with Zend Framework 2
+
+User [@zsilbi](https://github.com/zsilbi) contributed a provider for ZF2 integration,
+available in the following location:
+
+https://github.com/filp/whoops/tree/master/src/Whoops/Provider/Zend
+
+**Instructions:**
+
+- Add Whoops as a module to you app (/vendor/Whoops)
+- Whoops must be the first module:
+
+```php
+'modules' => array(
+        'Whoops',
+        'Application'
+   )
+```
+
+- Move Module.php from /Whoops/Provider/Zend/Module.php to /Whoops/Module.php
+- Use optional configurations in your controller config: 
+
+```php
+return array(
+    'view_manager' => array(
+        'display_not_found_reason' => true,
+        'display_exceptions' => true,
+        'json_exceptions' => array(
+            'display' => true,
+            'ajax_only' => true,
+            'show_trace' => true
+        )
+    ),
+);
+```
+
+- NOTE: ob_clean(); is used to remove previous output, so you may use ob_start(); at the beginning of your app (index.php)
+
 ### Available Handlers
 
 **whoops** currently ships with the following built-in handlers, available in the `Whoops\Handler` namespace:
