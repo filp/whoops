@@ -18,7 +18,8 @@ powerful stacked error handling system.
 - Simple API for dealing with exceptions, trace frames & their data
 - Includes a pretty rad error page for your webapp projects
 - **NEW** Includes the ability to open referenced files directly in your editor and IDE
-- Includes a `Silex\WhoopsServiceProvider` for painless integration with [Silex](http://silex.sensiolabs.org/)
+- Includes a Silex Service Provider for painless integration with [Silex](http://silex.sensiolabs.org/)
+- Includes a Module for equally painless integration with [Zend Framework 2](http://framework.zend.com/)
 - Easy to extend and integrate with existing libraries
 - Clean, well-structured & tested code-base (well, except `pretty-template.php`, for now...)
 
