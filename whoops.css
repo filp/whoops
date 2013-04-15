@@ -100,9 +100,10 @@ ul.simple li:before {
   text-shadow: 0 0 3px rgba(0, 0, 0, .4);
 }
 
-.download-links {
-  margin: 40px 0;
+p.download-links {
+  margin: 40px auto;
   line-height: 44px;
+  width: 60%;
 }
 
 .button {
@@ -147,7 +148,7 @@ pre.prettyprint {
 }
 
 @media (max-width: 480px) {
-  .download-links {
+  p.download-links {
     line-height: inherit;
   }
   .button {
