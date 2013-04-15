@@ -203,7 +203,7 @@ class Run
      */
     public function handleShutdown()
     {
-        if($this->isRegistered && $error = error_get_last()) {
+        if($error = error_get_last()) {
             $this->handleError(
                 $error['type'],
                 $error['message'],
