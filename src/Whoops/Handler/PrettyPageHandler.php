@@ -101,8 +101,20 @@ class PrettyPageHandler extends Handler
         $v->tables = array_merge($this->getDataTables(), $v->tables);
 
         call_user_func(function() use($templateFile, $v) {
-            // $e -> cleanup output
-            $e    = function($_) { return htmlspecialchars($_, ENT_QUOTES, 'UTF-8'); };
+            // $e -> cleanup output, optionally preserving URIs as anchors:
+            $e    = function($_, $allowLinks = false) {
+                $escaped = htmlspecialchars($_, ENT_QUOTES, 'UTF-8');
+
+                // convert URIs to clickable anchor elements:
+                if($allowLinks) {
+                    $escaped = preg_replace(
+                        '@([A-z]+?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@',
+                        "<a href=\"$1\" target=\"_blank\">$1</a>", $escaped
+                    );
+                }
+
+                return $escaped;
+            };
 
             // $slug -> sluggify string (i.e: Hello world! -> hello-world)
             $slug = function($_) {
