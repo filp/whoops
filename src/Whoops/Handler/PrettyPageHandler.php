@@ -102,7 +102,7 @@ class PrettyPageHandler extends Handler
 
         call_user_func(function() use($templateFile, $v) {
             // $e -> cleanup output, optionally preserving URIs as anchors:
-            $e    = function($_, $allowLinks = false) {
+            $e = function($_, $allowLinks = false) {
                 $escaped = htmlspecialchars($_, ENT_QUOTES, 'UTF-8');
 
                 // convert URIs to clickable anchor elements:
