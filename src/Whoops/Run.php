@@ -144,6 +144,9 @@ class Run
      */
     public function handleException(Exception $exception)
     {
+        // Remove any previous output
+        ob_get_level() and ob_end_clean();
+
         // Walk the registered handlers in the reverse order
         // they were registered, and pass off the exception
         $inspector = $this->getInspector($exception);
