@@ -71,6 +71,9 @@ class JsonResponseHandler extends Handler
             return Handler::DONE;
         }
 
+        // Remove any previous output
+        ob_get_level() and ob_end_clean();
+
         $exception = $this->getException();
 
         $response = array(
