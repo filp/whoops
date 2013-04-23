@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "321e44c8b17cbb702bbfcb8c749ddc71",
+    "hash": "e26effd1253f29aacbc556103cfa3377",
     "packages": [
 
     ],
@@ -14,12 +14,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/padraic/mockery.git",
-                "reference": "cc72f44a00c9abc963e91a796db6166f0c7a7a7e"
+                "reference": "f0d465adfd157a254a856e9ef0302fc2239642d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/padraic/mockery/zipball/cc72f44a00c9abc963e91a796db6166f0c7a7a7e",
-                "reference": "cc72f44a00c9abc963e91a796db6166f0c7a7a7e",
+                "url": "https://api.github.com/repos/padraic/mockery/zipball/f0d465adfd157a254a856e9ef0302fc2239642d3",
+                "reference": "f0d465adfd157a254a856e9ef0302fc2239642d3",
                 "shasum": ""
             },
             "require": {
@@ -59,7 +59,7 @@
                 "test double",
                 "testing"
             ],
-            "time": "2013-04-04 17:33:04"
+            "time": "2013-04-17 21:08:10"
         },
         {
             "name": "pimple/pimple",
