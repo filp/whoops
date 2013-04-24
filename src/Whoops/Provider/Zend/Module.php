@@ -2,18 +2,18 @@
 /**
  * ZF2 Integration for Whoops
  * @author Balázs Németh <zsilbi@zsilbi.hu>
- * 
+ *
  * The Whoops directory should be added as a module to ZF2 (/vendor/Whoops)
- * 
+ *
  * Whoops must be added as the first module
  * For example:
  *   'modules' => array(
  *       'Whoops',
  *       'Application',
  *   ),
- * 
+ *
  * This file should be moved next to Whoops/Run.php (/vendor/Whoops/Module.php)
- * 
+ *
  */
 
 namespace Whoops;
@@ -26,12 +26,20 @@ use Whoops\Handler\PrettyPageHandler;
 use Zend\EventManager\EventInterface;
 use Zend\Console\Request as ConsoleRequest;
 
-class Module {
-
+class Module
+{
     protected $run;
 
-    public function onBootstrap(EventInterface $event) {
+    public function onBootstrap(EventInterface $event)
+    {
         $prettyPageHandler = new PrettyPageHandler();
+
+        // Set editor
+        $config = $event->getApplication()->getServiceManager()->get('Config');
+        if (isset($config['view_manager']['editor'])) {
+            $prettyPageHandler->setEditor($config['view_manager']['editor']);
+        }
+
 
         $this->run = new Run();
         $this->run->register();
@@ -40,17 +48,19 @@ class Module {
         $this->attachListeners($event);
     }
 
-    public function getAutoloaderConfig() {
+    public function getAutoloaderConfig()
+    {
         return array(
             'Zend\Loader\StandardAutoloader' => array(
                 'namespaces' => array(
-                    __NAMESPACE__ => __DIR__,
+                    __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
                 ),
             ),
         );
     }
 
-    private function attachListeners(EventInterface $event) {
+    private function attachListeners(EventInterface $event)
+    {
         $request = $event->getRequest();
         $application = $event->getApplication();
         $services = $application->getServiceManager();
@@ -64,7 +74,7 @@ class Module {
         $jsonHandler = new JsonResponseHandler();
 
         if (!empty($config['view_manager']['json_exceptions']['show_trace'])) {
-            //Add trace to the JSON output 
+            //Add trace to the JSON output
             $jsonHandler->addTraceToOutput(true);
         }
 
@@ -72,7 +82,7 @@ class Module {
             //Only return JSON response for AJAX requests
             $jsonHandler->onlyForAjaxRequests(true);
         }
-        
+
         if (!empty($config['view_manager']['json_exceptions']['display'])) {
             //Turn on JSON handler
             $this->run->pushHandler($jsonHandler);
