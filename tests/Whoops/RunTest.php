@@ -23,7 +23,7 @@ class RunTest extends TestCase
     {
         return m::mock('Exception', array($message));
     }
-    
+
     /**
      * @return Whoops\Handler\Handler
      */
@@ -275,4 +275,36 @@ class RunTest extends TestCase
         error_reporting($oldLevel);
     }
 
+    /**
+     * @covers Whoops\Run::handleException
+     * @covers Whoops\Run::writeToOutput
+     */
+    public function testOutputIsSent()
+    {
+        $run = $this->getRunInstance();
+        $run->pushHandler(function() {
+            echo "hello there";
+        });
+
+        ob_start();
+        $run->handleException(new RuntimeException);
+        $this->assertEquals("hello there", ob_get_clean());
+    }
+
+    /**
+     * @covers Whoops\Run::handleException
+     * @covers Whoops\Run::writeToOutput
+     */
+    public function testOutputIsNotSent()
+    {
+        $run = $this->getRunInstance();
+        $run->writeToOutput(false);
+        $run->pushHandler(function() {
+            echo "hello there";
+        });
+
+        ob_start();
+        $this->assertEquals("hello there", $run->handleException(new RuntimeException));
+        $this->assertEquals("", ob_get_clean());
+    }
 }
