@@ -176,7 +176,10 @@ return array(
 
 ## Contributing
 
-If you want to help, great! Here's a couple of steps/guidelines:
+If you want to give me some feedback or make a suggestion, send me a message through
+twitter: [@imfilp](https://twitter.com/imfilp)
+
+If you want to get your hands dirty, great! Here's a couple of steps/guidelines:
 
 - Fork/clone this repo, and update dev dependencies using Composer
 
@@ -197,7 +200,7 @@ $ git checkout -b feature/flames-on-the-side
 - Send me a pull request!
 
 If you don't want to go through all this, but still found something wrong or missing, please
-**open a new issue report** so that I or others may take care of it.
+let me know, and/or **open a new issue report** so that I or others may take care of it.
 
 ## Authors
 
