@@ -58,9 +58,6 @@ class PrettyPageHandler extends Handler
         if(php_sapi_name() === 'cli' && !isset($_ENV['whoops-test'])) {
             return Handler::DONE;
         }
-        
-        // Remove any previous output
-        ob_get_level() and ob_end_clean();
 
         // Get the 'pretty-template.php' template file
         // @todo: this can be made more dynamic &&|| cleaned-up
