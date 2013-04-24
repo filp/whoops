@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "e26effd1253f29aacbc556103cfa3377",
+    "hash": "55ae45563ab61eafd685ce3ec7906658",
     "packages": [
 
     ],
@@ -151,12 +151,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Silex.git",
-                "reference": "1cd7f3f050b78dae4458d93892355720f56659f9"
+                "reference": "8bf675f57cb7967cbfa3988be501f1dfe6c45432"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Silex/zipball/1cd7f3f050b78dae4458d93892355720f56659f9",
-                "reference": "1cd7f3f050b78dae4458d93892355720f56659f9",
+                "url": "https://api.github.com/repos/fabpot/Silex/zipball/8bf675f57cb7967cbfa3988be501f1dfe6c45432",
+                "reference": "8bf675f57cb7967cbfa3988be501f1dfe6c45432",
                 "shasum": ""
             },
             "require": {
@@ -225,7 +225,7 @@
             "keywords": [
                 "microframework"
             ],
-            "time": "2013-04-11 12:23:56"
+            "time": "2013-04-24 12:29:40"
         },
         {
             "name": "symfony/event-dispatcher",
