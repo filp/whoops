@@ -79,6 +79,26 @@ class RunTest extends TestCase
     }
 
     /**
+     * @expectedException InvalidArgumentException
+     * @covers Whoops\Run::pushHandler
+     */
+    public function testPushInvalidHandler()
+    {
+        $run = $this->getRunInstance();
+        $run->pushHandler($banana = 'actually turnip');
+    }
+
+    /**
+     * @covers Whoops\Run::pushHandler
+     */
+    public function testPushClosureBecomesHandler()
+    {
+        $run = $this->getRunInstance();
+        $run->pushHandler(function() {});
+        $this->assertInstanceOf('Whoops\\Handler\\CallbackHandler', $run->popHandler());
+    }
+
+    /**
      * @covers Whoops\Run::popHandler
      * @covers Whoops\Run::getHandlers
      */
