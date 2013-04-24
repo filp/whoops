@@ -1,3 +1,4 @@
 vendor/*
+report/*
 phpunit.xml
 *.swp
