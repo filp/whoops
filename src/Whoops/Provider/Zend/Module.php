@@ -34,6 +34,13 @@ class Module
     {
         $prettyPageHandler = new PrettyPageHandler();
 
+        // Set editor
+        $config = $event->getApplication()->getServiceManager()->get('Config');
+        if (isset($config['view_manager']['editor'])) {
+            $prettyPageHandler->setEditor($config['view_manager']['editor']);
+        }
+
+
         $this->run = new Run();
         $this->run->register();
         $this->run->pushHandler($prettyPageHandler);
