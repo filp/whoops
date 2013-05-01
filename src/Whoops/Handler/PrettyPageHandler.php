@@ -198,7 +198,7 @@ class PrettyPageHandler extends Handler
         if(!is_callable($editor) && !isset($this->editors[$editor])) {
             throw new InvalidArgumentException(
                 "Unknown editor identifier: $editor. Known editors:" .
-                array_join(",", array_keys($this->editors))
+                implode(",", array_keys($this->editors))
             );
         }
 
