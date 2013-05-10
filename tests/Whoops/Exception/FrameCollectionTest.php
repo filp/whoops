@@ -21,7 +21,7 @@ class FrameCollectionTest extends TestCase
     /**
      * @return array
      */
-    private function getFrameData()
+    public function getFrameData()
     {
         $id = ++$this->frameIdCounter;
         return array(
