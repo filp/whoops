@@ -13,9 +13,8 @@ use Serializable;
 use Countable;
 
 /**
- * Mostly just implements iterator methods, the only
- * notable aspects is that it is read-only, and instantiates
- * Frame objects on demand.
+ * Exposes a fluent interface for dealing with an ordered list
+ * of stack-trace frames.
  */
 class FrameCollection implements IteratorAggregate, Serializable, Countable
 {
