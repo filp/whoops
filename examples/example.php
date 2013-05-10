@@ -35,16 +35,18 @@ $handler->addDataTable('Ice-cream I like', array(
 
 $run->pushHandler($handler);
 
-// Example: tag all frames with a comment
+// Example: tag all frames inside a function with their function name
 $run->pushHandler(function($exception, $inspector, $run) {
-    $frames = $inspector->getFrames();
-    foreach($frames as $i => $frame) {
-        $frame->addComment('This is frame number ' . $i, 'example');
+
+    $inspector->getFrames()->map(function($frame) {
 
         if($function = $frame->getFunction()) {
             $frame->addComment("This frame is within function '$function'", 'cpt-obvious');
         }
-    }
+
+        return $frame;
+    });
+
 });
 
 $run->register();
