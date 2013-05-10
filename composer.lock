@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "55ae45563ab61eafd685ce3ec7906658",
+    "hash": "c3d6eb54ae4733fbae6d278e7ef54f7d",
     "packages": [
 
     ],
@@ -14,15 +14,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/padraic/mockery.git",
-                "reference": "f0d465adfd157a254a856e9ef0302fc2239642d3"
+                "reference": "28c77695ac5167e533f86e0268c0a83ef1ac693a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/padraic/mockery/zipball/f0d465adfd157a254a856e9ef0302fc2239642d3",
-                "reference": "f0d465adfd157a254a856e9ef0302fc2239642d3",
+                "url": "https://api.github.com/repos/padraic/mockery/zipball/28c77695ac5167e533f86e0268c0a83ef1ac693a",
+                "reference": "28c77695ac5167e533f86e0268c0a83ef1ac693a",
                 "shasum": ""
             },
             "require": {
+                "lib-pcre": ">=7.0",
                 "php": ">=5.3.2"
             },
             "require-dev": {
@@ -59,7 +60,7 @@
                 "test double",
                 "testing"
             ],
-            "time": "2013-04-17 21:08:10"
+            "time": "2013-05-08 16:54:26"
         },
         {
             "name": "pimple/pimple",
@@ -144,88 +145,6 @@
                 "psr-3"
             ],
             "time": "2012-12-21 11:40:51"
-        },
-        {
-            "name": "silex/silex",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/fabpot/Silex.git",
-                "reference": "8bf675f57cb7967cbfa3988be501f1dfe6c45432"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Silex/zipball/8bf675f57cb7967cbfa3988be501f1dfe6c45432",
-                "reference": "8bf675f57cb7967cbfa3988be501f1dfe6c45432",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3",
-                "pimple/pimple": "1.*",
-                "symfony/event-dispatcher": ">=2.1,<2.3-dev",
-                "symfony/http-foundation": ">=2.1,<2.3-dev",
-                "symfony/http-kernel": ">=2.1,<2.3-dev",
-                "symfony/routing": ">=2.1,<2.3-dev"
-            },
-            "require-dev": {
-                "doctrine/dbal": ">=2.2.0,<2.4.0-dev",
-                "monolog/monolog": ">=1.4,<2.0,>=1.4.1",
-                "swiftmailer/swiftmailer": "4.2.*",
-                "symfony/browser-kit": ">=2.1,<2.3-dev",
-                "symfony/config": ">=2.1,<2.3-dev",
-                "symfony/css-selector": ">=2.1,<2.3-dev",
-                "symfony/dom-crawler": ">=2.1,<2.3-dev",
-                "symfony/finder": ">=2.1,<2.3-dev",
-                "symfony/form": ">=2.1.4,<2.3-dev",
-                "symfony/locale": ">=2.1,<2.3-dev",
-                "symfony/monolog-bridge": ">=2.1,<2.3-dev",
-                "symfony/options-resolver": ">=2.1,<2.3-dev",
-                "symfony/process": ">=2.1,<2.3-dev",
-                "symfony/security": ">=2.1,<2.3-dev",
-                "symfony/serializer": ">=2.1,<2.3-dev",
-                "symfony/translation": ">=2.1,<2.3-dev",
-                "symfony/twig-bridge": ">=2.1,<2.3-dev",
-                "symfony/validator": ">=2.1,<2.3-dev",
-                "twig/twig": ">=1.8.0,<2.0-dev"
-            },
-            "suggest": {
-                "symfony/browser-kit": ">=2.1,<2.3-dev",
-                "symfony/css-selector": ">=2.1,<2.3-dev",
-                "symfony/dom-crawler": ">=2.1,<2.3-dev",
-                "symfony/form": "To make use of the FormServiceProvider, >= 2.1.4 is required"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Silex": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Igor Wiedler",
-                    "email": "igor@wiedler.ch",
-                    "homepage": "http://wiedler.ch/igor/"
-                }
-            ],
-            "description": "The PHP micro-framework based on the Symfony2 Components",
-            "homepage": "http://silex.sensiolabs.org",
-            "keywords": [
-                "microframework"
-            ],
-            "time": "2013-04-24 12:29:40"
         },
         {
             "name": "symfony/event-dispatcher",
