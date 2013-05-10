@@ -199,12 +199,12 @@ class Frame implements Serializable
      */
     public function serialize()
     {
-        $frames = $this->frames;
+        $frame = $this->frame;
         if(!empty($this->comments)) {
-            $frames['_comments'] = $this->comments;
+            $frame['_comments'] = $this->comments;
         }
 
-        return serialize($frames);
+        return serialize($frame);
     }
 
     /**
@@ -216,13 +216,13 @@ class Frame implements Serializable
      */
     public function unserialize($serializedFrame)
     {
-        $frames = unserialize($serializedFrame);
+        $frame = unserialize($serializedFrame);
 
-        if(!empty($frames['_comments'])) {
-            $this->comments = $frames['_comments'];
-            unset($frames['_comments']);
+        if(!empty($frame['_comments'])) {
+            $this->comments = $frame['_comments'];
+            unset($frame['_comments']);
         }
 
-        $this->frames = $frames;
+        $this->frame = $frame;
     }
 }
