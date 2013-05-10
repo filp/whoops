@@ -6,7 +6,7 @@
 
 namespace Whoops\Exception;
 use Whoops\Exception\Frame;
-use InvalidArgumentException;
+use UnexpectedValueException;
 use IteratorAggregate;
 use ArrayIterator;
 use Serializable;
@@ -42,14 +42,45 @@ class FrameCollection implements IteratorAggregate, Serializable, Countable
      */
     public function filter($callable)
     {
-        if(!is_callable($callable)) {
-            throw new InvalidArgumentException(
-                __METHOD__ . " expects a callable, like function($frame) { return bool; }"
-            );
-        }
-
         $this->frames = array_filter($this->frames, $callable);
         return $this;        
+    }
+
+    /**
+     * Map the collection of frames
+     * 
+     * @param  callable $callable
+     * @return Whoops\Exception\FrameCollection
+     */
+    public function map($callable)
+    {
+        // Contain the map within a higher-order callable
+        // that enforces type-correctness for the $callable
+        $this->frames = array_map(function($frame) use($callable) {
+            $frame = call_user_func($callable, $frame);
+
+            if(!$frame instanceof Frame) {
+                throw new UnexpectedValueException(
+                    "Callable to " . __METHOD__ . " must return a Frame object"
+                );
+            }
+
+            return $frame;
+        }, $this->frames);
+    }
+
+    /**
+     * Returns an array with all frames, does not affect
+     * the internal array.
+     * 
+     * @todo   If this gets any more complex than this,
+     *         have getIterator use this method.
+     * @see    Whoops\Exception\FrameCollection::getIterator
+     * @return array
+     */
+    public function getArray()
+    {
+        return $this->frames;
     }
 
     /**
