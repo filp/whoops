@@ -182,4 +182,33 @@ class PrettyPageHandlerTest extends TestCase
             'cool beans hello:20'
         );
     }
+
+    public function testEditorXdebug()
+    {
+        if (!extension_loaded('xdebug')) {
+            $this->markTestSkipped('xdebug is not available');
+        }
+
+        $originalValue = ini_get('xdebug.file_link_format');
+
+        $handler = $this->getHandler();
+        $handler->setEditor('xdebug');
+
+        ini_set('xdebug.file_link_format', '%f:%l');
+
+        $this->assertEquals(
+            '/foo/bar.php:10',
+            $handler->getEditorHref('/foo/bar.php', 10)
+        );
+
+        ini_set('xdebug.file_link_format', 'subl://open?url=%f&line=%l');
+
+        // xdebug doesn't do any URL encoded, matching that behaviour.
+        $this->assertEquals(
+            'subl://open?url=/foo/with space?.php&line=2324',
+            $handler->getEditorHref('/foo/with space?.php', 2324)
+        );
+
+        ini_set('xdebug.file_link_format', $originalValue);
+    }
 }
