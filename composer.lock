@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "c3d6eb54ae4733fbae6d278e7ef54f7d",
+    "hash": "05a48af6c1364031a57c1ddaa85fa572",
     "packages": [
 
     ],
@@ -145,6 +145,88 @@
                 "psr-3"
             ],
             "time": "2012-12-21 11:40:51"
+        },
+        {
+            "name": "silex/silex",
+            "version": "1.0.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fabpot/Silex.git",
+                "reference": "7ae0fd8b871eaebf95b856940c47679da40666c6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fabpot/Silex/zipball/7ae0fd8b871eaebf95b856940c47679da40666c6",
+                "reference": "7ae0fd8b871eaebf95b856940c47679da40666c6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "pimple/pimple": "1.*",
+                "symfony/event-dispatcher": ">=2.1,<2.4-dev",
+                "symfony/http-foundation": ">=2.1,<2.4-dev",
+                "symfony/http-kernel": ">=2.1,<2.4-dev",
+                "symfony/routing": ">=2.1,<2.4-dev"
+            },
+            "require-dev": {
+                "doctrine/dbal": ">=2.2.0,<2.4.0-dev",
+                "monolog/monolog": ">=1.4,<2.0,>=1.4.1",
+                "swiftmailer/swiftmailer": "5.*",
+                "symfony/browser-kit": ">=2.1,<2.4-dev",
+                "symfony/config": ">=2.1,<2.4-dev",
+                "symfony/css-selector": ">=2.1,<2.4-dev",
+                "symfony/dom-crawler": ">=2.1,<2.4-dev",
+                "symfony/finder": ">=2.1,<2.4-dev",
+                "symfony/form": ">=2.1.4,<2.4-dev",
+                "symfony/locale": ">=2.1,<2.4-dev",
+                "symfony/monolog-bridge": ">=2.1,<2.4-dev",
+                "symfony/options-resolver": ">=2.1,<2.4-dev",
+                "symfony/process": ">=2.1,<2.4-dev",
+                "symfony/security": ">=2.1,<2.4-dev",
+                "symfony/serializer": ">=2.1,<2.4-dev",
+                "symfony/translation": ">=2.1,<2.4-dev",
+                "symfony/twig-bridge": ">=2.1,<2.4-dev",
+                "symfony/validator": ">=2.1,<2.4-dev",
+                "twig/twig": ">=1.8.0,<2.0-dev"
+            },
+            "suggest": {
+                "symfony/browser-kit": ">=2.1,<2.4-dev",
+                "symfony/css-selector": ">=2.1,<2.4-dev",
+                "symfony/dom-crawler": ">=2.1,<2.4-dev",
+                "symfony/form": ">= 2.1.4,<2.4-dev"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Silex": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Igor Wiedler",
+                    "email": "igor@wiedler.ch",
+                    "homepage": "http://wiedler.ch/igor/"
+                }
+            ],
+            "description": "The PHP micro-framework based on the Symfony2 Components",
+            "homepage": "http://silex.sensiolabs.org",
+            "keywords": [
+                "microframework"
+            ],
+            "time": "2013-05-08 12:49:14"
         },
         {
             "name": "symfony/event-dispatcher",
