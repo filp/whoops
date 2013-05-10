@@ -12,14 +12,22 @@ use Mockery as m;
 class FrameCollectionTest extends TestCase
 {
     /**
+     * Stupid little counter for tagging frames
+     * with a unique but predictable id
+     * @var int
+     */
+    private $frameIdCounter = 0;
+
+    /**
      * @return array
      */
     private function getFrameData()
     {
+        $id = ++$this->frameIdCounter;
         return array(
             'file'     => __DIR__ . '/../../fixtures/frame.lines-test.php',
-            'line'     => 0,
-            'function' => 'test',
+            'line'     => $id,
+            'function' => 'test-' . $id,
             'class'    => 'MyClass',
             'args'     => array(true, 'hello')
         );
@@ -41,6 +49,22 @@ class FrameCollectionTest extends TestCase
         }
 
         return new FrameCollection($frames);
+    }
+
+    /**
+     * @covers Whoops\Exception\FrameCollection::filter
+     * @covers Whoops\Exception\FrameCollection::count
+     */
+    public function testFilterFrames()
+    {
+        $frames = $this->getFrameCollectionInstance();
+
+        // Filter out all frames with a line number under 6
+        $frames->filter(function($frame) {
+            return $frame->getLine() <= 5;
+        });
+
+        $this->assertCount(5, $frames);
     }
 
     /**
