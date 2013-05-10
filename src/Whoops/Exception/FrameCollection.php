@@ -67,6 +67,8 @@ class FrameCollection implements IteratorAggregate, Serializable, Countable
 
             return $frame;
         }, $this->frames);
+
+        return $this;
     }
 
     /**
