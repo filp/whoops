@@ -57,11 +57,11 @@ class InspectorTest extends TestCase
     /**
      * @covers Whoops\Exception\Inspector::getFrames
      */
-    public function testGetFramesReturnsIterator()
+    public function testGetFramesReturnsCollection()
     {
         $exception = $this->getException();
         $inspector = $this->getInspectorInstance($exception);
 
-        $this->assertInstanceOf('Whoops\\Exception\\FrameIterator', $inspector->getFrames());
+        $this->assertInstanceOf('Whoops\\Exception\\FrameCollection', $inspector->getFrames());
     }
 }
