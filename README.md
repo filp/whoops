@@ -75,6 +75,7 @@ The following editors are currently supported by default.
 - `emacs`    - Emacs
 - `textmate` - Textmate
 - `macvim`   - MacVim
+- `xdebug`   - xdebug (uses [xdebug.file_link_format](http://xdebug.org/docs/all_settings#file_link_format))
 
 Adding your own editor is simple:
 
