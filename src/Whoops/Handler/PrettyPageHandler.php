@@ -49,6 +49,19 @@ class PrettyPageHandler extends Handler
     );
 
     /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        if (extension_loaded('xdebug')) {
+            // Register editor using xdebug's file_link_format option.
+            $this->editors['xdebug'] = function($file, $line) {
+                return str_replace(array('%f', '%l'), array($file, $line), ini_get('xdebug.file_link_format'));
+            };
+        }
+    }
+
+    /**
      * @return int|null
      */
     public function handle()
