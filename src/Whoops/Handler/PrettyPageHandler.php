@@ -110,8 +110,12 @@ class PrettyPageHandler extends Handler
             )
         );
 
+        $extraTables = array_map(function($table) {
+            return $table instanceof \Closure ? $table() : $table;
+        }, $this->getDataTables());
+
         // Add extra entries list of data tables:
-        $v->tables = array_merge($this->getDataTables(), $v->tables);
+        $v->tables = array_merge($extraTables, $v->tables);
 
         call_user_func(function() use($templateFile, $v) {
             // $e -> cleanup output, optionally preserving URIs as anchors:
@@ -153,6 +157,33 @@ class PrettyPageHandler extends Handler
     public function addDataTable($label, array $data)
     {
         $this->extraTables[$label] = $data;
+    }
+
+    /**
+     * Lazily adds an entry to the list of tables displayed in the table.
+     * The supplied callback argument will be called when the error is rendered,
+     * it should produce a simple associative array. Any nested arrays will
+     * be flattened with print_r.
+     * @param string   $label
+     * @param callable $callback Callable returning an associative array
+     */
+    public function addDataTableCallback($label, /* callable */ $callback)
+    {
+        if (!is_callable($callback)) {
+            throw new InvalidArgumentException('Expecting callback argument to be callable');
+        }
+
+        $this->extraTables[$label] = function() use ($callback) {
+            try {
+                $result = call_user_func($callback);
+
+                // Only return the result if it can be iterated over by foreach().
+                return is_array($result) || $result instanceof \Traversable ? $result : array();
+            } catch (\Exception $e) {
+                // Don't allow failiure to break the rendering of the original exception.
+                return array();
+            }
+        };
     }
 
     /**
