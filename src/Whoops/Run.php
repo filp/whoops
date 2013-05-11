@@ -24,7 +24,7 @@ class Run
     protected $sendOutput = true;
 
     /**
-     * @var DarnIt\Handler\HandlerInterface[]
+     * @var Whoops\Handler\HandlerInterface[]
      */
     protected $handlerStack = array();
 
