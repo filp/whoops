@@ -301,11 +301,15 @@ pre.prettyprint, code.prettyprint {
     text-decoration:none;
   }
 
+  .linenums li {
+    color: #A5A5A5;
+  }
+
   .linenums li.current{
-    background: rgba(255, 255, 255, .07);
+    background: rgba(255, 100, 100, .07);
     padding-top: 4px;
     padding-left: 1px;
   }
     .linenums li.current.active {
-      background: rgba(255, 255, 255, .17);
+      background: rgba(255, 100, 100, .17);
     }
