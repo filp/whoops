@@ -194,6 +194,8 @@ class Run
         // ($handlerResponse will be the response from the last queried handler)
         // and if so, try to quit execution.
         if($this->allowQuit()) {
+            // Clean all output buffers before writing output
+            while (ob_get_level() > 0) ob_end_clean();
             echo $output;
             exit;
         } else {
