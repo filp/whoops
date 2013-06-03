@@ -186,7 +186,10 @@ class Frame implements Serializable
                 $lines = array_slice($lines, $start, $length, true);
             }
 
-            return $lines;
+            return array_map(function($line)
+            {
+                return empty($line) ? ' ' : $line;
+            }, $lines);
         }
     }
 
