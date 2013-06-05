@@ -19,6 +19,7 @@ powerful stacked error handling system.
 - Includes a pretty rad error page for your webapp projects
 - **NEW** Includes the ability to open referenced files directly in your editor and IDE
 - Includes a Silex Service Provider for painless integration with [Silex](http://silex.sensiolabs.org/)
+- Includes a Phalcon Service Provider for painless integration with [Phalcon](http://phalconphp.com/)
 - Includes a Module for equally painless integration with [Zend Framework 2](http://framework.zend.com/)
 - Easy to extend and integrate with existing libraries
 - Clean, well-structured & tested code-base (well, except `pretty-template.php`, for now...)
@@ -87,6 +88,20 @@ $app['whoops'] = $app->extend('whoops', function($whoops) {
     return $whoops;
 });
 ```
+### Integrating with Phalcon
+
+**whoops** comes packaged with a Phalcon Service Provider: `Whoops\Provider\Phalcon\WhoopsServiceProvider`. Using it
+in your existing Phalcon project is easy. The provider uses the default Phalcon DI unless you pass a DI instance into the constructor.
+
+```php
+new Whoops\Provider\Phalcon\WhoopsServiceProvider;
+
+// --- or ---
+
+$di = Phalcon\DI\FactoryDefault;
+new Whoops\Provider\Phalcon\WhoopsServiceProvider($di);
+```
+
 ### Integrating with Laravel 4/Illuminate
 
 If you're using Laravel 4, as of [this commit to laravel/framework](https://github.com/laravel/framework/commit/64f3a79aae254b71550a8097880f0b0e09062d24), you're already using Whoops! Yay!
@@ -117,7 +132,7 @@ https://github.com/filp/whoops/tree/master/src/Whoops/Provider/Zend
 ```
 
 - Move Module.php from /Whoops/Provider/Zend/Module.php to /Whoops/Module.php
-- Use optional configurations in your controller config: 
+- Use optional configurations in your controller config:
 
 ```php
 return array(
