@@ -20,8 +20,9 @@ class Run
     const SHUTDOWN_HANDLER  = 'handleShutdown';
 
     protected $isRegistered;
-    protected $allowQuit  = true;
-    protected $sendOutput = true;
+    protected $allowQuit    = true;
+    protected $quitOnFinish = true;
+    protected $sendOutput   = true;
 
     /**
      * @var Whoops\Handler\HandlerInterface[]
@@ -135,6 +136,20 @@ class Run
         }
 
         return $this->allowQuit = (bool) $exit;
+    }
+
+    /**
+     * Should Whoops quit after all the Handlers have completed without any asking to quit?
+     * @param bool|num $exit
+     * @return bool
+     */
+    public function quitOnFinish($exit = null)
+    {
+        if(func_num_args() == 0) {
+            return $this->quitOnFinish;
+        }
+
+        return $this->quitOnFinish = (bool) $exit;
     }
 
     /**
