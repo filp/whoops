@@ -349,6 +349,6 @@ class RunTest extends TestCase
 
         ob_start();
         $this->assertEquals("hello there", $run->handleException(new RuntimeException));
-        $this->assertEquals("", ob_get_clean());
+        $this->assertEquals("hello there", ob_get_clean());
     }
 }
