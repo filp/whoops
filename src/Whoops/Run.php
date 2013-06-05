@@ -208,6 +208,10 @@ class Run
         // Handlers are done! Check if we got here because of Handler::QUIT
         // ($handlerResponse will be the response from the last queried handler)
         // and if so, try to quit execution.
+        // If we didn't get here from Handler::QUIT (either Handler::DONE or
+        // Handler::LAST_HANDLER), query whether we should should quit after
+        // finishing all Handlers and not being specifically instructed to quit
+        // by any of them.
         if(($handlerResponse == Handler::QUIT || $this->quitOnFinish()) && $this->allowQuit()) {
             echo $output;
             exit;
