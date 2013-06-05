@@ -327,4 +327,28 @@ class RunTest extends TestCase
         $this->assertEquals("hello there", $run->handleException(new RuntimeException));
         $this->assertEquals("", ob_get_clean());
     }
+
+    /**
+     * @covers Whoops\Run::handleException
+     * @covers Whoops\Run::writeToOutput
+     * @covers Whoops\Run::quitOnFinish
+     */
+    public function testNoQuitOnFinish()
+    {
+        $run = new Run;
+        // Set $allowQuit to true.
+        $run->allowQuit(true);
+        // However, by setting $quitOnFinish to false, this test should run
+        // exactly the same as testOutputIsNotSent(). If this test passes, it
+        // works. If it does not work, then you would know by this script
+        // terminating execution.
+        $run->quitOnFinish(false);
+        $run->pushHandler(function() {
+            echo "hello there";
+        });
+
+        ob_start();
+        $this->assertEquals("hello there", $run->handleException(new RuntimeException));
+        $this->assertEquals("", ob_get_clean());
+    }
 }
