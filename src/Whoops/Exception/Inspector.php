@@ -22,6 +22,11 @@ class Inspector
     private $frames;
 
     /**
+     * @var Whoops\Exception\Inspector
+     */
+    private $previousExceptionInspector;
+
+    /**
      * @param Exception $exception The exception to inspect
      */
     public function __construct(Exception $exception)
@@ -51,6 +56,33 @@ class Inspector
     public function getExceptionMessage()
     {
         return $this->exception->getMessage();
+    }
+
+    /**
+     * Does this Exception have a previous Exception?
+     * @return bool
+     */
+    public function hasPreviousException()
+    {
+        return !!$this->previousExceptionInspector || !!$this->exception->getPrevious();
+    }
+    
+    /**
+     * Returns an inspector for a previous inspector, if any.
+     * @todo   Clean this up a bit, cache stuff a bit better.
+     * @return Whoops\Exception\Inspector|null
+     */
+    public function getPreviousExceptionInspector()
+    {
+        if($this->previousExceptionInspector === null) {
+            $previousException = $this->exception->getPrevious();
+
+            if($previousException) {
+                $this->previousExceptionInspector = new Inspector($previousException);
+            }
+        }
+
+        return $this->previousExceptionInspector;
     }
 
     /**

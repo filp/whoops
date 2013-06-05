@@ -7,19 +7,19 @@
 namespace Whoops\Exception;
 use Whoops\Exception\Inspector;
 use Whoops\TestCase;
-use RuntimeException;
 use Exception;
-use Mockery as m;
 
 class InspectorTest extends TestCase
 {
     /**
-     * @param string $message
+     * @param string    $message
+     * @param int       $code
+     * @param Exception $previous
      * @return Exception
      */
-    protected function getException($message = null)
+    protected function getException($message = null, $code = 0, Exception $previous = null)
     {
-        return m::mock('Exception', array($message));
+        return new Exception($message, $code, $previous);
     }
 
     /**
@@ -63,5 +63,30 @@ class InspectorTest extends TestCase
         $inspector = $this->getInspectorInstance($exception);
 
         $this->assertInstanceOf('Whoops\\Exception\\FrameCollection', $inspector->getFrames());
+    }
+
+    /**
+     * @covers Whoops\Exception\Inspector::hasPreviousException
+     * @covers Whoops\Exception\Inspector::getPreviousExceptionInspector
+     */
+    public function testPreviousException()
+    {
+        $previousException = $this->getException("I'm here first!");
+        $exception         = $this->getException("Oh boy", null, $previousException);
+        $inspector         = $this->getInspectorInstance($exception);
+
+        $this->assertTrue($inspector->hasPreviousException());
+        $this->assertEquals($previousException, $inspector->getPreviousExceptionInspector()->getException());
+    }
+
+    /**
+     * @covers Whoops\Exception\Inspector::hasPreviousException
+     */
+    public function testNegativeHasPreviousException()
+    {
+        $exception         = $this->getException("Oh boy");
+        $inspector         = $this->getInspectorInstance($exception);
+
+        $this->assertFalse($inspector->hasPreviousException());
     }
 }
