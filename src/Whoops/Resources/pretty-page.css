@@ -94,7 +94,7 @@ header {
       background: #BEE9EA;
     }
 
-    .frame-class, .frame-function {
+    .frame-class, .frame-function, .frame-index {
       font-weight: bold;
     }
 
