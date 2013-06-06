@@ -14,8 +14,7 @@ use Phalcon\DI\Exception;
 class WhoopsServiceProvider
 {
     /**
-     * @see Silex\ServiceProviderInterface::register
-     * @param  Silex\Application $app
+     * @param Phalcon\DI $di
      */
     public function __construct(DI $di = null)
     {
