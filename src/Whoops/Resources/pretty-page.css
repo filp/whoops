@@ -98,6 +98,11 @@ header {
       font-weight: bold;
     }
 
+    .frame-index {
+      font-size: 11px;
+      color: #BDBDBD;
+    }
+
     .frame-class {
       color: #4288CE;
     }
@@ -118,7 +123,6 @@ header {
       font-weight: bold;
       color: #4288CE;
     }
-
 
     .active .frame-line { color: #BEE9EA; }
     .frame-line:before {
