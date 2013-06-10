@@ -2,7 +2,7 @@
     "name": "filp/whoops",
     "license": "MIT",
     "description": "php error handling for cool kids",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "keywords": ["library", "error", "handling", "exception", "silex-provider", "whoops", "zf2"],
     "homepage": "https://github.com/filp/whoops",
     "authors": [
