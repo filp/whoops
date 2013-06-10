@@ -29,7 +29,7 @@ powerful stacked error handling system.
 - Install [Composer](http://getcomposer.org) and place the executable somewhere in your `$PATH` (for the rest of this README,
 I'll reference it as just `composer`)
 
-- Add `filp/whoops` to your project's `composer.json:
+- Add `filp/whoops` to your project's `composer.json` file:
 
 ```json
 {
