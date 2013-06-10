@@ -194,6 +194,13 @@ class Run
         // to the output, otherwise, and if the script doesn't quit, return
         // it so that it may be used by the caller
         if($this->writeToOutput()) {
+            // @todo Might be able to clean this up a bit better
+            // If we're going to quit execution, cleanup all other output 
+            // buffers before sending our own output:
+            if($handlerResponse == Handler::QUIT && $this->allowQuit()) {
+                while (ob_get_level() > 0) ob_end_clean();
+            }
+
             echo $output;
         }
 
