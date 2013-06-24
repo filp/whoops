@@ -10,9 +10,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title><?php echo $e($v->title) ?></title>
+    <title><?php echo $tpl->escape($page_title) ?></title>
 
-    <style><?php echo $v->pageStyle ?></style>
+    <style><?php echo $stylesheet ?></style>
   </head>
   <body>
     <div class="container">
@@ -20,27 +20,9 @@
       <div class="stack-container">
 
         <div class="frames-container cf <?php echo (!$v->hasFrames ? 'empty' : '') ?>">
-
-          <?php /* List file names & line numbers for all stack frames;
-                   clicking these links/buttons will display the code view
-                   for that particular frame */ ?>
-          <?php foreach($v->frames as $i => $frame): ?>
-            <div class="frame <?php echo ($i == 0 ? 'active' : '') ?>" id="frame-line-<?php echo $i ?>">
-                <div class="frame-method-info">
-                  <span class="frame-index"><?php echo (count($v->frames) - $i - 1) ?>.</span>
-                  <span class="frame-class"><?php echo $e($frame->getClass() ?: '') ?></span>
-                  <span class="frame-function"><?php echo $e($frame->getFunction() ?: '') ?></span>
-                </div>
-
-              <span class="frame-file">
-                <?php echo ($frame->getFile(true) ?: '<#unknown>') ?><!--
-             --><span class="frame-line"><?php echo (int) $frame->getLine() ?></span>
-              </span>
-            </div>
-          <?php endforeach ?>
-
+          <?php $tpl->render($frames_list, array( "v" => $v, "slug" => $slug, "e" => $e)) ?>
         </div>
-
+        
         <div class="details-container cf">
 
           <header>

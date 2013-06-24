@@ -127,10 +127,21 @@ class PrettyPageHandler extends Handler
         // Add extra entries list of data tables:
         $v->tables = array_merge($extraTables, $v->tables);
 
-        // Temp:
-        $vars["e"]    = array($helper, "escape");
-        $vars["slug"] = array($helper, "slug");
-        $vars["v"]    = $v;
+        $vars = array(
+            // Backwards-compatibility:
+            "v" => $v,
+
+            "page_title" => $this->getPageTitle(),
+
+            // Todo: asset compiler
+            "stylesheet" => file_get_contents($cssFile),
+
+            // Template paths:
+            "frames_list" => $this->getResource("views/frames_list.php"),
+
+            "slug" => array($helper, "slug"),
+            "e"    => array($helper, "escape")
+        );
 
         $helper->render($templateFile, $vars);
 
