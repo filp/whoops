@@ -58,4 +58,21 @@ class TemplateHelperTest extends TestCase
         $this->assertEquals("hello-world", $this->helper->slug("Hello, world!"));
         $this->assertEquals("potato-class", $this->helper->slug("Potato class"));
     }
+
+    /**
+     * @covers Whoops\Util\TemplateHelper::render
+     */
+    public function testRender()
+    {
+        $template = __DIR__ . "/../../fixtures/template.php";
+
+        ob_start();
+        $this->helper->render($template, array("name" => "B<o>b"));
+        $output = ob_get_clean();
+
+        $this->assertEquals(
+            $output,
+            "hello-world\nMy name is B&lt;o&gt;b"
+        );
+    }
 }
