@@ -49,4 +49,13 @@ class TemplateHelperTest extends TestCase
             "This is a &lt;a href=&#039;&#039;&gt;<a href=\"http://google.com\" target=\"_blank\">http://google.com</a>&lt;/a&gt; test string"
         );
     }
+
+    /**
+     * @covers Whoops\Util\TemplateHelper::slug
+     */
+    public function testSlug()
+    {
+        $this->assertEquals("hello-world", $this->helper->slug("Hello, world!"));
+        $this->assertEquals("potato-class", $this->helper->slug("Potato class"));
+    }
 }
