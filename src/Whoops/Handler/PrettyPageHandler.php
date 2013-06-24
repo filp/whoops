@@ -310,32 +310,6 @@ class PrettyPageHandler extends Handler
     }
 
     /**
-     * @deprecated 
-     * 
-     * @return string
-     */
-    public function getResourcesPath()
-    {
-        trigger_error(__METHOD__ . " is deprecated by PrettyPageHandler::getResourcePaths", E_USER_NOTICE);
-
-        $allPaths = $this->getResourcePaths();
-
-        // Compat: return only the first path
-        return reset($allPaths) ?: null;
-    }
-
-    /**
-     * @deprecated
-     * 
-     * @param string $resourcesPath
-     */
-    public function setResourcesPath($resourcesPath)
-    {
-        trigger_error(__METHOD__ . " is deprecated by PrettyPageHandler::addResourcePath", E_USER_NOTICE);
-        $this->addResourcePath($resourcesPath);
-    }
-
-    /**
      * Adds a path to the list of paths to be searched for
      * resources.
      * 
@@ -398,5 +372,31 @@ class PrettyPageHandler extends Handler
             "Could not find resource '$resource' in any resource paths."
             . "(searched: " . join(", ", $this->searchPaths). ")"
         );
+    }
+
+    /**
+     * @deprecated 
+     * 
+     * @return string
+     */
+    public function getResourcesPath()
+    {
+        trigger_error(__METHOD__ . " is deprecated by PrettyPageHandler::getResourcePaths", E_USER_NOTICE);
+
+        $allPaths = $this->getResourcePaths();
+
+        // Compat: return only the first path
+        return reset($allPaths) ?: null;
+    }
+
+    /**
+     * @deprecated
+     * 
+     * @param string $resourcesPath
+     */
+    public function setResourcesPath($resourcesPath)
+    {
+        trigger_error(__METHOD__ . " is deprecated by PrettyPageHandler::addResourcePath", E_USER_NOTICE);
+        $this->addResourcePath($resourcesPath);
     }
 }
