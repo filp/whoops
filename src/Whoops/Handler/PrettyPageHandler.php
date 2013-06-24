@@ -91,7 +91,7 @@ class PrettyPageHandler extends Handler
         $helper = new TemplateHelper;
 
         // @todo Allow specifying these:
-        $templateFile = $this->getResource("views/template.php");
+        $templateFile = $this->getResource("views/layout.html.php");
         $cssFile      = $this->getResource("css/whoops.base.css");
 
         // Prepare the $v global variable that will pass relevant
@@ -138,10 +138,10 @@ class PrettyPageHandler extends Handler
             "javascript" => file_get_contents($this->getResource("js/whoops.base.js")),
 
             // Template paths:
-            "header"      => $this->getResource("views/header.php"),
-            "frame_list"  => $this->getResource("views/frame_list.php"),
-            "frame_code"  => $this->getResource("views/frame_code.php"),
-            "env_details" => $this->getResource("views/env_details.php"),
+            "header"      => $this->getResource("views/header.html.php"),
+            "frame_list"  => $this->getResource("views/frame_list.html.php"),
+            "frame_code"  => $this->getResource("views/frame_code.html.php"),
+            "env_details" => $this->getResource("views/env_details.html.php"),
 
             "slug" => array($helper, "slug"),
             "e"    => array($helper, "escape")
