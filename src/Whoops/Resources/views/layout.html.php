@@ -16,15 +16,15 @@
     <div class="container">
 
       <div class="stack-container">
-        <div class="frames-container cf <?php echo (!$v->hasFrames ? 'empty' : '') ?>">
-          <?php $tpl->render($frame_list, array( "v" => $v ) ) ?>
+        <div class="frames-container cf <?php echo (!$has_frames ? 'empty' : '') ?>">
+          <?php $tpl->render($frame_list, compact("frames")) ?>
         </div>
         <div class="details-container cf">
           <header>
-            <?php $tpl->render($header, array( "v" => $v )) ?>
+            <?php $tpl->render($header, compact("name", "message")) ?>
           </header>
-          <?php $tpl->render($frame_code, array( "v" => $v )) ?>
-          <?php $tpl->render($env_details, array( "v" => $v)) ?>
+          <?php $tpl->render($frame_code, compact("frames", "handler", "has_frames")) ?>
+          <?php $tpl->render($env_details, compact("tables", "handlers")) ?>
         </div>
       </div>
     </div>

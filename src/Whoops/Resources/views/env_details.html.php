@@ -1,7 +1,7 @@
 <?php /* List data-table values, i.e: $_SERVER, $_GET, .... */ ?>
 <div class="details">
   <div class="data-table-container" id="data-tables">
-    <?php foreach($v->tables as $label => $data): ?>
+    <?php foreach($tables as $label => $data): ?>
       <div class="data-table" id="sg-<?php echo $tpl->escape($tpl->slug($label)) ?>">
         <label><?php echo $tpl->escape($label) ?></label>
         <?php if(!empty($data)): ?>
@@ -29,8 +29,8 @@
   <?php /* List registered handlers, in order of first to last registered */ ?>
   <div class="data-table-container" id="handlers">
     <label>Registered Handlers</label>
-    <?php foreach($v->handlers as $i => $handler): ?>
-      <div class="handler <?php echo ($handler === $v->handler) ? 'active' : ''?>">
+    <?php foreach($handlers as $i => $handler): ?>
+      <div class="handler <?php echo ($handler === $handler) ? 'active' : ''?>">
         <?php echo $i ?>. <?php echo $tpl->escape(get_class($handler)) ?>
       </div>
     <?php endforeach ?>

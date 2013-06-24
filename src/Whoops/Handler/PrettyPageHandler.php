@@ -94,43 +94,11 @@ class PrettyPageHandler extends Handler
         $templateFile = $this->getResource("views/layout.html.php");
         $cssFile      = $this->getResource("css/whoops.base.css");
 
-        // Prepare the $v global variable that will pass relevant
-        // information to the template
         $inspector = $this->getInspector();
         $frames    = $inspector->getFrames();
 
-        $v = (object) array(
-            'title'        => $this->getPageTitle(),
-            'name'         => explode('\\', $inspector->getExceptionName()),
-            'message'      => $inspector->getException()->getMessage(),
-            'frames'       => $frames,
-            'hasFrames'    => !!count($frames),
-            'handler'      => $this,
-            'handlers'     => $this->getRun()->getHandlers(),
-            'pageStyle'    => file_get_contents($cssFile),
-
-            'tables'      => array(
-                'Server/Request Data'   => $_SERVER,
-                'GET Data'              => $_GET,
-                'POST Data'             => $_POST,
-                'Files'                 => $_FILES,
-                'Cookies'               => $_COOKIE,
-                'Session'               => isset($_SESSION) ? $_SESSION:  array(),
-                'Environment Variables' => $_ENV
-            )
-        );
-
-        $extraTables = array_map(function($table) {
-            return $table instanceof \Closure ? $table() : $table;
-        }, $this->getDataTables());
-
-        // Add extra entries list of data tables:
-        $v->tables = array_merge($extraTables, $v->tables);
-
+        // List of variables that will be passed to the layout template.
         $vars = array(
-            // Backwards-compatibility:
-            "v" => $v,
-
             "page_title" => $this->getPageTitle(),
 
             // @todo: asset compiler
@@ -143,9 +111,31 @@ class PrettyPageHandler extends Handler
             "frame_code"  => $this->getResource("views/frame_code.html.php"),
             "env_details" => $this->getResource("views/env_details.html.php"),
 
-            "slug" => array($helper, "slug"),
-            "e"    => array($helper, "escape")
+            "title"        => $this->getPageTitle(),
+            "name"         => explode("\\", $inspector->getExceptionName()),
+            "message"      => $inspector->getException()->getMessage(),
+            "frames"       => $frames,
+            "has_frames"    => !!count($frames),
+            "handler"      => $this,
+            "handlers"     => $this->getRun()->getHandlers(),
+
+            "tables"      => array(
+                "Server/Request Data"   => $_SERVER,
+                "GET Data"              => $_GET,
+                "POST Data"             => $_POST,
+                "Files"                 => $_FILES,
+                "Cookies"               => $_COOKIE,
+                "Session"               => isset($_SESSION) ? $_SESSION:  array(),
+                "Environment Variables" => $_ENV
+            )
         );
+
+        // Add extra entries list of data tables:
+        // @todo consolidate addDataTable and addDataTableCallback
+        $extraTables = array_map(function($table) {
+            return $table instanceof \Closure ? $table() : $table;
+        }, $this->getDataTables());
+        $vars["tables"] = array_merge($extraTables, $vars["tables"]);
 
         $helper->render($templateFile, $vars);
 

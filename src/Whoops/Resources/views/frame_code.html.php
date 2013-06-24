@@ -1,13 +1,13 @@
 <?php /* Display a code block for all frames in the stack.
        * @todo: This should PROBABLY be done on-demand, lest
        * we get 200 frames to process. */ ?>
-<div class="frame-code-container <?php echo (!$v->hasFrames ? 'empty' : '') ?>">
-  <?php foreach($v->frames as $i => $frame): ?>
+<div class="frame-code-container <?php echo (!$has_frames ? 'empty' : '') ?>">
+  <?php foreach($frames as $i => $frame): ?>
     <?php $line = $frame->getLine(); ?>
       <div class="frame-code <?php echo ($i == 0 ) ? 'active' : '' ?>" id="frame-code-<?php echo $i ?>">
         <div class="frame-file">
           <?php $filePath = $frame->getFile(); ?>
-          <?php if($filePath && $editorHref = $v->handler->getEditorHref($filePath, (int) $line)): ?>
+          <?php if($filePath && $editorHref = $handler->getEditorHref($filePath, (int) $line)): ?>
             Open:
             <a href="<?php echo $editorHref ?>" class="editor-link">
               <strong><?php echo $tpl->escape($filePath ?: '<#unknown>') ?></strong>
