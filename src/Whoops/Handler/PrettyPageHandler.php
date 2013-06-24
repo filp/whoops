@@ -133,11 +133,15 @@ class PrettyPageHandler extends Handler
 
             "page_title" => $this->getPageTitle(),
 
-            // Todo: asset compiler
-            "stylesheet" => file_get_contents($cssFile),
+            // @todo: asset compiler
+            "stylesheet" => file_get_contents($this->getResource("css/whoops.base.css")),
+            "javascript" => file_get_contents($this->getResource("js/whoops.base.js")),
 
             // Template paths:
-            "frames_list" => $this->getResource("views/frames_list.php"),
+            "header"      => $this->getResource("views/header.php"),
+            "frame_list"  => $this->getResource("views/frame_list.php"),
+            "frame_code"  => $this->getResource("views/frame_code.php"),
+            "env_details" => $this->getResource("views/env_details.php"),
 
             "slug" => array($helper, "slug"),
             "e"    => array($helper, "escape")
