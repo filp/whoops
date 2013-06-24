@@ -20,9 +20,9 @@
       <div class="stack-container">
 
         <div class="frames-container cf <?php echo (!$v->hasFrames ? 'empty' : '') ?>">
-          <?php $tpl->render($frames_list, array( "v" => $v, "slug" => $slug, "e" => $e)) ?>
+          <?php $tpl->render($frames_list, array( "v" => $v ) ) ?>
         </div>
-        
+
         <div class="details-container cf">
 
           <header>
