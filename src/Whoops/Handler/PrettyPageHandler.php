@@ -6,6 +6,7 @@
 
 namespace Whoops\Handler;
 use Whoops\Handler\Handler;
+use Whoops\Util\TemplateHelper;
 use InvalidArgumentException;
 use RuntimeException;
 
@@ -86,6 +87,9 @@ class PrettyPageHandler extends Handler
             return Handler::DONE;
         }
 
+        // @todo Make this more dynamic ~~ *
+        $helper = new TemplateHelper;
+
         $templateFile = $this->getResource("pretty-template.php");
         $cssFile      = $this->getResource("pretty-page.css");
 
@@ -122,28 +126,10 @@ class PrettyPageHandler extends Handler
         // Add extra entries list of data tables:
         $v->tables = array_merge($extraTables, $v->tables);
 
-        call_user_func(function() use($templateFile, $v) {
+        call_user_func(function() use($templateFile, $v, $helper) {
             // $e -> cleanup output, optionally preserving URIs as anchors:
-            $e = function($_, $allowLinks = false) {
-                $escaped = htmlspecialchars($_, ENT_QUOTES, 'UTF-8');
-
-                // convert URIs to clickable anchor elements:
-                if($allowLinks) {
-                    $escaped = preg_replace(
-                        '@([A-z]+?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@',
-                        "<a href=\"$1\" target=\"_blank\">$1</a>", $escaped
-                    );
-                }
-
-                return $escaped;
-            };
-
-            // $slug -> sluggify string (i.e: Hello world! -> hello-world)
-            $slug = function($_) {
-                $_ = str_replace(" ", "-", $_);
-                $_ = preg_replace('/[^\w\d\-\_]/i', '', $_);
-                return strtolower($_);
-            };
+            $e    = array($helper, "escape");
+            $slug = array($helper, "slug");
 
             require $templateFile;
         });
