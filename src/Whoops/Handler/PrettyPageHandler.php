@@ -363,6 +363,11 @@ class PrettyPageHandler extends Handler
     }
 
     /**
+     * Finds a resource, by its relative path, in all available search paths.
+     * The search is performed starting at the last search path, and all the
+     * way back to the first, enabling a cascading-type system of overrides
+     * for all resources.
+     * 
      * @throws RuntimeException If resource cannot be found in any of the available paths
      * 
      * @param  string $resource
