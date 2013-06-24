@@ -90,8 +90,9 @@ class PrettyPageHandler extends Handler
         // @todo Make this more dynamic ~~ *
         $helper = new TemplateHelper;
 
-        $templateFile = $this->getResource("pretty-template.php");
-        $cssFile      = $this->getResource("pretty-page.css");
+        // @todo Allow specifying these:
+        $templateFile = $this->getResource("views/template.php");
+        $cssFile      = $this->getResource("css/whoops.base.css");
 
         // Prepare the $v global variable that will pass relevant
         // information to the template
