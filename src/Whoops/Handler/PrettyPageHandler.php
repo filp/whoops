@@ -7,13 +7,24 @@
 namespace Whoops\Handler;
 use Whoops\Handler\Handler;
 use InvalidArgumentException;
+use RuntimeException;
 
 class PrettyPageHandler extends Handler
 {
     /**
-     * @var string
+     * Search paths to be scanned for resources, in the reverse
+     * order they're declared.
+     * 
+     * @var array
      */
-    private $resourcesPath;
+    private $searchPaths = array();
+
+    /**
+     * Fast lookup cache for known resource locations.
+     * 
+     * @var array
+     */
+    private $resourceCache = array();
 
     /**
      * @var array[]
@@ -23,7 +34,7 @@ class PrettyPageHandler extends Handler
     /**
      * @var string
      */
-    private $pageTitle = 'Whoops! There was an error.';
+    private $pageTitle = "Whoops! There was an error";
 
     /**
      * A string identifier for a known IDE/text editor, or a closure
@@ -42,10 +53,10 @@ class PrettyPageHandler extends Handler
      * @var array
      */
     protected $editors = array(
-        'sublime'  => 'subl://open?url=file://%file&line=%line',
-        'textmate' => 'txmt://open?url=file://%file&line=%line',
-        'emacs'    => 'emacs://open?url=file://%file&line=%line',
-        'macvim'   => 'mvim://open/?url=file://%file&line=%line'
+        "sublime"  => "subl://open?url=file://%file&line=%line",
+        "textmate" => "txmt://open?url=file://%file&line=%line",
+        "emacs"    => "emacs://open?url=file://%file&line=%line",
+        "macvim"   => "mvim://open/?url=file://%file&line=%line"
     );
 
     /**
@@ -59,6 +70,9 @@ class PrettyPageHandler extends Handler
                 return str_replace(array('%f', '%l'), array($file, $line), ini_get('xdebug.file_link_format'));
             };
         }
+
+        // Add the default, local resource search path:
+        $this->searchPaths[] = __DIR__ . "/../Resources";
     }
 
     /**
@@ -72,17 +86,8 @@ class PrettyPageHandler extends Handler
             return Handler::DONE;
         }
 
-        // Get the 'pretty-template.php' template file
-        // @todo: this can be made more dynamic &&|| cleaned-up
-        if(!($resources = $this->getResourcesPath())) {
-            $resources = __DIR__ . '/../Resources';
-        }
-
-        $templateFile = "$resources/pretty-template.php";
-
-        // @todo: Make this more reliable,
-        // possibly by adding methods to append CSS & JS to the page
-        $cssFile = "$resources/pretty-page.css";
+        $templateFile = $this->getResource("pretty-template.php");
+        $cssFile      = $this->getResource("pretty-page.css");
 
         // Prepare the $v global variable that will pass relevant
         // information to the template
@@ -305,24 +310,88 @@ class PrettyPageHandler extends Handler
     }
 
     /**
+     * @deprecated 
+     * 
      * @return string
      */
     public function getResourcesPath()
     {
-        return $this->resourcesPath;
+        trigger_error(__METHOD__ . " is deprecated by PrettyPageHandler::getResourcePaths", E_DEPRECATED);
+
+        $allPaths = $this->getResourcePaths();
+
+        // Compat: return only the first path:
+        return reset($allPaths) ?: null;
     }
 
     /**
+     * @deprecated
+     * 
      * @param string $resourcesPath
      */
     public function setResourcesPath($resourcesPath)
     {
-        if(!is_dir($resourcesPath)) {
+        trigger_error(__METHOD__ . " is deprecated by PrettyPageHandler::addResourcePath", E_DEPRECATED);
+        $this->addResourcePath($resourcesPath);
+    }
+
+    /**
+     * Adds a path to the list of paths to be searched for
+     * resources.
+     * 
+     * @throws InvalidArgumnetException If $path is not a valid directory
+     * 
+     * @param string $path
+     */
+    public function addResourcePath($path)
+    {
+        if(!is_dir($path)) {
             throw new InvalidArgumentException(
-                "$resourcesPath is not a valid directory"
+                "'$path' is not a valid directory"
             );
         }
 
-        $this->resourcesPath = $resourcesPath;
+        $this->searchPaths[] = $path;
+    }
+
+    /**
+     * @return array
+     */
+    public function getResourcePaths()
+    {
+        return $this->searchPaths;
+    }
+
+    /**
+     * @throws RuntimeException If resource cannot be found in any of the available paths
+     * 
+     * @param  string $resource
+     * @return string
+     */
+    protected function getResource($resource)
+    {
+        // If the resource was found before, we can speed things up
+        // by caching its absolute, resolved path:
+        if(isset($this->resourceCache[$resource])) {
+            return $this->resourceCache[$resource];
+        }
+
+        // Search through available search paths, in reverse order,
+        // until we find the resource we're after:
+        for($i = count($this->searchPaths) - 1; $i >= 0; $i--) {
+            $fullPath = $this->searchPaths[$i] . "/$resource";
+
+            if(is_file($fullPath)) {
+                // Cache the result:
+                $this->resourceCache[$resource] = $fullPath;
+                return $fullPath;
+            }
+        }
+
+        // If we got this far, nothing was found.
+        throw new RuntimeException(
+            "Could not find resource '$resource' in any resource paths."
+            . "(searched: " . join(", ", $this->searchPaths). ")"
+        );
     }
 }
