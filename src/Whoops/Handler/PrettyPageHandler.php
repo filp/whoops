@@ -126,14 +126,12 @@ class PrettyPageHandler extends Handler
         // Add extra entries list of data tables:
         $v->tables = array_merge($extraTables, $v->tables);
 
-        call_user_func(function() use($templateFile, $v, $helper) {
-            // $e -> cleanup output, optionally preserving URIs as anchors:
-            $e    = array($helper, "escape");
-            $slug = array($helper, "slug");
+        // Temp:
+        $vars["e"]    = array($helper, "escape");
+        $vars["slug"] = array($helper, "slug");
+        $vars["v"]    = $v;
 
-            require $templateFile;
-        });
-
+        $helper->render($templateFile, $vars);
 
         return Handler::QUIT;
     }

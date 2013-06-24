@@ -50,4 +50,21 @@ class TemplateHelper
         $slug = preg_replace('/[^\w\d\-\_]/i', '', $slug);
         return strtolower($slug);
     }
+
+    /**
+     * Given a template path, render it within its own scope.
+     * 
+     * @param string $__template
+     * @param array  $__variables
+     */
+    public function render($__template, array $__variables = array())
+    {
+        // Pass the helper to the template:
+        $__variables["tpl"] = $this;
+
+        call_user_func(function() use($__template, $__variables) {
+            extract($__variables);
+            require $__template;
+        });
+    }
 }
