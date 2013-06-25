@@ -137,7 +137,8 @@ class PrettyPageHandler extends Handler
         }, $this->getDataTables());
         $vars["tables"] = array_merge($extraTables, $vars["tables"]);
 
-        $helper->render($templateFile, $vars);
+        $helper->setVariables($vars);
+        $helper->render($templateFile);
 
         return Handler::QUIT;
     }

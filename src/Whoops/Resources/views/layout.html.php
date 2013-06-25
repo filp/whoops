@@ -17,14 +17,14 @@
 
       <div class="stack-container">
         <div class="frames-container cf <?php echo (!$has_frames ? 'empty' : '') ?>">
-          <?php $tpl->render($frame_list, compact("frames")) ?>
+          <?php $tpl->render($frame_list) ?>
         </div>
         <div class="details-container cf">
           <header>
-            <?php $tpl->render($header, compact("name", "message")) ?>
+            <?php $tpl->render($header) ?>
           </header>
-          <?php $tpl->render($frame_code, compact("frames", "handler", "has_frames")) ?>
-          <?php $tpl->render($env_details, compact("tables", "handlers")) ?>
+          <?php $tpl->render($frame_code) ?>
+          <?php $tpl->render($env_details) ?>
         </div>
       </div>
     </div>

@@ -12,6 +12,12 @@ namespace Whoops\Util;
 class TemplateHelper
 {
     /**
+     * An array of variables to be passed to all templates
+     * @var array
+     */
+    private $variables = array();
+
+    /**
      * Escapes a string for output in an HTML document
      *
      * @param  string $raw
@@ -52,19 +58,84 @@ class TemplateHelper
     }
 
     /**
-     * Given a template path, render it within its own scope.
+     * Given a template path, render it within its own scope. This
+     * method also accepts an array of additional variables to be
+     * passed to the template.
      * 
      * @param string $__template
-     * @param array  $__variables
+     * @param array  $additionalVariables
      */
-    public function render($__template, array $__variables = array())
+    public function render($__template, array $additionalVariables = null)
     {
+        $__variables = $this->getVariables();
+
         // Pass the helper to the template:
         $__variables["tpl"] = $this;
 
+        if($additionalVariables !== null) {
+            $__variables = array_replace($__variables, $additionalVariables);
+        }
+        
         call_user_func(function() use($__template, $__variables) {
             extract($__variables);
             require $__template;
         });
+    }
+
+    /**
+     * Sets the variables to be passed to all templates rendered
+     * by this template helper.
+     * 
+     * @param array $variables
+     */
+    public function setVariables(array $variables)
+    {
+        $this->variables = $variables;
+    }
+
+    /**
+     * Sets a single template variable, by its name:
+     *
+     * @param string $variableName
+     * @param mixd   $variableValue
+     */
+    public function setVariable($variableName, $variableValue)
+    {
+        $this->variables[$variableName] = $variableName;
+    }
+
+    /**
+     * Gets a single template variable, by its name, or
+     * $defaultValue if the variable does not exist
+     * 
+     * @param  string $variableName
+     * @param  mixed  $defaultValue
+     * @return mixed
+     */
+    public function getVariable($variableName, $defaultValue = null)
+    {
+        return isset($this->variables[$variableName]) ?
+            $this->variables[$variableName] : $defaultValue
+        ;
+    }
+
+    /**
+     * Unsets a single template variable, by its name
+     * 
+     * @param string $variableName
+     */
+    public function delVariable($variableName)
+    {
+        unset($this->variables[$variableName]);
+    }
+
+    /**
+     * Returns all variables for this helper
+     *
+     * @return array
+     */
+    public function getVariables()
+    {
+        return $this->variables;
     }
 }
