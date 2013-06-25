@@ -75,4 +75,29 @@ class TemplateHelperTest extends TestCase
             "hello-world\nMy name is B&lt;o&gt;b"
         );
     }
+
+    /**
+     * @covers Whoops\Util\TemplateHelper::setVariables
+     * @covers Whoops\Util\TemplateHelper::getVariables
+     * @covers Whoops\Util\TemplateHelper::setVariable
+     * @covers Whoops\Util\TemplateHelper::getVariable
+     * @covers Whoops\Util\TemplateHelper::delVariable
+     */
+    public function testTemplateVariables()
+    {
+        $this->helper->setVariables(array(
+            "name" => "Whoops",
+            "type" => "library",
+            "desc" => "php errors for cool kids"
+        ));
+
+        $this->helper->setVariable("name", "Whoops!");
+        $this->assertEquals($this->helper->getVariable("name"), "Whoops!");
+        $this->helper->delVariable("type");
+
+        $this->assertEquals($this->helper->getVariables(), array(
+            "name" => "Whoops!",
+            "desc" => "php errors for cool kids"
+        ));
+    }
 }

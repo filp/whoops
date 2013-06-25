@@ -75,7 +75,7 @@ class TemplateHelper
         if($additionalVariables !== null) {
             $__variables = array_replace($__variables, $additionalVariables);
         }
-        
+
         call_user_func(function() use($__template, $__variables) {
             extract($__variables);
             require $__template;
@@ -101,7 +101,7 @@ class TemplateHelper
      */
     public function setVariable($variableName, $variableValue)
     {
-        $this->variables[$variableName] = $variableName;
+        $this->variables[$variableName] = $variableValue;
     }
 
     /**
