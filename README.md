@@ -138,6 +138,7 @@ https://github.com/filp/whoops/tree/master/src/Whoops/Provider/Zend
 ```php
 return array(
     'view_manager' => array(
+        'editor' => 'sublime',
         'display_not_found_reason' => true,
         'display_exceptions' => true,
         'json_exceptions' => array(
