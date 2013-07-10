@@ -327,4 +327,18 @@ class RunTest extends TestCase
         $this->assertEquals("hello there", $run->handleException(new RuntimeException));
         $this->assertEquals("", ob_get_clean());
     }
+
+    public function testSendHttpCode()
+    {
+        $run = $this->getRunInstance();
+        $run->sendHttpCode(true);
+        $this->assertEquals(500, $run->sendHttpCode());
+    }
+
+    public function testSendHttpCodeWrongCode()
+    {
+        $run = $this->getRunInstance();
+        $this->setExpectedException('Exception');
+        $run->sendHttpCode(403);
+    }
 }
