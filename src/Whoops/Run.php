@@ -22,6 +22,7 @@ class Run
     protected $isRegistered;
     protected $allowQuit  = true;
     protected $sendOutput = true;
+    protected $setHTTPCode = true;
 
     /**
      * @var Whoops\Handler\HandlerInterface[]
@@ -138,6 +139,20 @@ class Run
     }
 
     /**
+     * Should Whoops set HTTP error code to the browser if possible?
+     * @param bool $set
+     * @return bool
+     */
+    public function setHTTPCode($set = null)
+    {
+        if(func_num_args() == 0) {
+            return $this->setHTTPCode;
+        }
+
+        return $this->setHTTPCode = (bool) $set;
+    }
+
+    /**
      * Should Whoops push output directly to the client?
      * If this is false, output will be returned by handleException
      * @param bool|num $send
@@ -199,6 +214,11 @@ class Run
             // buffers before sending our own output:
             if($handlerResponse == Handler::QUIT && $this->allowQuit()) {
                 while (ob_get_level() > 0) ob_end_clean();
+            }
+
+            if ($this->setHTTPCode() && isset($_SERVER['REQUEST_URI']) && !headers_sent()) {
+                // Send HTTP status code 500
+                header(' ', true, 500);
             }
 
             echo $output;
