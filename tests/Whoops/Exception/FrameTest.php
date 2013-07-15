@@ -50,6 +50,22 @@ class FrameTest extends TestCase
     }
 
     /**
+     * PHP Startup errors are thrown from file "Unknown".
+     * https://www.google.com/search?q="in+Unknown+on+line+0"
+     * Need to handle this gracefully instead of trying to open this "file".
+     */
+    public function testGetFileUnknown()
+    {
+        $frame = $this->getFrameInstance(array(
+            'file'     => 'Unknown',
+            'line'     => 0,
+            'class'    => '',
+            'args'     => [],
+        ));
+        $this->assertEquals($frame->getFile(), null);
+    }
+
+    /**
      * @covers Whoops\Exception\Frame::getLine
      */
     public function testGetLine()
