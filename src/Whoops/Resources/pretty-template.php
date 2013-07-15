@@ -174,7 +174,7 @@
           $($lines[activeLineNumber - firstLine - 1]).addClass('current');
           $($lines[activeLineNumber - firstLine]).addClass('current active');
           $($lines[activeLineNumber - firstLine + 1]).addClass('current');
-        }
+        };
 
         // Highlight the active for the first frame:
         highlightCurrentLine();
