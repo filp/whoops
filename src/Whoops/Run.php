@@ -22,6 +22,7 @@ class Run
     protected $isRegistered;
     protected $allowQuit  = true;
     protected $sendOutput = true;
+    protected $sendHttpCode = 500;
 
     /**
      * @var HandlerInterface[]
@@ -142,6 +143,7 @@ class Run
     }
 
     /**
+<<<<<<< HEAD
      * Silence particular errors in particular files
      * @param array|string $patterns List or a single regex pattern to match
      * @param integer $levels Defaults to E_STRICT | E_DEPRECATED
@@ -162,6 +164,36 @@ class Run
             )
         );
         return $this;
+    }
+
+    /*
+     * Should Whoops send HTTP error code to the browser if possible?
+     * Whoops will by default send HTTP code 500, but you may wish to
+     * use 502, 503, or another 5xx family code.
+     * @param bool|int $code
+     * @return bool
+     */
+    public function sendHttpCode($code = null)
+    {
+        if(func_num_args() == 0) {
+            return $this->sendHttpCode;
+        }
+
+        if(!$code) {
+            return $this->sendHttpCode = false;
+        }
+
+        if($code === true) {
+            $code = 500;
+        }
+
+        if(!is_numeric($code) || $code < 500 || 600 <= $code) {
+            throw new \Exception(
+                'Only status codes 500-599 should be used in case of a server error'
+            );
+        }
+
+        return $this->sendHttpCode = $code;
     }
 
     /**
@@ -229,6 +261,10 @@ class Run
             // buffers before sending our own output:
             if($handlerResponse == Handler::QUIT && $this->allowQuit()) {
                 while (ob_get_level() > 0) ob_end_clean();
+            }
+
+            if ($this->sendHttpCode() && isset($_SERVER['REQUEST_URI']) && !headers_sent()) {
+                header(' ', true, $this->sendHttpCode());
             }
 
             echo $output;
