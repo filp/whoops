@@ -37,7 +37,7 @@ class FrameCollection implements IteratorAggregate, Serializable, Countable
      * Filters frames using a callable, returns the same FrameCollection
      * 
      * @param  callable $callable
-     * @return Whoops\Exception\FrameCollection
+     * @return FrameCollection
      */
     public function filter($callable)
     {
@@ -49,7 +49,7 @@ class FrameCollection implements IteratorAggregate, Serializable, Countable
      * Map the collection of frames
      * 
      * @param  callable $callable
-     * @return Whoops\Exception\FrameCollection
+     * @return FrameCollection
      */
     public function map($callable)
     {
@@ -76,7 +76,7 @@ class FrameCollection implements IteratorAggregate, Serializable, Countable
      * 
      * @todo   If this gets any more complex than this,
      *         have getIterator use this method.
-     * @see    Whoops\Exception\FrameCollection::getIterator
+     * @see    FrameCollection::getIterator
      * @return array
      */
     public function getArray()

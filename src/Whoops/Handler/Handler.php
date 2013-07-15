@@ -64,7 +64,7 @@ abstract class Handler implements HandlerInterface
     }
 
     /**
-     * @return Run
+     * @return Inspector
      */
     protected function getInspector()
     {

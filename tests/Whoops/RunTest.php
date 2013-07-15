@@ -8,9 +8,10 @@ namespace Whoops;
 use Whoops\TestCase;
 use Whoops\Run;
 use Whoops\Handler\Handler;
-use RuntimeException;
 use ArrayObject;
 use Mockery as m;
+use RuntimeException;
+use Exception;
 
 class RunTest extends TestCase
 {
@@ -25,7 +26,7 @@ class RunTest extends TestCase
     }
 
     /**
-     * @return Whoops\Handler\Handler
+     * @return Handler
      */
     protected function getHandler()
     {

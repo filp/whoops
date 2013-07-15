@@ -9,6 +9,7 @@ use Whoops\Run;
 use Whoops\Handler\PrettyPageHandler;
 use Silex\ServiceProviderInterface;
 use Silex\Application;
+use Symfony\Component\HttpFoundation\Request
 use RuntimeException;
 
 class WhoopsServiceProvider implements ServiceProviderInterface
@@ -30,6 +31,7 @@ class WhoopsServiceProvider implements ServiceProviderInterface
         // instance, and working with it to add new data tables
         $app['whoops.silex_info_handler'] = $app->protect(function() use($app) {
             try {
+                /** @var Request $request */
                 $request = $app['request'];
             } catch (RuntimeException $e) {
                 // This error occurred too early in the application's life
@@ -37,8 +39,11 @@ class WhoopsServiceProvider implements ServiceProviderInterface
                 return;
             }
 
+            /** @var PrettyPageHandler $errorPageHandler */
+            $errorPageHandler = $app["whoops.error_page_handler"];
+
             // General application info:
-            $app['whoops.error_page_handler']->addDataTable('Silex Application', array(
+            $errorPageHandler->addDataTable('Silex Application', array(
                 'Charset'          => $app['charset'],
                 'Locale'           => $app['locale'],
                 'Route Class'      => $app['route_class'],
@@ -47,7 +52,7 @@ class WhoopsServiceProvider implements ServiceProviderInterface
             ));
 
             // Request info:
-            $app['whoops.error_page_handler']->addDataTable('Silex Application (Request)', array(
+            $errorPageHandler->addDataTable('Silex Application (Request)', array(
                 'URI'         => $request->getUri(),
                 'Request URI' => $request->getRequestUri(),
                 'Path Info'   => $request->getPathInfo(),
