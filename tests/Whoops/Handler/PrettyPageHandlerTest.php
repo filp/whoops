@@ -43,6 +43,9 @@ class PrettyPageHandlerTest extends TestCase
         ob_start();
         $run->handleException($this->getException());
         ob_get_clean();
+
+        // Reached the end without errors
+        $this->assertTrue(true);
     }
 
     /**
