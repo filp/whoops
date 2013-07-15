@@ -89,6 +89,14 @@ class Frame implements Serializable
     public function getFileContents()
     {
         if($this->fileContentsCache === null && $filePath = $this->getFile()) {
+
+            // Return null if the file doesn't actually exist - this may
+            // happen in cases where the filename is provided as, for
+            // example, 'Unknown'
+            if(!is_file($filePath)) {
+                return null;
+            }
+
             $this->fileContentsCache = file_get_contents($filePath);
         }
 
