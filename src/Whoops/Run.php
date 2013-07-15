@@ -129,7 +129,7 @@ class Run
 
     /**
      * Should Whoops allow Handlers to force the script to quit?
-     * @param bool|num $exit
+     * @param bool|int $exit
      * @return bool
      */
     public function allowQuit($exit = null)
