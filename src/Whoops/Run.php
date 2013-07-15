@@ -28,6 +28,8 @@ class Run
      */
     protected $handlerStack = array();
 
+    protected $silencedPatterns = array();
+
     /**
      * Pushes a handler to the end of the stack.
      * @param  Whoops\HandlerInterface $handler
@@ -138,6 +140,29 @@ class Run
     }
 
     /**
+     * Silence particular errors in particular files
+     * @param array|string $patterns List or a single regex pattern to match
+     * @param integer $levels Defaults to E_STRICT | E_DEPRECATED
+     * @return \Whoops\Run
+     */
+    public function silenceErrorsInPaths($patterns, $levels = 10240)
+    {
+        $this->silencedPatterns = array_merge(
+            $this->silencedPatterns,
+            array_map(
+                function ($pattern) use ($levels) {
+                    return array(
+                        'pattern' => $pattern,
+                        'levels' => $levels,
+                    );
+                },
+                (array) $patterns
+            )
+        );
+        return $this;
+    }
+
+    /**
      * Should Whoops push output directly to the client?
      * If this is false, output will be returned by handleException
      * @param bool|num $send
@@ -195,7 +220,7 @@ class Run
         // it so that it may be used by the caller
         if($this->writeToOutput()) {
             // @todo Might be able to clean this up a bit better
-            // If we're going to quit execution, cleanup all other output 
+            // If we're going to quit execution, cleanup all other output
             // buffers before sending our own output:
             if($handlerResponse == Handler::QUIT && $this->allowQuit()) {
                 while (ob_get_level() > 0) ob_end_clean();
@@ -228,6 +253,14 @@ class Run
     public function handleError($level, $message, $file = null, $line = null)
     {
         if ($level & error_reporting()) {
+            foreach ($this->silencedPatterns as $entry) {
+                $pathMatches = (bool) preg_match($entry['pattern'], $file);
+                $levelMatches = $level & $entry['levels'];
+                if ($pathMatches && $levelMatches)  {
+                    // Ignore the error, abort handling
+                    return true;
+                }
+            }
             $this->handleException(
                 new ErrorException(
                     $message, $level, 0, $file, $line
