@@ -296,6 +296,30 @@ class RunTest extends TestCase
     }
 
     /**
+     * @covers Whoops\Run::silenceErrorsInPaths
+     */
+    public function testSilenceErrorsInPaths()
+    {
+        $run = $this->getRunInstance();
+        $run->register();
+
+        $handler = $this->getHandler();
+        $run->pushHandler($handler);
+
+        $test = $this;
+        $handler
+            ->shouldReceive('handle')
+            ->andReturnUsing(function () use($test) {
+                $test->fail('$handler should not be called, silenceErrorsInPaths not respected');
+            })
+        ;
+
+        $run->silenceErrorsInPaths('@^'.preg_quote(__FILE__).'$@', E_USER_NOTICE);
+        trigger_error('Test', E_USER_NOTICE);
+        $this->assertTrue(true);
+    }
+
+    /**
      * @covers Whoops\Run::handleException
      * @covers Whoops\Run::writeToOutput
      */
