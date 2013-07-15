@@ -1,4 +1,4 @@
 vendor/*
 report/*
 phpunit.xml
-*.swp
+composer.lock
