@@ -247,6 +247,9 @@ class RunTest extends TestCase
         ;
 
         $run->handleException($this->getException());
+
+        // Reached the end without errors
+        $this->assertTrue(true);
     }
 
     /**
@@ -269,6 +272,9 @@ class RunTest extends TestCase
         ;
 
         @trigger_error("Test error suppression");
+
+        // Reached the end without errors
+        $this->assertTrue(true);
     }
 
     /**
@@ -293,6 +299,9 @@ class RunTest extends TestCase
         $oldLevel = error_reporting(E_ALL ^ E_USER_NOTICE);
         trigger_error("Test error reporting", E_USER_NOTICE);
         error_reporting($oldLevel);
+
+        // Reached the end without errors
+        $this->assertTrue(true);
     }
 
     /**
