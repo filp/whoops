@@ -25,12 +25,12 @@ abstract class Handler implements HandlerInterface
     const QUIT         = 0x30;
 
     /**
-     * @var Whoops\Run
+     * @var Run
      */
     private $run;
 
     /**
-     * @var Whoops\Exception\Inspector $inspector
+     * @var Inspector $inspector
      */
     private $inspector;
 
@@ -40,7 +40,7 @@ abstract class Handler implements HandlerInterface
     private $exception;
 
     /**
-     * @param Whoops\Run $run
+     * @param Run $run
      */
     public function setRun(Run $run)
     {
@@ -48,7 +48,7 @@ abstract class Handler implements HandlerInterface
     }
 
     /**
-     * @return Whoops\Run
+     * @return Run
      */
     protected function getRun()
     {
@@ -56,7 +56,7 @@ abstract class Handler implements HandlerInterface
     }
 
     /**
-     * @param Whoops\Exception\Inspector $inspector
+     * @param Inspector $inspector
      */
     public function setInspector(Inspector $inspector)
     {
@@ -64,7 +64,7 @@ abstract class Handler implements HandlerInterface
     }
 
     /**
-     * @return Whoops\Run
+     * @return Run
      */
     protected function getInspector()
     {

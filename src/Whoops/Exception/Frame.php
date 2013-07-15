@@ -159,6 +159,7 @@ class Frame implements Serializable
      *     Get one line for this file, starting at line 10 (zero-indexed, remember!)
      *     $frame->getFileLines(9, 1); // array( 10 => '...', 11 => '...')
      *
+     * @throws InvalidArgumentException if $length is less than or equal to 0
      * @param  int $start
      * @param  int $length
      * @return string[]|null

@@ -14,8 +14,7 @@ use RuntimeException;
 class WhoopsServiceProvider implements ServiceProviderInterface
 {
     /**
-     * @see Silex\ServiceProviderInterface::register
-     * @param  Silex\Application $app
+     * @param Application $app
      */
     public function register(Application $app)
     {

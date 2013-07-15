@@ -164,6 +164,8 @@ class PrettyPageHandler extends Handler
      * The supplied callback argument will be called when the error is rendered,
      * it should produce a simple associative array. Any nested arrays will
      * be flattened with print_r.
+     *
+     * @throws InvalidArgumentException If $callback is not callable
      * @param string   $label
      * @param callable $callback Callable returning an associative array
      */
@@ -235,6 +237,7 @@ class PrettyPageHandler extends Handler
      * @example
      *   $run->setEditor('sublime');
      *
+     * @throws InvalidArgumentException If invalid argument identifier provided
      * @param string|callable $editor
      */
     public function setEditor($editor)
@@ -255,9 +258,10 @@ class PrettyPageHandler extends Handler
      * a string that may be used as the href property for that
      * file reference.
      *
+     * @throws InvalidArgumentException If editor resolver does not return a string
      * @param  string $filePath
      * @param  int    $line
-     * @return string|false
+     * @return string|bool
      */
     public function getEditorHref($filePath, $line)
     {
@@ -313,6 +317,7 @@ class PrettyPageHandler extends Handler
     }
 
     /**
+     * @throws InvalidArgumentException If argument is not a valid directory
      * @param string $resourcesPath
      */
     public function setResourcesPath($resourcesPath)

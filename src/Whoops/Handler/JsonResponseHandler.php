@@ -52,7 +52,8 @@ class JsonResponseHandler extends Handler
 
     /**
      * Check, if possible, that this execution was triggered by an AJAX request.
-     * @param bool
+     *
+     * @return bool
      */
     private function isAjaxRequest()
     {

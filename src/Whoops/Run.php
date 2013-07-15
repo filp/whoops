@@ -24,16 +24,18 @@ class Run
     protected $sendOutput = true;
 
     /**
-     * @var Whoops\Handler\HandlerInterface[]
+     * @var HandlerInterface[]
      */
     protected $handlerStack = array();
 
     protected $silencedPatterns = array();
 
     /**
-     * Pushes a handler to the end of the stack.
-     * @param  Whoops\HandlerInterface $handler
-     * @return Whoops\Run
+     * Pushes a handler to the end of the stack
+     *
+     * @throws InvalidArgumentException If argument is not callable or instance of HandlerInterface
+     * @param  HandlerInterface $handler
+     * @return Run
      */
     public function pushHandler($handler)
     {
@@ -55,7 +57,7 @@ class Run
     /**
      * Removes the last handler in the stack and returns it.
      * Returns null if there's nothing else to pop.
-     * @return null|Whoops\Handler\HandlerInterface
+     * @return null|HandlerInterface
      */
     public function popHandler()
     {
@@ -75,7 +77,7 @@ class Run
     /**
      * Clears all handlers in the handlerStack, including
      * the default PrettyPage handler.
-     * @return Whoops\Run
+     * @return Run
      */
     public function clearHandlers()
     {
@@ -85,7 +87,7 @@ class Run
 
     /**
      * @param  Exception $exception
-     * @return Whoops\Exception\Inspector
+     * @return Inspector
      */
     protected function getInspector(Exception $exception)
     {
@@ -94,7 +96,7 @@ class Run
 
     /**
      * Registers this instance as an error handler.
-     * @return Whoops\Run
+     * @return Run
      */
     public function register()
     {
@@ -111,7 +113,7 @@ class Run
 
     /**
      * Unregisters all handlers registered by this Whoops\Run instance
-     * @return Whoops\Run
+     * @return Run
      */
     public function unregister()
     {
@@ -165,7 +167,7 @@ class Run
     /**
      * Should Whoops push output directly to the client?
      * If this is false, output will be returned by handleException
-     * @param bool|num $send
+     * @param bool|int $send
      * @return bool
      */
     public function writeToOutput($send = null)
@@ -194,6 +196,9 @@ class Run
         // we might want to send it straight away to the client,
         // or return it silently.
         ob_start();
+
+        // Just in case there are no handlers:
+        $handlerResponse = null;
 
         for($i = count($this->handlerStack) - 1; $i >= 0; $i--) {
             $handler = $this->handlerStack[$i];
@@ -249,6 +254,8 @@ class Run
      * @param string $message
      * @param string $file
      * @param int    $line
+     *
+     * @return bool
      */
     public function handleError($level, $message, $file = null, $line = null)
     {

@@ -21,6 +21,7 @@ class CallbackHandler extends Handler
     protected $callable;
 
     /**
+     * @throws InvalidArgumentException If argument is not callable
      * @param callable $callable
      */
     public function __construct($callable)

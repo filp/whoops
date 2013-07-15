@@ -3,7 +3,9 @@
 * Template file for Whoops's pretty error output.
 * Check the $v global variable (stdClass) for what's available
 * to work with.
-* @var $v
+* @var stdClass $v
+* @var callable $e
+* @var callable $slug
 */
 ?>
 <!DOCTYPE html>
@@ -97,7 +99,14 @@
                   ?>
                   <div class="frame-comments <?php echo empty($comments) ? 'empty' : '' ?>">
                     <?php foreach($comments as $commentNo => $comment): ?>
-                      <?php extract($comment) ?>
+                      <?php
+                        extract($comment)
+
+                        /**
+                         * @var string $context
+                         * @var string $comment
+                         */
+                      ?>
                       <div class="frame-comment" id="comment-<?php echo $i . '-' . $commentNo ?>">
                         <span class="frame-comment-context"><?php echo $e($context) ?></span>
                         <?php echo $e($comment, true) ?>
