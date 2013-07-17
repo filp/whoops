@@ -143,7 +143,6 @@ class Run
     }
 
     /**
-<<<<<<< HEAD
      * Silence particular errors in particular files
      * @param array|string $patterns List or a single regex pattern to match
      * @param integer $levels Defaults to E_STRICT | E_DEPRECATED
