@@ -9,7 +9,7 @@ use Whoops\Run;
 use Whoops\Handler\PrettyPageHandler;
 use Silex\ServiceProviderInterface;
 use Silex\Application;
-use Symfony\Component\HttpFoundation\Request
+use Symfony\Component\HttpFoundation\Request;
 use RuntimeException;
 
 class WhoopsServiceProvider implements ServiceProviderInterface
