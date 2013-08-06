@@ -10,6 +10,7 @@ use Whoops\Run;
 use Whoops\Handler\Handler;
 use ArrayObject;
 use Mockery as m;
+use InvalidArgumentException;
 use RuntimeException;
 use Exception;
 
@@ -362,6 +363,9 @@ class RunTest extends TestCase
         $this->assertEquals("", ob_get_clean());
     }
 
+    /**
+     * @covers Whoops\Run::sendHttpCode
+     */
     public function testSendHttpCode()
     {
         $run = $this->getRunInstance();
@@ -369,10 +373,12 @@ class RunTest extends TestCase
         $this->assertEquals(500, $run->sendHttpCode());
     }
 
+    /**
+     * @covers Whoops\Run::sendHttpCode
+     * @expectedException InvalidArgumentException
+     */
     public function testSendHttpCodeWrongCode()
     {
-        $run = $this->getRunInstance();
-        $this->setExpectedException('Exception');
-        $run->sendHttpCode(403);
+        $this->getRunInstance()->sendHttpCode(1337);
     }
 }
