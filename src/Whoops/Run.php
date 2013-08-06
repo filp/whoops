@@ -309,7 +309,7 @@ class Run
                 while (ob_get_level() > 0) ob_end_clean();
             }
 
-            if ($this->sendHttpCode() && isset($_SERVER["REQUEST_URI"]) && !headers_sent()) {
+            if($this->sendHttpCode() && isset($_SERVER["REQUEST_URI"]) && !headers_sent()) {
                 $httpCode   = $this->sendHttpCode();
                 $httpStatus = $this->httpStatusCodes[$httpCode];
 
