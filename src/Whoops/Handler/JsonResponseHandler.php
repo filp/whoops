@@ -102,7 +102,8 @@ class JsonResponseHandler extends Handler
 
             $response['error']['trace'] = $frameData;
         }
-
+        
+        header('Content-type: application/json');
         echo json_encode($response);
         return Handler::QUIT;
     }
