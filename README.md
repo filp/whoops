@@ -242,3 +242,7 @@ let me know, and/or **open a new issue report** so that I or others may take car
 This library was primarily developed by [Filipe Dobreira](https://github.com/filp).
 
 A lot of awesome fixes and enhancements were also sent in by contributors, which you can find **[in this page right here](https://github.com/filp/whoops/contributors)**.
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/filp/whoops/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
