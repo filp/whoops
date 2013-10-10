@@ -279,6 +279,33 @@ class RunTest extends TestCase
         $this->assertTrue(true);
     }
 
+    public function testErrorCatching()
+    {
+        $run = $this->getRunInstance();
+        $run->register();
+
+        $handler = $this->getHandler();
+        $run->pushHandler($handler);
+
+        $test = $this;
+        $handler
+            ->shouldReceive('handle')
+            ->andReturnUsing(function () use($test) {
+                $test->fail('$handler should not be called error should be caught');
+            })
+        ;
+
+        try {
+            trigger_error(E_USER_NOTICE, 'foo');
+            $this->fail('Should not continue after error thrown');
+        } catch (\ErrorException $e) {
+            // Do nothing
+            $this->assertTrue(true);
+            return;
+        }
+        $this->fail('Should not continue here, should have been caught.');
+    }
+
     /**
      * Test to make sure that error_reporting is respected.
      */
