@@ -15,15 +15,25 @@ class PrettyPageHandler extends Handler
      */
     private $resourcesPath;
 
-    /**
-     * @var array[]
-     */
-    private $extraTables = array();
+	/**
+	 * @var string 
+	 */
+	private $pageTemplate = 'pretty-template.php';
+
+	/**
+	 * @var string 
+	 */
+	private $pageCss      = 'pretty-page.css';
 
     /**
      * @var string
      */
     private $pageTitle = 'Whoops! There was an error.';
+
+    /**
+     * @var bool
+     */
+    private $showDataTable = true;
 
     /**
      * A string identifier for a known IDE/text editor, or a closure
@@ -61,6 +71,21 @@ class PrettyPageHandler extends Handler
         }
     }
 
+	public function setPageTemplate($name)
+	{
+		$this->pageTemplate = $name . '.php';
+	}
+
+	public function setPageCss($name)
+	{
+		$this->pageCss = $name . '.css';
+	}
+
+	public function setShowDataTable($value)
+	{
+		$this->showDataTable = $value;
+	}
+
     /**
      * @return int|null
      */
@@ -78,11 +103,8 @@ class PrettyPageHandler extends Handler
             $resources = __DIR__ . '/../Resources';
         }
 
-        $templateFile = "$resources/pretty-template.php";
-
-        // @todo: Make this more reliable,
-        // possibly by adding methods to append CSS & JS to the page
-        $cssFile = "$resources/pretty-page.css";
+		$templateFile = "$resources/{$this->pageTemplate}";
+        $cssFile = "$resources/{$this->pageCss}";
 
         // Prepare the $v global variable that will pass relevant
         // information to the template
@@ -114,8 +136,14 @@ class PrettyPageHandler extends Handler
             return $table instanceof \Closure ? $table() : $table;
         }, $this->getDataTables());
 
+		if (count($extraTables) > 0)
+			$this->showDataTable = true;
+
         // Add extra entries list of data tables:
         $v->tables = array_merge($extraTables, $v->tables);
+
+		if (!$this->showDataTable)
+			$v->tables = array();
 
         call_user_func(function() use($templateFile, $v) {
             // $e -> cleanup output, optionally preserving URIs as anchors:
@@ -145,64 +173,6 @@ class PrettyPageHandler extends Handler
 
 
         return Handler::QUIT;
-    }
-
-    /**
-     * Adds an entry to the list of tables displayed in the template.
-     * The expected data is a simple associative array. Any nested arrays
-     * will be flattened with print_r
-     * @param string $label
-     * @param array  $data
-     */
-    public function addDataTable($label, array $data)
-    {
-        $this->extraTables[$label] = $data;
-    }
-
-    /**
-     * Lazily adds an entry to the list of tables displayed in the table.
-     * The supplied callback argument will be called when the error is rendered,
-     * it should produce a simple associative array. Any nested arrays will
-     * be flattened with print_r.
-     *
-     * @throws InvalidArgumentException If $callback is not callable
-     * @param string   $label
-     * @param callable $callback Callable returning an associative array
-     */
-    public function addDataTableCallback($label, /* callable */ $callback)
-    {
-        if (!is_callable($callback)) {
-            throw new InvalidArgumentException('Expecting callback argument to be callable');
-        }
-
-        $this->extraTables[$label] = function() use ($callback) {
-            try {
-                $result = call_user_func($callback);
-
-                // Only return the result if it can be iterated over by foreach().
-                return is_array($result) || $result instanceof \Traversable ? $result : array();
-            } catch (\Exception $e) {
-                // Don't allow failiure to break the rendering of the original exception.
-                return array();
-            }
-        };
-    }
-
-    /**
-     * Returns all the extra data tables registered with this handler.
-     * Optionally accepts a 'label' parameter, to only return the data
-     * table under that label.
-     * @param string|null $label
-     * @return array[]
-     */
-    public function getDataTables($label = null)
-    {
-        if($label !== null) {
-            return isset($this->extraTables[$label]) ?
-                   $this->extraTables[$label] : array();
-        }
-
-        return $this->extraTables;
     }
 
     /**
