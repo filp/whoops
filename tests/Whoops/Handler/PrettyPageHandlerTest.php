@@ -242,16 +242,12 @@ class PrettyPageHandlerTest extends TestCase
 
     public function testEditorXdebug()
     {
-        if (!extension_loaded('xdebug')) {
-            $this->markTestSkipped('xdebug is not available');
-        }
-
         $originalValue = ini_get('xdebug.file_link_format');
+
+        ini_set('xdebug.file_link_format', '%f:%l');
 
         $handler = $this->getHandler();
         $handler->setEditor('xdebug');
-
-        ini_set('xdebug.file_link_format', '%f:%l');
 
         $this->assertEquals(
             '/foo/bar.php:10',
