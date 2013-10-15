@@ -23,45 +23,6 @@ class Run
     protected $allowQuit       = true;
     protected $sendOutput      = true;
     protected $sendHttpCode    = 500;
-    protected $httpStatusCodes = array(
-        100 => "Continue",
-        101 => "Switching Protocols",
-        200 => "OK",
-        201 => "Created",
-        202 => "Accepted",
-        203 => "Non-Authoritative Information",
-        204 => "No Content",
-        205 => "Reset Content",
-        206 => "Partial Content",
-        300 => "Multiple Choices",
-        301 => "Moved Permanently",
-        302 => "Moved Temporarily",
-        303 => "See Other",
-        304 => "Not Modified",
-        305 => "Use Proxy",
-        400 => "Bad Request",
-        401 => "Unauthorized",
-        402 => "Payment Required",
-        403 => "Forbidden",
-        404 => "Not Found",
-        405 => "Method Not Allowed",
-        406 => "Not Acceptable",
-        407 => "Proxy Authentication Required",
-        408 => "Request Time-out",
-        409 => "Conflict",
-        410 => "Gone",
-        411 => "Length Required",
-        412 => "Precondition Failed",
-        413 => "Request Entity Too Large",
-        414 => "Request-URI Too Large",
-        415 => "Unsupported Media Type",
-        500 => "Internal Server Error",
-        501 => "Not Implemented",
-        502 => "Bad Gateway",
-        503 => "Service Unavailable",
-        504 => "Gateway Time-out",
-        505 => "HTTP Version not supported"
-    );
 
     /**
      * @var HandlerInterface[]
@@ -233,9 +194,9 @@ class Run
             $code = 500;
         }
 
-        if(!isset($this->httpStatusCodes[$code])) {
+        if ($code < 400 || 600 <= $code) {
             throw new InvalidArgumentException(
-                "Unknown status code '$code'"
+                 "Invalid status code '$code', must be 4xx or 5xx"
             );
         }
 
@@ -311,9 +272,15 @@ class Run
 
             if($this->sendHttpCode() && isset($_SERVER["REQUEST_URI"]) && !headers_sent()) {
                 $httpCode   = $this->sendHttpCode();
-                $httpStatus = $this->httpStatusCodes[$httpCode];
 
-                header("HTTP/1.0 $httpCode $httpStatus", true, $httpCode);
+                // Using the third argument to set the HTTP status,
+                // we rely on PHP to set it correctly.
+                // This allows us to not have hardcoded string values for
+                // different HTTP status codes, as well as not require us to
+                // figure out the correct HTTP protocol version.
+                // Note that this syntax of header requires the first argument
+                // to be at least a space.
+                header(' ', true, $httpCode);
             }
 
             echo $output;
