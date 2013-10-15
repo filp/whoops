@@ -353,11 +353,7 @@ class Run
                     return true;
                 }
             }
-            $this->handleException(
-                new ErrorException(
-                    $message, $level, 0, $file, $line
-                )
-            );
+            throw new ErrorException($message, $level, 0, $file, $line);
         }
     }
 
