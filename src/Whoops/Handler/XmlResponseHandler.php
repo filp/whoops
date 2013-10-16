@@ -43,7 +43,7 @@ class XmlResponseHandler extends Handler
 	 */
 	public function toXml($array, $rootNodeName = 'root')
 	{
-		return $this->_toXml($array, new \SimpleXMLElement('<' . $rootElement . ' />'));
+		return $this->_toXml($array, new \SimpleXMLElement('<' . $rootNodeName . ' />'));
 	}
 
 	/**
@@ -56,15 +56,21 @@ class XmlResponseHandler extends Handler
 	{
 		foreach ($array as $key => $value) {
 			if (is_array($value)) {
-				$child = $xml->addChild($key);
+				$child = $xml->addChild($this->_fixNodeName($key));
 				$this->_toXml($value, $child);
 			}
 			else {
-				$xml->addChild($key, $value);
+				$xml->addChild($this->_fixNodeName($key), print_r($value, true));
 			}
 		}
 		return $xml->asXML();
 	}
+
+	private function _fixNodeName($key)
+	{
+		return preg_replace('/([^\w])/', '', $key);
+	}
+
 	/**
      * @return int
      */
