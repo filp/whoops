@@ -86,4 +86,72 @@ abstract class Handler implements HandlerInterface
     {
         return $this->exception;
     }
+
+    /**
+     * @var array[]
+     */
+    private $extraTables = array();
+
+    /**
+     * Adds an entry to the list of tables displayed in the template.
+     * The expected data is a simple associative array. Any nested arrays
+     * will be flattened with print_r
+     * @param string $label
+     * @param array  $data
+     */
+    public function addDataTable($label, array $data)
+    {
+		if (isset($this->extraTables[$label]))
+			$this->extraTables[$label] += $data;
+		else
+			$this->extraTables[$label] = $data;
+    }
+
+    /**
+     * Lazily adds an entry to the list of tables displayed in the table.
+     * The supplied callback argument will be called when the error is rendered,
+     * it should produce a simple associative array. Any nested arrays will
+     * be flattened with print_r.
+     *
+     * @throws InvalidArgumentException If $callback is not callable
+     * @param string   $label
+     * @param callable $callback Callable returning an associative array
+     */
+    public function addDataTableCallback($label, /* callable */ $callback)
+    {
+        if (!is_callable($callback)) {
+            throw new InvalidArgumentException('Expecting callback argument to be callable');
+        }
+
+        $this->extraTables[$label] = function() use ($callback) {
+            try {
+                $result = call_user_func($callback);
+
+                // Only return the result if it can be iterated over by foreach().
+                return is_array($result) || $result instanceof \Traversable ? $result : array();
+            } catch (\Exception $e) {
+                // Don't allow failiure to break the rendering of the original exception.
+                return array();
+            }
+        };
+    }
+
+    /**
+     * Returns all the extra data tables registered with this handler.
+     * Optionally accepts a 'label' parameter, to only return the data
+     * table under that label.
+     * @param string|null $label
+     * @return array[]
+     */
+    public function getDataTables($label = null)
+    {
+        if($label !== null) {
+            return isset($this->extraTables[$label]) ?
+                   $this->extraTables[$label] : array();
+        }
+
+        return $this->extraTables;
+    }
+
+
 }

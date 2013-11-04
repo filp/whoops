@@ -5,25 +5,22 @@
  */
 
 namespace Whoops\Handler;
-use Whoops\Handler\Handler;
+
+use SimpleXMLElement;
 use Whoops\Exception\Frame;
+use Whoops\Handler\Handler;
 
 /**
  * Catches an exception and converts it to a JSON
  * response. Additionally can also return exception
  * frames for consumption by an API.
  */
-class JsonResponseHandler extends Handler
+class XmlResponseHandler extends Handler
 {
     /**
      * @var bool
      */
     private $returnFrames = false;
-
-    /**
-     * @var bool
-     */
-    private $onlyForAjaxRequests = false;
 
     /**
      * @param  bool|null $returnFrames
@@ -38,41 +35,47 @@ class JsonResponseHandler extends Handler
         $this->returnFrames = (bool) $returnFrames;
     }
 
-    /**
-     * @param  bool|null $onlyForAjaxRequests
-     * @return null|bool
-     */
-    public function onlyForAjaxRequests($onlyForAjaxRequests = null)
-    {
-        if(func_num_args() == 0) {
-            return $this->onlyForAjaxRequests;
-        }
+	/**
+	 *
+	 * @param array $array
+	 * @param string $rootNodeName
+	 * @return string
+	 */
+	public function toXml($array, $rootNodeName = 'root')
+	{
+		return $this->_toXml($array, new \SimpleXMLElement('<' . $rootNodeName . ' />'));
+	}
 
-        $this->onlyForAjaxRequests = (bool) $onlyForAjaxRequests;
-    }
+	/**
+	 *
+	 * @param array $array
+	 * @param \SimpleXMLElement $xml
+	 * @return string
+	 */
+	private function _toXml($array, $xml)
+	{
+		foreach ($array as $key => $value) {
+			if (is_array($value)) {
+				$child = $xml->addChild($this->_fixNodeName($key));
+				$this->_toXml($value, $child);
+			}
+			else {
+				$xml->addChild($this->_fixNodeName($key), print_r($value, true));
+			}
+		}
+		return $xml->asXML();
+	}
 
-    /**
-     * Check, if possible, that this execution was triggered by an AJAX request.
-     *
-     * @return bool
-     */
-    private function isAjaxRequest()
-    {
-        return (
-            !empty($_SERVER['HTTP_X_REQUESTED_WITH'])
-            && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
-        ;
-    }
+	private function _fixNodeName($key)
+	{
+		return preg_replace('/([^\w])/', '', $key);
+	}
 
-    /**
+	/**
      * @return int
      */
     public function handle()
     {
-        if($this->onlyForAjaxRequests() && !$this->isAjaxRequest()) {
-            return Handler::DONE;
-        }
-
         $exception = $this->getException();
 
         $response = array(
@@ -100,7 +103,7 @@ class JsonResponseHandler extends Handler
                 );
             }
 
-            $response['error']['trace'] = $frameData;
+            $response['error']['trace'] = array_flip($frameData);
         }
 
         $extraTables = array_map(function($table) {
@@ -112,7 +115,8 @@ class JsonResponseHandler extends Handler
 			$response['data'] = $extraTables;
 		}
 
-        echo json_encode($response);
+		echo $this->toXml($response);
+
         return Handler::QUIT;
     }
 }
