@@ -182,7 +182,7 @@ class PrettyPageHandler extends Handler
                 // Only return the result if it can be iterated over by foreach().
                 return is_array($result) || $result instanceof \Traversable ? $result : array();
             } catch (\Exception $e) {
-                // Don't allow failiure to break the rendering of the original exception.
+                // Don't allow failure to break the rendering of the original exception.
                 return array();
             }
         };
