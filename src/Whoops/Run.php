@@ -379,8 +379,6 @@ class Run
                         E_COMPILE_ERROR,
                         E_COMPILE_WARNING
                     )
-                ) || (
-                    $error['type'] === E_STRICT && $error['file'] === __FILE__
                 )
             ) {
                 $this->handleError(
