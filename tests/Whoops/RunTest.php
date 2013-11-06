@@ -134,17 +134,12 @@ class RunTest extends TestCase
      */
     public function testRegisterHandler()
     {
-        $this->markTestSkipped("Need to test exception handler");
-
-        $run = $this->getRunInstance();
-        $run->register();
-
-        $handler = $this->getHandler();
-        $run->pushHandler($handler);
-
-        throw $this->getException();
-
-        $this->assertCount(2, $handler->exceptions);
+        // It is impossible to test the Run::register method using phpunit,
+        // as given how every test is always inside a giant try/catch block,
+        // any thrown exception will never hit a global exception handler.
+        // On the other hand, there is not much need in testing
+        // a call to a native PHP function.
+        $this->assertTrue(true);
     }
 
     /**
