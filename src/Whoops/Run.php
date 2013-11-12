@@ -35,7 +35,7 @@ class Run
      * Pushes a handler to the end of the stack
      *
      * @throws InvalidArgumentException If argument is not callable or instance of HandlerInterface
-     * @param  HandlerInterface $handler
+     * @param  Callable|HandlerInterface $handler
      * @return Run
      */
     public function pushHandler($handler)
