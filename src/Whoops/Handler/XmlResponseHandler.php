@@ -36,32 +36,6 @@ class XmlResponseHandler extends Handler
     }
 
     /**
-     * The main function for converting to an XML document.
-     *
-     * @param array|Traversable $data
-     * @param string $rootNodeName - what you want the root node to be
-     * @return string XML
-     */
-    public function toXml($data, $rootNodeName = 'root')
-    {
-        assert('is_array($data) || $node instanceof Traversable');
-
-        // turn off compatibility mode as simple xml throws a wobbly if you don't.
-        $compatibilityMode = ini_get('zend.ze1_compatibility_mode');
-        if ($compatibilityMode) {
-            ini_set('zend.ze1_compatibility_mode', 0);
-        }
-
-        $node = simplexml_load_string("<?xml version='1.0' encoding='utf-8'?><$rootNodeName />");
-        $xml = self::addDataToNode($node, $data)->asXML();
-
-        if ($compatibilityMode) {
-            ini_set('zend.ze1_compatibility_mode', $compatibilityMode);
-        }
-        return $xml;
-    }
-
-    /**
      * @return int
      */
     public function handle()
@@ -134,5 +108,30 @@ class XmlResponseHandler extends Handler
         }
 
         return $node;
+    }
+
+    /**
+     * The main function for converting to an XML document.
+     *
+     * @param array|Traversable $data
+     * @return string XML
+     */
+    private static function toXml($data)
+    {
+        assert('is_array($data) || $node instanceof Traversable');
+
+        // turn off compatibility mode as simple xml throws a wobbly if you don't.
+        $compatibilityMode = ini_get('zend.ze1_compatibility_mode');
+        if ($compatibilityMode) {
+            ini_set('zend.ze1_compatibility_mode', 0);
+        }
+
+        $node = simplexml_load_string("<?xml version='1.0' encoding='utf-8'?><root />");
+        $xml = self::addDataToNode($node, $data)->asXML();
+
+        if ($compatibilityMode) {
+            ini_set('zend.ze1_compatibility_mode', $compatibilityMode);
+        }
+        return $xml;
     }
 }
