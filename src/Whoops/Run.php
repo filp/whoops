@@ -335,28 +335,29 @@ class Run
      */
     public function handleShutdown()
     {
-        if ($error = error_get_last()) {
-
-            if (
-                in_array(
-                    $error['type'],
-                    array(
-                        E_ERROR,
-                        E_PARSE,
-                        E_CORE_ERROR,
-                        E_CORE_WARNING,
-                        E_COMPILE_ERROR,
-                        E_COMPILE_WARNING
-                    )
-                )
-            ) {
-                $this->handleError(
-                    $error['type'],
-                    $error['message'],
-                    $error['file'],
-                    $error['line']
-                );
-            }
+        $error = error_get_last();
+        if ($error && $this->isLevelFatal($error['type'])) {
+            $this->handleError(
+                $error['type'],
+                $error['message'],
+                $error['file'],
+                $error['line']
+            );
         }
+    }
+
+    private static function isLevelFatal($level)
+    {
+        return in_array(
+            $level,
+            array(
+                E_ERROR,
+                E_PARSE,
+                E_CORE_ERROR,
+                E_CORE_WARNING,
+                E_COMPILE_ERROR,
+                E_COMPILE_WARNING
+            )
+        );
     }
 }
