@@ -326,7 +326,13 @@ class Run
                     return true;
                 }
             }
-            throw new ErrorException($message, $level, 0, $file, $line);
+
+            $exception = new ErrorException($message, $level, 0, $file, $line);
+            if ($this->canThrowExceptions) {
+                throw $exception;
+            } else {
+                $this->handleException($exception);
+            }
         }
     }
 
@@ -335,6 +341,11 @@ class Run
      */
     public function handleShutdown()
     {
+        // If we reached this step, we are in shutdown handler.
+        // An exception thrown in a shutdown handler will not be propagated
+        // to the exception handler. Pass that information along.
+        $this->canThrowExceptions = false;
+
         $error = error_get_last();
         if ($error && $this->isLevelFatal($error['type'])) {
             $this->handleError(
@@ -345,6 +356,12 @@ class Run
             );
         }
     }
+
+    /**
+     * In certain scenarios, like in shutdown handler, we can not throw exceptions
+     * @var boolean
+     */
+    private $canThrowExceptions = true;
 
     private static function isLevelFatal($level)
     {
