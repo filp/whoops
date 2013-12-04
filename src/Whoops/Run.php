@@ -348,6 +348,8 @@ class Run
 
         $error = error_get_last();
         if ($error && $this->isLevelFatal($error['type'])) {
+            // If there was a fatal error,
+            // it was not handled in handleError yet.
             $this->handleError(
                 $error['type'],
                 $error['message'],
