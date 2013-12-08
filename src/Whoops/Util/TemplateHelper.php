@@ -65,21 +65,21 @@ class TemplateHelper
      * @param string $__template
      * @param array  $additionalVariables
      */
-    public function render($__template, array $additionalVariables = null)
+    public function render($template, array $additionalVariables = null)
     {
-        $__variables = $this->getVariables();
+        $variables = $this->getVariables();
 
         // Pass the helper to the template:
-        $__variables["tpl"] = $this;
+        $variables["tpl"] = $this;
 
         if($additionalVariables !== null) {
-            $__variables = array_replace($__variables, $additionalVariables);
+            $variables = array_replace($variables, $additionalVariables);
         }
 
-        call_user_func(function() use($__template, $__variables) {
-            extract($__variables);
-            require $__template;
-        });
+        call_user_func(function(){
+            extract(func_get_arg(1));
+            require func_get_arg(0);
+        }, $template, $variables);
     }
 
     /**
