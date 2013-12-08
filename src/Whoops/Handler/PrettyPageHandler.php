@@ -33,6 +33,11 @@ class PrettyPageHandler extends Handler
     private $extraTables = array();
 
     /**
+     * @var boolean
+     */
+    private $handleUnconditionally = false;
+
+    /**
      * @var string
      */
     private $pageTitle = "Whoops! There was an error";
@@ -81,10 +86,12 @@ class PrettyPageHandler extends Handler
      */
     public function handle()
     {
-        // Check conditions for outputting HTML:
-        // @todo: make this more robust
-        if(php_sapi_name() === 'cli' && !isset($_ENV['whoops-test'])) {
-            return Handler::DONE;
+        if (!$this->handleUnconditionally()) {
+            // Check conditions for outputting HTML:
+            // @todo: make this more robust
+            if(php_sapi_name() === 'cli' && !isset($_ENV['whoops-test'])) {
+                return Handler::DONE;
+            }
         }
 
         // @todo Make this more dynamic ~~ *
@@ -200,6 +207,23 @@ class PrettyPageHandler extends Handler
 
         return $this->extraTables;
     }
+
+    /**
+     * Allows to disable all attempts to dynamically decide whether to
+     * handle or return prematurely.
+     * Set this to ensure that the handler will perform no matter what.
+     * @param bool|null $value
+     * @return bool|null
+     */
+    public function handleUnconditionally($value = null)
+    {
+        if(func_num_args() == 0) {
+            return $this->handleUnconditionally;
+        }
+
+        $this->handleUnconditionally = (bool) $value;
+    }
+
 
     /**
      * Adds an editor resolver, identified by a string
