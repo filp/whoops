@@ -46,7 +46,7 @@ class TemplateHelper
 
     /**
      * Convert a string to a slug version of itself
-     * 
+     *
      * @param  string $original
      * @return string
      */
@@ -61,7 +61,7 @@ class TemplateHelper
      * Given a template path, render it within its own scope. This
      * method also accepts an array of additional variables to be
      * passed to the template.
-     * 
+     *
      * @param string $__template
      * @param array  $additionalVariables
      */
@@ -85,7 +85,7 @@ class TemplateHelper
     /**
      * Sets the variables to be passed to all templates rendered
      * by this template helper.
-     * 
+     *
      * @param array $variables
      */
     public function setVariables(array $variables)
@@ -107,7 +107,7 @@ class TemplateHelper
     /**
      * Gets a single template variable, by its name, or
      * $defaultValue if the variable does not exist
-     * 
+     *
      * @param  string $variableName
      * @param  mixed  $defaultValue
      * @return mixed
@@ -121,7 +121,7 @@ class TemplateHelper
 
     /**
      * Unsets a single template variable, by its name
-     * 
+     *
      * @param string $variableName
      */
     public function delVariable($variableName)
