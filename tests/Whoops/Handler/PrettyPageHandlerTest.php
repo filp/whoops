@@ -17,7 +17,9 @@ class PrettyPageHandlerTest extends TestCase
      */
     private function getHandler()
     {
-        return new PrettyPageHandler;
+        $handler = new PrettyPageHandler;
+        $handler->handleUnconditionally();
+        return $handler;
     }
 
     /**
