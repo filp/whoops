@@ -13,7 +13,7 @@
   </head>
   <body>
 
-    <div class="container">
+    <div class="Whoops container">
 
       <div class="stack-container">
         <div class="frames-container cf <?php echo (!$has_frames ? 'empty' : '') ?>">
