@@ -90,6 +90,16 @@ class PrettyPageHandler extends Handler
             // Check conditions for outputting HTML:
             // @todo: make this more robust
             if(php_sapi_name() === 'cli') {
+
+                // Help users who have been relying on an internal test value
+                // fix their code to the proper method
+                if (isset($_ENV['whoops-test'])) {
+                    throw new \Exception(
+                        'Use handleUnconditionally instead of whoops-test'
+                        .' environment variable'
+                    );
+                }
+
                 return Handler::DONE;
             }
         }
