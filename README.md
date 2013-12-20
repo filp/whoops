@@ -209,34 +209,6 @@ $handler->setEditor(
 - [`CallbackHandler`](https://github.com/filp/whoops/blob/master/src/Whoops/Handler/CallbackHandler.php) - Wraps a closure or other callable as a handler. You do not need to use this handler explicitly, **whoops** will automatically wrap any closure or callable you pass to `Whoops\Run::pushHandler`
 - [`JsonResponseHandler`](https://github.com/filp/whoops/blob/master/src/Whoops/Handler/JsonResponseHandler.php) - Captures exceptions and returns information on them as a JSON string. Can be used to, for example, play nice with AJAX requests.
 
-## Contributing
-
-If you want to give me some feedback or make a suggestion, send me a message through
-twitter: [@imfilp](https://twitter.com/imfilp)
-
-If you want to get your hands dirty, great! Here's a couple of steps/guidelines:
-
-- Fork/clone this repo, and update dev dependencies using Composer
-
-```bash
-$ git clone git@github.com:filp/whoops.git
-$ cd whoops
-$ composer install --dev
-```
-
-- Create a new branch for your feature or fix
-
-```bash
-$ git checkout -b feature/flames-on-the-side
-```
-
-- Add your changes & tests for those changes (in `tests/`).
-- Remember to stick to the existing code style as best as possible. When in doubt, follow `PSR-2`.
-- Send me a pull request!
-
-If you don't want to go through all this, but still found something wrong or missing, please
-let me know, and/or **open a new issue report** so that I or others may take care of it.
-
 ## Authors
 
 This library was primarily developed by [Filipe Dobreira](https://github.com/filp).
