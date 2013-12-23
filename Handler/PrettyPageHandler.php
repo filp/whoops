@@ -79,6 +79,7 @@ class PrettyPageHandler extends Handler
 
         // Add the default, local resource search path:
         $this->searchPaths[] = __DIR__ . "/../Resources";
+
     }
 
     /**
