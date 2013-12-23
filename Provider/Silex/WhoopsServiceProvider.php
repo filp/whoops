@@ -7,12 +7,10 @@
 namespace Whoops\Provider\Silex;
 use Whoops\Run;
 use Whoops\Handler\PrettyPageHandler;
-use Silex\ServiceProviderInterface;
-use Silex\Application;
-use Symfony\Component\HttpFoundation\Request;
+
 use RuntimeException;
 
-class WhoopsServiceProvider implements ServiceProviderInterface
+class WhoopsServiceProvider 
 {
     /**
      * @param Application $app
