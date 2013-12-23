@@ -1,6 +1,9 @@
 # whoops 
 php errors for cool kids
 
+As a Lithium Library for Lithium framework (https://github.com/UnionOfRAD/lithium)
+
+
 [![Build Status](https://travis-ci.org/filp/whoops.png?branch=master)](https://travis-ci.org/filp/whoops) [![Total Downloads](https://poser.pugx.org/filp/whoops/downloads.png)](https://packagist.org/packages/filp/whoops)  [![Latest Stable Version](https://poser.pugx.org/filp/whoops/v/stable.png)](https://packagist.org/packages/filp/whoops)
 
 
