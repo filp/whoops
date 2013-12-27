@@ -19,6 +19,7 @@ powerful stacked error handling system.
 - Simple API for dealing with exceptions, trace frames & their data
 - Includes a pretty rad error page for your webapp projects
 - **NEW** Includes the ability to open referenced files directly in your editor and IDE
+- **NEW** Includes handlers for different response formats (JSON, XML, SOAP)
 - Includes a Silex Service Provider for painless integration with [Silex](http://silex.sensiolabs.org/)
 - Includes a Phalcon Service Provider for painless integration with [Phalcon](http://phalconphp.com/)
 - Includes a Module for equally painless integration with [Zend Framework 2](http://framework.zend.com/)
