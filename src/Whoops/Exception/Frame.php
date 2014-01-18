@@ -161,7 +161,7 @@ class Frame implements Serializable
     /**
      * Returns the array containing the raw frame data from which
      * this Frame object was built
-     * 
+     *
      * @return array
      */
     public function getRawFrame()
@@ -217,7 +217,7 @@ class Frame implements Serializable
     /**
      * Implements the Serializable interface, with special
      * steps to also save the existing comments.
-     * 
+     *
      * @see Serializable::serialize
      * @return string
      */
@@ -234,7 +234,7 @@ class Frame implements Serializable
     /**
      * Unserializes the frame data, while also preserving
      * any existing comment data.
-     * 
+     *
      * @see Serializable::unserialize
      * @param string $serializedFrame
      */

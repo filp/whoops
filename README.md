@@ -1,4 +1,4 @@
-# whoops 
+# whoops
 php errors for cool kids
 
 [![Build Status](https://travis-ci.org/filp/whoops.png?branch=master)](https://travis-ci.org/filp/whoops) [![Total Downloads](https://poser.pugx.org/filp/whoops/downloads.png)](https://packagist.org/packages/filp/whoops)  [![Latest Stable Version](https://poser.pugx.org/filp/whoops/v/stable.png)](https://packagist.org/packages/filp/whoops)
@@ -191,7 +191,7 @@ $handler->setEditor(
     function ($file, $line) {
         // if your development server is not local it's good to map remote files to local
         $translations = array('^' . __DIR__ => '~/Development/PhpStormOpener'); // change to your path
-        
+
         foreach ($translations as $from => $to) {
             $file = preg_replace('#' . $from . '#', $to, $file, 1);
         }

@@ -92,5 +92,5 @@ class JsonResponseHandlerTest extends TestCase
         $this->assertArrayHasKey('function', $traceFrame);
         $this->assertArrayHasKey('class', $traceFrame);
         $this->assertArrayHasKey('args', $traceFrame);
-    }    
+    }
 }

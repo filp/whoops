@@ -34,14 +34,14 @@ class SoapResponseHandler extends Handler
     private function toXml(\Exception $exception) {
         $xml = '';
         $xml .= '<?xml version="1.0" encoding="UTF-8"?>';
-        $xml .= '<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">'; 
-        $xml .= '  <SOAP-ENV:Body>'; 
-        $xml .= '    <SOAP-ENV:Fault>'; 
-        $xml .= '      <faultcode>'. htmlspecialchars($exception->getCode()) .'</faultcode>'; 
-        $xml .= '      <faultstring>'. htmlspecialchars($exception->getMessage()) .'</faultstring>'; 
-        $xml .= '      <detail>'. htmlspecialchars($exception->getTraceAsString()) .'</detail>'; 
-        $xml .= '    </SOAP-ENV:Fault>'; 
-        $xml .= '  </SOAP-ENV:Body>'; 
+        $xml .= '<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">';
+        $xml .= '  <SOAP-ENV:Body>';
+        $xml .= '    <SOAP-ENV:Fault>';
+        $xml .= '      <faultcode>'. htmlspecialchars($exception->getCode()) .'</faultcode>';
+        $xml .= '      <faultstring>'. htmlspecialchars($exception->getMessage()) .'</faultstring>';
+        $xml .= '      <detail>'. htmlspecialchars($exception->getTraceAsString()) .'</detail>';
+        $xml .= '    </SOAP-ENV:Fault>';
+        $xml .= '  </SOAP-ENV:Body>';
         $xml .= '</SOAP-ENV:Envelope>';
 
         return $xml;

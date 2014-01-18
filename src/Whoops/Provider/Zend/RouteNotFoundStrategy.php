@@ -16,11 +16,11 @@ use Zend\View\Model\ViewModel;
 class RouteNotFoundStrategy extends BaseRouteNotFoundStrategy {
 
     protected $run;
-    
+
     public function __construct(Run $run) {
         $this->run = $run;
     }
-    
+
     public function prepareNotFoundViewModel(MvcEvent $e) {
         $vars = $e->getResult();
         if ($vars instanceof Response) {
@@ -55,9 +55,9 @@ class RouteNotFoundStrategy extends BaseRouteNotFoundStrategy {
 
         // Inject controller if we're displaying either the reason or the exception
         $this->injectController($model, $e);
-        
+
         ob_clean();
-        
+
         throw new \Exception($model->getVariable('message') . ' ' . $model->getVariable('reason'));
     }
 
