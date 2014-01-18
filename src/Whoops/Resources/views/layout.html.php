@@ -30,7 +30,7 @@
     </div>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script><?php echo $jquery ?></script>
     <script><?php echo $javascript ?></script>
   </body>
 </html>

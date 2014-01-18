@@ -1,4 +1,4 @@
-$(function() {
+Zepto(function($) {
   prettyPrint();
 
   var $frameLines  = $('[id^="frame-line-"]');
