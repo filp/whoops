@@ -21,7 +21,7 @@ class SoapResponseHandlerTest extends TestCase
         ob_start();
         $run->handleException($this->getException());
         $data = ob_get_clean();
-        
+
         $this->assertTrue($this->isValidXml($data));
 
         return simplexml_load_string($data);

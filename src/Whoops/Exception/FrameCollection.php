@@ -35,19 +35,19 @@ class FrameCollection implements IteratorAggregate, Serializable, Countable
 
     /**
      * Filters frames using a callable, returns the same FrameCollection
-     * 
+     *
      * @param  callable $callable
      * @return FrameCollection
      */
     public function filter($callable)
     {
         $this->frames = array_filter($this->frames, $callable);
-        return $this;        
+        return $this;
     }
 
     /**
      * Map the collection of frames
-     * 
+     *
      * @param  callable $callable
      * @return FrameCollection
      */
@@ -73,7 +73,7 @@ class FrameCollection implements IteratorAggregate, Serializable, Countable
     /**
      * Returns an array with all frames, does not affect
      * the internal array.
-     * 
+     *
      * @todo   If this gets any more complex than this,
      *         have getIterator use this method.
      * @see    FrameCollection::getIterator
