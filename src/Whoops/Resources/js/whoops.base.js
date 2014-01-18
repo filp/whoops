@@ -38,7 +38,7 @@ Zepto(function($) {
 
       highlightCurrentLine();
 
-      $container.animate({ scrollTop: headerHeight }, "fast");
+      $container.scrollTop(headerHeight);
     }
   });
 });
