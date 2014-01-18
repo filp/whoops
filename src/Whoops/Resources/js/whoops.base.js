@@ -5,7 +5,7 @@ Zepto(function($) {
   var $activeLine  = $('.frames-container .active');
   var $activeFrame = $('.active[id^="frame-code-"]').show();
   var $container   = $('.details-container');
-  var headerHeight = $('header').css('height');
+  var headerHeight = $('header').height();
 
   var highlightCurrentLine = function() {
     // Highlight the active and neighboring lines for this frame:
