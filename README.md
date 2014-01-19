@@ -23,6 +23,7 @@ powerful stacked error handling system.
 - Includes a Silex Service Provider for painless integration with [Silex](http://silex.sensiolabs.org/)
 - Includes a Phalcon Service Provider for painless integration with [Phalcon](http://phalconphp.com/)
 - Includes a Module for equally painless integration with [Zend Framework 2](http://framework.zend.com/)
+- Includes a Module for integration with the [CakePHP Framework](http://cakephp.org/)
 - Easy to extend and integrate with existing libraries
 - Clean, well-structured & tested code-base (well, except `pretty-template.php`, for now...)
 
@@ -151,6 +152,48 @@ return array(
 ```
 
 - NOTE: ob_clean(); is used to remove previous output, so you may use ob_start(); at the beginning of your app (index.php)
+
+### Integrating with the CakePHP Framework
+
+User [@oldskool](https://github.com/oldskool) contributed a provider for CakePHP integration,
+available in the following location:
+
+https://github.com/filp/whoops/tree/master/src/Whoops/Provider/Cake
+
+It is also available as a [CakePHP plugin](https://github.com/oldskool/CakeWhoops).
+
+**Instructions:**
+
+- Add the Whoops files to your app's Vendor dir (app/Vendor/filp/whoops)
+- Make sure you have an autoloader in place under app/Vendor/autoload.php ([Composer](https://getcomposer.org) provides a good autoloader)
+- Copy the exception handler from /Whoops/Provider/Cake/WhoopsExceptionHandler.php to your app's Lib/Error folder (create it if it doesn't exist yet)
+- Edit your app/Config/bootstrap.php file to make it load the custom exception handler:
+
+```php
+App::uses('WhoopsExceptionHandler', 'Lib/Error');
+```
+
+- Edit your app/Config/core.php file to configure this exception handler to be used instead of the default. Find this code block:
+
+```php
+Configure::write('Exception', array(
+    'handler' => 'ErrorHandler::handleException',
+    'renderer' => 'ExceptionRenderer',
+    'log' => true
+));
+
+```
+
+- In the above block, replace the 'handler' value with: `WhoopsExceptionHandler::handle`, so the block will look like this:
+
+```php
+Configure::write('Exception', array(
+    'handler' => 'WhoopsExceptionHandler::handle',
+    'renderer' => 'ExceptionRenderer',
+    'log' => true
+));
+
+```
 
 ### Opening referenced files with your favorite editor or IDE
 
