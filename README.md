@@ -165,7 +165,6 @@ It is also available as a [CakePHP plugin](https://github.com/oldskool/CakeWhoop
 **Instructions:**
 
 - Add the Whoops files to your app's Vendor dir (app/Vendor/filp/whoops)
-- Make sure you have an autoloader in place under app/Vendor/autoload.php ([Composer](https://getcomposer.org) provides a good autoloader)
 - Copy the exception handler from /Whoops/Provider/Cake/WhoopsExceptionHandler.php to your app's Lib/Error folder (create it if it doesn't exist yet)
 - Edit your app/Config/bootstrap.php file to make it load the custom exception handler:
 

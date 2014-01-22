@@ -1,5 +1,11 @@
 <?php
-App::import('Vendor', array('file' => 'autoload'));
+App::import('Vendor', 'filp/whoops/src/Whoops/Run');
+App::import('Vendor', 'filp/whoops/src/Whoops/Exception/Frame');
+App::import('Vendor', 'filp/whoops/src/Whoops/Exception/FrameCollection');
+App::import('Vendor', 'filp/whoops/src/Whoops/Exception/Inspector');
+App::import('Vendor', 'filp/whoops/src/Whoops/Handler/HandlerInterface');
+App::import('Vendor', 'filp/whoops/src/Whoops/Handler/Handler');
+App::import('Vendor', 'filp/whoops/src/Whoops/Handler/PrettyPageHandler');
 
 /**
  * The WhoopsExceptionHandler will pass our Exception to the Whoops library.
