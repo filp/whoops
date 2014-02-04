@@ -5,8 +5,6 @@
  */
 
 namespace Whoops\Exception;
-use Whoops\Exception\FrameCollection;
-use Whoops\Exception\ErrorException;
 use Exception;
 
 class Inspector
@@ -17,12 +15,12 @@ class Inspector
     private $exception;
 
     /**
-     * @var Whoops\Exception\FrameCollection
+     * @var \Whoops\Exception\FrameCollection
      */
     private $frames;
 
     /**
-     * @var Whoops\Exception\Inspector
+     * @var \Whoops\Exception\Inspector
      */
     private $previousExceptionInspector;
 
@@ -70,7 +68,7 @@ class Inspector
     /**
      * Returns an inspector for a previous inspector, if any.
      * @todo   Clean this up a bit, cache stuff a bit better.
-     * @return Whoops\Exception\Inspector|null
+     * @return \Whoops\Exception\Inspector|null
      */
     public function getPreviousExceptionInspector()
     {
@@ -88,7 +86,7 @@ class Inspector
     /**
      * Returns an iterator for the inspected exception's
      * frames.
-     * @return Whoops\Exception\FrameCollection
+     * @return \Whoops\Exception\FrameCollection
      */
     public function getFrames()
     {
@@ -107,10 +105,15 @@ class Inspector
                 array_unshift($frames, $firstFrame);
             }
             $this->frames = new FrameCollection($frames);
+
+            if ($previousInspector = $this->getPreviousExceptionInspector()) {
+                $this->frames->prependFrames($previousInspector->getFrames()->topDiff($this->frames));
+            }
         }
 
         return $this->frames;
     }
+
 
     /**
      * Given an exception, generates an array in the format

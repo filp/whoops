@@ -225,4 +225,8 @@ class Frame implements Serializable
 
         $this->frame = $frame;
     }
+
+    public function equals(Frame $frame){
+        return $frame->getFile() == $this->getFile() && $frame->getLine() === $this->getLine();
+    }
 }

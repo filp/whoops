@@ -147,4 +147,26 @@ class FrameCollectionTest extends TestCase
             $this->assertInstanceOf('Whoops\\Exception\\Frame', $frame);
         }
     }
+
+
+    /**
+     * @covers Whoops\Exception\FrameCollection::topDiff
+     */
+    public function testTopDiff(){
+        $commonFrameTail = $this->getFrameDataList(3);
+
+        $diffFrame = array('line' => $this->frameIdCounter) + $this->getFrameData();
+
+        $frameCollection1 = new FrameCollection(array_merge(array(
+            $diffFrame
+        ), $commonFrameTail));
+
+        $frameCollection2 = new FrameCollection(array_merge(array(
+            $this->getFrameData()
+        ), $commonFrameTail));
+
+        $diff = $frameCollection1->topDiff($frameCollection2);
+
+        $this->assertCount(1, $diff);
+    }
 }
