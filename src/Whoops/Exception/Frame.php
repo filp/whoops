@@ -233,12 +233,9 @@ class Frame implements Serializable
      */
     public function equals(Frame $frame)
     {
-
-        if(in_array('Unknown', array($this->getFile(), $frame->getFile())) ||
-           in_array(0,         array($this->getLine(), $frame->getLine()))
-        ) {
-            return false; //we need to keep untrackable frames separate
+        if (!$this->getFile() || $this->getFile() === 'Unknown' || !$this->getLine()) {
+            return false;
         }
-        return $frame->getFile() == $this->getFile() && $frame->getLine() === $this->getLine();
+        return $frame->getFile() === $this->getFile() && $frame->getLine() === $this->getLine();
     }
 }
