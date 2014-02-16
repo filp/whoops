@@ -410,8 +410,6 @@ class PrettyPageHandler extends Handler
      */
     public function getResourcesPath()
     {
-        trigger_error(__METHOD__ . " is deprecated by PrettyPageHandler::getResourcePaths", E_USER_DEPRECATED);
-
         $allPaths = $this->getResourcePaths();
 
         // Compat: return only the first path
@@ -425,7 +423,6 @@ class PrettyPageHandler extends Handler
      */
     public function setResourcesPath($resourcesPath)
     {
-        trigger_error(__METHOD__ . " is deprecated by PrettyPageHandler::addResourcePath", E_USER_DEPRECATED);
         $this->addResourcePath($resourcesPath);
     }
 }
