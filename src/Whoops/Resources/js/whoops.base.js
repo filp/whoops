@@ -3,7 +3,6 @@ Zepto(function($) {
 
   var $frameContainer = $('.frames-container');
   var $container      = $('.details-container');
-  var $frameLines     = $frameContainer.find('.frame');
   var $activeLine     = $frameContainer.find('.frame.active');
   var $activeFrame    = $container.find('.frame-code.active');
   var headerHeight    = $('header').height();
@@ -22,7 +21,7 @@ Zepto(function($) {
   // Highlight the active for the first frame:
   highlightCurrentLine();
 
-  $frameLines.click(function() {
+  $frameContainer.delegate('.frame', 'click', function() {
     var $this  = $(this);
     var id     = /frame\-line\-([\d]*)/.exec($this.attr('id'))[1];
     var $codeFrame = $('#frame-code-' + id);
