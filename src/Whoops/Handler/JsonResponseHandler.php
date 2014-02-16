@@ -103,6 +103,10 @@ class JsonResponseHandler extends Handler
             $response['error']['trace'] = $frameData;
         }
 
+        if (\Whoops\Util\Misc::canSendHeaders()) {
+            header('Content-Type: application/json');
+        }
+
         echo json_encode($response);
         return Handler::QUIT;
     }
