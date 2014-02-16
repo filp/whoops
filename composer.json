@@ -15,12 +15,21 @@
         "php": ">=5.3.0"
     },
     "require-dev": {
-        "mockery/mockery": "dev-master",
-        "silex/silex": "1.0.*@dev"
+        "phpunit/phpunit": "4.0.*",
+        "mockery/mockery": "0.9.*",
+        "silex/silex": "1.0.*"
     },
     "autoload": {
         "psr-0": {
-            "Whoops": "src/"
+            "Whoops": "src/",
+            "Whoops": "tests/"
         }
-    }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.1-dev"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
