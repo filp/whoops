@@ -270,7 +270,7 @@ class Run
                 while (ob_get_level() > 0) ob_end_clean();
             }
 
-            if($this->sendHttpCode() && isset($_SERVER["REQUEST_URI"]) && !headers_sent()) {
+            if($this->sendHttpCode() && \Whoops\Util\Misc::canSendHeaders()) {
                 $httpCode   = $this->sendHttpCode();
 
                 if (function_exists('http_response_code')) {
