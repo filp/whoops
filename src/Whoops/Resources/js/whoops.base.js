@@ -21,7 +21,7 @@ Zepto(function($) {
   // Highlight the active for the first frame:
   highlightCurrentLine();
 
-  $frameContainer.delegate('.frame', 'click', function() {
+  $frameContainer.on('click', '.frame', function() {
     var $this  = $(this);
     var id     = /frame\-line\-([\d]*)/.exec($this.attr('id'))[1];
     var $codeFrame = $('#frame-code-' + id);
