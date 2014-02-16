@@ -247,6 +247,10 @@ class PrettyPageHandlerTest extends TestCase
 
     public function testEditorXdebug()
     {
+        if (defined('HHVM_VERSION')) {
+            return $this->markTestSkipped('HHVM does not support xdebug.');
+        }
+
         $originalValue = ini_get('xdebug.file_link_format');
 
         ini_set('xdebug.file_link_format', '%f:%l');

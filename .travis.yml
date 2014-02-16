@@ -16,7 +16,7 @@ before_script:
   - composer install --no-interaction --prefer-source --dev
 
 script:
-  - phpunit
+  - vendor/bin/phpunit --verbose
 
 matrix:
   allow_failures:
