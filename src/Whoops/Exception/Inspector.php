@@ -5,8 +5,6 @@
  */
 
 namespace Whoops\Exception;
-use Whoops\Exception\FrameCollection;
-use Whoops\Exception\ErrorException;
 use Exception;
 
 class Inspector
@@ -17,9 +15,14 @@ class Inspector
     private $exception;
 
     /**
-     * @var FrameCollection
+     * @var \Whoops\Exception\FrameCollection
      */
     private $frames;
+
+    /**
+     * @var \Whoops\Exception\Inspector
+     */
+    private $previousExceptionInspector;
 
     /**
      * @param Exception $exception The exception to inspect
@@ -54,9 +57,36 @@ class Inspector
     }
 
     /**
+     * Does this Exception have a previous Exception?
+     * @return bool
+     */
+    public function hasPreviousException()
+    {
+        return !!$this->previousExceptionInspector || !!$this->exception->getPrevious();
+    }
+
+    /**
+     * Returns an inspector for a previous inspector, if any.
+     * @todo   Clean this up a bit, cache stuff a bit better.
+     * @return \Whoops\Exception\Inspector|null
+     */
+    public function getPreviousExceptionInspector()
+    {
+        if($this->previousExceptionInspector === null) {
+            $previousException = $this->exception->getPrevious();
+
+            if($previousException) {
+                $this->previousExceptionInspector = new Inspector($previousException);
+            }
+        }
+
+        return $this->previousExceptionInspector;
+    }
+
+    /**
      * Returns an iterator for the inspected exception's
      * frames.
-     * @return FrameCollection
+     * @return \Whoops\Exception\FrameCollection
      */
     public function getFrames()
     {
@@ -74,10 +104,15 @@ class Inspector
                 array_unshift($frames, $firstFrame);
             }
             $this->frames = new FrameCollection($frames);
+
+            if ($previousInspector = $this->getPreviousExceptionInspector()) {
+                $this->frames->prependFrames($previousInspector->getFrames()->topDiff($this->frames));
+            }
         }
 
         return $this->frames;
     }
+
 
     /**
      * Given an exception, generates an array in the format

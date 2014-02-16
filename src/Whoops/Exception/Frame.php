@@ -249,4 +249,17 @@ class Frame implements Serializable
 
         $this->frame = $frame;
     }
+
+    /**
+     * Compares Frame against one another
+     * @param Frame $frame
+     * @return bool
+     */
+    public function equals(Frame $frame)
+    {
+        if (!$this->getFile() || $this->getFile() === 'Unknown' || !$this->getLine()) {
+            return false;
+        }
+        return $frame->getFile() === $this->getFile() && $frame->getLine() === $this->getLine();
+    }
 }
