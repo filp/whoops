@@ -57,7 +57,7 @@ class Inspector
     }
 
     /**
-     * Does this Exception have a previous Exception?
+     * Does the wrapped Exception has a previous Exception?
      * @return bool
      */
     public function hasPreviousException()
@@ -66,7 +66,7 @@ class Inspector
     }
 
     /**
-     * Returns an inspector for a previous inspector, if any.
+     * Returns an Inspector for a previous Exception, if any.
      * @todo   Clean this up a bit, cache stuff a bit better.
      * @return \Whoops\Exception\Inspector|null
      */
