@@ -279,10 +279,6 @@ class RunTest extends TestCase
 
     public function testErrorCatching()
     {
-        if (defined('HHVM_VERSION')) {
-            return $this->markTestSkipped('Skipped due to a bug in HHVM.');
-        }
-
         $run = $this->getRunInstance();
         $run->register();
 
@@ -298,7 +294,7 @@ class RunTest extends TestCase
         ;
 
         try {
-            trigger_error(E_USER_NOTICE, 'foo');
+            trigger_error('foo', E_USER_NOTICE);
             $this->fail('Should not continue after error thrown');
         } catch (\ErrorException $e) {
             // Do nothing
