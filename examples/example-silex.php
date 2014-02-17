@@ -3,10 +3,9 @@
  * Whoops - php errors for cool kids
  * @author Filipe Dobreira <http://github.com/filp>
  *
- * NOTE: Requires silex/silex, can be installed with composer
- * within this project using the --dev flag:
+ * NOTE: Requires silex/silex, can be installed with composer:
  *
- * $ composer install --dev
+ * $ composer require silex/silex:*
  *
  * Run this example file with the PHP 5.4 web server with:
  *
