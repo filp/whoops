@@ -23,6 +23,10 @@ class RunTest extends TestCase
      */
     protected function getException($message = null)
     {
+        if (defined('HHVM_VERSION')) {
+            return $this->markTestSkipped('HHVM does not support mocking exceptions.');
+        }
+
         return m::mock('Exception', array($message));
     }
 
@@ -276,6 +280,10 @@ class RunTest extends TestCase
 
     public function testErrorCatching()
     {
+        if (defined('HHVM_VERSION')) {
+            return $this->markTestSkipped('Skipped due to a bug in HHVM.');
+        }
+
         $run = $this->getRunInstance();
         $run->register();
 
