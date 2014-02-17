@@ -114,6 +114,11 @@ User [@hugomrdias](https://github.com/hugomrdias) contributed a simple guide/exa
 
 https://gist.github.com/hugomrdias/5169713#file-start-php
 
+### Integrating with CakePHP
+
+User [@oldskool](https://github.com/oldskool) maintains a [super convenient package](https://github.com/oldskool/WhoopsCakephp) to integrate Whoops with CakePHP,
+that requires only a single command.
+
 ### Integrating with Zend Framework 2
 
 User [@zsilbi](https://github.com/zsilbi) contributed a provider for ZF2 integration,
