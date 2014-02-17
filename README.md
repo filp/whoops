@@ -18,194 +18,34 @@ powerful stacked error handling system.
 - Stand-alone library with (currently) no required dependencies
 - Simple API for dealing with exceptions, trace frames & their data
 - Includes a pretty rad error page for your webapp projects
-- **NEW** Includes the ability to open referenced files directly in your editor and IDE
-- **NEW** Includes handlers for different response formats (JSON, XML, SOAP)
+- Includes the ability to [open referenced files directly in your editor and IDE](https://github.com/filp/whoops/wiki/Open-files-in-editor)
+- Includes handlers for different response formats (JSON, XML, SOAP)
 - Includes a Silex Service Provider for painless integration with [Silex](http://silex.sensiolabs.org/)
 - Includes a Phalcon Service Provider for painless integration with [Phalcon](http://phalconphp.com/)
 - Includes a Module for equally painless integration with [Zend Framework 2](http://framework.zend.com/)
 - Easy to extend and integrate with existing libraries
-- Clean, well-structured & tested code-base (well, except `pretty-template.php`, for now...)
+- Clean, well-structured & tested code-base
 
 ## Installing
-
-- Install [Composer](http://getcomposer.org) and place the executable somewhere in your `$PATH` (for the rest of this README,
-I'll reference it as just `composer`)
-
-- Add `filp/whoops` to your project's `composer.json` file:
-
-```json
-{
-    "require": {
-        "filp/whoops": "1.*"
-    }
-}
-```
-
-- Install/update your dependencies
+Use [Composer](http://getcomposer.org) to install Whoops into your project:
 
 ```bash
-$ cd my_project
-$ composer install
+composer require filp/whoops:1
 ```
 
-And you're good to go! Have a look at the **example files** in `examples/` to get a feel for how things work.
-I promise it's really simple!
+Whoops can be easily integrated into many web frameworks.
 
-## API Documentation
+If you use Laravel 4, you already have Whoops. For other frameworks,
+see instructions on how to integrate Whoops into
+[Silex](https://github.com/filp/whoops/wiki/Integrating-with-Silex),
+[Phalcon](https://github.com/filp/whoops/wiki/Integrating-with-Phalcon),
+[Laravel 3](https://gist.github.com/hugomrdias/5169713#file-start-php) (thanks, [@hugomrdias](https://github.com/hugomrdias)),
+[CakePHP](https://github.com/oldskool/WhoopsCakephp) (thanks, [@oldskool](https://github.com/oldskool)),
+[Zend Framework 2](https://github.com/filp/whoops/wiki/Integrating-with-Zend-Framework-2).
 
-Initial API documentation of the whoops library is available here:
-https://github.com/filp/whoops/wiki/API-Documentation
+If you are not using any of these frameworks, have a look at the **example files** in `examples/` to get a feel for how things work. I promise it's really simple!
 
-## Usage
-
-### Integrating with Silex
-
-**whoops** comes packaged with a Silex Service Provider: `Whoops\Provider\Silex\WhoopsServiceProvider`. Using it
-in your existing Silex project is easy:
-
-```php
-
-require 'vendor/autoload.php';
-
-use Silex\Application;
-
-// ... some awesome code here ...
-
-if($app['debug']) {
-    $app->register(new Whoops\Provider\Silex\WhoopsServiceProvider);
-}
-
-// ...
-
-$app->run();
-```
-
-And that's about it. By default, you'll get the pretty error pages if something goes awry in your development
-environment, but you also have full access to the **whoops** library, obviously. For example, adding a new handler
-into your app is as simple as extending `whoops`:
-
-```php
-$app['whoops'] = $app->extend('whoops', function($whoops) {
-    $whoops->pushHandler(new DeleteWholeProjectHandler);
-    return $whoops;
-});
-```
-### Integrating with Phalcon
-
-**whoops** comes packaged with a Phalcon Service Provider: `Whoops\Provider\Phalcon\WhoopsServiceProvider`. Using it
-in your existing Phalcon project is easy. The provider uses the default Phalcon DI unless you pass a DI instance into the constructor.
-
-```php
-new Whoops\Provider\Phalcon\WhoopsServiceProvider;
-
-// --- or ---
-
-$di = Phalcon\DI\FactoryDefault;
-new Whoops\Provider\Phalcon\WhoopsServiceProvider($di);
-```
-
-### Integrating with Laravel 4/Illuminate
-
-If you're using Laravel 4, as of [this commit to laravel/framework](https://github.com/laravel/framework/commit/64f3a79aae254b71550a8097880f0b0e09062d24), you're already using Whoops! Yay!
-
-### Integrating with Laravel 3
-
-User [@hugomrdias](https://github.com/hugomrdias) contributed a simple guide/example to help you integrate **whoops** with Laravel 3's IoC container, available at:
-
-https://gist.github.com/hugomrdias/5169713#file-start-php
-
-### Integrating with CakePHP
-
-User [@oldskool](https://github.com/oldskool) maintains a [super convenient package](https://github.com/oldskool/WhoopsCakephp) to integrate Whoops with CakePHP,
-that requires only a single command.
-
-### Integrating with Zend Framework 2
-
-User [@zsilbi](https://github.com/zsilbi) contributed a provider for ZF2 integration,
-available in the following location:
-
-https://github.com/filp/whoops/tree/master/src/Whoops/Provider/Zend
-
-**Instructions:**
-
-- Add Whoops as a module to you app (/vendor/Whoops)
-- Whoops must be the first module:
-
-```php
-'modules' => array(
-        'Whoops',
-        'Application'
-   )
-```
-
-- Move Module.php from /Whoops/Provider/Zend/Module.php to /Whoops/Module.php
-- Use optional configurations in your controller config:
-
-```php
-return array(
-    'view_manager' => array(
-        'display_not_found_reason' => true,
-        'display_exceptions' => true,
-        'json_exceptions' => array(
-            'display' => true,
-            'ajax_only' => true,
-            'show_trace' => true
-        )
-    ),
-);
-```
-
-- NOTE: ob_clean(); is used to remove previous output, so you may use ob_start(); at the beginning of your app (index.php)
-
-### Opening referenced files with your favorite editor or IDE
-
-When using the pretty error page feature, whoops comes with the ability to
-open referenced files directly in your IDE or editor.
-
-```php
-<?php
-
-use Whoops\Handler\PrettyPageHandler;
-
-$handler = new PrettyPageHandler;
-$handler->setEditor('sublime');
-```
-
-The following editors are currently supported by default.
-
-- `sublime`  - Sublime Text 2
-- `emacs`    - Emacs
-- `textmate` - Textmate
-- `macvim`   - MacVim
-- `xdebug`   - xdebug (uses [xdebug.file_link_format](http://xdebug.org/docs/all_settings#file_link_format))
-
-Adding your own editor is simple:
-
-```php
-
-$handler->setEditor(function($file, $line) {
-    return "whatever://open?file=$file&line=$line";
-});
-
-```
-
-You can add PhpStorm support with [PhpStormOpener](https://github.com/pinepain/PhpStormOpener#phpstormopener) (Mac OS X only):
-```php
-
-$handler->setEditor(
-    function ($file, $line) {
-        // if your development server is not local it's good to map remote files to local
-        $translations = array('^' . __DIR__ => '~/Development/PhpStormOpener'); // change to your path
-
-        foreach ($translations as $from => $to) {
-            $file = preg_replace('#' . $from . '#', $to, $file, 1);
-        }
-
-        return "pstorm://$file:$line";
-    }
-);
-
-```
+If you want to edit some more, take a look at the [API Documentation](https://github.com/filp/whoops/wiki/API-Documentation) and the list of available handers below.
 
 ### Available Handlers
 
