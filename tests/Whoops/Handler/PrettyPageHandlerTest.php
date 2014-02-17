@@ -248,6 +248,9 @@ class PrettyPageHandlerTest extends TestCase
     public function testEditorXdebug()
     {
         if (!extension_loaded('xdebug')) {
+            // Even though this test only uses ini_set and ini_get,
+            // without xdebug active, those calls do not work.
+            // In particular, ini_get after ini_setting returns false.
             return $this->markTestSkipped('The xdebug extension is not loaded.');
         }
 
