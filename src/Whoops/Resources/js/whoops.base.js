@@ -1,11 +1,11 @@
-$(function() {
+Zepto(function($) {
   prettyPrint();
 
-  var $frameLines  = $('[id^="frame-line-"]');
-  var $activeLine  = $('.frames-container .active');
-  var $activeFrame = $('.active[id^="frame-code-"]').show();
-  var $container   = $('.details-container');
-  var headerHeight = $('header').css('height');
+  var $frameContainer = $('.frames-container');
+  var $container      = $('.details-container');
+  var $activeLine     = $frameContainer.find('.frame.active');
+  var $activeFrame    = $container.find('.frame-code.active');
+  var headerHeight    = $('header').height();
 
   var highlightCurrentLine = function() {
     // Highlight the active and neighboring lines for this frame:
@@ -21,12 +21,12 @@ $(function() {
   // Highlight the active for the first frame:
   highlightCurrentLine();
 
-  $frameLines.click(function() {
+  $frameContainer.on('click', '.frame', function() {
     var $this  = $(this);
     var id     = /frame\-line\-([\d]*)/.exec($this.attr('id'))[1];
     var $codeFrame = $('#frame-code-' + id);
 
-    if($codeFrame) {
+    if ($codeFrame) {
       $activeLine.removeClass('active');
       $activeFrame.removeClass('active');
 
@@ -38,7 +38,7 @@ $(function() {
 
       highlightCurrentLine();
 
-      $container.animate({ scrollTop: headerHeight }, "fast");
+      $container.scrollTop(headerHeight);
     }
   });
 });

@@ -120,6 +120,7 @@ class PrettyPageHandler extends Handler
 
             // @todo: asset compiler
             "stylesheet" => file_get_contents($this->getResource("css/whoops.base.css")),
+            "jquery"     => file_get_contents($this->getResource("js/zepto.min.js")),
             "javascript" => file_get_contents($this->getResource("js/whoops.base.js")),
 
             // Template paths:
