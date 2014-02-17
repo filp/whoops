@@ -16,9 +16,4 @@ before_script:
   - composer install --no-interaction --prefer-source --dev
 
 script:
-  - phpunit
-
-matrix:
-  allow_failures:
-    - php: hhvm
-  fast_finish: true
+  - phpunit --verbose
