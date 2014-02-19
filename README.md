@@ -18,7 +18,7 @@ powerful stacked error handling system.
 - Stand-alone library with (currently) no required dependencies
 - Simple API for dealing with exceptions, trace frames & their data
 - Includes a pretty rad error page for your webapp projects
-- Includes the ability to [open referenced files directly in your editor and IDE](https://github.com/filp/whoops/wiki/Open-files-in-editor)
+- Includes the ability to [open referenced files directly in your editor and IDE](https://github.com/filp/whoops/blob/master/docs/Open%20Files%20In%20An%20Editor.md)
 - Includes handlers for different response formats (JSON, XML, SOAP)
 - Includes a Silex Service Provider for painless integration with [Silex](http://silex.sensiolabs.org/)
 - Includes a Phalcon Service Provider for painless integration with [Phalcon](http://phalconphp.com/)
@@ -37,15 +37,15 @@ Whoops can be easily integrated into many web frameworks.
 
 If you use Laravel 4, you already have Whoops. For other frameworks,
 see instructions on how to integrate Whoops into
-[Silex](https://github.com/filp/whoops/wiki/Integrating-with-Silex),
-[Phalcon](https://github.com/filp/whoops/wiki/Integrating-with-Phalcon),
+[Silex](https://github.com/filp/whoops/blob/master/docs/Framework%20Integration.md#integrating-with-Silex),
+[Phalcon](https://github.com/filp/whoops/blob/master/docs/Framework%20Integration.md#integrating-with-Phalcon),
 [Laravel 3](https://gist.github.com/hugomrdias/5169713#file-start-php) (thanks, [@hugomrdias](https://github.com/hugomrdias)),
 [CakePHP](https://github.com/oldskool/WhoopsCakephp) (thanks, [@oldskool](https://github.com/oldskool)),
-[Zend Framework 2](https://github.com/filp/whoops/wiki/Integrating-with-Zend-Framework-2).
+[Zend Framework 2](https://github.com/filp/whoops/blob/master/docs/Framework%20Integration.md#integrating-with-Zend-Framework-2).
 
 If you are not using any of these frameworks, have a look at the **example files** in `examples/` to get a feel for how things work. I promise it's really simple!
 
-If you want to edit some more, take a look at the [API Documentation](https://github.com/filp/whoops/wiki/API-Documentation) and the list of available handers below.
+If you want to edit some more, take a look at the [API Documentation](https://github.com/filp/whoops/blob/master/docs/Framework%20Integration.md#API%20Documentation) and the list of available handers below.
 
 ### Available Handlers
 
