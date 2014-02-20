@@ -10,3 +10,5 @@ tools:
   php_hhvm: true
   php_mess_detector: true
   sensiolabs_security_checker: true
+  external_code_coverage:
+    timeout: '3600'
