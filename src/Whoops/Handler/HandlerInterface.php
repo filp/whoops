@@ -18,16 +18,19 @@ interface HandlerInterface
 
     /**
      * @param Run $run
+     * @return void
      */
     public function setRun(Run $run);
 
     /**
      * @param Exception $exception
+     * @return void
      */
     public function setException(Exception $exception);
 
     /**
      * @param Inspector $inspector
+     * @return void
      */
     public function setInspector(Inspector $inspector);
 }

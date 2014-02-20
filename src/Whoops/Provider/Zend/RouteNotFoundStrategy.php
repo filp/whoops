@@ -7,7 +7,6 @@
 namespace Whoops\Provider\Zend;
 
 use Whoops\Run;
-
 use Zend\Mvc\View\Http\RouteNotFoundStrategy as BaseRouteNotFoundStrategy;
 use Zend\Mvc\MvcEvent;
 use Zend\Stdlib\ResponseInterface as Response;
