@@ -152,7 +152,7 @@ class Run
     /**
      * Silence particular errors in particular files
      * @param array|string $patterns List or a single regex pattern to match
-     * @param integer $levels Defaults to E_STRICT | E_DEPRECATED
+     * @param int $levels Defaults to E_STRICT | E_DEPRECATED
      * @return \Whoops\Run
      */
     public function silenceErrorsInPaths($patterns, $levels = 10240)
@@ -178,7 +178,7 @@ class Run
      * use 502, 503, or another 5xx family code.
      *
      * @param bool|int $code
-     * @return bool
+     * @return int|false
      */
     public function sendHttpCode($code = null)
     {
@@ -313,7 +313,7 @@ class Run
      * @param string $file
      * @param int    $line
      *
-     * @return bool
+     * @return bool|null
      */
     public function handleError($level, $message, $file = null, $line = null)
     {
@@ -361,7 +361,7 @@ class Run
 
     /**
      * In certain scenarios, like in shutdown handler, we can not throw exceptions
-     * @var boolean
+     * @var bool
      */
     private $canThrowExceptions = true;
 

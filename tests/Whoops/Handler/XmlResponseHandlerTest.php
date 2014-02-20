@@ -70,7 +70,7 @@ class XmlResponseHandlerTest extends TestCase
     /**
      * See if passed string is a valid XML document
      * @param string $data
-     * @return boolean
+     * @return bool
      */
     private function isValidXml($data)
     {

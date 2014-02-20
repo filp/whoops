@@ -68,7 +68,7 @@ class Inspector
     /**
      * Returns an Inspector for a previous Exception, if any.
      * @todo   Clean this up a bit, cache stuff a bit better.
-     * @return \Whoops\Exception\Inspector|null
+     * @return Inspector
      */
     public function getPreviousExceptionInspector()
     {

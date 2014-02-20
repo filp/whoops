@@ -33,7 +33,7 @@ class PrettyPageHandler extends Handler
     private $extraTables = array();
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $handleUnconditionally = false;
 
@@ -294,7 +294,7 @@ class PrettyPageHandler extends Handler
      * @throws InvalidArgumentException If editor resolver does not return a string
      * @param  string $filePath
      * @param  int    $line
-     * @return string|bool
+     * @return false|string
      */
     public function getEditorHref($filePath, $line)
     {

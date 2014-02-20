@@ -62,7 +62,7 @@ class TemplateHelper
      * method also accepts an array of additional variables to be
      * passed to the template.
      *
-     * @param string $__template
+     * @param string $template
      * @param array  $additionalVariables
      */
     public function render($template, array $additionalVariables = null)
