@@ -16,4 +16,8 @@ before_script:
   - composer install --no-interaction --prefer-source --dev
 
 script:
-  - phpunit --verbose
+  - phpunit --verbose --coverage-clover build/logs/clover.xml
+
+after_success:
+  - bash -c 'if [ "$TRAVIS_PHP_VERSION" == "5.5" ]; then wget https://scrutinizer-ci.com/ocular.phar; fi;'
+  - bash -c 'if [ "$TRAVIS_PHP_VERSION" == "5.5" ]; then php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml; fi;'
