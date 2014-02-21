@@ -40,11 +40,11 @@ Whoops can be easily integrated into many web frameworks.
 
 If you use Laravel 4, you already have Whoops. For other frameworks,
 see instructions on how to integrate Whoops into
-[Silex](docs/Framework%20Integration.md#integrating-with-Silex),
-[Phalcon](docs/Framework%20Integration.md#integrating-with-Phalcon),
+[Silex](docs/Framework%20Integration.md#integrating-with-silex),
+[Phalcon](docs/Framework%20Integration.md#integrating-with-phalcon),
 [Laravel 3](https://gist.github.com/hugomrdias/5169713#file-start-php) (thanks, [@hugomrdias](https://github.com/hugomrdias)),
 [CakePHP](https://github.com/oldskool/WhoopsCakephp) (thanks, [@oldskool](https://github.com/oldskool)),
-[Zend Framework 2](docs/Framework%20Integration.md#integrating-with-Zend-Framework-2).
+[Zend Framework 2](docs/Framework%20Integration.md#integrating-with-zend-framework-2).
 
 If you are not using any of these frameworks, have a look at the **example files** in `examples/` to get a feel for how things work. I promise it's really simple!
 
