@@ -7,7 +7,6 @@
 namespace Whoops\Handler;
 
 use SimpleXMLElement;
-use Whoops\Exception\Frame;
 use Whoops\Handler\Handler;
 use Whoops\Exception\Formatter;
 

@@ -6,7 +6,6 @@
 
 namespace Whoops\Handler;
 use Whoops\Handler\Handler;
-use Whoops\Exception\Frame;
 use Whoops\Exception\Formatter;
 
 /**
