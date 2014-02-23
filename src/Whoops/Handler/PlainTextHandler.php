@@ -10,7 +10,7 @@ namespace Whoops\Handler;
 use Whoops\Handler\Handler;
 use InvalidArgumentException;
 use Whoops\Exception\Frame;
-use \Psr\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
 
 /**
 * Handler outputing plaintext error messages. Can be used
