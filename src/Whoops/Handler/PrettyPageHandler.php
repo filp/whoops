@@ -40,7 +40,27 @@ class PrettyPageHandler extends Handler
     /**
      * @var string
      */
-    private $pageTitle = "Whoops! There was an error";
+    private $pageTitle = "Whoops! There was an error.";
+
+    /**
+     * @var string
+     */
+    private $templateFile;
+
+    /**
+     * @var string
+     */
+    private $cssFile;
+
+    /**
+     * @var string
+     */
+    private $zeptoFile;
+
+    /**
+     * @var string
+     */
+    private $jsFile;
 
     /**
      * A string identifier for a known IDE/text editor, or a closure
@@ -79,6 +99,12 @@ class PrettyPageHandler extends Handler
 
         // Add the default, local resource search path:
         $this->searchPaths[] = __DIR__ . "/../Resources";
+
+        // Setup assets:
+        $this->templateFile = $this->getResource("views/layout.html.php");
+        $this->cssFile      = $this->getResource("css/whoops.base.css");
+        $this->zeptoFile    = $this->getResource("js/zepto.min.js");
+        $this->jsFile       = $this->getResource("js/whoops.base.js");
     }
 
     /**
@@ -107,12 +133,6 @@ class PrettyPageHandler extends Handler
         // @todo Make this more dynamic ~~ *
         $helper = new TemplateHelper;
 
-        // @todo Allow specifying these:
-        $templateFile = $this->getResource("views/layout.html.php");
-        $cssFile      = $this->getResource("css/whoops.base.css");
-        $zeptoFile    = $this->getResource("js/zepto.min.js");
-        $jsFile       = $this->getResource("js/whoops.base.js");
-
         $inspector = $this->getInspector();
         $frames    = $inspector->getFrames();
 
@@ -121,9 +141,9 @@ class PrettyPageHandler extends Handler
             "page_title" => $this->getPageTitle(),
 
             // @todo: asset compiler
-            "stylesheet" => file_get_contents($cssFile),
-            "jquery"     => file_get_contents($zeptoFile),
-            "javascript" => file_get_contents($jsFile),
+            "stylesheet" => file_get_contents($this->cssFile),
+            "zepto"      => file_get_contents($this->zeptoFile),
+            "javascript" => file_get_contents($this->jsFile),
 
             // Template paths:
             "header"      => $this->getResource("views/header.html.php"),
@@ -158,7 +178,7 @@ class PrettyPageHandler extends Handler
         $vars["tables"] = array_merge($extraTables, $vars["tables"]);
 
         $helper->setVariables($vars);
-        $helper->render($templateFile);
+        $helper->render($this->templateFile);
 
         return Handler::QUIT;
     }
@@ -326,11 +346,12 @@ class PrettyPageHandler extends Handler
     }
 
     /**
-     * @var string
+     * @param  string $title
+     * @return void
      */
-    public function setPageTitle($title)
+    public function setPageTitle($pagetitle)
     {
-        $this->pageTitle = (string) $title;
+        $this->pageTitle = (string) $pagetitle;
     }
 
     /**
@@ -342,12 +363,81 @@ class PrettyPageHandler extends Handler
     }
 
     /**
+     * @param  string $templateFile
+     * @return void
+     */
+    public function setTemplateFile($templateFile)
+    {
+        $this->templateFile = (string) $templateFile;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTemplateFile()
+    {
+        return $this->templateFile;
+    }
+
+    /**
+     * @param  string $cssFile
+     * @return void
+     */
+    public function setCssFile($cssFile)
+    {
+        $this->cssFile = (string) $cssFile;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCssFile()
+    {
+        return $this->cssFile;
+    }
+
+    /**
+     * @param  string $zeptoFile
+     * @return void
+     */
+    public function setZeptoFile($zeptoFile)
+    {
+        $this->zeptoFile = (string) $zeptoFile;
+    }
+
+    /**
+     * @return string
+     */
+    public function getZeptoFile()
+    {
+        return $this->zeptoFile;
+    }
+
+    /**
+     * @param  string $jsFile
+     * @return void
+     */
+    public function setJsFile($jsFile)
+    {
+        $this->jsFile = (string) $jsFile;
+    }
+
+    /**
+     * @return string
+     */
+    public function getJsFile()
+    {
+        return $this->jsFile;
+    }
+
+    /**
      * Adds a path to the list of paths to be searched for
      * resources.
      *
      * @throws InvalidArgumnetException If $path is not a valid directory
      *
      * @param string $path
+     * @return void
      */
     public function addResourcePath($path)
     {
@@ -422,7 +512,8 @@ class PrettyPageHandler extends Handler
     /**
      * @deprecated
      *
-     * @param string $resourcesPath
+     * @param  string $resourcesPath
+     * @return void
      */
     public function setResourcesPath($resourcesPath)
     {
