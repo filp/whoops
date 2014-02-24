@@ -270,26 +270,7 @@ class Run
                 while (ob_get_level() > 0) ob_end_clean();
             }
 
-            if($this->sendHttpCode() && \Whoops\Util\Misc::canSendHeaders()) {
-                $httpCode   = $this->sendHttpCode();
-
-                if (function_exists('http_response_code')) {
-                    http_response_code($httpCode);
-                } else {
-                    // http_response_code is added in 5.4.
-                    // For compatibility with 5.3 we use the third argument in header call
-                    // First argument must be a real header.
-                    // If it is empty, PHP will ignore the third argument.
-                    // If it is invalid, such as a single space, Apache will handle it well,
-                    // but the PHP development server will hang.
-                    // Setting a full status line would require us to hardcode
-                    // string values for all different status code, and detect the protocol.
-                    // which is an extra error-prone complexity.
-                    header('X-Ignore-This: 1', true, $httpCode);
-                }
-            }
-
-            echo $output;
+            $this->writeToOutputNow($output);
         }
 
         // Handlers are done! Check if we got here because of Handler::QUIT
@@ -364,6 +345,37 @@ class Run
      * @var bool
      */
     private $canThrowExceptions = true;
+
+    /**
+     * Echo something to the browser
+     * @param string $output
+     * @return $this
+     */
+    private function writeToOutputNow($output)
+    {
+        if($this->sendHttpCode() && \Whoops\Util\Misc::canSendHeaders()) {
+            $httpCode   = $this->sendHttpCode();
+
+            if (function_exists('http_response_code')) {
+                http_response_code($httpCode);
+            } else {
+                // http_response_code is added in 5.4.
+                // For compatibility with 5.3 we use the third argument in header call
+                // First argument must be a real header.
+                // If it is empty, PHP will ignore the third argument.
+                // If it is invalid, such as a single space, Apache will handle it well,
+                // but the PHP development server will hang.
+                // Setting a full status line would require us to hardcode
+                // string values for all different status code, and detect the protocol.
+                // which is an extra error-prone complexity.
+                header('X-Ignore-This: 1', true, $httpCode);
+            }
+        }
+
+        echo $output;
+
+        return $this;
+    }
 
     private static function isLevelFatal($level)
     {
