@@ -40,7 +40,7 @@ class PrettyPageHandler extends Handler
     /**
      * @var string
      */
-    private $pageTitle = "Whoops! There was an error";
+    private $pageTitle = "Whoops! There was an error.";
 
     /**
      * A string identifier for a known IDE/text editor, or a closure
@@ -88,7 +88,7 @@ class PrettyPageHandler extends Handler
     {
         if (!$this->handleUnconditionally()) {
             // Check conditions for outputting HTML:
-            // @todo: make this more robust
+            // @todo: Make this more robust
             if(php_sapi_name() === 'cli') {
 
                 // Help users who have been relying on an internal test value
@@ -104,10 +104,9 @@ class PrettyPageHandler extends Handler
             }
         }
 
-        // @todo Make this more dynamic ~~ *
+        // @todo: Make this more dynamic
         $helper = new TemplateHelper;
 
-        // @todo Allow specifying these:
         $templateFile = $this->getResource("views/layout.html.php");
         $cssFile      = $this->getResource("css/whoops.base.css");
         $zeptoFile    = $this->getResource("js/zepto.min.js");
@@ -120,9 +119,9 @@ class PrettyPageHandler extends Handler
         $vars = array(
             "page_title" => $this->getPageTitle(),
 
-            // @todo: asset compiler
+            // @todo: Asset compiler
             "stylesheet" => file_get_contents($cssFile),
-            "jquery"     => file_get_contents($zeptoFile),
+            "zepto"      => file_get_contents($zeptoFile),
             "javascript" => file_get_contents($jsFile),
 
             // Template paths:
@@ -151,7 +150,7 @@ class PrettyPageHandler extends Handler
         );
 
         // Add extra entries list of data tables:
-        // @todo consolidate addDataTable and addDataTableCallback
+        // @todo: Consolidate addDataTable and addDataTableCallback
         $extraTables = array_map(function($table) {
             return $table instanceof \Closure ? $table() : $table;
         }, $this->getDataTables());
@@ -326,7 +325,8 @@ class PrettyPageHandler extends Handler
     }
 
     /**
-     * @var string
+     * @param  string $title
+     * @return void
      */
     public function setPageTitle($title)
     {
@@ -347,7 +347,8 @@ class PrettyPageHandler extends Handler
      *
      * @throws InvalidArgumnetException If $path is not a valid directory
      *
-     * @param string $path
+     * @param  string $path
+     * @return void
      */
     public function addResourcePath($path)
     {
@@ -409,7 +410,8 @@ class PrettyPageHandler extends Handler
     /**
      * @deprecated
      *
-     * @return string
+     * @param  string $resourcesPath
+     * @return void
      */
     public function getResourcesPath()
     {
