@@ -239,9 +239,7 @@ class Run
         // Just in case there are no handlers:
         $handlerResponse = null;
 
-        for($i = count($this->handlerStack) - 1; $i >= 0; $i--) {
-            $handler = $this->handlerStack[$i];
-
+        foreach (array_reverse($this->handlerStack) as $handler) {
             $handler->setRun($this);
             $handler->setInspector($inspector);
             $handler->setException($exception);
