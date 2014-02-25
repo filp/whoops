@@ -410,8 +410,7 @@ class PrettyPageHandler extends Handler
     /**
      * @deprecated
      *
-     * @param  string $resourcesPath
-     * @return void
+     * @return string
      */
     public function getResourcesPath()
     {
@@ -424,7 +423,8 @@ class PrettyPageHandler extends Handler
     /**
      * @deprecated
      *
-     * @param string $resourcesPath
+     * @param  string $resourcesPath
+     * @return void
      */
     public function setResourcesPath($resourcesPath)
     {
