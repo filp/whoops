@@ -27,7 +27,7 @@ class JsonResponseHandler extends Handler
 
     /**
      * @param  bool|null $returnFrames
-     * @return bool
+     * @return bool|$this
      */
     public function addTraceToOutput($returnFrames = null)
     {
@@ -36,6 +36,7 @@ class JsonResponseHandler extends Handler
         }
 
         $this->returnFrames = (bool) $returnFrames;
+        return $this;
     }
 
     /**

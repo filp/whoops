@@ -96,7 +96,7 @@ class PlainTextHandler extends Handler
     /**
      * Add error trace to output.
      * @param bool|null $addTraceToOutput
-     * @return bool
+     * @return bool|$this
      */
     public function addTraceToOutput($addTraceToOutput = null)
     {
@@ -105,6 +105,7 @@ class PlainTextHandler extends Handler
         }
 
         $this->addTraceToOutput = (bool) $addTraceToOutput;
+        return $this;
     }
 
     /**
