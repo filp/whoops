@@ -161,6 +161,18 @@ class FrameCollectionTest extends TestCase
     }
 
     /**
+     * @covers Whoops\Exception\FrameCollection::getArray
+     */
+    public function testGetArrayImmutable()
+    {
+        $frames = $this->getFrameCollectionInstance();
+        $arr = $frames->getArray();
+        $arr[0] = 'foobar';
+        $newCopy = $frames->getArray();
+        $this->assertFalse($arr[0] === $newCopy);
+    }
+
+    /**
      * @covers Whoops\Exception\FrameCollection::getIterator
      */
     public function testCollectionIsIterable()
