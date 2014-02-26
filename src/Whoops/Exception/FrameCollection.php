@@ -9,6 +9,7 @@ use Whoops\Exception\Frame;
 use UnexpectedValueException;
 use IteratorAggregate;
 use ArrayIterator;
+use ArrayAccess;
 use Serializable;
 use Countable;
 
@@ -16,7 +17,7 @@ use Countable;
  * Exposes a fluent interface for dealing with an ordered list
  * of stack-trace frames.
  */
-class FrameCollection implements IteratorAggregate, Serializable, Countable
+class FrameCollection implements ArrayAccess, IteratorAggregate, Serializable, Countable
 {
     /**
      * @var array[]
@@ -91,6 +92,42 @@ class FrameCollection implements IteratorAggregate, Serializable, Countable
     public function getIterator()
     {
         return new ArrayIterator($this->frames);
+    }
+
+    /**
+     * @see ArrayAccess::offsetExists
+     * @param int $offset
+     */
+    public function offsetExists($offset)
+    {
+        return isset($this->frames[$offset]);
+    }
+
+    /**
+     * @see ArrayAccess::offsetGet
+     * @param int $offset
+     */
+    public function offsetGet($offset)
+    {
+        return $this->frames[$offset];
+    }
+
+    /**
+     * @see ArrayAccess::offsetSet
+     * @param int $offset
+     */
+    public function offsetSet($offset, $value)
+    {
+        throw new \Exception(__CLASS__ . ' is read only');
+    }
+
+    /**
+     * @see ArrayAccess::offsetUnset
+     * @param int $offset
+     */
+    public function offsetUnset($offset)
+    {
+        throw new \Exception(__CLASS__ . ' is read only');
     }
 
     /**
