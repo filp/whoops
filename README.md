@@ -44,7 +44,7 @@ see instructions on how to integrate Whoops into
 [Phalcon](docs/Framework%20Integration.md#integrating-with-phalcon),
 [Laravel 3](https://gist.github.com/hugomrdias/5169713#file-start-php) (thanks, [@hugomrdias](https://github.com/hugomrdias)),
 [CakePHP](https://github.com/oldskool/WhoopsCakephp) (thanks, [@oldskool](https://github.com/oldskool)),
-[Zend Framework 2](docs/Framework%20Integration.md#integrating-with-zend-framework-2).
+[Zend Framework 2](https://github.com/ghislainf/zf2-whoops) (thanks, [@ghislainf](https://github.com/ghislainf)).
 
 If you are not using any of these frameworks, have a look at the **example files** in `examples/` to get a feel for how things work. I promise it's really simple!
 
