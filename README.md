@@ -30,25 +30,30 @@ powerful stacked error handling system.
 - Clean, well-structured & tested code-base
 
 ## Installing
-Use [Composer](http://getcomposer.org) to install Whoops into your project:
-
-```bash
-composer require filp/whoops:1
-```
-
-Whoops can be easily integrated into many web frameworks.
-
-If you use Laravel 4, you already have Whoops. For other frameworks,
-see instructions on how to integrate Whoops into
+If you use Laravel 4, you already have Whoops. There are also community-provided instructions on how to integrate Whoops into
 [Silex](docs/Framework%20Integration.md#integrating-with-silex),
 [Phalcon](docs/Framework%20Integration.md#integrating-with-phalcon),
-[Laravel 3](https://gist.github.com/hugomrdias/5169713#file-start-php) (thanks, [@hugomrdias](https://github.com/hugomrdias)),
-[CakePHP](https://github.com/oldskool/WhoopsCakephp) (thanks, [@oldskool](https://github.com/oldskool)),
-[Zend Framework 2](https://github.com/ghislainf/zf2-whoops) (thanks, [@ghislainf](https://github.com/ghislainf)).
+[Laravel 3](https://gist.github.com/hugomrdias/5169713#file-start-php),
+[CakePHP](https://github.com/oldskool/WhoopsCakephp),
+[Zend Framework 2](https://github.com/ghislainf/zf2-whoops).
 
-If you are not using any of these frameworks, have a look at the **example files** in `examples/` to get a feel for how things work. I promise it's really simple!
+If you are not using any of these frameworks, here's a very simple way to install:
 
-If you want to edit some more, take a look at the [API Documentation](docs/Framework%20Integration.md#API%20Documentation) and the list of available handers below.
+1. Use [Composer](http://getcomposer.org) to install Whoops into your project:
+
+    ```bash
+    composer require filp/whoops:1
+    ```
+
+1. Register the pretty handler in your code:
+
+    ```php
+    $whoops = new \Whoops\Run;
+    $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+    $whoops->register();
+    ```
+
+For more options, have a look at the **example files** in `examples/` to get a feel for how things work. Also take a look at the [API Documentation](docs/Framework%20Integration.md#API%20Documentation) and the list of available handers below.
 
 ### Available Handlers
 
