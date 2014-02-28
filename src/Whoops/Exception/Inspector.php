@@ -109,6 +109,13 @@ class Inspector
                 // Keep outer frame on top of the inner one
                 $outerFrames = $this->frames;
                 $newFrames = clone $previousInspector->getFrames();
+                // I assume it will always be set, but let's be safe
+                if (isset($newFrames[0])) {
+                    $newFrames[0]->addComment(
+                        $previousInspector->getExceptionMessage(),
+                        'Exception message:'
+                    );
+                }
                 $newFrames->prependFrames($outerFrames->topDiff($newFrames));
                 $this->frames = $newFrames;
             }
