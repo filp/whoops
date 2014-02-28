@@ -106,7 +106,11 @@ class Inspector
             $this->frames = new FrameCollection($frames);
 
             if ($previousInspector = $this->getPreviousExceptionInspector()) {
-                $this->frames->prependFrames($previousInspector->getFrames()->topDiff($this->frames));
+                // Keep outer frame on top of the inner one
+                $outerFrames = $this->frames;
+                $newFrames = clone $previousInspector->getFrames();
+                $newFrames->prependFrames($outerFrames->topDiff($newFrames));
+                $this->frames = $newFrames;
             }
         }
 

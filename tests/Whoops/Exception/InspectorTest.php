@@ -32,6 +32,19 @@ class InspectorTest extends TestCase
     }
 
     /**
+     * @covers Whoops\Exception\Inspector::getFrames
+     */
+    public function testCorrectNestedFrames($value='')
+    {
+        // Create manually to have a different line number from the outer
+        $inner = new Exception('inner');
+        $outer = $this->getException('outer', 0, $inner);
+        $inspector = $this->getInspectorInstance($outer);
+        $frames = $inspector->getFrames();
+        $this->assertSame($outer->getLine(), $frames[0]->getLine());
+    }
+
+    /**
      * @covers Whoops\Exception\Inspector::getExceptionName
      */
     public function testReturnsCorrectExceptionName()
