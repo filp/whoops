@@ -7,6 +7,12 @@ php errors for cool kids
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/filp/whoops/badges/quality-score.png?s=6225c36f2a2dd1fdca11ecc7b10b29105c8c62bd)](https://scrutinizer-ci.com/g/filp/whoops)
 [![Code Coverage](https://scrutinizer-ci.com/g/filp/whoops/badges/coverage.png?s=711feb2069144d252d111b211965ffb19a7d09a8)](https://scrutinizer-ci.com/g/filp/whoops)
 
+<!--
+Dependency status image throws 500 on requests with a Referer header.
+Uncomment when https://github.com/toopay/depending/issues/14 is fixed.
+[![Dependency Status](http://depending.in/filp/whoops.png)](http://depending.in/filp/whoops)
+-->
+
 -----
 
 ![Whoops!](http://i.imgur.com/xiZ1tUU.png)
