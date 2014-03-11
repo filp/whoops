@@ -208,7 +208,7 @@ class PrettyPageHandler extends Handler
      * Optionally accepts a 'label' parameter, to only return the data
      * table under that label.
      * @param string|null $label
-     * @return array[]
+     * @return array[]|callable
      */
     public function getDataTables($label = null)
     {
