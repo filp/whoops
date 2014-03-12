@@ -26,6 +26,9 @@ use Whoops\Handler\PrettyPageHandler;
 use Zend\EventManager\EventInterface;
 use Zend\Console\Request as ConsoleRequest;
 
+/**
+ * @deprecated Use https://github.com/ghislainf/zf2-whoops
+ */
 class Module
 {
     protected $run;

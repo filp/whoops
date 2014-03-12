@@ -5,6 +5,9 @@
         <testsuite name="Whoops Tests Suite">
             <directory>tests/Whoops/</directory>
         </testsuite>
+        <testsuite name="Whoops deprecated features Suite">
+            <directory>tests/deprecated/</directory>
+        </testsuite>
     </testsuites>
 
     <filter>

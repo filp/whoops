@@ -21,7 +21,10 @@
     "autoload": {
         "psr-0": {
             "Whoops": "src/"
-        }
+        },
+        "classmap": [
+            "src/deprecated"
+        ]
     },
     "extra": {
         "branch-alias": {

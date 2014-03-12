@@ -12,6 +12,9 @@ use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Application;
 use Zend\Http\Response;
 
+/**
+ * @deprecated Use https://github.com/ghislainf/zf2-whoops
+ */
 class ExceptionStrategy extends BaseExceptionStrategy {
 
     protected $run;

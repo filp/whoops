@@ -12,6 +12,9 @@ use Zend\Mvc\MvcEvent;
 use Zend\Stdlib\ResponseInterface as Response;
 use Zend\View\Model\ViewModel;
 
+/**
+ * @deprecated Use https://github.com/ghislainf/zf2-whoops
+ */
 class RouteNotFoundStrategy extends BaseRouteNotFoundStrategy {
 
     protected $run;
