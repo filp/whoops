@@ -391,9 +391,6 @@ class PlainTextHandlerTest extends TestCase
 
         $lines = explode("\n", $text);
 
-        // Check that the trace is returned with limited level of arguments:
-        $this->assertCount(41, $lines);
-
         // Check that the response has the correct value:
         $this->assertEquals('Stack trace:', $lines[1]);
 
