@@ -22,11 +22,15 @@
 
           // the $line is 1-indexed, we nab -1 where needed to account for this
           $range = $frame->getFileLines($line - 8, 10);
-          $range = array_map(function($line){ return empty($line) ? ' ' : $line;}, $range);
-          $start = key($range) + 1;
-          $code  = join("\n", $range);
+          
+          // getFileLines can return null if there is no source code
+          if ($range):
+            $range = array_map(function($line){ return empty($line) ? ' ' : $line;}, $range);
+            $start = key($range) + 1;
+            $code  = join("\n", $range);
         ?>
-        <pre class="code-block prettyprint linenums:<?php echo $start ?>"><?php echo $tpl->escape($code) ?></pre>
+            <pre class="code-block prettyprint linenums:<?php echo $start ?>"><?php echo $tpl->escape($code) ?></pre>
+          <?php endif ?>
         <?php endif ?>
 
         <?php
