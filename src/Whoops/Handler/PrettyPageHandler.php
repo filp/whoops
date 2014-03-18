@@ -28,6 +28,13 @@ class PrettyPageHandler extends Handler
     private $resourceCache = array();
 
     /**
+     * The name of the custom css file.
+     *
+     * @var string
+     */
+    private $customCss = null;
+
+    /**
      * @var array[]
      */
     private $extraTables = array();
@@ -112,6 +119,10 @@ class PrettyPageHandler extends Handler
         $zeptoFile    = $this->getResource("js/zepto.min.js");
         $jsFile       = $this->getResource("js/whoops.base.js");
 
+        if ($this->customCss) {
+            $customCssFile = $this->getResource($this->customCss);
+        }
+
         $inspector = $this->getInspector();
         $frames    = $inspector->getFrames();
 
@@ -148,6 +159,10 @@ class PrettyPageHandler extends Handler
                 "Environment Variables" => $_ENV
             )
         );
+
+        if (isset($customCssFile)) {
+            $vars["stylesheet"] .= file_get_contents($customCssFile);
+        }
 
         // Add extra entries list of data tables:
         // @todo: Consolidate addDataTable and addDataTableCallback
@@ -359,6 +374,17 @@ class PrettyPageHandler extends Handler
         }
 
         $this->searchPaths[] = $path;
+    }
+
+    /**
+     * Adds a custom css file to be loaded.
+     *
+     * @param  string $name
+     * @return void
+     */
+    public function addCustomCss($name)
+    {
+        $this->customCss = $name;
     }
 
     /**
