@@ -275,7 +275,7 @@ class Run
         }
 
         if($willQuit) {
-            exit;
+            exit(1);
         }
 
         return $output;
