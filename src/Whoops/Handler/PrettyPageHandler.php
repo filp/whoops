@@ -442,8 +442,8 @@ class PrettyPageHandler extends Handler
     {
         $allPaths = $this->getResourcePaths();
 
-        // Compat: return only the first path
-        return reset($allPaths) ?: null;
+        // Compat: return only the first path added
+        return end($allPaths) ?: null;
     }
 
     /**
