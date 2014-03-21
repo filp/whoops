@@ -22,7 +22,7 @@
 
           // the $line is 1-indexed, we nab -1 where needed to account for this
           $range = $frame->getFileLines($line - 8, 10);
-          
+
           // getFileLines can return null if there is no source code
           if ($range):
             $range = array_map(function($line){ return empty($line) ? ' ' : $line;}, $range);
@@ -34,7 +34,7 @@
         <?php endif ?>
 
         <?php
-          // Append comments for this frame */
+          // Append comments for this frame
           $comments = $frame->getComments();
         ?>
         <div class="frame-comments <?php echo empty($comments) ? 'empty' : '' ?>">
