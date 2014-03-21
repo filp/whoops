@@ -76,7 +76,7 @@ class PrettyPageHandlerTest extends TestCase
         $allPaths = $handler->getResourcePaths();
 
         $this->assertCount(2, $allPaths);
-        $this->assertEquals($allPaths[1], $path);
+        $this->assertEquals($allPaths[0], $path);
     }
 
     /**
