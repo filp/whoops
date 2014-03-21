@@ -373,7 +373,7 @@ class PrettyPageHandler extends Handler
             );
         }
 
-        $this->searchPaths[] = $path;
+        array_unshift($this->searchPaths, $path);
     }
 
     /**
@@ -414,10 +414,10 @@ class PrettyPageHandler extends Handler
             return $this->resourceCache[$resource];
         }
 
-        // Search through available search paths, in reverse order,
-        // until we find the resource we're after:
-        for($i = count($this->searchPaths) - 1; $i >= 0; $i--) {
-            $fullPath = $this->searchPaths[$i] . "/$resource";
+        // Search through available search paths, until we find the
+        // resource we're after:
+        foreach($this->searchPaths as $path) {
+            $fullPath = $path . "/$resource";
 
             if(is_file($fullPath)) {
                 // Cache the result:
