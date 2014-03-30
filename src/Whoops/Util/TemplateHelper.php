@@ -25,7 +25,15 @@ class TemplateHelper
      */
     public function escape($raw)
     {
-        return htmlspecialchars($raw, ENT_QUOTES | ENT_SUBSTITUTE, "UTF-8");
+        $flags = ENT_QUOTES;
+
+        // On 5.3 this will return an empty string if the source contents
+        // are illegal UTF-8 sequences. Oh well, 5.3.
+        if (defined('ENT_SUBSTITUTE')) {
+            $flags |= ENT_SUBSTITUTE;
+        }
+
+        return htmlspecialchars($raw, $flags, "UTF-8");
     }
 
     /**
