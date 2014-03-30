@@ -25,7 +25,7 @@ class TemplateHelper
      */
     public function escape($raw)
     {
-        return htmlspecialchars($raw, ENT_QUOTES, "UTF-8");
+        return htmlspecialchars($raw, ENT_QUOTES | ENT_SUBSTITUTE, "UTF-8");
     }
 
     /**
