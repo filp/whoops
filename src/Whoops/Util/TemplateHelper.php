@@ -27,7 +27,7 @@ class TemplateHelper
     {
         $flags = ENT_QUOTES;
 
-        if (defined('ENT_SUBSTITUTE')) {
+        if (defined("ENT_SUBSTITUTE")) {
             $flags |= ENT_SUBSTITUTE;
         } else {
             // This is for 5.3.
