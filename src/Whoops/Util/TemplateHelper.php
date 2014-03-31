@@ -27,8 +27,8 @@ class TemplateHelper
     {
         $flags = ENT_QUOTES;
 
-	// HHVM has all constants defined, but only ENT_IGNORE
-	// works at the moment
+        // HHVM has all constants defined, but only ENT_IGNORE
+        // works at the moment
         if (defined("ENT_SUBSTITUTE") && !defined("HHVM_VERSION")) {
             $flags |= ENT_SUBSTITUTE;
         } else {
