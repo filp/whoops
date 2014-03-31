@@ -39,7 +39,7 @@ class TemplateHelperTest extends TestCase
 
     public function testEscapeBrokenUtf8()
     {
-        if (version_compare(PHP_VERSION, '5.4', '<') || defined('HHVM_VERSION')) {
+        if (defined('HHVM_VERSION')) {
             return $this->markTestSkipped();
         }
 
