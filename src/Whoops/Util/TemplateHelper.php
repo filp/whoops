@@ -31,6 +31,8 @@ class TemplateHelper
         // are illegal UTF-8 sequences. Oh well, 5.3.
         if (defined('ENT_SUBSTITUTE')) {
             $flags |= ENT_SUBSTITUTE;
+        } else {
+            $flags |= ENT_IGNORE;
         }
 
         return htmlspecialchars($raw, $flags, "UTF-8");
