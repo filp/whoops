@@ -39,10 +39,6 @@ class TemplateHelperTest extends TestCase
 
     public function testEscapeBrokenUtf8()
     {
-        if (defined('HHVM_VERSION')) {
-            return $this->markTestSkipped();
-        }
-
         // The following includes an illegal utf-8 sequence to test.
         // Encoded in base64 to survive possible encoding changes of this file.
         $original = base64_decode('VGhpcyBpcyBhbiBpbGxlZ2FsIHV0Zi04IHNlcXVlbmNlOiDD');
