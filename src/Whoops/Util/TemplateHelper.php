@@ -27,11 +27,13 @@ class TemplateHelper
     {
         $flags = ENT_QUOTES;
 
-        // On 5.3 this will return an empty string if the source contents
-        // are illegal UTF-8 sequences. Oh well, 5.3.
         if (defined('ENT_SUBSTITUTE')) {
             $flags |= ENT_SUBSTITUTE;
         } else {
+            // This is for 5.3.
+            // The documentation warns of a potential security issue,
+            // but it seems it does not apply in our case, because
+            // we do not blacklist anything anywhere.
             $flags |= ENT_IGNORE;
         }
 
