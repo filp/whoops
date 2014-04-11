@@ -350,7 +350,7 @@ class RunTest extends TestCase
             })
         ;
 
-        $run->silenceErrorsInPaths('@^'.preg_quote(__FILE__).'$@', E_USER_NOTICE);
+        $run->silenceErrorsInPaths('@^'.preg_quote(__FILE__, '@').'$@', E_USER_NOTICE);
         trigger_error('Test', E_USER_NOTICE);
         $this->assertTrue(true);
     }
