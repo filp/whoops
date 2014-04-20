@@ -350,17 +350,17 @@ PrettyPageHandler::setPageTitle( string $title )
 PrettyPageHandler::getPageTitle()
  #=> string
 
-// Returns a string path to the location where resources
-// used by this handler are stored - the template and CSS
+// Returns a list of string paths where resources
+// used by this handler are searched for - the template and CSS
 // files.
-PrettyPageHandler::getResourcesPath()
- #=> string
+PrettyPageHandler::getResourcesPaths()
+ #=> array
 
-// Sets a string path to the location of resources for the
+// Adds a string path to the location of resources for the
 // handler. Useful if you want to roll your own template
 // file (pretty-template.php and pretty-page.css) while
 // still using the logic this handler provides
-PrettyPageHandler::setResourcesPath( string $resourcesPath )
+PrettyPageHandler::addResourcesPath( string $resourcesPath )
  #=> null
 
 // Sets an editor to use to open referenced files, either by
