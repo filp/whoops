@@ -15,7 +15,7 @@ use Phalcon\DI\Exception;
 class WhoopsServiceProvider
 {
     /**
-     * @param DI $di
+     * @param  DI $di
      */
     public function __construct(DI $di = null)
     {

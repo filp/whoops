@@ -137,7 +137,7 @@ class Run
 
     /**
      * Should Whoops allow Handlers to force the script to quit?
-     * @param bool|int $exit
+     * @param  bool|int $exit
      * @return bool
      */
     public function allowQuit($exit = null)
@@ -151,8 +151,8 @@ class Run
 
     /**
      * Silence particular errors in particular files
-     * @param array|string $patterns List or a single regex pattern to match
-     * @param int $levels Defaults to E_STRICT | E_DEPRECATED
+     * @param  array|string $patterns List or a single regex pattern to match
+     * @param  int $levels Defaults to E_STRICT | E_DEPRECATED
      * @return \Whoops\Run
      */
     public function silenceErrorsInPaths($patterns, $levels = 10240)
@@ -177,7 +177,7 @@ class Run
      * Whoops will by default send HTTP code 500, but you may wish to
      * use 502, 503, or another 5xx family code.
      *
-     * @param bool|int $code
+     * @param  bool|int $code
      * @return int|false
      */
     public function sendHttpCode($code = null)
@@ -206,7 +206,7 @@ class Run
     /**
      * Should Whoops push output directly to the client?
      * If this is false, output will be returned by handleException
-     * @param bool|int $send
+     * @param  bool|int $send
      * @return bool
      */
     public function writeToOutput($send = null)
@@ -287,10 +287,10 @@ class Run
      *
      * This method MUST be compatible with set_error_handler.
      *
-     * @param int    $level
-     * @param string $message
-     * @param string $file
-     * @param int    $line
+     * @param  int    $level
+     * @param  string $message
+     * @param  string $file
+     * @param  int    $line
      *
      * @return bool|null
      */
@@ -346,7 +346,7 @@ class Run
 
     /**
      * Echo something to the browser
-     * @param string $output
+     * @param  string $output
      * @return $this
      */
     private function writeToOutputNow($output)

@@ -12,9 +12,9 @@ use Exception;
 class InspectorTest extends TestCase
 {
     /**
-     * @param string    $message
-     * @param int       $code
-     * @param Exception $previous
+     * @param  string    $message
+     * @param  int       $code
+     * @param  Exception $previous
      * @return Exception
      */
     protected function getException($message = null, $code = 0, Exception $previous = null)

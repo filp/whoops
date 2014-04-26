@@ -18,7 +18,7 @@ class RunTest extends TestCase
 {
 
     /**
-     * @param string $message
+     * @param  string $message
      * @return Exception
      */
     protected function getException($message = null)

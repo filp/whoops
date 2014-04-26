@@ -15,7 +15,7 @@ use RuntimeException;
 class WhoopsServiceProvider implements ServiceProviderInterface
 {
     /**
-     * @param Application $app
+     * @param  Application $app
      */
     public function register(Application $app)
     {

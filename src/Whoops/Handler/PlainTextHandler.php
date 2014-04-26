@@ -59,7 +59,7 @@ class PlainTextHandler extends Handler
     /**
      * Constructor.
      * @throws InvalidArgumentException If argument is not null or a LoggerInterface
-     * @param Psr\Log\LoggerInterface|null $logger
+     * @param  Psr\Log\LoggerInterface|null $logger
      */
     public function __construct($logger = null)
     {
@@ -69,7 +69,7 @@ class PlainTextHandler extends Handler
     /**
      * Set the output logger interface.
      * @throws InvalidArgumentException If argument is not null or a LoggerInterface
-     * @param Psr\Log\LoggerInterface|null $logger
+     * @param  Psr\Log\LoggerInterface|null $logger
      */
     public function setLogger($logger = null)
     {
@@ -95,7 +95,7 @@ class PlainTextHandler extends Handler
 
     /**
      * Add error trace to output.
-     * @param bool|null $addTraceToOutput
+     * @param  bool|null $addTraceToOutput
      * @return bool|$this
      */
     public function addTraceToOutput($addTraceToOutput = null)
@@ -111,7 +111,7 @@ class PlainTextHandler extends Handler
     /**
      * Add error trace function arguments to output.
      * Set to True for all frame args, or integer for the n first frame args.
-     * @param bool|integer|null $addTraceFunctionArgsToOutput
+     * @param  bool|integer|null $addTraceFunctionArgsToOutput
      * @return null|bool|integer
      */
     public function addTraceFunctionArgsToOutput($addTraceFunctionArgsToOutput = null)
@@ -152,7 +152,7 @@ class PlainTextHandler extends Handler
 
     /**
      * Restrict error handling to command line calls.
-     * @param bool|null $onlyForCommandLine
+     * @param  bool|null $onlyForCommandLine
      * @return null|bool
      */
     public function onlyForCommandLine($onlyForCommandLine = null)
@@ -167,7 +167,7 @@ class PlainTextHandler extends Handler
      * Output the error message only if using command line.
      * else, output to logger if available.
      * Allow to safely add this handler to web pages.
-     * @param bool|null $outputOnlyIfCommandLine
+     * @param  bool|null $outputOnlyIfCommandLine
      * @return null|bool
      */
     public function outputOnlyIfCommandLine($outputOnlyIfCommandLine = null)
@@ -180,7 +180,7 @@ class PlainTextHandler extends Handler
 
     /**
      * Only output to logger.
-     * @param bool|null $loggerOnly
+     * @param  bool|null $loggerOnly
      * @return null|bool
      */
     public function loggerOnly($loggerOnly = null)

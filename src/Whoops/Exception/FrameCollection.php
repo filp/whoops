@@ -25,7 +25,7 @@ class FrameCollection implements ArrayAccess, IteratorAggregate, Serializable, C
     private $frames;
 
     /**
-     * @param array $frames
+     * @param  array $frames
      */
     public function __construct(array $frames)
     {
@@ -96,7 +96,7 @@ class FrameCollection implements ArrayAccess, IteratorAggregate, Serializable, C
 
     /**
      * @see ArrayAccess::offsetExists
-     * @param int $offset
+     * @param  int $offset
      */
     public function offsetExists($offset)
     {
@@ -105,7 +105,7 @@ class FrameCollection implements ArrayAccess, IteratorAggregate, Serializable, C
 
     /**
      * @see ArrayAccess::offsetGet
-     * @param int $offset
+     * @param  int $offset
      */
     public function offsetGet($offset)
     {
@@ -114,7 +114,7 @@ class FrameCollection implements ArrayAccess, IteratorAggregate, Serializable, C
 
     /**
      * @see ArrayAccess::offsetSet
-     * @param int $offset
+     * @param  int $offset
      */
     public function offsetSet($offset, $value)
     {
@@ -123,7 +123,7 @@ class FrameCollection implements ArrayAccess, IteratorAggregate, Serializable, C
 
     /**
      * @see ArrayAccess::offsetUnset
-     * @param int $offset
+     * @param  int $offset
      */
     public function offsetUnset($offset)
     {
@@ -150,7 +150,7 @@ class FrameCollection implements ArrayAccess, IteratorAggregate, Serializable, C
 
     /**
      * @see Serializable::unserialize
-     * @param string $serializedFrames
+     * @param  string $serializedFrames
      */
     public function unserialize($serializedFrames)
     {
@@ -158,7 +158,7 @@ class FrameCollection implements ArrayAccess, IteratorAggregate, Serializable, C
     }
 
     /**
-     * @param Frame[] $frames Array of Frame instances, usually from $e->getPrevious()
+     * @param  Frame[] $frames Array of Frame instances, usually from $e->getPrevious()
      */
     public function prependFrames(array $frames)
     {
@@ -168,7 +168,7 @@ class FrameCollection implements ArrayAccess, IteratorAggregate, Serializable, C
     /**
      * Gets the innermost part of stack trace that is not the same as that of outer exception
      *
-     * @param FrameCollection $parentFrames Outer exception frames to compare tail against
+     * @param  FrameCollection $parentFrames Outer exception frames to compare tail against
      * @return Frame[]
      */
     public function topDiff(FrameCollection $parentFrames)
