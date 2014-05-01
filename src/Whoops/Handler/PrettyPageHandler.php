@@ -181,8 +181,8 @@ class PrettyPageHandler extends Handler
      * Adds an entry to the list of tables displayed in the template.
      * The expected data is a simple associative array. Any nested arrays
      * will be flattened with print_r
-     * @param string $label
-     * @param array  $data
+     * @param  string $label
+     * @param  array  $data
      */
     public function addDataTable($label, array $data)
     {
@@ -196,8 +196,8 @@ class PrettyPageHandler extends Handler
      * be flattened with print_r.
      *
      * @throws InvalidArgumentException If $callback is not callable
-     * @param string   $label
-     * @param callable $callback Callable returning an associative array
+     * @param  string   $label
+     * @param  callable $callback Callable returning an associative array
      */
     public function addDataTableCallback($label, /* callable */ $callback)
     {
@@ -222,7 +222,7 @@ class PrettyPageHandler extends Handler
      * Returns all the extra data tables registered with this handler.
      * Optionally accepts a 'label' parameter, to only return the data
      * table under that label.
-     * @param string|null $label
+     * @param  string|null $label
      * @return array[]|callable
      */
     public function getDataTables($label = null)
@@ -239,7 +239,7 @@ class PrettyPageHandler extends Handler
      * Allows to disable all attempts to dynamically decide whether to
      * handle or return prematurely.
      * Set this to ensure that the handler will perform no matter what.
-     * @param bool|null $value
+     * @param  bool|null $value
      * @return bool|null
      */
     public function handleUnconditionally($value = null)
@@ -285,7 +285,7 @@ class PrettyPageHandler extends Handler
      *   $run->setEditor('sublime');
      *
      * @throws InvalidArgumentException If invalid argument identifier provided
-     * @param string|callable $editor
+     * @param  string|callable $editor
      */
     public function setEditor($editor)
     {

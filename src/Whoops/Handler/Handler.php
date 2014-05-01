@@ -40,7 +40,7 @@ abstract class Handler implements HandlerInterface
     private $exception;
 
     /**
-     * @param Run $run
+     * @param  Run $run
      */
     public function setRun(Run $run)
     {
@@ -56,7 +56,7 @@ abstract class Handler implements HandlerInterface
     }
 
     /**
-     * @param Inspector $inspector
+     * @param  Inspector $inspector
      */
     public function setInspector(Inspector $inspector)
     {
@@ -72,7 +72,7 @@ abstract class Handler implements HandlerInterface
     }
 
     /**
-     * @param Exception $exception
+     * @param  Exception $exception
      */
     public function setException(Exception $exception)
     {

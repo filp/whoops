@@ -11,8 +11,8 @@ class Formatter
     /**
      * Returns all basic information about the exception in a simple array
      * for further convertion to other languages
-     * @param Inspector $inspector
-     * @param bool $shouldAddTrace
+     * @param  Inspector $inspector
+     * @param  bool $shouldAddTrace
      * @return array
      */
     public static function formatExceptionAsDataArray(Inspector $inspector, $shouldAddTrace)

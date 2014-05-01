@@ -14,7 +14,7 @@ class PlainTextHandlerTest extends TestCase
 {
     /**
      * @throws InvalidArgumentException If argument is not null or a LoggerInterface
-     * @param Psr\Log\LoggerInterface|null $logger
+     * @param  Psr\Log\LoggerInterface|null $logger
      * @return Whoops\Handler\PlainTextHandler
      */
     private function getHandler($logger = null)

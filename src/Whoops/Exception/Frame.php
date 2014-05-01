@@ -26,7 +26,7 @@ class Frame implements Serializable
     protected $comments = array();
 
     /**
-     * @param array[]
+     * @param  array[]
      */
     public function __construct(array $frame)
     {
@@ -126,8 +126,8 @@ class Frame implements Serializable
      * An interesting use for this would be, for example, code analysis
      * & annotations.
      *
-     * @param string $comment
-     * @param string $context Optional string identifying the origin of the comment
+     * @param  string $comment
+     * @param  string $context Optional string identifying the origin of the comment
      */
     public function addComment($comment, $context = 'global')
     {
@@ -236,7 +236,7 @@ class Frame implements Serializable
      * any existing comment data.
      *
      * @see Serializable::unserialize
-     * @param string $serializedFrame
+     * @param  string $serializedFrame
      */
     public function unserialize($serializedFrame)
     {
@@ -252,7 +252,7 @@ class Frame implements Serializable
 
     /**
      * Compares Frame against one another
-     * @param Frame $frame
+     * @param  Frame $frame
      * @return bool
      */
     public function equals(Frame $frame)
