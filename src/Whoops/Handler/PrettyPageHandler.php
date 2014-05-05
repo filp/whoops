@@ -145,7 +145,6 @@ class PrettyPageHandler extends Handler
 
         $inspector = $this->getInspector();
         $frames    = $inspector->getFrames();
- src/Whoops/Handler/PrettyPageHandler.php
 
         // List of variables that will be passed to the layout template.
         $vars = array(
