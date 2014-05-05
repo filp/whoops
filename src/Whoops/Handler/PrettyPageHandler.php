@@ -88,7 +88,31 @@ class PrettyPageHandler extends Handler
         $this->searchPaths[] = __DIR__ . "/../Resources";
     }
 
-    /**
+	protected $templateFile = null;
+
+    	/**
+	 * Get the template resource. If none was set up uses the template 'layout.html' by default.
+	 */
+	public function getTemplateFile()
+	{
+		if (is_null($this->templateFile))
+		{
+			$this->templateFile = $this->getResource("views/layout.html.php");
+		}
+
+		return $this->templateFile;
+	}
+
+	/**
+	 * Set the template resource
+	 * @param string $templateFile  Set the template resource name without a path or '.php' extension.
+	 */
+	public function setTemplateFile($templateFile)
+	{
+		$this->templateFile = $this->getResource("views/$templateFile.php");
+	}
+
+	    /**
      * @return int|null
      */
     public function handle()
@@ -114,7 +138,6 @@ class PrettyPageHandler extends Handler
         // @todo: Make this more dynamic
         $helper = new TemplateHelper;
 
-        $templateFile = $this->getResource("views/layout.html.php");
         $cssFile      = $this->getResource("css/whoops.base.css");
         $zeptoFile    = $this->getResource("js/zepto.min.js");
         $jsFile       = $this->getResource("js/whoops.base.js");
@@ -172,7 +195,7 @@ class PrettyPageHandler extends Handler
         $vars["tables"] = array_merge($extraTables, $vars["tables"]);
 
         $helper->setVariables($vars);
-        $helper->render($templateFile);
+        $helper->render($this->getTemplateFile());
 
         return Handler::QUIT;
     }

@@ -317,3 +317,12 @@ pre.prettyprint, code.prettyprint {
     .linenums li.current.active {
       background: rgba(255, 100, 100, .17);
     }
+
+
+.development .details-container {
+  width: 100%;
+}
+
+.development .frames-container {
+  width: 100%;
+}
