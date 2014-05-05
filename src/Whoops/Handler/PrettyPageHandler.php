@@ -90,6 +90,9 @@ class PrettyPageHandler extends Handler
 
 	protected $templateFile = null;
 
+    	/**
+	 * Get the template resource. If none was set up uses the template 'layout.html' by default.
+	 */
 	public function getTemplateFile()
 	{
 		if (is_null($this->templateFile))
@@ -101,8 +104,8 @@ class PrettyPageHandler extends Handler
 	}
 
 	/**
-	 *
-	 * @param string $templateFile  Set without path or php extension.
+	 * Set the template resource
+	 * @param string $templateFile  Set the template resource name without a path or '.php' extension.
 	 */
 	public function setTemplateFile($templateFile)
 	{
