@@ -88,7 +88,28 @@ class PrettyPageHandler extends Handler
         $this->searchPaths[] = __DIR__ . "/../Resources";
     }
 
-    /**
+	protected $templateFile = null;
+
+	public function getTemplateFile()
+	{
+		if (is_null($this->templateFile))
+		{
+			$this->templateFile = $this->getResource("views/layout.html.php");
+		}
+
+		return $this->templateFile;
+	}
+
+	/**
+	 *
+	 * @param string $templateFile  Set without path or php extension.
+	 */
+	public function setTemplateFile($templateFile)
+	{
+		$this->templateFile = $this->getResource("views/$templateFile.php");
+	}
+
+	    /**
      * @return int|null
      */
     public function handle()
@@ -114,7 +135,6 @@ class PrettyPageHandler extends Handler
         // @todo: Make this more dynamic
         $helper = new TemplateHelper;
 
-        $templateFile = $this->getResource("views/layout.html.php");
         $cssFile      = $this->getResource("css/whoops.base.css");
         $zeptoFile    = $this->getResource("js/zepto.min.js");
         $jsFile       = $this->getResource("js/whoops.base.js");
@@ -125,6 +145,7 @@ class PrettyPageHandler extends Handler
 
         $inspector = $this->getInspector();
         $frames    = $inspector->getFrames();
+ src/Whoops/Handler/PrettyPageHandler.php
 
         // List of variables that will be passed to the layout template.
         $vars = array(
@@ -172,7 +193,7 @@ class PrettyPageHandler extends Handler
         $vars["tables"] = array_merge($extraTables, $vars["tables"]);
 
         $helper->setVariables($vars);
-        $helper->render($templateFile);
+        $helper->render($this->getTemplateFile());
 
         return Handler::QUIT;
     }
