@@ -30,7 +30,6 @@
     </div>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.js"></script>
-    <script><?php echo $zepto ?></script>
     <script><?php echo $javascript ?></script>
   </body>
 </html>
