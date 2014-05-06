@@ -116,8 +116,7 @@ class PrettyPageHandler extends Handler
 
         $templateFile = $this->getResource("views/layout.html.php");
         $cssFile      = $this->getResource("css/whoops.base.css");
-        $zeptoFile    = $this->getResource("js/zepto.min.js");
-        $jsFile       = $this->getResource("js/whoops.base.js");
+        $jsFile       = $this->getResource("js/whoops.base.min.js");
 
         if ($this->customCss) {
             $customCssFile = $this->getResource($this->customCss);
@@ -132,7 +131,6 @@ class PrettyPageHandler extends Handler
 
             // @todo: Asset compiler
             "stylesheet" => file_get_contents($cssFile),
-            "zepto"      => file_get_contents($zeptoFile),
             "javascript" => file_get_contents($jsFile),
 
             // Template paths:
