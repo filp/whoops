@@ -36,7 +36,8 @@ If you use Laravel 4, you already have Whoops. There are also community-provided
 [Phalcon](docs/Framework%20Integration.md#integrating-with-phalcon),
 [Laravel 3](https://gist.github.com/hugomrdias/5169713#file-start-php),
 [CakePHP](https://github.com/oldskool/WhoopsCakephp),
-[Zend Framework 2](https://github.com/ghislainf/zf2-whoops).
+[Zend Framework 2](https://github.com/ghislainf/zf2-whoops),
+[Yii 1](https://github.com/igorsantos07/yii-whoops).
 
 If you are not using any of these frameworks, here's a very simple way to install:
 
