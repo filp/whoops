@@ -61,7 +61,6 @@ The procedure is not hard at all.
     {
         "name": "username/whoops-someframework",
         "description": "Integrates the Whoops library into SomeFramework",
-        "version": "1.0.0",
         "require": {
             "filp/whoops": "1.*"
         }
