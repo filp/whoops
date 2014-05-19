@@ -10,6 +10,7 @@ use Whoops\Handler\PrettyPageHandler;
 use Silex\ServiceProviderInterface;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use RuntimeException;
 
 class WhoopsServiceProvider implements ServiceProviderInterface
@@ -69,12 +70,22 @@ class WhoopsServiceProvider implements ServiceProviderInterface
 
         $app['whoops'] = $app->share(function() use($app) {
             $run = new Run;
+            $run->allowQuit(false);
             $run->pushHandler($app['whoops.error_page_handler']);
             $run->pushHandler($app['whoops.silex_info_handler']);
             return $run;
         });
 
-        $app->error(array($app['whoops'], Run::EXCEPTION_HANDLER));
+        $app->error(function($e) use ($app){
+            $method = Run::EXCEPTION_HANDLER;
+
+            ob_start();
+            $app['whoops']->$method($e);
+            $response = ob_get_clean();
+
+            return new Response($response, 500);
+        });
+
         $app['whoops']->register();
     }
 
