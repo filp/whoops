@@ -44,24 +44,16 @@ Zepto(function($) {
   
   if (typeof ZeroClipboard !== "undefined") {
 	  ZeroClipboard.config({
-		  moviePath: '//cdnjs.cloudflare.com/ajax/libs/zeroclipboard/1.3.5/ZeroClipboard.swf',
+		  moviePath: '//ajax.cdnjs.com/ajax/libs/zeroclipboard/1.3.5/ZeroClipboard.swf',
 	  });
 
 	  var clipEl = document.getElementById("copy-button");
 	  var clip = new ZeroClipboard( clipEl );
 	  var $clipEl = $(clipEl);
-	  $clipEl.data('origin-label', $clipEl.text());
 
 	  // show the button, when swf could be loaded successfully from CDN
 	  clip.on("load", function() {
 		  $clipEl.show();
-	  });
-
-	  clip.on( "complete", function( event ) {
-		  $clipEl.text("copied...");
-		  setTimeout(function() {
-			  $clipEl.text($clipEl.data('origin-label'));
-		  }, 3000);
 	  });
   }
 });
