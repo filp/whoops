@@ -317,3 +317,21 @@ pre.prettyprint, code.prettyprint {
     .linenums li.current.active {
       background: rgba(255, 100, 100, .17);
     }
+
+#plain-exception {
+	display: none;
+}
+
+#copy-button {
+	display: none;
+	float: right;
+	cursor: pointer;	
+	border: 0;
+}
+
+.clipboard {
+	width:            29px;
+	height:           28px;
+	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB0AAAAcCAYAAACdz7SqAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3gUUByMD0ZSoGQAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAACAklEQVRIx72Wv0sbYRjHP29y1VoXxR9UskjpXTaHoBUcpGgKkS5OZ1Ec/QeKOIhalEghoOCqQsGhFAWbISKYyaFDS1BKKW0TCYrQSdElXSReh9bkksu9iZdLbnrvvee9z/N83+d9nldo2gvjzd5Hxp4246W6J5tJszsxwvxPIbXzwBQDLgABvM1P6JsAwzCkdopl5vqIuWev2K4QpH/4QjjQci/nPCVny3iaNzMcrVUsC1sChFMpwtTu8dTqx7J9dR3a2BngUb0j7Xr+jtjasBR8f+jpNqqqoqoqmqblxjOJq/8GTfhCK8TWhmmykdhRpEIIhBCWMcD51wQXN3KwY3nvYGYgQPbXOMHJKOlMA77QCvsbugXsOFLZ+5+jGULBtyQuFB4PzlrAVSWSGWaptpdbjAcniaZv6RhcIL6VByvVZqsQouBMdutJkrrVrr1/gdjqN4Ze/3DvyBwcnnF9I7N4gC8YYdqNSHP7uD5G/7pdJRrl/ecIva1t9IRcgpolLk6qQic8eB+6GOkdrDjSf/OiTD91CS4r+jXrMqWkrgvUtuDbeVNTKGzw6SRDto5QBc5Yehlg0WbTc8mwHCeld1u+yZSySySlspTHFmZUeIkrgBYvtvPcyBdXkqWKq5OLmbk/luqVYjPOd3lxLXf/J/P7mJ0oCL/fX1Yfs4RO5CxW8C97dLBw2Q3fUwAAAABJRU5ErkJggg==');
+	background-repeat: no-repeat;
+}

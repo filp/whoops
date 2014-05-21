@@ -7,6 +7,7 @@
 namespace Whoops\Handler;
 use Whoops\Handler\Handler;
 use Whoops\Util\TemplateHelper;
+use Whoops\Exception\Formatter;
 use InvalidArgumentException;
 use RuntimeException;
 
@@ -141,13 +142,14 @@ class PrettyPageHandler extends Handler
             "frame_code"  => $this->getResource("views/frame_code.html.php"),
             "env_details" => $this->getResource("views/env_details.html.php"),
 
-            "title"        => $this->getPageTitle(),
-            "name"         => explode("\\", $inspector->getExceptionName()),
-            "message"      => $inspector->getException()->getMessage(),
-            "frames"       => $frames,
-            "has_frames"   => !!count($frames),
-            "handler"      => $this,
-            "handlers"     => $this->getRun()->getHandlers(),
+            "title"          => $this->getPageTitle(),
+            "name"           => explode("\\", $inspector->getExceptionName()),
+            "message"        => $inspector->getException()->getMessage(),
+            "plain_exception" => Formatter::formatExceptionPlain($inspector),
+            "frames"         => $frames,
+            "has_frames"     => !!count($frames),
+            "handler"        => $this,
+            "handlers"       => $this->getRun()->getHandlers(),
 
             "tables"      => array(
                 "Server/Request Data"   => $_SERVER,
