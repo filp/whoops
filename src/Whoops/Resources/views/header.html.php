@@ -7,6 +7,9 @@
         <?php echo $tpl->escape($nameSection) . ' \\' ?>
       <?php endif ?>
     <?php endforeach ?>
+    <?php if($code): ?>
+      <span title="Exception Code">(<?php echo $tpl->escape($code) ?>)</span>
+    <?php endif ?>
     <button id="copy-button" class="clipboard" data-clipboard-target="plain-exception" title="copy exception into clipboard"></button>
     <span id="plain-exception"><?php echo $tpl->escape($plain_exception) ?></span>
   </h3>
