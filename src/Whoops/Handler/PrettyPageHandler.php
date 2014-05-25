@@ -6,6 +6,7 @@
 
 namespace Whoops\Handler;
 use Whoops\Handler\Handler;
+use Whoops\Util\Misc;
 use Whoops\Util\TemplateHelper;
 use Whoops\Exception\Formatter;
 use InvalidArgumentException;
@@ -127,6 +128,12 @@ class PrettyPageHandler extends Handler
         $inspector = $this->getInspector();
         $frames    = $inspector->getFrames();
 
+        $code = $inspector->getException()->getCode();
+
+        if ($inspector->getException() instanceof \ErrorException) {
+            $code = Misc::translateErrorCode($code);
+        }
+
         // List of variables that will be passed to the layout template.
         $vars = array(
             "page_title" => $this->getPageTitle(),
@@ -145,6 +152,7 @@ class PrettyPageHandler extends Handler
             "title"          => $this->getPageTitle(),
             "name"           => explode("\\", $inspector->getExceptionName()),
             "message"        => $inspector->getException()->getMessage(),
+            "code"           => $code,
             "plain_exception" => Formatter::formatExceptionPlain($inspector),
             "frames"         => $frames,
             "has_frames"     => !!count($frames),

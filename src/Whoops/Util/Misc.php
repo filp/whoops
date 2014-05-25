@@ -22,4 +22,21 @@ class Misc
 	{
 		return isset($_SERVER["REQUEST_URI"]) && !headers_sent();
 	}
+
+	/**
+	 * Translate ErrorException code into the represented constant.
+	 *
+	 * @param int $error_code
+	 * @return string
+	 */
+	public static function translateErrorCode($error_code)
+	{
+		$constants = get_defined_constants(true);
+		foreach ($constants['Core'] as $constant => $value) {
+			if (substr($constant, 0, 2) == 'E_' && $value == $error_code) {
+				return $constant;
+			}
+		}
+		return "E_UNKNOWN";
+	}
 }
