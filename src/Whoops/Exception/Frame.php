@@ -105,9 +105,14 @@ class Frame implements Serializable
     {
         if($this->fileContentsCache === null && $filePath = $this->getFile()) {
 
-            // Return null if the file doesn't actually exist - this may
-            // happen in cases where the filename is provided as, for
-            // example, 'Unknown'
+            // Leave the stage early when 'Unknown' is passed
+            // this would otherwise raise an exception when
+            // open_basedir is enabled.
+            if($filePath === "Unknown") {
+                return null;
+            }
+
+            // Return null if the file doesn't actually exist.
             if(!is_file($filePath)) {
                 return null;
             }
