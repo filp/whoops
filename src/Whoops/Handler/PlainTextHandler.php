@@ -313,7 +313,7 @@ class PlainTextHandler extends Handler
             );
 
         if($this->getLogger()) {
-            $this->getLogger()->addError($response);
+            $this->getLogger()->error($response);
         }
 
         if(! $this->canOutput()) {
