@@ -25,7 +25,7 @@ class WhoopsServiceProvider implements ServiceProviderInterface
     {
         // There's only ever going to be one error page...right?
         $app['whoops.error_page_handler'] = $app->share(function() {
-            if(php_sapi_name() === 'cli') {
+            if(PHP_SAPI === 'cli') {
                 return new PlainTextHandler;
             } else {
                 return new PrettyPageHandler;
