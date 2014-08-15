@@ -37,7 +37,8 @@ If you use Laravel 4, you already have Whoops. There are also community-provided
 [Laravel 3](https://gist.github.com/hugomrdias/5169713#file-start-php),
 [CakePHP](https://github.com/oldskool/WhoopsCakephp),
 [Zend Framework 2](https://github.com/ghislainf/zf2-whoops),
-[Yii 1](https://github.com/igorsantos07/yii-whoops).
+[Yii 1](https://github.com/igorsantos07/yii-whoops),
+[FuelPHP](https://github.com/indigophp/fuel-whoops).
 
 If you are not using any of these frameworks, here's a very simple way to install:
 
