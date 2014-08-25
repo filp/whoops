@@ -32,9 +32,11 @@ class Misc
 	public static function translateErrorCode($error_code)
 	{
 		$constants = get_defined_constants(true);
-		foreach ($constants['Core'] as $constant => $value) {
-			if (substr($constant, 0, 2) == 'E_' && $value == $error_code) {
-				return $constant;
+		if (array_key_exists('Core' , $constants)) {
+			foreach ($constants['Core'] as $constant => $value) {
+				if (substr($constant, 0, 2) == 'E_' && $value == $error_code) {
+					return $constant;
+				}
 			}
 		}
 		return "E_UNKNOWN";
