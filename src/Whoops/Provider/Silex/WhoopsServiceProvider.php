@@ -11,6 +11,7 @@ use Silex\ServiceProviderInterface;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use RuntimeException;
 
 class WhoopsServiceProvider implements ServiceProviderInterface
@@ -82,8 +83,9 @@ class WhoopsServiceProvider implements ServiceProviderInterface
             ob_start();
             $app['whoops']->$method($e);
             $response = ob_get_clean();
+            $code = $e instanceof HttpException ? $e->getStatusCode() : 500;
 
-            return new Response($response, 500);
+            return new Response($response, $code);
         });
 
         $app['whoops']->register();
