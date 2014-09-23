@@ -6,6 +6,8 @@
 
 namespace Whoops\Provider\Silex;
 use Whoops\Run;
+use Whoops\Handler\Handler;
+use Whoops\Handler\PlainTextHandler;
 use Whoops\Handler\PrettyPageHandler;
 use Silex\ServiceProviderInterface;
 use Silex\Application;
@@ -23,7 +25,11 @@ class WhoopsServiceProvider implements ServiceProviderInterface
     {
         // There's only ever going to be one error page...right?
         $app['whoops.error_page_handler'] = $app->share(function() {
-            return new PrettyPageHandler;
+            if(PHP_SAPI === 'cli') {
+                return new PlainTextHandler;
+            } else {
+                return new PrettyPageHandler;
+            }
         });
 
         // Retrieves info on the Silex environment and ships it off
@@ -41,32 +47,37 @@ class WhoopsServiceProvider implements ServiceProviderInterface
                 return;
             }
 
-            /** @var PrettyPageHandler $errorPageHandler */
+            /** @var Handler $errorPageHandler */
             $errorPageHandler = $app["whoops.error_page_handler"];
 
-            // General application info:
-            $errorPageHandler->addDataTable('Silex Application', array(
-                'Charset'          => $app['charset'],
-                'Locale'           => $app['locale'],
-                'Route Class'      => $app['route_class'],
-                'Dispatcher Class' => $app['dispatcher_class'],
-                'Application Class'=> get_class($app)
-            ));
+            if ($errorPageHandler instanceof PrettyPageHandler)
+            {
+                /** @var PrettyPageHandler $errorPageHandler */
 
-            // Request info:
-            $errorPageHandler->addDataTable('Silex Application (Request)', array(
-                'URI'         => $request->getUri(),
-                'Request URI' => $request->getRequestUri(),
-                'Path Info'   => $request->getPathInfo(),
-                'Query String'=> $request->getQueryString() ?: '<none>',
-                'HTTP Method' => $request->getMethod(),
-                'Script Name' => $request->getScriptName(),
-                'Base Path'   => $request->getBasePath(),
-                'Base URL'    => $request->getBaseUrl(),
-                'Scheme'      => $request->getScheme(),
-                'Port'        => $request->getPort(),
-                'Host'        => $request->getHost(),
-            ));
+                // General application info:
+                $errorPageHandler->addDataTable('Silex Application', array(
+                    'Charset'          => $app['charset'],
+                    'Locale'           => $app['locale'],
+                    'Route Class'      => $app['route_class'],
+                    'Dispatcher Class' => $app['dispatcher_class'],
+                    'Application Class'=> get_class($app)
+                ));
+
+                // Request info:
+                $errorPageHandler->addDataTable('Silex Application (Request)', array(
+                    'URI'         => $request->getUri(),
+                    'Request URI' => $request->getRequestUri(),
+                    'Path Info'   => $request->getPathInfo(),
+                    'Query String'=> $request->getQueryString() ?: '<none>',
+                    'HTTP Method' => $request->getMethod(),
+                    'Script Name' => $request->getScriptName(),
+                    'Base Path'   => $request->getBasePath(),
+                    'Base URL'    => $request->getBaseUrl(),
+                    'Scheme'      => $request->getScheme(),
+                    'Port'        => $request->getPort(),
+                    'Host'        => $request->getHost(),
+                ));
+            }
         });
 
         $app['whoops'] = $app->share(function() use($app) {
