@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Whoops - php errors for cool kids
  * @author Filipe Dobreira <http://github.com/filp>
@@ -16,10 +17,15 @@
  *
  * Or just run it through apache/nginx/what-have-yous as usual.
  */
-require __DIR__ . '/../vendor/autoload.php';
 
+
+namespace Whoops\Example;
+
+use RuntimeException;
 use Silex\Application;
 use Whoops\Provider\Silex\WhoopsServiceProvider;
+
+require __DIR__ . '/../vendor/autoload.php';
 
 $app = new Application();
 $app['debug'] = true;

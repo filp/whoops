@@ -1,6 +1,8 @@
 <?php
+
 /**
  * Whoops - php errors for cool kids
+ * @author Filipe Dobreira <http://github.com/filp>
  */
 
 namespace Whoops\Handler;

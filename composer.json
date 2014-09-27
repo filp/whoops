@@ -18,12 +18,15 @@
         "mockery/mockery": "0.9.*"
     },
     "autoload": {
-        "psr-0": {
-            "Whoops": "src/"
-        },
-        "classmap": [
-            "src/deprecated"
-        ]
+        "psr-4\\": {
+            "Whoops\\": "src/Whoops/",
+            "Whoops\\Zend\\": "src/deprecated/Zend/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Whoops\\": "tests/"
+        }
     },
     "extra": {
         "branch-alias": {
