@@ -377,12 +377,12 @@ class Run
 
     private static function isLevelFatal($level)
     {
-        $errors = E_ERROR
-                | E_PARSE
-                | E_CORE_ERROR
-                | E_CORE_WARNING
-                | E_COMPILE_ERROR
-                | E_COMPILE_WARNING;
-        return $level & $errors;
+        $errors = E_ERROR;
+        $errors |= E_PARSE;
+        $errors |= E_CORE_ERROR;
+        $errors |= E_CORE_WARNING;
+        $errors |= E_COMPILE_ERROR;
+        $errors |= E_COMPILE_WARNING;
+        return ($level & $errors) > 0;
     }
 }
