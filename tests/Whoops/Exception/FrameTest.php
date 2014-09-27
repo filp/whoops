@@ -5,9 +5,8 @@
  */
 
 namespace Whoops\Exception;
-use Whoops\Exception\Frame;
+
 use Whoops\TestCase;
-use Mockery as m;
 
 class FrameTest extends TestCase
 {
@@ -21,7 +20,7 @@ class FrameTest extends TestCase
             'line'     => 0,
             'function' => 'test',
             'class'    => 'MyClass',
-            'args'     => array(true, 'hello')
+            'args'     => array(true, 'hello'),
         );
     }
 
@@ -31,7 +30,7 @@ class FrameTest extends TestCase
      */
     private function getFrameInstance($data = null)
     {
-        if($data === null) {
+        if ($data === null) {
             $data = $this->getFrameData();
         }
 
@@ -141,7 +140,7 @@ class FrameTest extends TestCase
         $testComments = array(
             'Dang, yo!',
             'Errthangs broken!',
-            'Dayumm!'
+            'Dayumm!',
         );
 
         $frame->addComment($testComments[0]);
@@ -167,7 +166,7 @@ class FrameTest extends TestCase
         $testComments = array(
             array('Dang, yo!', 'test'),
             array('Errthangs broken!', 'test'),
-            'Dayumm!'
+            'Dayumm!',
         );
 
         $frame->addComment($testComments[0][0], $testComments[0][1]);
@@ -210,7 +209,8 @@ class FrameTest extends TestCase
     /**
      * @covers Whoops\Exception\Frame::equals
      */
-    public function testEquals(){
+    public function testEquals()
+    {
         $frame1 = $this->getFrameInstance(array('line' => 1, 'file' => 'test-file.php'));
         $frame2 = $this->getFrameInstance(array('line' => 1, 'file' => 'test-file.php'));
         $this->assertTrue ($frame1->equals($frame2));

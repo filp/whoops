@@ -18,17 +18,17 @@
  */
 require __DIR__ . '/../vendor/autoload.php';
 
-use Whoops\Provider\Silex\WhoopsServiceProvider;
 use Silex\Application;
+use Whoops\Provider\Silex\WhoopsServiceProvider;
 
-$app = new Application;
+$app = new Application();
 $app['debug'] = true;
 
-if($app['debug']) {
-    $app->register(new WhoopsServiceProvider);
+if ($app['debug']) {
+    $app->register(new WhoopsServiceProvider());
 }
 
-$app->get('/', function() use($app) {
+$app->get('/', function () use ($app) {
     throw new RuntimeException("Oh no!");
 });
 

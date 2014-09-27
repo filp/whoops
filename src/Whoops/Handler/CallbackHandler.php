@@ -5,7 +5,7 @@
  */
 
 namespace Whoops\Handler;
-use Whoops\Handler\Handler;
+
 use InvalidArgumentException;
 
 /**
@@ -22,11 +22,11 @@ class CallbackHandler extends Handler
 
     /**
      * @throws InvalidArgumentException If argument is not callable
-     * @param callable $callable
+     * @param  callable                 $callable
      */
     public function __construct($callable)
     {
-        if(!is_callable($callable)) {
+        if (!is_callable($callable)) {
             throw new InvalidArgumentException(
                 'Argument to ' . __METHOD__ . ' must be valid callable'
             );

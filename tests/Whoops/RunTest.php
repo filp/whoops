@@ -5,20 +5,18 @@
  */
 
 namespace Whoops;
-use Whoops\TestCase;
-use Whoops\Run;
-use Whoops\Handler\Handler;
+
 use ArrayObject;
-use Mockery as m;
-use InvalidArgumentException;
-use RuntimeException;
 use Exception;
+use InvalidArgumentException;
+use Mockery as m;
+use RuntimeException;
+use Whoops\Handler\Handler;
 
 class RunTest extends TestCase
 {
-
     /**
-     * @param string $message
+     * @param  string    $message
      * @return Exception
      */
     protected function getException($message = null)
@@ -45,8 +43,7 @@ class RunTest extends TestCase
 
             ->shouldReceive('setException')
                 ->andReturn(null)
-            ->mock()
-        ;
+            ->mock();
     }
 
     /**
@@ -99,7 +96,7 @@ class RunTest extends TestCase
     public function testPushClosureBecomesHandler()
     {
         $run = $this->getRunInstance();
-        $run->pushHandler(function() {});
+        $run->pushHandler(function () {});
         $this->assertInstanceOf('Whoops\\Handler\\CallbackHandler', $run->popHandler());
     }
 
@@ -196,18 +193,18 @@ class RunTest extends TestCase
     {
         $run       = $this->getRunInstance();
         $exception = $this->getException();
-        $order     = new ArrayObject;
+        $order     = new ArrayObject();
 
         $handlerOne   = $this->getHandler();
         $handlerTwo   = $this->getHandler();
         $handlerThree = $this->getHandler();
 
         $handlerOne->shouldReceive('handle')
-            ->andReturnUsing(function() use($order) { $order[] = 1; });
+            ->andReturnUsing(function () use ($order) { $order[] = 1; });
         $handlerTwo->shouldReceive('handle')
-            ->andReturnUsing(function() use($order) { $order[] = 2; });
+            ->andReturnUsing(function () use ($order) { $order[] = 2; });
         $handlerThree->shouldReceive('handle')
-            ->andReturnUsing(function() use($order) { $order[] = 3; });
+            ->andReturnUsing(function () use ($order) { $order[] = 3; });
 
         $run->pushHandler($handlerOne);
         $run->pushHandler($handlerTwo);
@@ -236,15 +233,13 @@ class RunTest extends TestCase
         $test = $this;
         $handlerOne
             ->shouldReceive('handle')
-            ->andReturnUsing(function () use($test) {
+            ->andReturnUsing(function () use ($test) {
                 $test->fail('$handlerOne should not be called');
-            })
-        ;
+            });
 
         $handlerTwo
             ->shouldReceive('handle')
-            ->andReturn(Handler::LAST_HANDLER)
-        ;
+            ->andReturn(Handler::LAST_HANDLER);
 
         $run->handleException($this->getException());
 
@@ -266,10 +261,9 @@ class RunTest extends TestCase
         $test = $this;
         $handler
             ->shouldReceive('handle')
-            ->andReturnUsing(function () use($test) {
+            ->andReturnUsing(function () use ($test) {
                 $test->fail('$handler should not be called, error not suppressed');
-            })
-        ;
+            });
 
         @trigger_error("Test error suppression");
 
@@ -288,10 +282,9 @@ class RunTest extends TestCase
         $test = $this;
         $handler
             ->shouldReceive('handle')
-            ->andReturnUsing(function () use($test) {
+            ->andReturnUsing(function () use ($test) {
                 $test->fail('$handler should not be called error should be caught');
-            })
-        ;
+            });
 
         try {
             trigger_error('foo', E_USER_NOTICE);
@@ -318,10 +311,9 @@ class RunTest extends TestCase
         $test = $this;
         $handler
             ->shouldReceive('handle')
-            ->andReturnUsing(function () use($test) {
+            ->andReturnUsing(function () use ($test) {
                 $test->fail('$handler should not be called, error_reporting not respected');
-            })
-        ;
+            });
 
         $oldLevel = error_reporting(E_ALL ^ E_USER_NOTICE);
         trigger_error("Test error reporting", E_USER_NOTICE);
@@ -345,10 +337,9 @@ class RunTest extends TestCase
         $test = $this;
         $handler
             ->shouldReceive('handle')
-            ->andReturnUsing(function () use($test) {
+            ->andReturnUsing(function () use ($test) {
                 $test->fail('$handler should not be called, silenceErrorsInPaths not respected');
-            })
-        ;
+            });
 
         $run->silenceErrorsInPaths('@^'.preg_quote(__FILE__, '@').'$@', E_USER_NOTICE);
         trigger_error('Test', E_USER_NOTICE);
@@ -362,12 +353,12 @@ class RunTest extends TestCase
     public function testOutputIsSent()
     {
         $run = $this->getRunInstance();
-        $run->pushHandler(function() {
+        $run->pushHandler(function () {
             echo "hello there";
         });
 
         ob_start();
-        $run->handleException(new RuntimeException);
+        $run->handleException(new RuntimeException());
         $this->assertEquals("hello there", ob_get_clean());
     }
 
@@ -379,12 +370,12 @@ class RunTest extends TestCase
     {
         $run = $this->getRunInstance();
         $run->writeToOutput(false);
-        $run->pushHandler(function() {
+        $run->pushHandler(function () {
             echo "hello there";
         });
 
         ob_start();
-        $this->assertEquals("hello there", $run->handleException(new RuntimeException));
+        $this->assertEquals("hello there", $run->handleException(new RuntimeException()));
         $this->assertEquals("", ob_get_clean());
     }
 

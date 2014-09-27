@@ -5,15 +5,15 @@
  */
 
 namespace Whoops\Util;
+
 use Whoops\TestCase;
-use Whoops\Util\Misc;
 
 class MiscTest extends TestCase
 {
     /**
      * @dataProvider provideTranslateException
      * @param string $expected_output
-     * @param int $exception_code
+     * @param int    $exception_code
      */
     public function testTranslateException($expected_output, $exception_code)
     {
@@ -30,7 +30,7 @@ class MiscTest extends TestCase
 
             // When passing a value not equal to an error constant, ensure
             // E_UNKNOWN is returned.
-            array('E_UNKNOWN', 3)
+            array('E_UNKNOWN', 3),
         );
     }
 }

@@ -5,10 +5,10 @@
  */
 
 namespace Whoops\Handler;
-use Whoops\Handler\HandlerInterface;
+
+use Exception;
 use Whoops\Exception\Inspector;
 use Whoops\Run;
-use Exception;
 
 /**
  * Abstract implementation of a Handler.

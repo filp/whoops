@@ -4,15 +4,15 @@
  */
 
 namespace Whoops\Handler;
-use Whoops\TestCase;
-use Whoops\Handler\XmlResponseHandler;
+
 use RuntimeException;
+use Whoops\TestCase;
 
 class XmlResponseHandlerTest extends TestCase
 {
     public function testSimpleValid()
     {
-        $handler = new XmlResponseHandler;
+        $handler = new XmlResponseHandler();
 
         $run = $this->getRunInstance();
         $run->pushHandler($handler);
@@ -51,7 +51,6 @@ class XmlResponseHandlerTest extends TestCase
         $this->checkField($xml, 'type', get_class($this->getException()));
     }
 
-
     /**
      * Helper for testSimpleValid*
      */
@@ -64,12 +63,12 @@ class XmlResponseHandlerTest extends TestCase
 
     private function getException()
     {
-        return new RuntimeException;
+        return new RuntimeException();
     }
 
     /**
      * See if passed string is a valid XML document
-     * @param string $data
+     * @param  string $data
      * @return bool
      */
     private function isValidXml($data)

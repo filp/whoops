@@ -7,23 +7,25 @@
 namespace Whoops\Provider\Zend;
 
 use Whoops\Run;
-use Zend\Mvc\View\Http\RouteNotFoundStrategy as BaseRouteNotFoundStrategy;
 use Zend\Mvc\MvcEvent;
+use Zend\Mvc\View\Http\RouteNotFoundStrategy as BaseRouteNotFoundStrategy;
 use Zend\Stdlib\ResponseInterface as Response;
 use Zend\View\Model\ViewModel;
 
 /**
  * @deprecated Use https://github.com/ghislainf/zf2-whoops
  */
-class RouteNotFoundStrategy extends BaseRouteNotFoundStrategy {
-
+class RouteNotFoundStrategy extends BaseRouteNotFoundStrategy
+{
     protected $run;
 
-    public function __construct(Run $run) {
+    public function __construct(Run $run)
+    {
         $this->run = $run;
     }
 
-    public function prepareNotFoundViewModel(MvcEvent $e) {
+    public function prepareNotFoundViewModel(MvcEvent $e)
+    {
         $vars = $e->getResult();
         if ($vars instanceof Response) {
             // Already have a response as the result
@@ -62,5 +64,4 @@ class RouteNotFoundStrategy extends BaseRouteNotFoundStrategy {
 
         throw new \Exception($model->getVariable('message') . ' ' . $model->getVariable('reason'));
     }
-
 }

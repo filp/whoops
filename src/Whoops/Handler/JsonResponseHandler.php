@@ -5,7 +5,7 @@
  */
 
 namespace Whoops\Handler;
-use Whoops\Handler\Handler;
+
 use Whoops\Exception\Formatter;
 
 /**
@@ -26,12 +26,12 @@ class JsonResponseHandler extends Handler
     private $onlyForAjaxRequests = false;
 
     /**
-     * @param  bool|null $returnFrames
+     * @param  bool|null  $returnFrames
      * @return bool|$this
      */
     public function addTraceToOutput($returnFrames = null)
     {
-        if(func_num_args() == 0) {
+        if (func_num_args() == 0) {
             return $this->returnFrames;
         }
 
@@ -45,7 +45,7 @@ class JsonResponseHandler extends Handler
      */
     public function onlyForAjaxRequests($onlyForAjaxRequests = null)
     {
-        if(func_num_args() == 0) {
+        if (func_num_args() == 0) {
             return $this->onlyForAjaxRequests;
         }
 
@@ -61,8 +61,7 @@ class JsonResponseHandler extends Handler
     {
         return (
             !empty($_SERVER['HTTP_X_REQUESTED_WITH'])
-            && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
-        ;
+            && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
     }
 
     /**
@@ -70,7 +69,7 @@ class JsonResponseHandler extends Handler
      */
     public function handle()
     {
-        if($this->onlyForAjaxRequests() && !$this->isAjaxRequest()) {
+        if ($this->onlyForAjaxRequests() && !$this->isAjaxRequest()) {
             return Handler::DONE;
         }
 

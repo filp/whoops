@@ -4,15 +4,15 @@
  */
 
 namespace Whoops\Handler;
-use Whoops\TestCase;
-use Whoops\Handler\SoapResponseHandler;
+
 use RuntimeException;
+use Whoops\TestCase;
 
 class SoapResponseHandlerTest extends TestCase
 {
     public function testSimpleValid()
     {
-        $handler = new SoapResponseHandler;
+        $handler = new SoapResponseHandler();
 
         $run = $this->getRunInstance();
         $run->pushHandler($handler);
@@ -43,7 +43,6 @@ class SoapResponseHandlerTest extends TestCase
         $this->checkField($xml, 'faultstring', $this->getException()->getMessage());
     }
 
-
     /**
      * Helper for testSimpleValid*
      */
@@ -61,7 +60,7 @@ class SoapResponseHandlerTest extends TestCase
 
     /**
      * See if passed string is a valid XML document
-     * @param string $data
+     * @param  string $data
      * @return bool
      */
     private function isValidXml($data)
