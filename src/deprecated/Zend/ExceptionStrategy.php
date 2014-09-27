@@ -7,24 +7,26 @@
 namespace Whoops\Provider\Zend;
 
 use Whoops\Run;
-use Zend\Mvc\View\Http\ExceptionStrategy as BaseExceptionStrategy;
-use Zend\Mvc\MvcEvent;
-use Zend\Mvc\Application;
 use Zend\Http\Response;
+use Zend\Mvc\Application;
+use Zend\Mvc\MvcEvent;
+use Zend\Mvc\View\Http\ExceptionStrategy as BaseExceptionStrategy;
 
 /**
  * @deprecated Use https://github.com/ghislainf/zf2-whoops
  */
-class ExceptionStrategy extends BaseExceptionStrategy {
-
+class ExceptionStrategy extends BaseExceptionStrategy
+{
     protected $run;
 
-    public function __construct(Run $run) {
+    public function __construct(Run $run)
+    {
         $this->run = $run;
         return $this;
     }
 
-    public function prepareExceptionViewModel(MvcEvent $event) {
+    public function prepareExceptionViewModel(MvcEvent $event)
+    {
         // Do nothing if no error in the event
         $error = $event->getError();
         if (empty($error)) {
@@ -47,7 +49,7 @@ class ExceptionStrategy extends BaseExceptionStrategy {
             case Application::ERROR_EXCEPTION:
             default:
                 $exception = $event->getParam('exception');
-                if($exception) {
+                if ($exception) {
                     $response = $event->getResponse();
                     if (!$response || $response->getStatusCode() === 200) {
                         header('HTTP/1.0 500 Internal Server Error', true, 500);
@@ -58,5 +60,4 @@ class ExceptionStrategy extends BaseExceptionStrategy {
                 break;
         }
     }
-
 }

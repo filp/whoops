@@ -5,16 +5,16 @@
  */
 
 namespace Whoops\Handler;
-use Whoops\TestCase;
-use Whoops\Handler\PlainTextHandler;
+
 use RuntimeException;
 use StdClass;
+use Whoops\TestCase;
 
 class PlainTextHandlerTest extends TestCase
 {
     /**
-     * @throws InvalidArgumentException If argument is not null or a LoggerInterface
-     * @param Psr\Log\LoggerInterface|null $logger
+     * @throws InvalidArgumentException        If argument is not null or a LoggerInterface
+     * @param  Psr\Log\LoggerInterface|null    $logger
      * @return Whoops\Handler\PlainTextHandler
      */
     private function getHandler($logger = null)
@@ -45,8 +45,7 @@ class PlainTextHandlerTest extends TestCase
         $loggerOnly = false,
         $onlyForCommandLine = false,
         $outputOnlyIfCommandLine = true
-    )
-    {
+    ) {
         $handler = $this->getHandler();
         $handler->addTraceToOutput($withTrace);
         $handler->addTraceFunctionArgsToOutput($withTraceArgs);
@@ -301,7 +300,6 @@ class PlainTextHandlerTest extends TestCase
 
         $lines = explode("\n", $text);
 
-
         // Check that the response has the correct value:
         $this->assertEquals('Stack trace:', $lines[1]);
 
@@ -313,7 +311,7 @@ class PlainTextHandlerTest extends TestCase
                 'Whoops\Handler\PlainTextHandlerTest',
                 'getException',
                 __FILE__,
-                62
+                61
             ),
             $lines[3]
         );
@@ -355,7 +353,7 @@ class PlainTextHandlerTest extends TestCase
                 'Whoops\Handler\PlainTextHandlerTest',
                 'getException',
                 __FILE__,
-                62
+                61
             ),
             $lines[8]
         );
@@ -402,7 +400,7 @@ class PlainTextHandlerTest extends TestCase
                 'Whoops\Handler\PlainTextHandlerTest',
                 'getException',
                 __FILE__,
-                62
+                61
             ),
             $lines[8]
         );

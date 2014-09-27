@@ -5,9 +5,9 @@
  */
 
 namespace Whoops\Handler;
-use Whoops\TestCase;
-use Whoops\Handler\JsonResponseHandler;
+
 use RuntimeException;
+use Whoops\TestCase;
 
 class JsonResponseHandlerTest extends TestCase
 {
@@ -16,7 +16,7 @@ class JsonResponseHandlerTest extends TestCase
      */
     private function getHandler()
     {
-        return new JsonResponseHandler;
+        return new JsonResponseHandler();
     }
 
     /**

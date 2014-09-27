@@ -14,7 +14,7 @@ return array(
         'json_exceptions' => array(
             'display' => true,
             'ajax_only' => true,
-            'show_trace' => true
-        )
+            'show_trace' => true,
+        ),
     ),
 );

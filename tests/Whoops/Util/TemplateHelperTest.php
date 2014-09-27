@@ -5,8 +5,8 @@
  */
 
 namespace Whoops\Util;
+
 use Whoops\TestCase;
-use Whoops\Util\TemplateHelper;
 
 class TemplateHelperTest extends TestCase
 {
@@ -20,7 +20,7 @@ class TemplateHelperTest extends TestCase
      */
     public function setUp()
     {
-        $this->helper = new TemplateHelper;
+        $this->helper = new TemplateHelper();
     }
 
     /**
@@ -101,7 +101,7 @@ class TemplateHelperTest extends TestCase
         $this->helper->setVariables(array(
             "name" => "Whoops",
             "type" => "library",
-            "desc" => "php errors for cool kids"
+            "desc" => "php errors for cool kids",
         ));
 
         $this->helper->setVariable("name", "Whoops!");
@@ -110,7 +110,7 @@ class TemplateHelperTest extends TestCase
 
         $this->assertEquals($this->helper->getVariables(), array(
             "name" => "Whoops!",
-            "desc" => "php errors for cool kids"
+            "desc" => "php errors for cool kids",
         ));
     }
 }

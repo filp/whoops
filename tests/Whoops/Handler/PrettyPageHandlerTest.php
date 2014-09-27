@@ -5,10 +5,10 @@
  */
 
 namespace Whoops\Handler;
-use Whoops\TestCase;
-use Whoops\Handler\PrettyPageHandler;
-use RuntimeException;
+
 use InvalidArgumentException;
+use RuntimeException;
+use Whoops\TestCase;
 
 class PrettyPageHandlerTest extends TestCase
 {
@@ -17,7 +17,7 @@ class PrettyPageHandlerTest extends TestCase
      */
     private function getHandler()
     {
-        $handler = new PrettyPageHandler;
+        $handler = new PrettyPageHandler();
         $handler->handleUnconditionally();
         return $handler;
     }
@@ -27,7 +27,7 @@ class PrettyPageHandlerTest extends TestCase
      */
     public function getException()
     {
-        return new RuntimeException;
+        return new RuntimeException();
     }
 
     /**
@@ -102,12 +102,12 @@ class PrettyPageHandlerTest extends TestCase
 
         $tableOne = array(
             'ice' => 'cream',
-            'ice-ice' => 'baby'
+            'ice-ice' => 'baby',
         );
 
         $tableTwo = array(
-            'dolan' =>'pls',
-            'time'  => time()
+            'dolan' => 'pls',
+            'time'  => time(),
         );
 
         $handler->addDataTable('table 1', $tableOne);
@@ -136,7 +136,7 @@ class PrettyPageHandlerTest extends TestCase
         $handler = $this->getHandler();
 
         $this->assertEmpty($handler->getDataTables());
-        $table1 = function() {
+        $table1 = function () {
             return array(
                 'hammer' => 'time',
                 'foo'    => 'bar',
@@ -144,7 +144,7 @@ class PrettyPageHandlerTest extends TestCase
         };
         $expected1 = array('hammer' => 'time', 'foo' => 'bar');
 
-        $table2 = function() use ($expected1) {
+        $table2 = function () use ($expected1) {
             return array(
                 'another' => 'table',
                 'this'    => $expected1,
@@ -213,7 +213,7 @@ class PrettyPageHandlerTest extends TestCase
     public function testSetEditorCallable()
     {
         $handler = $this->getHandler();
-        $handler->setEditor(function($file, $line) {
+        $handler->setEditor(function ($file, $line) {
             $file = rawurlencode($file);
             $line = rawurlencode($line);
             return "http://google.com/search/?q=$file:$line";
@@ -233,7 +233,7 @@ class PrettyPageHandlerTest extends TestCase
     public function testAddEditor()
     {
         $handler = $this->getHandler();
-        $handler->addEditor('test-editor', function($file, $line) {
+        $handler->addEditor('test-editor', function ($file, $line) {
             return "cool beans $file:$line";
         });
 

@@ -5,7 +5,7 @@
  */
 
 namespace Whoops;
-use Whoops\Run;
+
 
 class TestCase extends \PHPUnit_Framework_TestCase
 {
@@ -14,7 +14,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
      */
     protected function getRunInstance()
     {
-        $run = new Run;
+        $run = new Run();
         $run->allowQuit(false);
 
         return $run;

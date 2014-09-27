@@ -5,16 +5,16 @@
  */
 
 namespace Whoops\Exception;
-use Whoops\Exception\Inspector;
-use Whoops\TestCase;
+
 use Exception;
+use Whoops\TestCase;
 
 class InspectorTest extends TestCase
 {
     /**
-     * @param string    $message
-     * @param int       $code
-     * @param Exception $previous
+     * @param  string    $message
+     * @param  int       $code
+     * @param  Exception $previous
      * @return Exception
      */
     protected function getException($message = null, $code = 0, Exception $previous = null)
@@ -23,7 +23,7 @@ class InspectorTest extends TestCase
     }
 
     /**
-     * @param  Exception $exception|null
+     * @param  Exception                  $exception|null
      * @return Whoops\Exception\Inspector
      */
     protected function getInspectorInstance(Exception $exception = null)
@@ -34,7 +34,7 @@ class InspectorTest extends TestCase
     /**
      * @covers Whoops\Exception\Inspector::getFrames
      */
-    public function testCorrectNestedFrames($value='')
+    public function testCorrectNestedFrames($value = '')
     {
         // Create manually to have a different line number from the outer
         $inner = new Exception('inner');

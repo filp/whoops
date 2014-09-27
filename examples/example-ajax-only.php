@@ -14,23 +14,24 @@
  */
 
 namespace Whoops\Example;
-use Whoops\Run;
-use Whoops\Handler\PrettyPageHandler;
-use Whoops\Handler\JsonResponseHandler;
+
 use RuntimeException;
+use Whoops\Handler\JsonResponseHandler;
+use Whoops\Handler\PrettyPageHandler;
+use Whoops\Run;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$run = new Run;
+$run = new Run();
 
 // We want the error page to be shown by default, if this is a
 // regular request, so that's the first thing to go into the stack:
-$run->pushHandler(new PrettyPageHandler);
+$run->pushHandler(new PrettyPageHandler());
 
 // Now, we want a second handler that will run before the error page,
 // and immediately return an error message in JSON format, if something
 // goes awry.
-$jsonHandler = new JsonResponseHandler;
+$jsonHandler = new JsonResponseHandler();
 
 // Make sure it only triggers for AJAX requests:
 $jsonHandler->onlyForAjaxRequests(true);

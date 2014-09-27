@@ -18,13 +18,12 @@
 
 namespace Whoops;
 
-use Whoops\Run;
-use Whoops\Provider\Zend\ExceptionStrategy;
-use Whoops\Provider\Zend\RouteNotFoundStrategy;
 use Whoops\Handler\JsonResponseHandler;
 use Whoops\Handler\PrettyPageHandler;
-use Zend\EventManager\EventInterface;
+use Whoops\Provider\Zend\ExceptionStrategy;
+use Whoops\Provider\Zend\RouteNotFoundStrategy;
 use Zend\Console\Request as ConsoleRequest;
+use Zend\EventManager\EventInterface;
 
 /**
  * @deprecated Use https://github.com/ghislainf/zf2-whoops
@@ -42,7 +41,6 @@ class Module
         if (isset($config['view_manager']['editor'])) {
             $prettyPageHandler->setEditor($config['view_manager']['editor']);
         }
-
 
         $this->run = new Run();
         $this->run->register();
@@ -71,8 +69,9 @@ class Module
         $config = $services->get('Config');
 
         //Display exceptions based on configuration and console mode
-        if ($request instanceof ConsoleRequest || empty($config['view_manager']['display_exceptions']))
+        if ($request instanceof ConsoleRequest || empty($config['view_manager']['display_exceptions'])) {
             return;
+        }
 
         $jsonHandler = new JsonResponseHandler();
 
@@ -105,5 +104,4 @@ class Module
         //Detach default RouteNotFoundStrategy
         $services->get('Zend\Mvc\View\Http\RouteNotFoundStrategy')->detach($events);
     }
-
 }

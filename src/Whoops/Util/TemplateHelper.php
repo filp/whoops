@@ -86,11 +86,11 @@ class TemplateHelper
         // Pass the helper to the template:
         $variables["tpl"] = $this;
 
-        if($additionalVariables !== null) {
+        if ($additionalVariables !== null) {
             $variables = array_replace($variables, $additionalVariables);
         }
 
-        call_user_func(function(){
+        call_user_func(function () {
             extract(func_get_arg(1));
             require func_get_arg(0);
         }, $template, $variables);
@@ -129,8 +129,7 @@ class TemplateHelper
     public function getVariable($variableName, $defaultValue = null)
     {
         return isset($this->variables[$variableName]) ?
-            $this->variables[$variableName] : $defaultValue
-        ;
+            $this->variables[$variableName] : $defaultValue;
     }
 
     /**
