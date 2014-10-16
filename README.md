@@ -10,7 +10,7 @@ php errors for cool kids
 
 -----
 
-![Whoops!](http://i.imgur.com/xiZ1tUU.png)
+![Whoops!](http://i.imgur.com/xvwyvOY.png)
 
 **whoops** is an error handler base/framework for PHP. Out-of-the-box, it provides a pretty
 error interface that helps you debug your web projects, but at heart it's a simple yet
