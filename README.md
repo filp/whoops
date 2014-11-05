@@ -35,7 +35,8 @@ If you use Laravel 4, you already have Whoops. There are also community-provided
 [Silex](docs/Framework%20Integration.md#integrating-with-silex),
 [Phalcon](docs/Framework%20Integration.md#integrating-with-phalcon),
 [Laravel 3](https://gist.github.com/hugomrdias/5169713#file-start-php),
-[CakePHP](https://github.com/oldskool/WhoopsCakephp),
+[CakePHP 2](https://github.com/oldskool/WhoopsCakephp),
+[CakePHP 3](https://github.com/oldskool/WhoopsCakephp/tree/cake3),
 [Zend Framework 2](https://github.com/ghislainf/zf2-whoops),
 [Yii 1](https://github.com/igorsantos07/yii-whoops),
 [FuelPHP](https://github.com/indigophp/fuel-whoops).
