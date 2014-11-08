@@ -33,6 +33,7 @@ powerful stacked error handling system.
 ## Installing
 If you use Laravel 4, you already have Whoops. There are also community-provided instructions on how to integrate Whoops into
 [Silex](docs/Framework%20Integration.md#integrating-with-silex),
+[Silex 2](https://github.com/texthtml/whoops-silex),
 [Phalcon](docs/Framework%20Integration.md#integrating-with-phalcon),
 [Laravel 3](https://gist.github.com/hugomrdias/5169713#file-start-php),
 [CakePHP 2](https://github.com/oldskool/WhoopsCakephp),
