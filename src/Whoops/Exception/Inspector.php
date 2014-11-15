@@ -63,7 +63,7 @@ class Inspector
      */
     public function hasPreviousException()
     {
-        return !!$this->previousExceptionInspector || !!$this->exception->getPrevious();
+        return $this->previousExceptionInspector || $this->exception->getPrevious();
     }
 
     /**
