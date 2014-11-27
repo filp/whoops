@@ -343,6 +343,7 @@ code.prettyprint a {
   padding-top: 4px;
   padding-left: 1px;
 }
+
 .linenums li.current.active {
   background: rgba(255, 100, 100, .17);
 }
