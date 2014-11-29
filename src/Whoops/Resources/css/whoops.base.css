@@ -111,7 +111,7 @@ header {
       }
 
     .frame-file {
-      font-family: consolas, monospace;
+      font-family: "Inconsolata", "Fira Mono", "Source Code Pro", Monaco, Consolas, "Lucida Console", monospace;
       word-wrap:break-word;
     }
 
@@ -230,7 +230,7 @@ header {
   }
 
   .data-table tbody {
-    font: 13px consolas, monospace;
+    font: 13px "Inconsolata", "Fira Mono", "Source Code Pro", Monaco, Consolas, "Lucida Console", monospace;
   }
 
   .data-table thead {
@@ -268,7 +268,7 @@ header {
 
 .handler {
   padding: 10px;
-  font: 14px monospace;
+  font: 14px "Inconsolata", "Fira Mono", "Source Code Pro", Monaco, Consolas, "Lucida Console", monospace;
 }
 
 .handler.active {
@@ -293,7 +293,7 @@ pre .atn, code .atn { color: #ef7c61; font-weight: normal;} /* html/xml attribut
 pre .atv, code .atv { color: #bcd42a; }  /* html/xml attribute value  */
 pre .dec, code .dec { color: #606; }  /* decimal  */
 pre.prettyprint, code.prettyprint {
-  font-family: 'Source Code Pro', Monaco, Consolas, "Lucida Console", monospace;;
+  font-family: "Inconsolata", "Fira Mono", "Source Code Pro", Monaco, Consolas, "Lucida Console", monospace;
   background: #333;
   color: #e9e4e5;
 }
