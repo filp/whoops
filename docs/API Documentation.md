@@ -62,7 +62,7 @@ Run::allowQuit( $allowQuit = null )
 // to the client. You'll want to set this to false if you want to
 // package the handlers' response into your HTTP response abstraction
 // or something (default: true)
-Run::writeToOutput( $send = null)
+Run::writeToOutput( $send = null )
  #=> bool
 
 // ** HANDLERS **
@@ -77,7 +77,7 @@ Run::handleException( Exception $exception )
 
 // Handles an error with the current stack. Errors are
 // converted into SPL ErrorException instances
-Run::handleError( int $level, string $message, string $file = null, int $line = null)
+Run::handleError( int $level, string $message, string $file = null, int $line = null )
  #=> null
 
 // Hooked as a shutdown handler, captures fatal errors and handles them
@@ -107,11 +107,11 @@ HandlerInterface::handle()
  #=> null | int
 
 // Sets the Run instance for this handler
-HandlerInterface::setRun( Whoops\Run $run)
+HandlerInterface::setRun( Whoops\Run $run )
  #=> null
 
 // Sets the Inspector instance for this handler
-HandlerInterface::setInspector( Whoops\Exception\Inspector $inspector)
+HandlerInterface::setInspector( Whoops\Exception\Inspector $inspector )
  #=> null
 
 // Sets the Exception for this handler to handle
@@ -175,7 +175,7 @@ FrameCollection::filter( callable $callable )
 // a Frame object, doesn't matter if it's the same or not
 // - will throw an UnexpectedValueException if something
 // else is returned.
-FrameCollection::map( callable $callable)
+FrameCollection::map( callable $callable )
  #=> FrameCollection
 ```
 
@@ -221,7 +221,7 @@ Frame::getFileContents()
 // Returns an array of lines for a file, optionally scoped to a
 // given range of line numbers. i.e: Frame::getFileLines(0, 3)
 // returns the first 3 lines after line 0 (1)
-Frame::getFileLines( int $start = 0, int $length = null)
+Frame::getFileLines( int $start = 0, int $length = null )
  #=> array | null
 
 // Adds a comment to this Frame instance. Comments are shared
