@@ -11,8 +11,8 @@ use Silex\Application;
 
 // ... some awesome code here ...
 
-if($app['debug']) {
-    $app->register(new Whoops\Provider\Silex\WhoopsServiceProvider);
+if ($app['debug']) {
+    $app->register(new Whoops\Provider\Silex\WhoopsServiceProvider());
 }
 
 // ...
@@ -25,8 +25,8 @@ environment, but you also have full access to the **whoops** library, obviously.
 into your app is as simple as extending `whoops`:
 
 ```php
-$app['whoops'] = $app->extend('whoops', function($whoops) {
-    $whoops->pushHandler(new DeleteWholeProjectHandler);
+$app['whoops'] = $app->extend('whoops', function ($whoops) {
+    $whoops->pushHandler(new DeleteWholeProjectHandler());
     return $whoops;
 });
 ```
@@ -38,11 +38,11 @@ $app['whoops'] = $app->extend('whoops', function($whoops) {
 in your existing Phalcon project is easy. The provider uses the default Phalcon DI unless you pass a DI instance into the constructor.
 
 ```php
-new Whoops\Provider\Phalcon\WhoopsServiceProvider;
+new Whoops\Provider\Phalcon\WhoopsServiceProvider();
 
 // --- or ---
 
-$di = Phalcon\DI\FactoryDefault;
+$di = new Phalcon\DI\FactoryDefault();
 new Whoops\Provider\Phalcon\WhoopsServiceProvider($di);
 ```
 
@@ -57,15 +57,15 @@ The procedure is not hard at all.
 1. Keep your integration classes and instructions in a repository of your own;
 2. Create a `composer.json` file in your repository with contents similar to the following:
 
-    ```
-    {
-        "name": "username/whoops-someframework",
-        "description": "Integrates the Whoops library into SomeFramework",
-        "require": {
-            "filp/whoops": "1.*"
-        }
+```
+{
+    "name": "username/whoops-someframework",
+    "description": "Integrates the Whoops library into SomeFramework",
+    "require": {
+        "filp/whoops": "1.*"
     }
-    ```
+}
+```
 
 3. [Register it with Packagist](https://packagist.org/packages/submit).
 
@@ -73,8 +73,10 @@ Once that is done, please create an issue and we will add a link to it in our RE
 
 SomeFramework users then would write this in their `composer.json`:
 
+```
     "require": {
         "username/whoops-someframework": "*"
     }
+```
 
 This would also install Whoops and you'd be able to release updates to your package as quickly as you wish them to.
