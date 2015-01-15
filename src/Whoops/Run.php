@@ -23,6 +23,10 @@ class Run
     protected $isRegistered;
     protected $allowQuit       = true;
     protected $sendOutput      = true;
+
+    /**
+     * @var integer|false
+     */
     protected $sendHttpCode    = 500;
 
     /**
