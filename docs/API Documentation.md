@@ -30,7 +30,7 @@ string Run::SHUTDOWN_HANDLER  // (name for shutdown handler method)
 
 ```php
 // Pushes a new handler to the stack of handlers
-Run::pushHandler( Whoops\HandlerInterface $handler )
+Run::pushHandler(Whoops\HandlerInterface $handler)
  #=> Whoops\Run
 
 // Pops and returns the last handler from the stack
@@ -42,7 +42,7 @@ Run::getHandlers()
  #=> Whoops\HandlerInterface[]
 
 // Returns a Whoops\Inspector instance for a given Exception
-Run::getInspector( Exception $exception )
+Run::getInspector(Exception $exception)
  #=> Whoops\Exception\Inspector
 
 // Registers this Whoops\Run instance as an error/exception/shutdown
@@ -55,14 +55,14 @@ Run::unregister()
  #=> Whoops\Run
 
 // If true, allows Whoops to terminate script execution (default: true)
-Run::allowQuit( $allowQuit = null )
+Run::allowQuit($allowQuit = null)
  #=> bool
 
 // If true, allows Whoops to send output produced by handlers directly
 // to the client. You'll want to set this to false if you want to
 // package the handlers' response into your HTTP response abstraction
 // or something (default: true)
-Run::writeToOutput( $send = null)
+Run::writeToOutput($send = null)
  #=> bool
 
 // ** HANDLERS **
@@ -72,12 +72,12 @@ Run::writeToOutput( $send = null)
 
 // Handles an exception with the current stack. Returns the
 // output produced by handlers.
-Run::handleException( Exception $exception )
+Run::handleException(Exception $exception)
  #=> string
 
 // Handles an error with the current stack. Errors are
 // converted into SPL ErrorException instances
-Run::handleError( int $level, string $message, string $file = null, int $line = null)
+Run::handleError(int $level, string $message, string $file = null, int $line = null)
  #=> null
 
 // Hooked as a shutdown handler, captures fatal errors and handles them
@@ -107,15 +107,15 @@ HandlerInterface::handle()
  #=> null | int
 
 // Sets the Run instance for this handler
-HandlerInterface::setRun( Whoops\Run $run)
+HandlerInterface::setRun(Whoops\Run $run)
  #=> null
 
 // Sets the Inspector instance for this handler
-HandlerInterface::setInspector( Whoops\Exception\Inspector $inspector)
+HandlerInterface::setInspector(Whoops\Exception\Inspector $inspector)
  #=> null
 
 // Sets the Exception for this handler to handle
-HandlerInterface::setException( Exception $exception )
+HandlerInterface::setException(Exception $exception)
  #=> null
 ```
 
@@ -126,7 +126,7 @@ The `Inspector` class provides methods to inspect an exception instance, with pa
 ### Methods
 
 ```php
-Inspector::__construct( Exception $exception )
+Inspector::__construct(Exception $exception)
  #=> null
 
 // Returns the Exception instance being inspected
@@ -167,7 +167,7 @@ FrameCollection::count()
 // Filter the Frames in the collection with a callable.
 // The callable must accept a Frame object, and return
 // true to keep it in the collection, or false not to.
-FrameCollection::filter( callable $callable )
+FrameCollection::filter(callable $callable)
  #=> FrameCollection
 
 // See: array_map
@@ -175,7 +175,7 @@ FrameCollection::filter( callable $callable )
 // a Frame object, doesn't matter if it's the same or not
 // - will throw an UnexpectedValueException if something
 // else is returned.
-FrameCollection::map( callable $callable)
+FrameCollection::map(callable $callable)
  #=> FrameCollection
 ```
 
@@ -191,7 +191,7 @@ The `Frame` class models a single frame in an exception's stack trace. You can u
 // Returns the file path for the file where this frame occured.
 // The optional $shortened argument allows you to retrieve a
 // shorter, human-readable file path for display.
-Frame::getFile( bool $shortened = false )
+Frame::getFile(bool $shortened = false)
  #=> string | null (Some frames do not have a file path)
 
 // Returns the line number for this frame
@@ -221,7 +221,7 @@ Frame::getFileContents()
 // Returns an array of lines for a file, optionally scoped to a
 // given range of line numbers. i.e: Frame::getFileLines(0, 3)
 // returns the first 3 lines after line 0 (1)
-Frame::getFileLines( int $start = 0, int $length = null)
+Frame::getFileLines(int $start = 0, int $length = null)
  #=> array | null
 
 // Adds a comment to this Frame instance. Comments are shared
@@ -230,12 +230,12 @@ Frame::getFileLines( int $start = 0, int $length = null)
 // The context option can be used to improve comment filtering.
 // Additionally, if frames contain URIs, the PrettyPageHandler
 // will automagically convert them to clickable anchor elements.
-Frame::addComment( string $comment, string $context = 'global' )
+Frame::addComment(string $comment, string $context = 'global')
  #=> null
 
 // Returns all comments for this instance optionally filtered by
 // a string context identifier.
-Frame::getComments( string $filter = null )
+Frame::getComments(string $filter = null)
  #=> array
 ```
 
@@ -264,7 +264,7 @@ $run->popHandler() // #=> Whoops\Handler\CallbackHandler
 // Accepts any valid callable
 // For example, a closure, a string function name, an array
 // in the format array($class, $method)
-CallbackHandler::__construct( $callable )
+CallbackHandler::__construct($callable)
  #=> null
 
 CallbackHandler::handle()
@@ -304,12 +304,12 @@ The `JSON` body has the following format:
 
 // Should detailed stack trace output also be added to the
 // JSON payload body?
-JsonResponseHandler::addTraceToOutput( bool $yes = null )
+JsonResponseHandler::addTraceToOutput(bool $yes = null)
  #=> bool
 
 // Should output only be sent if the current request is an
 // AJAX request?
-JsonResponseHandler::onlyForAjaxRequests( bool $yes = null )
+JsonResponseHandler::onlyForAjaxRequests(bool $yes = null)
  #=> bool
 
 JsonResponseHandler::handle()
@@ -326,24 +326,24 @@ The `PrettyPageHandler` generates a fancy, detailed error page which includes co
 // Adds a key=>value table of arbitrary data, labeled by $label, to
 // the output. Useful where you want to display contextual data along
 // with the error, about your application or project.
-PrettyPageHandler::addDataTable( string $label, array $data )
+PrettyPageHandler::addDataTable(string $label, array $data)
  #=> null
 
 // Similar to PrettyPageHandler::addDataTable, but accepts a callable
 // that will be called only when rendering an exception. This allows
 // you to gather additional data that may not be available very early
 // in the process.
-PrettyPageHandler::addDataTableCallback( string $label, callable $callback )
+PrettyPageHandler::addDataTableCallback(string $label, callable $callback)
  #=> null
 
 // Returns all data tables registered with this handler. Optionally
 // accepts a string label, and will only return the data under that
 // label.
-PrettyPageHandler::getDataTables( string $label = null )
+PrettyPageHandler::getDataTables(string $label = null)
  #=> array | array[]
 
 // Sets the title for the error page
-PrettyPageHandler::setPageTitle( string $title )
+PrettyPageHandler::setPageTitle(string $title)
  #=> null
 
 // Returns the title for the error page
@@ -360,7 +360,7 @@ PrettyPageHandler::getResourcesPaths()
 // handler. Useful if you want to roll your own template
 // file (pretty-template.php and pretty-page.css) while
 // still using the logic this handler provides
-PrettyPageHandler::addResourcesPath( string $resourcesPath )
+PrettyPageHandler::addResourcesPath(string $resourcesPath)
  #=> null
 
 // Sets an editor to use to open referenced files, either by
@@ -371,8 +371,8 @@ PrettyPageHandler::addResourcesPath( string $resourcesPath )
 // - emacs
 // - textmate
 // - macvim
-PrettyPageHandler::setEditor( string $editor )
-PrettyPageHandler::setEditor( function($file, $line) { return string } )
+PrettyPageHandler::setEditor(string $editor)
+PrettyPageHandler::setEditor(function ($file, $line) { return string })
  #=> null
 
 // Similar to PrettyPageHandler::setEditor, but allows you
@@ -385,7 +385,7 @@ PrettyPageHandler::setEditor( function($file, $line) { return string } )
 // with placeholders %file and %line.
 // For example:
 // $handler->addEditor('whatevs', 'whatevs://open?file=file://%file&line=%line')
-PrettyPageHandler::addEditor( string $editor, $resolver )
+PrettyPageHandler::addEditor(string $editor, $resolver)
  #=> null
 
 PrettyPageHandler::handle()
