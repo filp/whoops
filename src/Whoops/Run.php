@@ -249,6 +249,10 @@ class Run
             $handler->setInspector($inspector);
             $handler->setException($exception);
 
+            // The HandlerInterface does not require an Exception passed to handle()
+            // and neither of our bundled handlers use it.
+            // However, 3rd party handlers may have already relied on this parameter,
+            // and removing it would be possibly breaking for users.
             $handlerResponse = $handler->handle($exception);
 
             if (in_array($handlerResponse, array(Handler::LAST_HANDLER, Handler::QUIT))) {
