@@ -22,7 +22,7 @@ class PlainTextHandler extends Handler
     const VAR_DUMP_PREFIX = '   | ';
 
     /**
-     * @var Psr\Log\LoggerInterface
+     * @var \Psr\Log\LoggerInterface
      */
     protected $logger;
 
@@ -59,7 +59,7 @@ class PlainTextHandler extends Handler
     /**
      * Constructor.
      * @throws InvalidArgumentException     If argument is not null or a LoggerInterface
-     * @param  Psr\Log\LoggerInterface|null $logger
+     * @param  \Psr\Log\LoggerInterface|null $logger
      */
     public function __construct($logger = null)
     {
@@ -69,7 +69,7 @@ class PlainTextHandler extends Handler
     /**
      * Set the output logger interface.
      * @throws InvalidArgumentException     If argument is not null or a LoggerInterface
-     * @param  Psr\Log\LoggerInterface|null $logger
+     * @param  \Psr\Log\LoggerInterface|null $logger
      */
     public function setLogger($logger = null)
     {
@@ -86,7 +86,7 @@ class PlainTextHandler extends Handler
     }
 
     /**
-     * @return Psr\Log\LoggerInterface|null
+     * @return \Psr\Log\LoggerInterface|null
      */
     public function getLogger()
     {
