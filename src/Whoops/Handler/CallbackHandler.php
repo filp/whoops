@@ -43,7 +43,10 @@ class CallbackHandler extends Handler
         $exception = $this->getException();
         $inspector = $this->getInspector();
         $run       = $this->getRun();
+        $callable  = $this->callable;
 
-        return call_user_func($this->callable, $exception, $inspector, $run);
+        // invoke the callable directly, to get simpler stacktraces (in comparison to call_user_func).
+        // this assumes that $callable is a properly typed php-callable, which we check in __construct().
+        return $callable($exception, $inspector, $run);
     }
 }
