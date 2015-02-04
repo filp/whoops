@@ -114,7 +114,7 @@ class Run
             class_exists("\\Whoops\\Exception\\Frame");
             class_exists("\\Whoops\\Exception\\Inspector");
 
-            set_error_handler(array($this, self::ERROR_HANDLER));
+            set_error_handler(array($this, self::ERROR_HANDLER), error_reporting());
             set_exception_handler(array($this, self::EXCEPTION_HANDLER));
             register_shutdown_function(array($this, self::SHUTDOWN_HANDLER));
 
