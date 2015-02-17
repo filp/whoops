@@ -347,6 +347,24 @@ class RunTest extends TestCase
     }
 
     /**
+     * @covers Whoops\Run::handleError
+     */
+    public function testGetSilencedError()
+    {
+        $run = $this->getRunInstance();
+        $run->register();
+
+        $handler = $this->getHandler();
+        $run->pushHandler($handler);
+
+        @strpos();
+
+        $error = error_get_last();
+
+        $this->assertTrue($error && strpos($error['message'], 'strpos()') !== false);
+    }
+
+    /**
      * @covers Whoops\Run::handleException
      * @covers Whoops\Run::writeToOutput
      */
