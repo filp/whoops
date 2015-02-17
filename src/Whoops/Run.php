@@ -302,7 +302,8 @@ class Run
      * @param string $file
      * @param int    $line
      *
-     * @return bool|null
+     * @return bool
+     * @throws ErrorException
      */
     public function handleError($level, $message, $file = null, $line = null)
     {
@@ -322,7 +323,13 @@ class Run
             } else {
                 $this->handleException($exception);
             }
+            // Do not propagate errors which were already handled by Whoops.
+            return true;
         }
+
+        // Propagate error to the next handler, allows error_get_last() to
+        // work on silenced errors.
+        return false;
     }
 
     /**
