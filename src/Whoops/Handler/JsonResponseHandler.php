@@ -84,7 +84,7 @@ class JsonResponseHandler extends Handler
             header('Content-Type: application/json');
         }
 
-        echo json_encode($response);
+        echo json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
         return Handler::QUIT;
     }
 }
