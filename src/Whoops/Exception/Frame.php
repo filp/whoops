@@ -58,7 +58,7 @@ class Frame implements Serializable
         if ($shortened && is_string($file)) {
             // Replace the part of the path that all frames have in common, and add 'soft hyphens' for smoother line-breaks.
             $dirname = dirname(dirname(dirname(dirname(dirname(dirname(__DIR__))))));
-            $file = str_replace($dirname, "…", $file);
+            $file = str_replace($dirname, "&hellip;", $file);
             $file = str_replace("/", "/&shy;", $file);
         }
 
