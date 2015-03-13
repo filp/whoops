@@ -365,6 +365,25 @@ class RunTest extends TestCase
     }
 
     /**
+     * @covers Whoops\Run::handleError
+     * @see https://github.com/filp/whoops/issues/267
+     */
+    public function testErrorWrappedInException()
+    {
+        try {
+            $run = $this->getRunInstance();
+            $run->handleError(E_WARNING, 'my message', 'my file', 99);
+            $this->fail("missing expected exception");
+        } catch (\ErrorException $e) {
+            $this->assertSame(E_WARNING, $e->getSeverity());
+            $this->assertSame(E_WARNING, $e->getCode(), "For BC reasons getCode() should match getSeverity()");
+            $this->assertSame('my message', $e->getMessage());
+            $this->assertSame('my file', $e->getFile());
+            $this->assertSame(99, $e->getLine());
+        }
+    }
+    
+    /**
      * @covers Whoops\Run::handleException
      * @covers Whoops\Run::writeToOutput
      */

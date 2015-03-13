@@ -130,7 +130,8 @@ class PrettyPageHandler extends Handler
         $code = $inspector->getException()->getCode();
 
         if ($inspector->getException() instanceof \ErrorException) {
-            $code = Misc::translateErrorCode($code);
+            // ErrorExceptions wrap the php-error types within the "severity" property
+            $code = Misc::translateErrorCode($inspector->getException()->getSeverity());
         }
 
         // List of variables that will be passed to the layout template.
