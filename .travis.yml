@@ -15,10 +15,10 @@ before_script:
   # --prefer-source is required to avoid hitting GitHub API limit:
   # https://github.com/composer/composer/issues/1314
   - composer install --no-interaction --prefer-source
+  - if [ $TRAVIS_PHP_VERSION = "5.6" ]; then PHPUNIT_FLAGS="--coverage-clover build/logs/clover.xml"; fi
 
 script:
-  - phpunit --verbose --coverage-clover build/logs/clover.xml
+  - phpunit --verbose $PHPUNIT_FLAGS
 
 after_success:
-  - bash -c 'if [ "$TRAVIS_PHP_VERSION" == "5.5" ]; then wget https://scrutinizer-ci.com/ocular.phar; fi;'
-  - bash -c 'if [ "$TRAVIS_PHP_VERSION" == "5.5" ]; then php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml; fi;'
+  - if [ $TRAVIS_PHP_VERSION = "5.6" ]; then wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml; fi
