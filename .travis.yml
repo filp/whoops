@@ -14,7 +14,7 @@ before_script:
   - composer self-update
   # --prefer-source is required to avoid hitting GitHub API limit:
   # https://github.com/composer/composer/issues/1314
-  - composer install --no-interaction --prefer-source --dev
+  - composer install --no-interaction --prefer-source
 
 script:
   - phpunit --verbose --coverage-clover build/logs/clover.xml
