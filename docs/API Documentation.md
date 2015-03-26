@@ -360,7 +360,7 @@ PrettyPageHandler::getResourcesPaths()
 // handler. Useful if you want to roll your own template
 // file (pretty-template.php and pretty-page.css) while
 // still using the logic this handler provides
-PrettyPageHandler::addResourcesPath(string $resourcesPath)
+PrettyPageHandler::addResourcePath(string $resourcesPath)
  #=> null
 
 // Sets an editor to use to open referenced files, either by
