@@ -285,6 +285,7 @@ class Run
         }
 
         if ($willQuit) {
+            flush(); // HHVM fix for https://github.com/facebook/hhvm/issues/4055
             exit(1);
         }
 
