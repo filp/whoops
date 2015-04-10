@@ -348,6 +348,7 @@ pre.prettyprint, code.prettyprint {
 }
 
 #help-overlay {
+	pointer-events: none;
 	display: none;
 	position: absolute;
 	top: 0;
