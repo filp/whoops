@@ -47,6 +47,12 @@ class PrettyPageHandler extends Handler
     private $handleUnconditionally = false;
 
     /**
+     * @var bool
+     */
+    private $environmentDisplay = true;
+
+
+    /**
      * @var string
      */
     private $pageTitle = "Whoops! There was an error.";
@@ -166,7 +172,7 @@ class PrettyPageHandler extends Handler
                 "Files"                 => $_FILES,
                 "Cookies"               => $_COOKIE,
                 "Session"               => isset($_SESSION) ? $_SESSION :  array(),
-                "Environment Variables" => $_ENV,
+                "Environment Variables" => $this->getEnvVariables(),
             ),
         );
 
@@ -464,5 +470,30 @@ class PrettyPageHandler extends Handler
     public function setResourcesPath($resourcesPath)
     {
         $this->addResourcePath($resourcesPath);
+    }
+
+
+    /**
+     * Find out whether to display environment variables from $_ENV
+     *
+     * @return array
+     */
+    public function getEnvVariables()
+    {
+        if( $this->environmentDisplay )
+            return $_ENV;
+
+        return ['PLEASE NOTE' => 'Display of environment variables has been disabled'];
+    }
+
+    /**
+     * Set the variable that decides whether to display the Environment variables.
+     *
+     * @param  bool $set
+     * @return void
+     */
+    public function setEnvironmentDisplay($set)
+    {
+        $this->environmentDisplay = (bool) $set;
     }
 }
