@@ -40,7 +40,7 @@
         <div class="frame-comments <?php echo empty($comments) ? 'empty' : '' ?>">
           <?php foreach ($comments as $commentNo => $comment): ?>
             <?php extract($comment) ?>
-            <div class="frame-comment" id="comment-<?php echo $i . '-' . $commentNo ?>">
+            <div class="frame-comment" id="comment-<?php echo $i , '-' , $commentNo ?>">
               <span class="frame-comment-context"><?php echo $tpl->escape($context) ?></span>
               <?php echo $tpl->escapeButPreserveUris($comment) ?>
             </div>
