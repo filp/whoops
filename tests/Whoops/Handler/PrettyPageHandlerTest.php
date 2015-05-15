@@ -209,6 +209,7 @@ class PrettyPageHandlerTest extends TestCase
     /**
      * @covers Whoops\Handler\PrettyPageHandler::setEditor
      * @covers Whoops\Handler\PrettyPageHandler::getEditorHref
+     * @covers Whoops\Handler\PrettyPageHandler::getEditorAjax
      */
     public function testSetEditorCallable()
     {
@@ -238,11 +239,14 @@ class PrettyPageHandlerTest extends TestCase
 
         $this->assertEquals(
             $handler->getEditorHref('/foo/bar.php', 10),
-            array(
-                'url' => 'http://google.com/search/?q=%2Ffoo%2Fbar.php:10',
-                'ajax' => true
-            )
+            'http://google.com/search/?q=%2Ffoo%2Fbar.php:10'
         );
+
+        $this->assertEquals(
+            $handler->getEditorAjax('/foo/bar.php', 10),
+            true
+        );
+
 
         $handler->setEditor(function ($file, $line) {
             $file = rawurlencode($file);
@@ -255,12 +259,13 @@ class PrettyPageHandlerTest extends TestCase
 
         $this->assertEquals(
             $handler->getEditorHref('/foo/bar.php', 10),
-            array(
-                'url' => 'http://google.com/search/?q=%2Ffoo%2Fbar.php:10',
-                'ajax' => false
-            )
+            'http://google.com/search/?q=%2Ffoo%2Fbar.php:10'
         );
 
+        $this->assertEquals(
+            $handler->getEditorAjax('/foo/bar.php', 10),
+            false
+        );
 
     }
 

@@ -8,6 +8,7 @@ namespace Whoops\Handler;
 
 use InvalidArgumentException;
 use RuntimeException;
+use UnexpectedValueException;
 use Whoops\Exception\Formatter;
 use Whoops\Util\Misc;
 use Whoops\Util\TemplateHelper;
@@ -317,7 +318,7 @@ class PrettyPageHandler extends Handler
      * @throws InvalidArgumentException If editor resolver does not return a string
      * @param  string                   $filePath
      * @param  int                      $line
-     * @return false|string|array
+     * @return false|string
      */
     public function getEditorHref($filePath, $line)
     {
@@ -342,25 +343,44 @@ class PrettyPageHandler extends Handler
             );
         }
 
-        if (is_array($editor) && (!isset($editor['ajax']) || !is_bool($editor['ajax']))) {
-            throw new InvalidArgumentException(
+        $editor = str_replace("%line", rawurlencode($line), (is_string($editor) ? $editor : $editor['url']));
+        $editor = str_replace("%file", rawurlencode($filePath), (is_string($editor) ? $editor : $editor['url']));
+
+        return $editor;
+    }
+
+    /**
+     * Given a boolean if the editor link should
+     * act as an Ajax request. The editor must be a
+     * valid callable function/closure
+     *
+     * @throws UnexpectedValueException  If editor resolver does not return a boolean
+     * @param  string                   $filePath
+     * @param  int                      $line
+     * @return bool
+     */
+    public function getEditorAjax($filePath, $line)
+    {
+        if ($this->editor === null || !is_callable($this->editor)) {
+            return false;
+        }
+
+        $editor = $this->editor;
+
+        $editor = call_user_func($editor, $filePath, $line);
+
+        // Check that the editor is a string or a valid array, and replace the
+        // %line and %file placeholders:
+        if (!isset($editor['ajax']) || !is_bool($editor['ajax'])) {
+            throw new UnexpectedValueException(
                 __METHOD__ . " was unable to resolve ajax option; got something else instead"
             );
         }
 
-        if(is_string($editor))
-        {
-            $editor = str_replace("%line", rawurlencode($line), $editor);
-            $editor = str_replace("%file", rawurlencode($filePath), $editor);
-        }
-        else
-        {
-            $editor['url'] = str_replace("%line", rawurlencode($line), $editor['url']);
-            $editor['url'] = str_replace("%file", rawurlencode($filePath), $editor['url']);
-        }
-
-        return $editor;
+        return $editor['ajax'];
     }
+
+
 
     /**
      * @param  string $title
