@@ -13,7 +13,7 @@ use Whoops\TestCase;
 class PrettyPageHandlerTest extends TestCase
 {
     /**
-     * @return \Whoops\Handler\JsonResponseHandler
+     * @return \Whoops\Handler\PrettyPageHandler
      */
     private function getHandler()
     {
@@ -213,6 +213,8 @@ class PrettyPageHandlerTest extends TestCase
     public function testSetEditorCallable()
     {
         $handler = $this->getHandler();
+
+        // Test Callable editor with String return
         $handler->setEditor(function ($file, $line) {
             $file = rawurlencode($file);
             $line = rawurlencode($line);
@@ -223,6 +225,43 @@ class PrettyPageHandlerTest extends TestCase
             $handler->getEditorHref('/foo/bar.php', 10),
             'http://google.com/search/?q=%2Ffoo%2Fbar.php:10'
         );
+
+        // Then test Callable editor with Array return
+        $handler->setEditor(function ($file, $line) {
+            $file = rawurlencode($file);
+            $line = rawurlencode($line);
+            return array(
+                'url' => "http://google.com/search/?q=$file:$line",
+                'ajax' => true,
+            );
+        });
+
+        $this->assertEquals(
+            $handler->getEditorHref('/foo/bar.php', 10),
+            array(
+                'url' => 'http://google.com/search/?q=%2Ffoo%2Fbar.php:10',
+                'ajax' => true
+            )
+        );
+
+        $handler->setEditor(function ($file, $line) {
+            $file = rawurlencode($file);
+            $line = rawurlencode($line);
+            return array(
+                'url' => "http://google.com/search/?q=$file:$line",
+                'ajax' => false,
+            );
+        });
+
+        $this->assertEquals(
+            $handler->getEditorHref('/foo/bar.php', 10),
+            array(
+                'url' => 'http://google.com/search/?q=%2Ffoo%2Fbar.php:10',
+                'ajax' => false
+            )
+        );
+
+
     }
 
     /**

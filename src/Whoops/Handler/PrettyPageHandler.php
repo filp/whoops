@@ -317,7 +317,7 @@ class PrettyPageHandler extends Handler
      * @throws InvalidArgumentException If editor resolver does not return a string
      * @param  string                   $filePath
      * @param  int                      $line
-     * @return false|string
+     * @return false|string|array
      */
     public function getEditorHref($filePath, $line)
     {
@@ -334,16 +334,30 @@ class PrettyPageHandler extends Handler
             $editor = call_user_func($editor, $filePath, $line);
         }
 
-        // Check that the editor is a string, and replace the
+        // Check that the editor is a string or a valid array, and replace the
         // %line and %file placeholders:
-        if (!is_string($editor)) {
+        if (!is_string($editor) && (is_array($editor) && (!isset($editor['url']) || !is_string($editor['url'])))) {
             throw new InvalidArgumentException(
-                __METHOD__ . " should always resolve to a string; got something else instead"
+                __METHOD__ . " should always resolve to a string or a valid editor array; got something else instead"
             );
         }
 
-        $editor = str_replace("%line", rawurlencode($line), $editor);
-        $editor = str_replace("%file", rawurlencode($filePath), $editor);
+        if (is_array($editor) && (!isset($editor['ajax']) || !is_bool($editor['ajax']))) {
+            throw new InvalidArgumentException(
+                __METHOD__ . " was unable to resolve ajax option; got something else instead"
+            );
+        }
+
+        if(is_string($editor))
+        {
+            $editor = str_replace("%line", rawurlencode($line), $editor);
+            $editor = str_replace("%file", rawurlencode($filePath), $editor);
+        }
+        else
+        {
+            $editor['url'] = str_replace("%line", rawurlencode($line), $editor['url']);
+            $editor['url'] = str_replace("%file", rawurlencode($filePath), $editor['url']);
+        }
 
         return $editor;
     }

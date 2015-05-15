@@ -30,7 +30,7 @@ $handler->setEditor(function($file, $line) {
 
 ```
 
-You can add PhpStorm support with [PhpStormOpener](https://github.com/pinepain/PhpStormOpener#phpstormopener) (Mac OS X only):
+You can add [IntelliJ Platform](https://github.com/pinepain/PhpStormOpener#phpstormopener) support like this:
 ```php
 
 $handler->setEditor(
@@ -42,7 +42,11 @@ $handler->setEditor(
             $file = preg_replace('#' . $from . '#', $to, $file, 1);
         }
 
-        return "pstorm://$file:$line";
+        // Intellig platform requires that you send an Ajax request, else the browser will quit the page
+        return array(
+            'url' => "http://localhost:63342/api/file/?file=$file&line=$line",
+            'ajax' => true
+        );
     }
 );
 

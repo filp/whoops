@@ -5,7 +5,7 @@ Zepto(function($) {
   var $container      = $('.details-container');
   var $activeLine     = $frameContainer.find('.frame.active');
   var $activeFrame    = $container.find('.frame-code.active');
-  var $editorLinks    = $('.editor-link');
+  var $ajaxEditors    = $('.editor-link[data-ajax]');
   var headerHeight    = $('header').height();
 
   var highlightCurrentLine = function() {
@@ -79,7 +79,7 @@ Zepto(function($) {
   });
   
   // Avoid to quit the page with some protocol (e.g. IntelliJ Platform REST API)
-  $editorLinks.on('click', function(e){
+  $ajaxEditors.on('click', function(e){
     e.preventDefault();
     $.get(this.href);
   });
