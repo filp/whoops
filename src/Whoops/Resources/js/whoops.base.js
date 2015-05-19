@@ -57,8 +57,15 @@ Zepto(function($) {
 	  });
   }
 
-  $(document).on('click', '.Whoops.container .closer', function () {
-	  $('.Whoops.container').remove();
+  $(document).on('click', '.Whoops-hider', function () {
+	  var $container = $('.Whoops.container');
+	  if ($container.hasClass('hidden') === false) {
+		  $container.hide().addClass('hidden');
+		  $(this).html('+');
+	  } else {
+		  $container.show().removeClass('hidden');
+		  $(this).html('X');
+	  }
   });
   $(document).on('keydown', function(e) {
 	  if(e.ctrlKey) {
