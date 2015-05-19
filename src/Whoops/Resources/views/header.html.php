@@ -1,4 +1,5 @@
 <div class="exception">
+  <div class="closer">X</div>
   <h3 class="exc-title">
     <?php foreach ($name as $i => $nameSection): ?>
       <?php if ($i == count($name) - 1): ?>

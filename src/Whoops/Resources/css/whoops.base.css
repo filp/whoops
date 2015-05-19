@@ -51,6 +51,21 @@ header {
       margin: 5px 0;
       word-wrap: break-word;
     }
+  .exception .closer {
+    position: absolute;
+    top: 10px;
+    right: 40px;
+    font-size: 14px;
+    color: red;
+    background-color: #22222;
+    padding: 6px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  .exception .closer:hover{
+    background-color: red;
+    color: white;
+  }
 
 .stack-container {
     height: 100%;

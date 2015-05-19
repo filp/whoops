@@ -56,7 +56,10 @@ Zepto(function($) {
 		  $clipEl.show();
 	  });
   }
-  
+
+  $(document).on('click', '.Whoops.container .closer', function () {
+	  $('.Whoops.container').remove();
+  });
   $(document).on('keydown', function(e) {
 	  if(e.ctrlKey) {
 		  // CTRL+Arrow-UP/Arrow-Down support:
