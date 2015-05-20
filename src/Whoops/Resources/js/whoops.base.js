@@ -50,10 +50,12 @@ Zepto(function($) {
 	  var clipEl = document.getElementById("copy-button");
 	  var clip = new ZeroClipboard( clipEl );
 	  var $clipEl = $(clipEl);
+	  var $clipHelpEl = $("#help-clipboard");
 
 	  // show the button, when swf could be loaded successfully from CDN
 	  clip.on("load", function() {
 		  $clipEl.show();
+		  $clipHelpEl.show();
 	  });
   }
 
