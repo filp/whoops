@@ -387,6 +387,7 @@ pre.prettyprint, code.prettyprint {
 	position: absolute;
 	right: 30px;
 	top: 90px;
+    display: none;
 }
 
 #help-framestack {
@@ -396,9 +397,9 @@ pre.prettyprint, code.prettyprint {
 }
 
 #help-exc-message {
-	position: absolute;
-	left: 65%;
-	top: 10px;
+    position: absolute;
+    left: 52%;
+    top: 10px;
 }
 
 #help-code {
@@ -417,6 +418,12 @@ pre.prettyprint, code.prettyprint {
 	position: absolute;
 	right: 30px;
 	top: 550px;
+}
+
+#help-hider {
+    position: absolute;
+    right: 37px;
+    top: 4px;
 }
 
 /* inspired by githubs kbd styles */
