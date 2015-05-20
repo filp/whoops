@@ -17,7 +17,7 @@ class InspectorTest extends TestCase
      * @param  Exception $previous
      * @return Exception
      */
-    protected function getException($message = null, $code = 0, Exception $previous = null)
+    protected function getException($message = null, $code = 0, $previous = null)
     {
         return new Exception($message, $code, $previous);
     }
@@ -26,7 +26,7 @@ class InspectorTest extends TestCase
      * @param  Exception                  $exception|null
      * @return Whoops\Exception\Inspector
      */
-    protected function getInspectorInstance(Exception $exception = null)
+    protected function getInspectorInstance($exception = null)
     {
         return new Inspector($exception);
     }

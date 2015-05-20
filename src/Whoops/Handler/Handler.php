@@ -74,7 +74,7 @@ abstract class Handler implements HandlerInterface
     /**
      * @param Exception $exception
      */
-    public function setException(Exception $exception)
+    public function setException($exception)
     {
         $this->exception = $exception;
     }

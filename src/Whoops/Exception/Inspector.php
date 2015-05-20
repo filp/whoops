@@ -28,7 +28,7 @@ class Inspector
     /**
      * @param Exception $exception The exception to inspect
      */
-    public function __construct(Exception $exception)
+    public function __construct($exception)
     {
         $this->exception = $exception;
     }
@@ -131,7 +131,7 @@ class Inspector
      * @param  Exception $exception
      * @return array
      */
-    protected function getFrameFromException(Exception $exception)
+    protected function getFrameFromException($exception)
     {
         return array(
             'file'  => $exception->getFile(),

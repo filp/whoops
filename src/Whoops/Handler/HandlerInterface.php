@@ -27,7 +27,7 @@ interface HandlerInterface
      * @param  Exception $exception
      * @return void
      */
-    public function setException(Exception $exception);
+    public function setException($exception);
 
     /**
      * @param  Inspector $inspector
