@@ -41,7 +41,7 @@ Zepto(function($) {
       $container.scrollTop(headerHeight);
     }
   });
-  
+
   if (typeof ZeroClipboard !== "undefined") {
 	  ZeroClipboard.config({
 		  moviePath: '//ajax.cdnjs.com/ajax/libs/zeroclipboard/1.3.5/ZeroClipboard.swf',
@@ -58,15 +58,20 @@ Zepto(function($) {
 		  $clipHelpEl.show();
 	  });
   }
-
   $(document).on('click', '.Whoops-hider', function () {
 	  var $container = $('.Whoops.container');
-	  if ($container.hasClass('hidden') === false) {
-		  $container.hide().addClass('hidden');
-		  $(this).html('+');
+	  if (!$container.hasClass('hidden')) {
+		  $container.addClass('hidden');
+		  $(this)
+			  .addClass('closed')
+			  .prop('title', 'return to Whoops')
+		  ;
 	  } else {
-		  $container.show().removeClass('hidden');
-		  $(this).html('X');
+		  $container.removeClass('hidden');
+		  $(this)
+			  .removeClass('closed')
+			  .prop('title', 'view raw script output')
+		  ;
 	  }
   });
   $(document).on('keydown', function(e) {

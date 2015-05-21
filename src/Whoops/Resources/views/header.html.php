@@ -22,7 +22,7 @@
       <div id="help-code">Code snippet where the error was thrown</div>
       <div id="help-request">Server state information</div>
       <div id="help-appinfo">Application provided context information</div>
-	  <div id="help-hider">Hide/show Whoops output</div>
+	  <div id="help-hider">Hide/show raw script output</div>
     </div>
   </div>
 

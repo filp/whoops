@@ -12,7 +12,7 @@
     <style><?php echo $stylesheet ?></style>
   </head>
   <body>
-	<div class="Whoops-hider">X</div>
+	<div class="Whoops-hider"></div>
     <div class="Whoops container">
       <div class="stack-container">
         <div class="frames-container cf <?php echo (!$has_frames ? 'empty' : '') ?>">
