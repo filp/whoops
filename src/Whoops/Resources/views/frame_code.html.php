@@ -9,7 +9,7 @@
           <?php $filePath = $frame->getFile(); ?>
           <?php if ($filePath && $editorHref = $handler->getEditorHref($filePath, (int) $line)): ?>
             Open:
-            <a href="<?php echo $editorHref ?>" class="editor-link">
+            <a href="<?php echo $editorHref ?>" class="editor-link"<?php echo ($handler->getEditorAjax($filePath, (int) $line) ? ' data-ajax' : '') ?>>
               <strong><?php echo $tpl->escape($filePath ?: '<#unknown>') ?></strong>
             </a>
           <?php else: ?>

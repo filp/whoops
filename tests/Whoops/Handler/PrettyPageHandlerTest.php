@@ -13,7 +13,7 @@ use Whoops\TestCase;
 class PrettyPageHandlerTest extends TestCase
 {
     /**
-     * @return Whoops\Handler\JsonResponseHandler
+     * @return \Whoops\Handler\PrettyPageHandler
      */
     private function getHandler()
     {
@@ -209,10 +209,13 @@ class PrettyPageHandlerTest extends TestCase
     /**
      * @covers Whoops\Handler\PrettyPageHandler::setEditor
      * @covers Whoops\Handler\PrettyPageHandler::getEditorHref
+     * @covers Whoops\Handler\PrettyPageHandler::getEditorAjax
      */
     public function testSetEditorCallable()
     {
         $handler = $this->getHandler();
+
+        // Test Callable editor with String return
         $handler->setEditor(function ($file, $line) {
             $file = rawurlencode($file);
             $line = rawurlencode($line);
@@ -223,6 +226,47 @@ class PrettyPageHandlerTest extends TestCase
             $handler->getEditorHref('/foo/bar.php', 10),
             'http://google.com/search/?q=%2Ffoo%2Fbar.php:10'
         );
+
+        // Then test Callable editor with Array return
+        $handler->setEditor(function ($file, $line) {
+            $file = rawurlencode($file);
+            $line = rawurlencode($line);
+            return array(
+                'url' => "http://google.com/search/?q=$file:$line",
+                'ajax' => true,
+            );
+        });
+
+        $this->assertEquals(
+            $handler->getEditorHref('/foo/bar.php', 10),
+            'http://google.com/search/?q=%2Ffoo%2Fbar.php:10'
+        );
+
+        $this->assertEquals(
+            $handler->getEditorAjax('/foo/bar.php', 10),
+            true
+        );
+
+
+        $handler->setEditor(function ($file, $line) {
+            $file = rawurlencode($file);
+            $line = rawurlencode($line);
+            return array(
+                'url' => "http://google.com/search/?q=$file:$line",
+                'ajax' => false,
+            );
+        });
+
+        $this->assertEquals(
+            $handler->getEditorHref('/foo/bar.php', 10),
+            'http://google.com/search/?q=%2Ffoo%2Fbar.php:10'
+        );
+
+        $this->assertEquals(
+            $handler->getEditorAjax('/foo/bar.php', 10),
+            false
+        );
+
     }
 
     /**
@@ -251,7 +295,7 @@ class PrettyPageHandlerTest extends TestCase
             // Even though this test only uses ini_set and ini_get,
             // without xdebug active, those calls do not work.
             // In particular, ini_get after ini_setting returns false.
-            return $this->markTestSkipped('The xdebug extension is not loaded.');
+            $this->markTestSkipped('The xdebug extension is not loaded.');
         }
 
         $originalValue = ini_get('xdebug.file_link_format');

@@ -365,7 +365,7 @@ PrettyPageHandler::addResourcePath(string $resourcesPath)
 
 // Sets an editor to use to open referenced files, either by
 // a string identifier, or as an arbitrary callable that returns
-// a string that can be used as an href attribute.
+// a string or an array that can be used as an href attribute.
 // Available built-in editors are:
 // - sublime
 // - emacs
@@ -373,6 +373,15 @@ PrettyPageHandler::addResourcePath(string $resourcesPath)
 // - macvim
 PrettyPageHandler::setEditor(string $editor)
 PrettyPageHandler::setEditor(function ($file, $line) { return string })
+
+// Additionally you may want that the link acts as an ajax request (e.g. Intellij platform)
+PrettyPageHandler::setEditor(function ($file, $line) { 
+        return array(
+            'url' => "http://localhost:63342/api/file/?file=$file&line=$line",
+            'ajax' => true
+        ); 
+    }
+)
  #=> null
 
 // Similar to PrettyPageHandler::setEditor, but allows you
@@ -387,6 +396,8 @@ PrettyPageHandler::setEditor(function ($file, $line) { return string })
 // $handler->addEditor('whatevs', 'whatevs://open?file=file://%file&line=%line')
 PrettyPageHandler::addEditor(string $editor, $resolver)
  #=> null
+ 
+ 
 
 PrettyPageHandler::handle()
  #=> int | null
