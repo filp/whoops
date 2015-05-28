@@ -324,6 +324,10 @@ class PrettyPageHandler extends Handler
     {
         $editor = $this->getEditor($filePath, $line);
 
+        if (!$editor) {
+            return false;
+        }
+
         // Check that the editor is a string, and replace the
         // %line and %file placeholders:
         if (!isset($editor['url']) || !is_string($editor['url'])) {
