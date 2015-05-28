@@ -318,7 +318,7 @@ class PrettyPageHandler extends Handler
      * @throws InvalidArgumentException If editor resolver does not return a string
      * @param  string                   $filePath
      * @param  int                      $line
-     * @return string
+     * @return string|bool
      */
     public function getEditorHref($filePath, $line)
     {
