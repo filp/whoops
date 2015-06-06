@@ -42,7 +42,7 @@ header {
   background-color: #2a2a2a;
   box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.05);
 
-  padding: 45px 30px;
+  padding: 25px 40px;
 }
   .exc-title {
     margin: 0;
@@ -420,11 +420,6 @@ kbd {
 /* Expand the spacing in the details section */
 @media (min-width: 1000px) {
   .details, .frame-code {
-    padding: 40px;
-  }
-
-  header {
-    padding-left: 65px;
-    padding-right: 65px;
+    padding: 20px 40px;
   }
 }
