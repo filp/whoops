@@ -151,7 +151,9 @@ header {
       padding: 10px;
       margin: 0;
       border-radius: 6px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, .1);
+      box-shadow: 0 3px 0 rgba(0, 0, 0, .05),
+                  0 10px 30px rgba(0, 0, 0, .05),
+                  inset 0 0 1px 0 rgba(255, 255, 255, .07);
     }
 
     .linenums {
@@ -167,13 +169,12 @@ header {
     }
 
     .frame-comments.empty {
-      padding: 8px 15px;
     }
 
     .frame-comments.empty:before {
       content: "No comments for this stack frame.";
       font-style: italic;
-      color: #828282;
+      color: #a29d9d;
     }
 
     .frame-comment {
