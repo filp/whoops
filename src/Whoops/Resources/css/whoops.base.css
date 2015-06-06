@@ -1,11 +1,13 @@
 .cf:before, .cf:after {content: " ";display: table;} .cf:after {clear: both;} .cf {*zoom: 1;}
 body {
-  font: 14px helvetica, arial, sans-serif;
-  color: #2B2B2B;
-  background-color: #D4D4D4;
+  font: 12px "Helvetica Neue", helvetica, arial, sans-serif;
+  color: #131313;
+  background: #eeeeee;
   padding:0;
   margin: 0;
   max-height: 100%;
+
+  text-rendering: optimizeLegibility;
 }
   a {
     text-decoration: none;
@@ -30,89 +32,89 @@ body {
     z-index: 100;
 }
   .branding a {
-    color: #CD3F3F;
+    color: #e95353;
   }
 
 header {
-  padding: 30px 20px;
   color: white;
-  background: #272727;
   box-sizing: border-box;
-  border-left: 5px solid #CD3F3F;
+  border-left: 3px solid #4288CE;
+  background-color: #2a2a2a;
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+
+  padding: 45px 30px;
 }
   .exc-title {
     margin: 0;
-    color: #616161;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, .1);
+    color: #bebebe;
+    font-size: 14px;
   }
-    .exc-title-primary { color: #CD3F3F; }
+    .exc-title-primary {
+      color: #e95353;
+      font-weight: bold;
+    }
+
     .exc-message {
       font-size: 32px;
-      margin: 5px 0;
       word-wrap: break-word;
+      margin: 3px 0 0 0;
+      color: white;
     }
 
 .stack-container {
-    height: 100%;
-    position: relative;
+  height: 100%;
+  position: relative;
 }
 
 .details-container {
   height: 100%;
   overflow: auto;
   float: right;
-  width: 70%;
-  background: #DADADA;
+  width: 75%;
+  background: #fafafa;
 }
   .details {
-    padding: 10px;
-    padding-left: 5px;
-    border-left: 5px solid rgba(0, 0, 0, .1);
+    padding: 5px;
+    border-left: 3px solid rgba(0, 0, 0, .1);
   }
 
 .frames-container {
   height: 100%;
   overflow: auto;
   float: left;
-  width: 30%;
-  background: #FFF;
+  width: 25%;
 }
   .frame {
     padding: 14px;
-    background: #F3F3F3;
-    border-right: 1px solid rgba(0, 0, 0, .2);
     cursor: pointer;
+    transition: all 0.1s ease;
   }
     .frame.active {
-      background-color: #4288CE;
-      color: #F3F3F3;
-              box-shadow: inset -2px 0 0 rgba(255, 255, 255, .1);
-      text-shadow: 0 1px 0 rgba(0, 0, 0, .2);
+      box-shadow: inset -5px 0 0 0 #4288CE;
+      color: #4288CE;
     }
 
     .frame:not(.active):hover {
-      background: #BEE9EA;
+      background: rgba(0, 0, 0, .15);
+    }
+
+    .frame-method-info {
+      margin-bottom: 10px;
     }
 
     .frame-class, .frame-function, .frame-index {
-      font-weight: bold;
+      font-size: 14px;
     }
 
     .frame-index {
       font-size: 11px;
-      color: #BDBDBD;
+      color: #a29d9d;
     }
-
-    .frame-class {
-      color: #4288CE;
-    }
-      .active .frame-class {
-        color: #BEE9EA;
-      }
 
     .frame-file {
       font-family: "Inconsolata", "Fira Mono", "Source Code Pro", Monaco, Consolas, "Lucida Console", monospace;
-      word-wrap:break-word;
+      word-wrap: break-word;
+      color: #a29d9d;
     }
 
       .frame-file .editor-link {
@@ -121,20 +123,17 @@ header {
 
     .frame-line {
       font-weight: bold;
-      color: #4288CE;
     }
 
-    .active .frame-line { color: #BEE9EA; }
     .frame-line:before {
       content: ":";
     }
 
     .frame-code {
-      padding: 10px;
-      padding-left: 5px;
-      background: #BDBDBD;
+      padding: 5px;
+      background: #2a2a2a;
       display: none;
-      border-left: 5px solid #4288CE;
+      border-left: 3px solid #4288CE;
     }
 
     .frame-code.active {
@@ -142,23 +141,17 @@ header {
     }
 
     .frame-code .frame-file {
-      background: #C6C6C6;
-      color: #525252;
-      text-shadow: 0 1px 0 #E7E7E7;
-      padding: 10px 10px 5px 10px;
+      color: #a29d9d;
+      padding: 12px 6px;
 
-      border-top-right-radius: 6px;
-      border-top-left-radius:  6px;
-
-      border: 1px solid rgba(0, 0, 0, .1);
       border-bottom: none;
-      box-shadow: inset 0 1px 0 #DADADA;
     }
 
     .code-block {
       padding: 10px;
       margin: 0;
-      box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+      border-radius: 6px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, .1);
     }
 
     .linenums {
@@ -167,16 +160,10 @@ header {
     }
 
     .frame-comments {
-      box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
-      border: 1px solid rgba(0, 0, 0, .2);
       border-top: none;
+      margin-top: 10px;
 
-      border-bottom-right-radius: 6px;
-      border-bottom-left-radius:  6px;
-
-      padding: 5px;
       font-size: 12px;
-      background: #404040;
     }
 
     .frame-comments.empty {
@@ -191,10 +178,11 @@ header {
 
     .frame-comment {
       padding: 10px;
-      color: #D2D2D2;
+      color: #e3e3e3;
+      border-radius: 6px;
+      background-color: rgba(255, 255, 255, .05);
     }
       .frame-comment a {
-        color: #BEE9EA;
         font-weight: bold;
         text-decoration: none;
       }
@@ -208,8 +196,7 @@ header {
 
     .frame-comment-context {
       font-size: 10px;
-      font-weight: bold;
-      color: #86D2B6;
+      color: white;
     }
 
 .data-table-container label {
@@ -217,16 +204,15 @@ header {
   font-weight: bold;
   color: #4288CE;
   margin: 10px 0;
-  padding: 10px 0;
 
   display: block;
+
   margin-bottom: 5px;
   padding-bottom: 5px;
-  border-bottom: 1px dotted rgba(0, 0, 0, .2);
 }
   .data-table {
     width: 100%;
-    margin: 10px 0;
+    margin-bottom: 10px;
   }
 
   .data-table tbody {
@@ -266,18 +252,12 @@ header {
     font-style: italic;
   }
   .data-table label.empty {
-	display: inline;
+	  display: inline;
   }
 
 .handler {
-  padding: 10px;
+  padding: 4px 0;
   font: 14px "Inconsolata", "Fira Mono", "Source Code Pro", Monaco, Consolas, "Lucida Console", monospace;
-}
-
-.handler.active {
-  color: #BBBBBB;
-  background: #989898;
-  font-weight: bold;
 }
 
 /* prettify code style
@@ -328,25 +308,35 @@ pre.prettyprint, code.prettyprint {
 #copy-button {
 	display: none;
 	float: right;
-	cursor: pointer;	
+	cursor: pointer;
 	border: 0;
 }
 
 .clipboard {
-	width:            29px;
-	height:           28px;
+	width:            18px;
+	height:           17px;
+
 	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB0AAAAcCAYAAACdz7SqAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3gUUByMD0ZSoGQAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAACAklEQVRIx72Wv0sbYRjHP29y1VoXxR9UskjpXTaHoBUcpGgKkS5OZ1Ec/QeKOIhalEghoOCqQsGhFAWbISKYyaFDS1BKKW0TCYrQSdElXSReh9bkksu9iZdLbnrvvee9z/N83+d9nldo2gvjzd5Hxp4246W6J5tJszsxwvxPIbXzwBQDLgABvM1P6JsAwzCkdopl5vqIuWev2K4QpH/4QjjQci/nPCVny3iaNzMcrVUsC1sChFMpwtTu8dTqx7J9dR3a2BngUb0j7Xr+jtjasBR8f+jpNqqqoqoqmqblxjOJq/8GTfhCK8TWhmmykdhRpEIIhBCWMcD51wQXN3KwY3nvYGYgQPbXOMHJKOlMA77QCvsbugXsOFLZ+5+jGULBtyQuFB4PzlrAVSWSGWaptpdbjAcniaZv6RhcIL6VByvVZqsQouBMdutJkrrVrr1/gdjqN4Ze/3DvyBwcnnF9I7N4gC8YYdqNSHP7uD5G/7pdJRrl/ecIva1t9IRcgpolLk6qQic8eB+6GOkdrDjSf/OiTD91CS4r+jXrMqWkrgvUtuDbeVNTKGzw6SRDto5QBc5Yehlg0WbTc8mwHCeld1u+yZSySySlspTHFmZUeIkrgBYvtvPcyBdXkqWKq5OLmbk/luqVYjPOd3lxLXf/J/P7mJ0oCL/fX1Yfs4RO5CxW8C97dLBw2Q3fUwAAAABJRU5ErkJggg==');
 	background-repeat: no-repeat;
+  background-size: contain;
+
+  opacity: .8;
 }
 
-.help button {
+  .clipboard:hover {
+    opacity: 1;
+  }
+
+.help span {
 	cursor: help;
-	height:   28px;
-	float: right;
-	margin-left: 10px;
+  color: white;
+  display: none; /* temporarily disabled */
+  font-weight: bold;
+  font-size: 16px;
+  float: right;
 }
 
-.help button:hover + #help-overlay {
+.help span:hover + #help-overlay {
 	display: block;
 }
 
@@ -366,7 +356,6 @@ pre.prettyprint, code.prettyprint {
 	padding: 5px;
 	color: #463c54;
 	background-color: white;
-	border-radius: 10px;
 }
 
 #help-clipboard {
@@ -414,14 +403,27 @@ kbd {
     background-color: #fcfcfc;
     border-color: #ccc #ccc #bbb;
     border-image: none;
-    border-radius: 3px;
     border-style: solid;
     border-width: 1px;
-    box-shadow: 0 -1px 0 #bbb inset;
     color: #555;
     display: inline-block;
     font-size: 11px;
     line-height: 10px;
     padding: 3px 5px;
     vertical-align: middle;
+}
+
+
+/* == Media queries */
+
+/* Expand the spacing in the details section */
+@media (min-width: 1000px) {
+  .details, .frame-code {
+    padding: 40px;
+  }
+
+  header {
+    padding-left: 65px;
+    padding-right: 65px;
+  }
 }
