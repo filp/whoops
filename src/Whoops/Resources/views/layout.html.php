@@ -14,15 +14,15 @@
   <body>
 
     <div class="Whoops container">
+      <header>
+        <?php $tpl->render($header) ?>
+      </header>
 
       <div class="stack-container">
         <div class="frames-container cf <?php echo (!$has_frames ? 'empty' : '') ?>">
           <?php $tpl->render($frame_list) ?>
         </div>
         <div class="details-container cf">
-          <header>
-            <?php $tpl->render($header) ?>
-          </header>
           <?php $tpl->render($frame_code) ?>
           <?php $tpl->render($env_details) ?>
         </div>

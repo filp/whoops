@@ -39,10 +39,10 @@ Zepto(function($) {
 
       highlightCurrentLine();
 
-      $container.scrollTop(headerHeight);
+      $container.scrollTop(0);
     }
   });
-  
+
   if (typeof ZeroClipboard !== "undefined") {
 	  ZeroClipboard.config({
 		  moviePath: '//ajax.cdnjs.com/ajax/libs/zeroclipboard/1.3.5/ZeroClipboard.swf',
@@ -57,11 +57,11 @@ Zepto(function($) {
 		  $clipEl.show();
 	  });
   }
-  
+
   $(document).on('keydown', function(e) {
 	  if(e.ctrlKey) {
 		  // CTRL+Arrow-UP/Arrow-Down support:
-		  // 1) select the next/prev element 
+		  // 1) select the next/prev element
 		  // 2) make sure the newly selected element is within the view-scope
 		  // 3) focus the (right) container, so arrow-up/down (without ctrl) scroll the details
 		  if (e.which === 38 /* arrow up */) {
@@ -75,9 +75,9 @@ Zepto(function($) {
 			  $container.focus();
 			  e.preventDefault();
 		  }
-	  } 
+	  }
   });
-  
+
   // Avoid to quit the page with some protocol (e.g. IntelliJ Platform REST API)
   $ajaxEditors.on('click', function(e){
     e.preventDefault();
