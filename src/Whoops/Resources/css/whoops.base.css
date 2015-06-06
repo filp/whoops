@@ -397,21 +397,21 @@ pre.prettyprint, code.prettyprint {
 
 /* inspired by githubs kbd styles */
 kbd {
-    -moz-border-bottom-colors: none;
-    -moz-border-left-colors: none;
-    -moz-border-right-colors: none;
-    -moz-border-top-colors: none;
-    background-color: #fcfcfc;
-    border-color: #ccc #ccc #bbb;
-    border-image: none;
-    border-style: solid;
-    border-width: 1px;
-    color: #555;
-    display: inline-block;
-    font-size: 11px;
-    line-height: 10px;
-    padding: 3px 5px;
-    vertical-align: middle;
+  -moz-border-bottom-colors: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+  background-color: #fcfcfc;
+  border-color: #ccc #ccc #bbb;
+  border-image: none;
+  border-style: solid;
+  border-width: 1px;
+  color: #555;
+  display: inline-block;
+  font-size: 11px;
+  line-height: 10px;
+  padding: 3px 5px;
+  vertical-align: middle;
 }
 
 
