@@ -1,5 +1,5 @@
 <div class="exception">
-  <h3 class="exc-title">
+  <div class="exc-title">
     <?php foreach ($name as $i => $nameSection): ?>
       <?php if ($i == count($name) - 1): ?>
         <span class="exc-title-primary"><?php echo $tpl->escape($nameSection) ?></span>
@@ -10,10 +10,10 @@
     <?php if ($code): ?>
       <span title="Exception Code">(<?php echo $tpl->escape($code) ?>)</span>
     <?php endif ?>
-  </h3>
+  </div>
 
   <div class="help">
-    <button title="show help">HELP</button>
+    <span title="show help">?</button>
 
     <div id="help-overlay">
       <div id="help-framestack">Callstack information; navigate with mouse or keyboard using <kbd>Ctrl+&uparrow;</kbd> or <kbd>Ctrl+&downarrow;</kbd></div>
