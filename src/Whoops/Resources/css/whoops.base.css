@@ -38,7 +38,6 @@ header {
   color: white;
   box-sizing: border-box;
   background-color: #2a2a2a;
-
   padding: 35px 40px;
 }
   .exc-title {
@@ -72,7 +71,7 @@ header {
 }
   .details {
     padding: 5px;
-    border-left: 3px solid rgba(0, 0, 0, .1);
+    border-left: 3px solid #BDBDBD;
   }
 
 .frames-container {
@@ -128,11 +127,9 @@ header {
 
     .frame-code {
       padding: 5px;
-      background: #2a2a2a;
+      background: #303030;
       display: none;
       border-left: 3px solid #4288CE;
-
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
     }
 
     .frame-code.active {
@@ -162,7 +159,7 @@ header {
 
     .frame-comments {
       border-top: none;
-      margin-top: 10px;
+      margin-top: 15px;
 
       font-size: 12px;
     }
@@ -420,5 +417,13 @@ kbd {
 @media (min-width: 1000px) {
   .details, .frame-code {
     padding: 20px 40px;
+  }
+
+  .details-container {
+    width: 70%;
+  }
+
+  .frames-container {
+    width: 30%;
   }
 }
