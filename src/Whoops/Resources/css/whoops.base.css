@@ -105,7 +105,7 @@ header {
     }
 
     .frame:not(.active):hover {
-      background: rgba(0, 0, 0, .15);
+      background: #BEE9EA;
     }
 
     .frame-method-info {
