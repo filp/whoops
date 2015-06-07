@@ -40,6 +40,7 @@ header {
   background-color: #2a2a2a;
   padding: 35px 40px;
 }
+
   .exc-title {
     margin: 0;
     color: #bebebe;
@@ -73,17 +74,31 @@ header {
     padding: 5px;
   }
 
-.frames-container {
+.left-panel {
   height: 100%;
   overflow: auto;
   float: left;
   width: 30%;
+  background: #ded8d8;
 }
+
+  .frames-description {
+    background: rgba(0, 0, 0, .05);
+    padding: 8px 15px;
+    color: #a29d9d;
+    font-size: 11px;
+  }
+
   .frame {
     padding: 14px;
     cursor: pointer;
     transition: all 0.1s ease;
+    background: #eeeeee;
   }
+    .frame:not(:last-child) {
+      border-bottom: 1px solid rgba(0, 0, 0, .05);
+    }
+
     .frame.active {
       box-shadow: inset -5px 0 0 0 #4288CE;
       color: #4288CE;
@@ -104,6 +119,13 @@ header {
     .frame-index {
       font-size: 11px;
       color: #a29d9d;
+      background-color: rgba(0, 0, 0, .05);
+      height: 18px;
+      width: 18px;
+      line-height: 18px;
+      border-radius: 100%;
+      text-align: center;
+      display: inline-block;
     }
 
     .frame-file {
@@ -422,6 +444,10 @@ kbd {
   }
 
   .frames-container {
+    margin: 5px;
+  }
+
+  .left-panel {
     width: 32%;
   }
 }

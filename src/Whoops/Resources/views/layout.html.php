@@ -15,12 +15,18 @@
 
     <div class="Whoops container">
       <div class="stack-container">
-        <div class="frames-container cf <?php echo (!$has_frames ? 'empty' : '') ?>">
+        <div class="left-panel cf <?php echo (!$has_frames ? 'empty' : '') ?>">
           <header>
             <?php $tpl->render($header) ?>
           </header>
 
-          <?php $tpl->render($frame_list) ?>
+          <div class="frames-description">
+            Stack frames (<?php echo count($frames) ?>):
+          </div>
+
+          <div class="frames-container">
+            <?php $tpl->render($frame_list) ?>
+          </div>
         </div>
         <div class="details-container cf">
           <?php $tpl->render($frame_code) ?>
