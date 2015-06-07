@@ -51,9 +51,9 @@ header {
     }
 
     .exc-message {
-      font-size: 32px;
+      font-size: 20px;
       word-wrap: break-word;
-      margin: 3px 0 0 0;
+      margin: 4px 0 0 0;
       color: white;
     }
 
@@ -66,7 +66,7 @@ header {
   height: 100%;
   overflow: auto;
   float: right;
-  width: 75%;
+  width: 70%;
   background: #fafafa;
 }
   .details {
@@ -78,7 +78,7 @@ header {
   height: 100%;
   overflow: auto;
   float: left;
-  width: 25%;
+  width: 30%;
 }
   .frame {
     padding: 14px;
@@ -420,10 +420,10 @@ kbd {
   }
 
   .details-container {
-    width: 70%;
+    width: 65%;
   }
 
   .frames-container {
-    width: 30%;
+    width: 35%;
   }
 }
