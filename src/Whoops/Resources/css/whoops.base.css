@@ -71,7 +71,6 @@ header {
 }
   .details {
     padding: 5px;
-    border-left: 3px solid #BDBDBD;
   }
 
 .frames-container {
@@ -129,7 +128,6 @@ header {
       padding: 5px;
       background: #303030;
       display: none;
-      border-left: 3px solid #4288CE;
     }
 
     .frame-code.active {
@@ -420,10 +418,10 @@ kbd {
   }
 
   .details-container {
-    width: 65%;
+    width: 68%;
   }
 
   .frames-container {
-    width: 35%;
+    width: 32%;
   }
 }
