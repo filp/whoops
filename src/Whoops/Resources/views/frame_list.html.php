@@ -4,7 +4,7 @@
 <?php foreach ($frames as $i => $frame): ?>
   <div class="frame <?php echo ($i == 0 ? 'active' : '') ?>" id="frame-line-<?php echo $i ?>">
       <div class="frame-method-info">
-        <span class="frame-index"><?php echo (count($frames) - $i - 1) ?>.</span>
+        <span class="frame-index"><?php echo (count($frames) - $i - 1) ?></span>
         <span class="frame-class"><?php echo $tpl->escape($frame->getClass() ?: '') ?></span>
         <span class="frame-function"><?php echo $tpl->escape($frame->getFunction() ?: '') ?></span>
       </div>
