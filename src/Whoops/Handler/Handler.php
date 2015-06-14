@@ -72,7 +72,7 @@ abstract class Handler implements HandlerInterface
     }
 
     /**
-     * @param Exception $exception
+     * @param Throwable $exception
      */
     public function setException($exception)
     {
@@ -80,7 +80,7 @@ abstract class Handler implements HandlerInterface
     }
 
     /**
-     * @return Exception
+     * @return Throwable
      */
     protected function getException()
     {

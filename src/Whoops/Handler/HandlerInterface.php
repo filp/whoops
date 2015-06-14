@@ -24,7 +24,7 @@ interface HandlerInterface
     public function setRun(Run $run);
 
     /**
-     * @param  Exception $exception
+     * @param  Throwable $exception
      * @return void
      */
     public function setException($exception);
