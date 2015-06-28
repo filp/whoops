@@ -73,6 +73,7 @@ class PrettyPageHandler extends Handler
         "textmate" => "txmt://open?url=file://%file&line=%line",
         "emacs"    => "emacs://open?url=file://%file&line=%line",
         "macvim"   => "mvim://open/?url=file://%file&line=%line",
+	"phpstorm" => "phpstorm://open?file=%file&line=%line",
     );
 
     /**
