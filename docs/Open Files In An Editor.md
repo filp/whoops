@@ -19,6 +19,7 @@ The following editors are currently supported by default.
 - `textmate` - Textmate
 - `macvim`   - MacVim
 - `xdebug`   - xdebug (uses [xdebug.file_link_format](http://xdebug.org/docs/all_settings#file_link_format))
+- `phpstorm` - PhpStorm
 
 Adding your own editor is simple:
 
