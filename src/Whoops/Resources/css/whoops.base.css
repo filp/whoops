@@ -74,6 +74,14 @@ header {
     padding: 5px;
   }
 
+    .details-heading {
+      color: #303030;
+      font-weight: 300;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid rgba(0, 0, 0, .1);
+    }
+
 .left-panel {
   height: 100%;
   overflow: auto;
@@ -189,7 +197,7 @@ header {
 
     .frame-comments.empty:before {
       content: "No comments for this stack frame.";
-      font-style: italic;
+      font-weight: 300;
       color: #a29d9d;
     }
 
@@ -266,7 +274,7 @@ header {
 
   .data-table span.empty {
     color: rgba(0, 0, 0, .3);
-    font-style: italic;
+    font-weight: 300;
   }
   .data-table label.empty {
 	  display: inline;
@@ -437,6 +445,7 @@ kbd {
 @media (min-width: 1000px) {
   .details, .frame-code {
     padding: 20px 40px;
+    margin-bottom: 60px;
   }
 
   .details-container {
