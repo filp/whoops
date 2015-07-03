@@ -29,6 +29,10 @@
   <span id="plain-exception"><?php echo $tpl->escape($plain_exception) ?></span>
 
   <p class="exc-message">
-    <?php echo $tpl->escape($message) ?>
+    <?php if (!empty($message)): ?>
+      <?php echo $tpl->escape($message) ?>
+    <?php else: ?>
+      <span class="exc-message-empty-notice">No message</span>
+    <?php endif ?>
   </p>
 </div>
