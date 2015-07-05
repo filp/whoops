@@ -1,5 +1,5 @@
-vendor/*
-report/*
-phpunit.xml
 composer.lock
+phpunit.xml
+report
+vendor
 /.idea/

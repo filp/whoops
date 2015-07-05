@@ -261,9 +261,12 @@ header {
     hyphens: auto;
   }
 
-  .data-table .empty {
+  .data-table span.empty {
     color: rgba(0, 0, 0, .3);
     font-style: italic;
+  }
+  .data-table label.empty {
+	display: inline;
   }
 
 .handler {

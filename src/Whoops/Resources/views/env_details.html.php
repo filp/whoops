@@ -3,8 +3,8 @@
   <div class="data-table-container" id="data-tables">
     <?php foreach ($tables as $label => $data): ?>
       <div class="data-table" id="sg-<?php echo $tpl->escape($tpl->slug($label)) ?>">
-        <label><?php echo $tpl->escape($label) ?></label>
         <?php if (!empty($data)): ?>
+            <label><?php echo $tpl->escape($label) ?></label>
             <table class="data-table">
               <thead>
                 <tr>
@@ -20,7 +20,8 @@
             <?php endforeach ?>
             </table>
         <?php else: ?>
-          <span class="empty">empty</span>
+            <label class="empty"><?php echo $tpl->escape($label) ?></label>
+            <span class="empty">empty</span>
         <?php endif ?>
       </div>
     <?php endforeach ?>

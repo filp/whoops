@@ -3,8 +3,9 @@ php errors for cool kids
 
 [![Total Downloads](https://img.shields.io/packagist/dm/filp/whoops.svg)](https://packagist.org/packages/filp/whoops)
 [![Latest Version](http://img.shields.io/packagist/v/filp/whoops.svg)](https://packagist.org/packages/filp/whoops)
+[![Reference Status](https://www.versioneye.com/php/filp:whoops/reference_badge.svg?style=flat)](https://www.versioneye.com/php/filp:whoops/references)
+[![Dependency Status](https://www.versioneye.com/php/filp:whoops/1.1.5/badge.svg)](https://www.versioneye.com/php/filp:whoops/1.1.5)
 [![Build Status](https://travis-ci.org/filp/whoops.svg?branch=master)](https://travis-ci.org/filp/whoops)
-[![Dependency Status](https://depending.in/filp/whoops.png)](https://depending.in/filp/whoops)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/filp/whoops/badges/quality-score.png?s=6225c36f2a2dd1fdca11ecc7b10b29105c8c62bd)](https://scrutinizer-ci.com/g/filp/whoops)
 [![Code Coverage](https://scrutinizer-ci.com/g/filp/whoops/badges/coverage.png?s=711feb2069144d252d111b211965ffb19a7d09a8)](https://scrutinizer-ci.com/g/filp/whoops)
 
@@ -36,8 +37,9 @@ If you use Laravel 4, you already have Whoops. There are also community-provided
 [Silex 2](https://github.com/texthtml/whoops-silex),
 [Phalcon](docs/Framework%20Integration.md#integrating-with-phalcon),
 [Laravel 3](https://gist.github.com/hugomrdias/5169713#file-start-php),
-[CakePHP 2](https://github.com/oldskool/WhoopsCakephp),
-[CakePHP 3](https://github.com/oldskool/WhoopsCakephp/tree/cake3),
+[Laravel 5](https://mattstauffer.co/blog/bringing-whoops-back-to-laravel-5),
+[CakePHP 2](https://github.com/oldskool/WhoopsCakephp/tree/cake2),
+[CakePHP 3](https://github.com/oldskool/WhoopsCakephp),
 [Zend Framework 2](https://github.com/ghislainf/zf2-whoops),
 [Yii 1](https://github.com/igorsantos07/yii-whoops),
 [FuelPHP](https://github.com/indigophp/fuel-whoops),
