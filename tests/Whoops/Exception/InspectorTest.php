@@ -12,9 +12,9 @@ use Whoops\TestCase;
 class InspectorTest extends TestCase
 {
     /**
-     * @param  string    $message
-     * @param  int       $code
-     * @param  Throwable $previous
+     * @param  string     $message
+     * @param  int        $code
+     * @param  \Throwable $previous
      * @return Exception
      */
     protected function getException($message = null, $code = 0, $previous = null)
@@ -23,7 +23,7 @@ class InspectorTest extends TestCase
     }
 
     /**
-     * @param  Throwable                  $exception|null
+     * @param  \Throwable                 $exception|null
      * @return Whoops\Exception\Inspector
      */
     protected function getInspectorInstance($exception = null)
