@@ -137,6 +137,11 @@ class Inspector
     {
         $traces = $e->getTrace();
 
+        // Get trace from xdebug if enabled, failure exceptions only trace to the shutdown handler by default
+        if (!$e instanceof \ErrorException) {
+            return $traces;
+        }
+
         switch ($e->getSeverity()) {
             case E_ERROR:
             case E_RECOVERABLE_ERROR:
@@ -152,8 +157,7 @@ class Inspector
                 break;
         }
 
-        // Get trace from xdebug if enabled, failure exceptions only trace to the shutdown handler by default
-        if (!$e instanceof \ErrorException || !$fatal) {
+        if (!$fatal) {
             return $traces;
         }
 
