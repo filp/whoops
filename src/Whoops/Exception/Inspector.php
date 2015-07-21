@@ -153,7 +153,7 @@ class Inspector
         }
 
         // Get trace from xdebug if enabled, failure exceptions only trace to the shutdown handler by default
-        if(!$e instanceof \ErrorException || !$fatal) {
+        if (!$e instanceof \ErrorException || !$fatal) {
             return $traces;
         }
 
