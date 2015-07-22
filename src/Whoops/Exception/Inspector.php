@@ -92,7 +92,7 @@ class Inspector
     public function getFrames()
     {
         if ($this->frames === null) {
-            $frames = $this->exception->getTrace();
+            $frames = $this->getTrace($this->exception);
 
             // If we're handling an ErrorException thrown by Whoops,
             // get rid of the last frame, which matches the handleError method,
@@ -123,6 +123,54 @@ class Inspector
         }
 
         return $this->frames;
+    }
+
+    /**
+     * Gets the backgrace from an exception.
+     *
+     * If xdebug is installed
+     *
+     * @param Exception $e
+     * @return array
+     */
+    protected function getTrace(\Exception $e)
+    {
+        $traces = $e->getTrace();
+
+        // Get trace from xdebug if enabled, failure exceptions only trace to the shutdown handler by default
+        if (!$e instanceof \ErrorException) {
+            return $traces;
+        }
+
+        switch ($e->getSeverity()) {
+            case E_ERROR:
+            case E_RECOVERABLE_ERROR:
+            case E_PARSE:
+            case E_CORE_ERROR:
+            case E_COMPILE_ERROR:
+            case E_USER_ERROR:
+                $fatal = true;
+                break;
+
+            default:
+                $fatal = false;
+                break;
+        }
+
+        if (!$fatal) {
+            return $traces;
+        }
+
+        if (!extension_loaded('xdebug') || !xdebug_is_enabled()) {
+            return array();
+        }
+
+        // Use xdebug to get the full stack trace and remove the shutdown handler stack trace
+        $stack = array_reverse(xdebug_get_function_stack());
+        $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+        $traces = array_diff_key($stack, $trace);
+
+        return $traces;
     }
 
     /**
