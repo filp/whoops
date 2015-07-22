@@ -10,6 +10,8 @@ php:
   - 7.0
   - hhvm
 
+sudo: false
+
 before_script:
   - composer self-update
   # --prefer-source is required to avoid hitting GitHub API limit:
