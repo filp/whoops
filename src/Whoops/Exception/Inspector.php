@@ -7,6 +7,7 @@
 namespace Whoops\Exception;
 
 use Exception;
+use Whoops\Run;
 
 class Inspector
 {
@@ -93,17 +94,34 @@ class Inspector
     {
         if ($this->frames === null) {
             $frames = $this->getTrace($this->exception);
-
-            // If we're handling an ErrorException thrown by Whoops,
-            // get rid of the last frame, which matches the handleError method,
-            // and do not add the current exception to trace. We ensure that
-            // the next frame does have a filename / linenumber, though.
-            if ($this->exception instanceof ErrorException && empty($frames[1]['line'])) {
-                $frames = array($this->getFrameFromError($this->exception));
-            } else {
-                $firstFrame = $this->getFrameFromException($this->exception);
-                array_unshift($frames, $firstFrame);
+            
+            // Find latest non-error handling frame index ($i) used to remove error handling frames
+            // Also fill empty line/file info for call_user_func_array usages (PHP Bug #44428)
+            $i = 0;
+            foreach ($frames as $k => $frame) {
+                if (empty($frame['file'])) {
+                    $file = null;
+                    $line = null;
+                    if (!empty($frames[$k + 1]) && !empty($frames[$k + 1]['file'])) {
+                        $file = $frames[$k + 1]['file'];
+                        $line = $frames[$k + 1]['line'];
+                    }
+                    $frame['file'] = $frames[$k]['file'] = $file;
+                    $frame['line'] = $frames[$k]['line'] = $line;
+                }
+                if ($frame['file'] == $this->exception->getFile() && $frame['line'] == $this->exception->getLine()) {
+                    $i = $k;
+                }
             }
+
+            // Remove error handling frames
+            if ($i > 0) {
+                array_splice($frames, 0, $i);               
+            } 
+            
+            $firstFrame = $this->getFrameFromException($this->exception);
+            array_unshift($frames, $firstFrame);
+            
             $this->frames = new FrameCollection($frames);
 
             if ($previousInspector = $this->getPreviousExceptionInspector()) {
@@ -142,22 +160,7 @@ class Inspector
             return $traces;
         }
 
-        switch ($e->getSeverity()) {
-            case E_ERROR:
-            case E_RECOVERABLE_ERROR:
-            case E_PARSE:
-            case E_CORE_ERROR:
-            case E_COMPILE_ERROR:
-            case E_USER_ERROR:
-                $fatal = true;
-                break;
-
-            default:
-                $fatal = false;
-                break;
-        }
-
-        if (!$fatal) {
+        if (!Run::isLevelFatal($e->getCode())) {
             return $traces;
         }
 
