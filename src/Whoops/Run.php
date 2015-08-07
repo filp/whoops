@@ -395,7 +395,7 @@ class Run
         return $this;
     }
 
-    private static function isLevelFatal($level)
+    public static function isLevelFatal($level)
     {
         $errors = E_ERROR;
         $errors |= E_PARSE;
