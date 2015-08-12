@@ -46,7 +46,7 @@ class Misc
      * Determine if an error level is fatal (halts execution)
      * 
      * @param int $level
-     * @return boolean
+     * @return bool
      */
     public static function isLevelFatal($level)
     {
