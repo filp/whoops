@@ -7,7 +7,7 @@
 namespace Whoops\Exception;
 
 use Exception;
-use Whoops\Run;
+use Whoops\Util\Misc;
 
 class Inspector
 {
@@ -160,7 +160,7 @@ class Inspector
             return $traces;
         }
 
-        if (!Run::isLevelFatal($e->getCode())) {
+        if (!Misc::isLevelFatal($e->getSeverity())) {
             return $traces;
         }
 

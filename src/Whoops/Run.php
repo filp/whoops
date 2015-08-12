@@ -13,6 +13,7 @@ use Whoops\Exception\Inspector;
 use Whoops\Handler\CallbackHandler;
 use Whoops\Handler\Handler;
 use Whoops\Handler\HandlerInterface;
+use Whoops\Util\Misc;
 
 class Run
 {
@@ -346,7 +347,7 @@ class Run
         $this->canThrowExceptions = false;
 
         $error = error_get_last();
-        if ($error && $this->isLevelFatal($error['type'])) {
+        if ($error && Misc::isLevelFatal($error['type'])) {
             // If there was a fatal error,
             // it was not handled in handleError yet.
             $this->handleError(
@@ -393,16 +394,5 @@ class Run
         echo $output;
 
         return $this;
-    }
-
-    public static function isLevelFatal($level)
-    {
-        $errors = E_ERROR;
-        $errors |= E_PARSE;
-        $errors |= E_CORE_ERROR;
-        $errors |= E_CORE_WARNING;
-        $errors |= E_COMPILE_ERROR;
-        $errors |= E_COMPILE_WARNING;
-        return ($level & $errors) > 0;
     }
 }
