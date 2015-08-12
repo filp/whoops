@@ -143,7 +143,7 @@ class Inspector
             return $traces;
         }
 
-        if (!Misc::isLevelFatal($e->getCode())) {
+        if (!Misc::isLevelFatal($e->getSeverity())) {
             return $traces;
         }
 
