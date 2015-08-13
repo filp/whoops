@@ -225,7 +225,7 @@ class Inspector
      * happens for call_user_func and call_user_func_array usages (PHP Bug #44428)
      * 
      * @param array $frame
-     * @return boolean
+     * @return bool
      */
     protected function isValidNextFrame(array $frame)
     {
