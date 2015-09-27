@@ -363,10 +363,11 @@ pre.prettyprint, code.prettyprint {
 
 #help-overlay div {
 	width: 200px;
-	padding: 5px;
+	padding: 10px;
 	color: #463c54;
-	background-color: white;
-	border-radius: 10px;
+	background-color: #d9ad00;
+	border-radius: 3px;
+	text-align: center;
 }
 
 #help-clipboard {
