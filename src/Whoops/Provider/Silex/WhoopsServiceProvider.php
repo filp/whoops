@@ -6,7 +6,6 @@
 
 namespace Whoops\Provider\Silex;
 
-use RuntimeException;
 use Silex\Application;
 use Pimple\ServiceProviderInterface;
 use Pimple\Container;
