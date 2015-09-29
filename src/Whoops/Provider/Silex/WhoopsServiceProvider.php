@@ -6,9 +6,9 @@
 
 namespace Whoops\Provider\Silex;
 
-use RuntimeException;
 use Silex\Application;
-use Silex\ServiceProviderInterface;
+use Pimple\ServiceProviderInterface;
+use Pimple\Container;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -20,18 +20,18 @@ use Whoops\Run;
 class WhoopsServiceProvider implements ServiceProviderInterface
 {
     /**
-     * @param Application $app
+     * @param Container $app
      */
-    public function register(Application $app)
+    public function register(Container $app)
     {
         // There's only ever going to be one error page...right?
-        $app['whoops.error_page_handler'] = $app->share(function () {
+        $app['whoops.error_page_handler'] = function () {
             if (PHP_SAPI === 'cli') {
                 return new PlainTextHandler();
             } else {
                 return new PrettyPageHandler();
             }
-        });
+        };
 
         // Retrieves info on the Silex environment and ships it off
         // to the PrettyPageHandler's data tables:
@@ -42,7 +42,7 @@ class WhoopsServiceProvider implements ServiceProviderInterface
             try {
                 /** @var Request $request */
                 $request = $app['request'];
-            } catch (RuntimeException $e) {
+            } catch (\InvalidArgumentException $e) {
                 // This error occurred too early in the application's life
                 // and the request instance is not yet available.
                 return;
@@ -56,56 +56,53 @@ class WhoopsServiceProvider implements ServiceProviderInterface
 
                 // General application info:
                 $errorPageHandler->addDataTable('Silex Application', array(
-                    'Charset'          => $app['charset'],
-                    'Locale'           => $app['locale'],
-                    'Route Class'      => $app['route_class'],
-                    'Dispatcher Class' => $app['dispatcher_class'],
+                    'Charset'           => $app['charset'],
+                    'Locale'            => $app['locale'],
+                    'Route Class'       => $app['route_class'],
+                    'Dispatcher Class'  => $app['dispatcher_class'],
                     'Application Class' => get_class($app),
                 ));
 
                 // Request info:
                 $errorPageHandler->addDataTable('Silex Application (Request)', array(
-                    'URI'         => $request->getUri(),
-                    'Request URI' => $request->getRequestUri(),
-                    'Path Info'   => $request->getPathInfo(),
+                    'URI'          => $request->getUri(),
+                    'Request URI'  => $request->getRequestUri(),
+                    'Path Info'    => $request->getPathInfo(),
                     'Query String' => $request->getQueryString() ?: '<none>',
-                    'HTTP Method' => $request->getMethod(),
-                    'Script Name' => $request->getScriptName(),
-                    'Base Path'   => $request->getBasePath(),
-                    'Base URL'    => $request->getBaseUrl(),
-                    'Scheme'      => $request->getScheme(),
-                    'Port'        => $request->getPort(),
-                    'Host'        => $request->getHost(),
+                    'HTTP Method'  => $request->getMethod(),
+                    'Script Name'  => $request->getScriptName(),
+                    'Base Path'    => $request->getBasePath(),
+                    'Base URL'     => $request->getBaseUrl(),
+                    'Scheme'       => $request->getScheme(),
+                    'Port'         => $request->getPort(),
+                    'Host'         => $request->getHost(),
                 ));
             }
         });
 
-        $app['whoops'] = $app->share(function () use ($app) {
+        $app['whoops'] = function () use ($app) {
             $run = new Run();
             $run->allowQuit(false);
             $run->pushHandler($app['whoops.error_page_handler']);
             $run->pushHandler($app['whoops.silex_info_handler']);
             return $run;
-        });
+        };
 
-        $app->error(function ($e) use ($app) {
-            $method = Run::EXCEPTION_HANDLER;
+        if($app instanceof Application) {
+            $app->error(function ($e) use ($app) {
+                $method = Run::EXCEPTION_HANDLER;
 
-            ob_start();
-            $app['whoops']->$method($e);
-            $response = ob_get_clean();
-            $code = $e instanceof HttpException ? $e->getStatusCode() : 500;
+                ob_start();
+                $app['whoops']->$method($e);
+                $response = ob_get_clean();
+                $code = $e instanceof HttpException ? $e->getStatusCode() : 500;
 
-            return new Response($response, $code);
-        });
+                return new Response($response, $code);
+            });
+        }
 
-        $app['whoops']->register();
-    }
-
-    /**
-     * @see Silex\ServiceProviderInterface::boot
-     */
-    public function boot(Application $app)
-    {
+        /** @var Run $whoops */
+        $whoops = $app['whoops'];
+        $whoops->register();
     }
 }
