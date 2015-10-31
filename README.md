@@ -45,7 +45,8 @@ If you use Laravel 4, you already have Whoops. There are also community-provided
 [FuelPHP](https://github.com/indigophp/fuel-whoops),
 [Slim](https://github.com/zeuxisoo/php-slim-whoops/),
 [Pimple](https://github.com/texthtml/whoops-pimple),
-or any framework consuming [StackPHP middlewares](https://github.com/thecodingmachine/whoops-stackphp).
+or any framework consuming [StackPHP middlewares](https://github.com/thecodingmachine/whoops-stackphp)
+or [PSR-7 middlewares](https://github.com/franzliedke/whoops-middleware).
 
 If you are not using any of these frameworks, here's a very simple way to install:
 
