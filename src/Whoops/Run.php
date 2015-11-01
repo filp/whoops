@@ -16,7 +16,7 @@ use Whoops\Handler\HandlerInterface;
 
 class Run
 {
-    const EXCEPTION_HANDLER = "handleException";
+    const EXCEPTION_HANDLER = "handleExceptionFromPHP";
     const ERROR_HANDLER     = "handleError";
     const SHUTDOWN_HANDLER  = "handleShutdown";
 
@@ -293,6 +293,24 @@ class Run
     }
 
     /**
+     * This is a private implementation detail, you are not supposed to call this.
+     */
+    final public function handleExceptionFromPHP($throwable)
+    {
+        if (self::isPHP7Throwable($throwable)) {
+            // Compatibility with Whoops children that expect the exception
+            // to always be a PHP 5 Exception class
+            $throwable = new Exception(
+                get_class($throwable) . ': ' . $throwable->getMessage(),
+                $throwable->getCode(),
+                $throwable
+            );
+        }
+
+        return $this->handleException($throwable);
+    }
+
+    /**
      * Converts generic PHP errors to \ErrorException
      * instances, before passing them off to be handled.
      *
@@ -393,6 +411,14 @@ class Run
         echo $output;
 
         return $this;
+    }
+
+    private static function isPHP7Throwable($something)
+    {
+        return !$something instanceof \Exception &&
+            interface_exists('Throwable', false) &&
+            !is_subclass_of('Throwable', 'Exception') &&
+            $something instanceof \Throwable;
     }
 
     private static function isLevelFatal($level)
