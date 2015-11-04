@@ -71,9 +71,7 @@ Zepto(function($) {
     var actionMsg = '';
     var actionKey = (action === 'cut' ? 'X' : 'C');
 
-    if (/iPhone|iPad/i.test(navigator.userAgent)) {
-        actionMsg = 'No support :(';
-    } else if (/Mac/i.test(navigator.userAgent)) {
+    if (/Mac/i.test(navigator.userAgent)) {
         actionMsg = 'Press ⌘-' + actionKey + ' to ' + action;
     } else {
         actionMsg = 'Press Ctrl-' + actionKey + ' to ' + action;
