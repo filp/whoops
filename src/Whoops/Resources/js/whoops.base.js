@@ -1,5 +1,20 @@
 Zepto(function($) {
-  prettyPrint();
+  // a jQuery.getScript() equivalent to asyncronously load javascript files
+  // credits to http://stackoverflow.com/a/8812950/1597388
+  var getScript = function(src, func) {
+    var script = document.createElement('script');
+    script.async = 'async';
+    script.src = src;
+    if (func) {
+      script.onload = func;
+    }
+    document.getElementsByTagName('head')[0].appendChild( script );
+  };
+
+  // load prettify asyncronously to speedup page rendering
+  getScript('//cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.js', function() {
+    prettyPrint();
+  });
 
   var $frameContainer = $('.frames-container');
   var $container      = $('.details-container');
