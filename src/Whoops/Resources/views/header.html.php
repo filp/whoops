@@ -25,8 +25,8 @@
     </div>
   </div>
 
-  <button id="copy-button" class="clipboard" data-clipboard-target="plain-exception" title="copy exception into clipboard"></button>
   <span id="plain-exception"><?php echo $tpl->escape($plain_exception) ?></span>
+  <button id="copy-button" class="clipboard" data-clipboard-text="<?php echo $tpl->escape($plain_exception) ?>" title="copy exception into clipboard"></button>
 
   <p class="exc-message">
     <?php if (!empty($message)): ?>
