@@ -340,7 +340,6 @@ pre.prettyprint, code.prettyprint {
 }
 
 #copy-button {
-	display: none;
 	float: right;
 	cursor: pointer;
 	border: 0;
@@ -468,4 +467,59 @@ kbd {
   .left-panel {
     width: 32%;
   }
+}
+
+.tooltipped {
+  position: relative
+}
+.tooltipped:after {
+  position: absolute;
+  z-index: 1000000;
+  display: none;
+  padding: 5px 8px;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: none;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: break-word;
+  white-space: pre;
+  pointer-events: none;
+  content: attr(aria-label);
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 3px;
+  -webkit-font-smoothing: subpixel-antialiased
+}
+.tooltipped:before {
+  position: absolute;
+  z-index: 1000001;
+  display: none;
+  width: 0;
+  height: 0;
+  color: rgba(0, 0, 0, 0.8);
+  pointer-events: none;
+  content: "";
+  border: 5px solid transparent
+}
+.tooltipped:hover:before,
+.tooltipped:hover:after,
+.tooltipped:active:before,
+.tooltipped:active:after,
+.tooltipped:focus:before,
+.tooltipped:focus:after {
+  display: inline-block;
+  text-decoration: none
+}
+.tooltipped-s:after {
+  top: 100%;
+  right: 50%;
+  margin-top: 5px
+}
+.tooltipped-s:before {
+  top: auto;
+  right: 50%;
+  bottom: -5px;
+  margin-right: -5px;
+  border-bottom-color: rgba(0, 0, 0, 0.8)
 }
