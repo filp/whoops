@@ -1,5 +1,5 @@
 # whoops
-php errors for cool kids
+PHP errors for cool kids
 
 [![Total Downloads](https://img.shields.io/packagist/dm/filp/whoops.svg)](https://packagist.org/packages/filp/whoops)
 [![Latest Version](http://img.shields.io/packagist/v/filp/whoops.svg)](https://packagist.org/packages/filp/whoops)
