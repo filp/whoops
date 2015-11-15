@@ -57,7 +57,7 @@ Zepto(function($) {
       $container.scrollTop(headerHeight);
     }
   });
-  
+
   if (typeof ZeroClipboard !== "undefined") {
 	  ZeroClipboard.config({
 		  moviePath: '//ajax.cdnjs.com/ajax/libs/zeroclipboard/1.3.5/ZeroClipboard.swf',
@@ -66,13 +66,30 @@ Zepto(function($) {
 	  var clipEl = document.getElementById("copy-button");
 	  var clip = new ZeroClipboard( clipEl );
 	  var $clipEl = $(clipEl);
+	  var $clipHelpEl = $("#help-clipboard");
 
 	  // show the button, when swf could be loaded successfully from CDN
 	  clip.on("load", function() {
 		  $clipEl.show();
+		  $clipHelpEl.show();
 	  });
   }
-  
+  $(document).on('click', '.Whoops-hider', function () {
+	  var $container = $('.Whoops.container');
+	  if (!$container.hasClass('hidden')) {
+		  $container.addClass('hidden');
+		  $(this)
+			  .addClass('closed')
+			  .prop('title', 'return to Whoops')
+		  ;
+	  } else {
+		  $container.removeClass('hidden');
+		  $(this)
+			  .removeClass('closed')
+			  .prop('title', 'view raw script output')
+		  ;
+	  }
+  });
   $(document).on('keydown', function(e) {
 	  if(e.ctrlKey) {
 		  // CTRL+Arrow-UP/Arrow-Down support:
