@@ -12,21 +12,10 @@
     <?php endif ?>
   </div>
 
-  <div class="help">
-    <span title="show help">?</button>
-
-    <div id="help-overlay">
-      <div id="help-framestack">Callstack information; navigate with mouse or keyboard using <kbd>Ctrl+&uparrow;</kbd> or <kbd>Ctrl+&downarrow;</kbd></div>
-      <div id="help-clipboard">Copy-to-clipboard button</div>
-      <div id="help-exc-message">Exception message and its type</div>
-      <div id="help-code">Code snippet where the error was thrown</div>
-      <div id="help-request">Server state information</div>
-      <div id="help-appinfo">Application provided context information</div>
-    </div>
-  </div>
-
   <span id="plain-exception"><?php echo $tpl->escape($plain_exception) ?></span>
-  <button id="copy-button" class="clipboard" data-clipboard-text="<?php echo $tpl->escape($plain_exception) ?>" title="copy exception into clipboard"></button>
+  <button id="copy-button" class="clipboard" data-clipboard-text="<?php echo $tpl->escape($plain_exception) ?>" title="Copy exception details to clipabord">
+    COPY
+  </button>
 
   <p class="exc-message">
     <?php if (!empty($message)): ?>

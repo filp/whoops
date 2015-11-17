@@ -11,13 +11,13 @@ php errors for cool kids
 
 -----
 
-![Whoops!](http://i.imgur.com/xvwyvOY.png)
+![Whoops!](http://i.imgur.com/OdL1FlI.png)
 
-**whoops** is an error handler base/framework for PHP. Out-of-the-box, it provides a pretty
+**whoops** is an error handler framework for PHP. Out-of-the-box, it provides a pretty
 error interface that helps you debug your web projects, but at heart it's a simple yet
 powerful stacked error handling system.
 
-## (current) Features
+## Features
 
 - Flexible, stack-based error handling
 - Stand-alone library with (currently) no required dependencies
