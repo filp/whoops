@@ -23,6 +23,9 @@
         },
         "classmap": [
             "src/deprecated"
+        ],
+        "files": [
+            "src/Whoops/functions.php"
         ]
     },
     "extra": {
