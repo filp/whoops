@@ -17,6 +17,9 @@
     "require-dev": {
         "mockery/mockery": "0.9.*"
     },
+    "suggest": {
+        "symfony/var-dumper": "^2.6"
+    },
     "autoload": {
         "psr-4": {
             "Whoops\\": "src/Whoops/"

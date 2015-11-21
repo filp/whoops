@@ -17,7 +17,7 @@
             <?php foreach ($data as $k => $value): ?>
               <tr>
                 <td><?php echo $tpl->escape($k) ?></td>
-                <td><?php echo $tpl->escape(print_r($value, true)) ?></td>
+                <td><?php echo $tpl->escape($tpl->dump($value)) ?></td>
               </tr>
             <?php endforeach ?>
             </table>

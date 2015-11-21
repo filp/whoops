@@ -6,6 +6,10 @@
 
 namespace Whoops\Util;
 
+use Symfony\Component\VarDumper\Cloner\VarCloner;
+use Symfony\Component\VarDumper\Dumper\CliDumper;
+use Symfony\Component\VarDumper\Dumper\HtmlDumper;
+
 /**
  * Exposes useful tools for working with/in templates
  */
@@ -56,6 +60,44 @@ class TemplateHelper
             "@([A-z]+?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@",
             "<a href=\"$1\" target=\"_blank\">$1</a>", $escaped
         );
+    }
+
+    /**
+     * Format the given value into a human readable string.
+     *
+     * @param  mixed $value
+     * @return string
+     */
+    public function dump($value)
+    {
+        if (class_exists('Symfony\Component\VarDumper\Cloner\VarCloner')) {
+            static $dumper = null;
+
+            // re-use the same var-dumper instance, so it won't re-render the global styles/scripts on each dump.
+            if (!$dumper) {
+                $dumper = new HtmlDumper();
+
+                $styles = array(
+                    'default' => '',
+                    'num' => '',
+                    'const' => '',
+                    'str' => '',
+                    'note' => '',
+                    'ref' => '',
+                    'public' => '',
+                    'protected' => '',
+                    'private' => '',
+                    'meta' => '',
+                    'key' => '',
+                    'index' => '',
+                );
+                $dumper->setStyles($styles);
+            }
+
+            $cloner = new VarCloner();
+            return $dumper->dump($cloner->cloneVar($value));
+        }
+        return print_r($value, true);
     }
 
     /**

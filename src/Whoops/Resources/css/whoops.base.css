@@ -458,3 +458,8 @@ kbd {
   margin-right: -5px;
   border-bottom-color: rgba(0, 0, 0, 0.8)
 }
+
+pre.sf-dump {
+    padding: 0px !important;
+    margin: 0px !important;
+}
