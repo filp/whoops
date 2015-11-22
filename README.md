@@ -26,8 +26,6 @@ powerful stacked error handling system.
 - Includes the ability to [open referenced files directly in your editor and IDE](docs/Open%20Files%20In%20An%20Editor.md)
 - Includes handlers for different response formats (JSON, XML, SOAP)
 - Includes a Silex Service Provider for painless integration with [Silex](http://silex.sensiolabs.org/)
-- Includes a Phalcon Service Provider for painless integration with [Phalcon](http://phalconphp.com/)
-- Includes a Module for equally painless integration with [Zend Framework 2](http://framework.zend.com/)
 - Easy to extend and integrate with existing libraries
 - Clean, well-structured & tested code-base
 
@@ -35,7 +33,7 @@ powerful stacked error handling system.
 If you use Laravel 4, you already have Whoops. There are also community-provided instructions on how to integrate Whoops into
 [Silex](docs/Framework%20Integration.md#integrating-with-silex),
 [Silex 2](https://github.com/texthtml/whoops-silex),
-[Phalcon](docs/Framework%20Integration.md#integrating-with-phalcon),
+[Phalcon](https://github.com/whoops-php/phalcon),
 [Laravel 3](https://gist.github.com/hugomrdias/5169713#file-start-php),
 [Laravel 5](https://mattstauffer.co/blog/bringing-whoops-back-to-laravel-5),
 [CakePHP 2](https://github.com/oldskool/WhoopsCakephp/tree/cake2),
