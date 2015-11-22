@@ -32,21 +32,6 @@ $app['whoops'] = $app->extend('whoops', function ($whoops) {
 ```
 
 
-# Integrating with Phalcon
-
-**whoops** comes packaged with a Phalcon Service Provider: `Whoops\Provider\Phalcon\WhoopsServiceProvider`. Using it
-in your existing Phalcon project is easy. The provider uses the default Phalcon DI unless you pass a DI instance into the constructor.
-
-```php
-new Whoops\Provider\Phalcon\WhoopsServiceProvider();
-
-// --- or ---
-
-$di = new Phalcon\DI\FactoryDefault();
-new Whoops\Provider\Phalcon\WhoopsServiceProvider($di);
-```
-
-
 # Contributing an integration with a framework
 
 Lately we're prefering to keep integration libraries out of the Whoops core.
