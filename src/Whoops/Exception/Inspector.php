@@ -93,18 +93,45 @@ class Inspector
     public function getFrames()
     {
         if ($this->frames === null) {
-            $frames = $this->getTrace($this->exception);
-
-            // If we're handling an ErrorException thrown by Whoops,
-            // get rid of the last frame, which matches the handleError method,
-            // and do not add the current exception to trace. We ensure that
-            // the next frame does have a filename / linenumber, though.
-            if ($this->exception instanceof ErrorException && empty($frames[1]['line'])) {
-                $frames = array($this->getFrameFromError($this->exception));
-            } else {
-                $firstFrame = $this->getFrameFromException($this->exception);
-                array_unshift($frames, $firstFrame);
+            $frames = $this->getTrace($this->exception);            
+            
+            // Fill empty line/file info for call_user_func_array usages (PHP Bug #44428) 
+            foreach ($frames as $k => $frame) {
+                
+                if (empty($frame['file'])) {
+                    // Default values when file and line are missing
+                    $file = '[internal]';
+                    $line = 0;
+                    
+                    $next_frame = !empty($frames[$k + 1]) ? $frames[$k + 1] : array();
+                    
+                    if ($this->isValidNextFrame($next_frame)) {
+                        $file = $next_frame['file'];
+                        $line = $next_frame['line'];
+                    }
+                    
+                    $frames[$k]['file'] = $file;
+                    $frames[$k]['line'] = $line;
+                }
+                
             }
+            
+            // Find latest non-error handling frame index ($i) used to remove error handling frames
+            $i = 0;
+            foreach ($frames as $k => $frame) {
+                if ($frame['file'] == $this->exception->getFile() && $frame['line'] == $this->exception->getLine()) {
+                    $i = $k;
+                }
+            }
+            
+            // Remove error handling frames
+            if ($i > 0) {
+                array_splice($frames, 0, $i);               
+            } 
+            
+            $firstFrame = $this->getFrameFromException($this->exception);
+            array_unshift($frames, $firstFrame);
+            
             $this->frames = new FrameCollection($frames);
 
             if ($previousInspector = $this->getPreviousExceptionInspector()) {
@@ -191,5 +218,29 @@ class Inspector
             'class' => null,
             'args'  => array(),
         );
+    }
+    
+    /**
+     * Determine if the frame can be used to fill in previous frame's missing info
+     * happens for call_user_func and call_user_func_array usages (PHP Bug #44428)
+     * 
+     * @param array $frame
+     * @return bool
+     */
+    protected function isValidNextFrame(array $frame)
+    {
+        if (empty($frame['file'])) {
+            return false;
+        }
+        
+        if (empty($frame['line'])) {
+            return false;
+        }
+        
+        if (empty($frame['function']) || !stristr($frame['function'], 'call_user_func')) {
+            return false;
+        }
+        
+        return true;
     }
 }
