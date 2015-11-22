@@ -77,6 +77,12 @@ class PrettyPageHandler extends Handler
     );
 
     /**
+     * Renders HTML for table cell
+     * @var callable
+     */
+    private $cellRenderer;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -184,6 +190,18 @@ class PrettyPageHandler extends Handler
             return $table instanceof \Closure ? $table() : $table;
         }, $this->getDataTables());
         $vars["tables"] = array_merge($extraTables, $vars["tables"]);
+
+        $cellRenderer = (is_callable($this->cellRenderer)) ?
+            $this->cellRenderer :
+            function ($value) use ($helper) {
+                return $helper->escape(print_r($value, true));
+            };
+
+        foreach ($vars['tables'] as $table => $data) {
+            foreach ($data as $key => $value) {
+                $vars['tables'][$table][$key] = $cellRenderer($value);
+            }
+        }
 
         $helper->setVariables($vars);
         $helper->render($templateFile);
@@ -426,6 +444,16 @@ class PrettyPageHandler extends Handler
     public function getPageTitle()
     {
         return $this->pageTitle;
+    }
+
+    /**
+     * Sets cell renderer - a callback which renders HTML for table cell
+     *
+     * @param callable $callable
+     */
+    public function setCellRenderer($callable)
+    {
+        $this->cellRenderer = $callable;
     }
 
     /**
