@@ -21,7 +21,7 @@
           if ($line !== null):
 
           // the $line is 1-indexed, we nab -1 where needed to account for this
-          $range = $frame->getFileLines($line - 8, 10);
+          $range = $frame->getFileLines($line - 10, 20);
 
           // getFileLines can return null if there is no source code
           if ($range):

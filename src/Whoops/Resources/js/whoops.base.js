@@ -54,29 +54,50 @@ Zepto(function($) {
 
       highlightCurrentLine();
 
-      $container.scrollTop(headerHeight);
+      $container.scrollTop(0);
     }
   });
-  
-  if (typeof ZeroClipboard !== "undefined") {
-	  ZeroClipboard.config({
-		  moviePath: '//ajax.cdnjs.com/ajax/libs/zeroclipboard/1.3.5/ZeroClipboard.swf',
-	  });
 
-	  var clipEl = document.getElementById("copy-button");
-	  var clip = new ZeroClipboard( clipEl );
-	  var $clipEl = $(clipEl);
+  var clipboard = new Clipboard('.clipboard');
+  var showTooltip = function(elem, msg) {
+    elem.setAttribute('class', 'clipboard tooltipped tooltipped-s');
+    elem.setAttribute('aria-label', msg);
+  };
 
-	  // show the button, when swf could be loaded successfully from CDN
-	  clip.on("load", function() {
-		  $clipEl.show();
-	  });
+  clipboard.on('success', function(e) {
+      e.clearSelection();
+
+      showTooltip(e.trigger, 'Copied!');
+  });
+
+  clipboard.on('error', function(e) {
+      showTooltip(e.trigger, fallbackMessage(e.action));
+  });
+
+  var btn = document.querySelector('.clipboard');
+
+  btn.addEventListener('mouseleave', function(e) {
+    e.currentTarget.setAttribute('class', 'clipboard');
+    e.currentTarget.removeAttribute('aria-label');
+  });
+
+  function fallbackMessage(action) {
+    var actionMsg = '';
+    var actionKey = (action === 'cut' ? 'X' : 'C');
+
+    if (/Mac/i.test(navigator.userAgent)) {
+        actionMsg = 'Press ⌘-' + actionKey + ' to ' + action;
+    } else {
+        actionMsg = 'Press Ctrl-' + actionKey + ' to ' + action;
+    }
+
+    return actionMsg;
   }
-  
+
   $(document).on('keydown', function(e) {
 	  if(e.ctrlKey) {
 		  // CTRL+Arrow-UP/Arrow-Down support:
-		  // 1) select the next/prev element 
+		  // 1) select the next/prev element
 		  // 2) make sure the newly selected element is within the view-scope
 		  // 3) focus the (right) container, so arrow-up/down (without ctrl) scroll the details
 		  if (e.which === 38 /* arrow up */) {
@@ -90,9 +111,9 @@ Zepto(function($) {
 			  $container.focus();
 			  e.preventDefault();
 		  }
-	  } 
+	  }
   });
-  
+
   // Avoid to quit the page with some protocol (e.g. IntelliJ Platform REST API)
   $ajaxEditors.on('click', function(e){
     e.preventDefault();

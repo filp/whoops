@@ -11,13 +11,13 @@ PHP errors for cool kids
 
 -----
 
-![Whoops!](http://i.imgur.com/xvwyvOY.png)
+![Whoops!](http://i.imgur.com/OdL1FlI.png)
 
-**whoops** is an error handler base/framework for PHP. Out-of-the-box, it provides a pretty
+**whoops** is an error handler framework for PHP. Out-of-the-box, it provides a pretty
 error interface that helps you debug your web projects, but at heart it's a simple yet
 powerful stacked error handling system.
 
-## (current) Features
+## Features
 
 - Flexible, stack-based error handling
 - Stand-alone library with (currently) no required dependencies
@@ -80,6 +80,3 @@ For more options, have a look at the **example files** in `examples/` to get a f
 ## Authors
 
 This library was primarily developed by [Filipe Dobreira](https://github.com/filp), and is currently maintained by [Denis Sokolov](https://github.com/denis-sokolov). A lot of awesome fixes and enhancements were also sent in by [various contributors](https://github.com/filp/whoops/contributors).
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/filp/whoops/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
