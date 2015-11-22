@@ -246,6 +246,10 @@ class Run
         $handlerResponse = null;
 
         foreach (array_reverse($this->handlerStack) as $handler) {
+            if ($handler->onlyForAjaxRequests() && !$this->isAjaxRequest()) {
+                continue;
+            }
+            
             $handler->setRun($this);
             $handler->setInspector($inspector);
             $handler->setException($exception);
@@ -394,5 +398,17 @@ class Run
         echo $output;
 
         return $this;
+    }
+    
+    /**
+     * Check, if possible, that this execution was triggered by an AJAX request.
+     *
+     * @return bool
+     */
+    private function isAjaxRequest()
+    {
+        return (
+            !empty($_SERVER['HTTP_X_REQUESTED_WITH'])
+            && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
     }
 }

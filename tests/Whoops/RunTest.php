@@ -43,6 +43,10 @@ class RunTest extends TestCase
 
             ->shouldReceive('setException')
                 ->andReturn(null)
+            ->mock()
+            
+            ->shouldReceive('onlyForAjaxRequests')
+                ->andReturn(false)
             ->mock();
     }
 
