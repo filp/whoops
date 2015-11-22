@@ -13,9 +13,6 @@ php:
 sudo: false
 
 before_script:
-  - composer self-update
-  # --prefer-source is required to avoid hitting GitHub API limit:
-  # https://github.com/composer/composer/issues/1314
   - composer install --no-interaction --prefer-source
   - if [ $TRAVIS_PHP_VERSION = "5.6" ]; then PHPUNIT_FLAGS="--coverage-clover build/logs/clover.xml"; fi
 
