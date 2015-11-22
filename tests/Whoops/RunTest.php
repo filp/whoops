@@ -213,7 +213,7 @@ class RunTest extends TestCase
         // Get an exception to be handled, and verify that the handlers
         // are given the handler, and in the inverse order they were
         // registered.
-        $run->handleException($exception);
+        $run->handleExceptionFromPHP($exception);
         $this->assertEquals((array) $order, array(3, 2, 1));
     }
 
@@ -241,7 +241,7 @@ class RunTest extends TestCase
             ->shouldReceive('handle')
             ->andReturn(Handler::LAST_HANDLER);
 
-        $run->handleException($this->getException());
+        $run->handleExceptionFromPHP($this->getException());
 
         // Reached the end without errors
         $this->assertTrue(true);
@@ -382,7 +382,7 @@ class RunTest extends TestCase
             $this->assertSame(99, $e->getLine());
         }
     }
-    
+
     /**
      * @covers Whoops\Run::handleException
      * @covers Whoops\Run::writeToOutput
@@ -395,7 +395,7 @@ class RunTest extends TestCase
         });
 
         ob_start();
-        $run->handleException(new RuntimeException());
+        $run->handleExceptionFromPHP(new RuntimeException());
         $this->assertEquals("hello there", ob_get_clean());
     }
 
@@ -412,7 +412,7 @@ class RunTest extends TestCase
         });
 
         ob_start();
-        $this->assertEquals("hello there", $run->handleException(new RuntimeException()));
+        $this->assertEquals("hello there", $run->handleExceptionFromPHP(new RuntimeException()));
         $this->assertEquals("", ob_get_clean());
     }
 
