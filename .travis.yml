@@ -1,10 +1,7 @@
 language: php
 
 php:
-  # 5.3.0 is not supported by Travis
-  - 5.3.3
-  - 5.3
-  - 5.4
+  - 5.5.9
   - 5.5
   - 5.6
   - 7.0
@@ -12,10 +9,7 @@ php:
 
 sudo: false
 
-before_script:
-  - composer self-update
-  # --prefer-source is required to avoid hitting GitHub API limit:
-  # https://github.com/composer/composer/issues/1314
+install:
   - composer install --no-interaction --prefer-source
   - if [ $TRAVIS_PHP_VERSION = "5.6" ]; then PHPUNIT_FLAGS="--coverage-clover build/logs/clover.xml"; fi
 
