@@ -7,6 +7,7 @@
 namespace Whoops\Exception;
 
 use Exception;
+use Whoops\Util\Misc;
 
 class Inspector
 {
@@ -142,22 +143,7 @@ class Inspector
             return $traces;
         }
 
-        switch ($e->getSeverity()) {
-            case E_ERROR:
-            case E_RECOVERABLE_ERROR:
-            case E_PARSE:
-            case E_CORE_ERROR:
-            case E_COMPILE_ERROR:
-            case E_USER_ERROR:
-                $fatal = true;
-                break;
-
-            default:
-                $fatal = false;
-                break;
-        }
-
-        if (!$fatal) {
+        if (!Misc::isLevelFatal($e->getSeverity())) {
             return $traces;
         }
 

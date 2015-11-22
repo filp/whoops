@@ -41,4 +41,21 @@ class Misc
         }
         return "E_UNKNOWN";
     }
+    
+    /**
+     * Determine if an error level is fatal (halts execution)
+     * 
+     * @param int $level
+     * @return bool
+     */
+    public static function isLevelFatal($level)
+    {
+        $errors = E_ERROR;
+        $errors |= E_PARSE;
+        $errors |= E_CORE_ERROR;
+        $errors |= E_CORE_WARNING;
+        $errors |= E_COMPILE_ERROR;
+        $errors |= E_COMPILE_WARNING;
+        return ($level & $errors) > 0;
+    }
 }
