@@ -25,13 +25,12 @@ powerful stacked error handling system.
 - Includes a pretty rad error page for your webapp projects
 - Includes the ability to [open referenced files directly in your editor and IDE](docs/Open%20Files%20In%20An%20Editor.md)
 - Includes handlers for different response formats (JSON, XML, SOAP)
-- Includes a Silex Service Provider for painless integration with [Silex](http://silex.sensiolabs.org/)
 - Easy to extend and integrate with existing libraries
 - Clean, well-structured & tested code-base
 
 ## Installing
 If you use Laravel 4, you already have Whoops. There are also community-provided instructions on how to integrate Whoops into
-[Silex](docs/Framework%20Integration.md#integrating-with-silex),
+[Silex 1](https://github.com/whoops-php/silex-1),
 [Silex 2](https://github.com/texthtml/whoops-silex),
 [Phalcon](https://github.com/whoops-php/phalcon),
 [Laravel 3](https://gist.github.com/hugomrdias/5169713#file-start-php),
