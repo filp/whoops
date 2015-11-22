@@ -18,8 +18,8 @@
         "mockery/mockery": "0.9.*"
     },
     "autoload": {
-        "psr-0": {
-            "Whoops": "src/"
+        "psr-4": {
+            "Whoops\\": "src/Whoops/"
         },
         "classmap": [
             "src/deprecated"
