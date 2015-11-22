@@ -1,5 +1,5 @@
 body {
-  font: 11px 'Source Sans Pro', helvetica, arial, sans-serif;
+  font: 11px "Roboto", "Helvetica Neue", helvetica, arial, sans-serif;
   background: #272727;
   color: white;
 }
@@ -27,7 +27,7 @@ a:hover {
 
 .branding {
   margin: 0;
-  font-weight: 300;
+  font-weight: 700;
   font-size: 54px;
 }
 
@@ -38,12 +38,12 @@ a:hover {
 }
 
 .description {
-  margin: 0 auto 10px auto !important;
+  margin: 5px auto 0 auto !important;
   color: #CACACA;
 }
 
 .subtext {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 300;
   line-height: 22px;
 }
@@ -56,10 +56,6 @@ a:hover {
 .screenshot img {
   max-width: 940px;
   width: 70%;
-
-  -moz-box-shadow: 0 6px 12px rgba(0, 0, 0, .2);
-  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .2);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, .2);
 }
 
 .content {
@@ -101,7 +97,7 @@ ul.simple li:before {
 }
 
 p.download-links {
-  margin: 40px auto;
+  margin: 30px auto;
   line-height: 44px;
   width: 50%;
 }
