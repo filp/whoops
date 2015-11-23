@@ -12,6 +12,10 @@
 - [`Whoops\Handler\JsonResponseHandler`](#handler-json) - Formats errors and exceptions as a JSON payload
 - [`Whoops\Handler\PrettyPageHandler`](#handler-pretty) - Outputs a detailed, fancy error page
 
+### Core Functions:
+- [`Whoops\isAjaxRequest()`](#fn-ajax) - Determines whether the current request was triggered by XMLHttpRequest
+
+
 # Core Classes:
 
 ## <a name="whoops-run"></a> `Whoops\Run`
@@ -239,6 +243,7 @@ Frame::getComments(string $filter = null)
  #=> array
 ```
 
+
 # Core Handlers
 
 ## <a name="handler-callback"></a> `Whoops\Handler\CallbackHandler`
@@ -305,11 +310,6 @@ The `JSON` body has the following format:
 // Should detailed stack trace output also be added to the
 // JSON payload body?
 JsonResponseHandler::addTraceToOutput(bool $yes = null)
- #=> bool
-
-// Should output only be sent if the current request is an
-// AJAX request?
-JsonResponseHandler::onlyForAjaxRequests(bool $yes = null)
  #=> bool
 
 JsonResponseHandler::handle()
@@ -401,4 +401,17 @@ PrettyPageHandler::addEditor(string $editor, $resolver)
 
 PrettyPageHandler::handle()
  #=> int | null
+```
+
+
+# Core Functions:
+
+## <a name="fn-ajax"></a> `Whoops\isAjaxRequest()`
+ #=> boolean
+ 
+```php
+// Use a certain handler only in AJAX triggered requests
+if (Whoops\isAjaxRequest()){
+  $run->addHandler($myHandler)
+}
 ```

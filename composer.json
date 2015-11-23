@@ -21,6 +21,9 @@
         "psr-4": {
             "Whoops\\": "src/Whoops/"
         }
+        "files": [
+            "src/Whoops/functions.php"
+        ]
     },
     "extra": {
         "branch-alias": {
