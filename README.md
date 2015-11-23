@@ -79,7 +79,8 @@ For more options, have a look at the **example files** in `examples/` to get a f
 - [`CallbackHandler`](https://github.com/filp/whoops/blob/master/src/Whoops/Handler/CallbackHandler.php) - Wraps a closure or other callable as a handler. You do not need to use this handler explicitly, **whoops** will automatically wrap any closure or callable you pass to `Whoops\Run::pushHandler`
 - [`JsonResponseHandler`](https://github.com/filp/whoops/blob/master/src/Whoops/Handler/JsonResponseHandler.php) - Captures exceptions and returns information on them as a JSON string. Can be used to, for example, play nice with AJAX requests.
 - [`XmlResponseHandler`](https://github.com/filp/whoops/blob/master/src/Whoops/Handler/XmlResponseHandler.php) - Captures exceptions and returns information on them as a XML string. Can be used to, for example, play nice with AJAX requests.
-- [`SoapResponseHandler`](https://github.com/filp/whoops/blob/master/src/Whoops/Handler/SoapResponseHandler.php) - Captures exceptions and returns information on them as a SOAP string. Might be used for SOAP Webservices.
+
+You can also use pluggable handlers, such as [SOAP handler](https://github.com/whoops-php/soap).
 
 ## Authors
 
