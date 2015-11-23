@@ -40,15 +40,22 @@ class JsonResponseHandler extends Handler
     }
 
     /**
-     * @param  bool|null $onlyForAjaxRequests
+     * Get if handler is only for ajax requests.
+     *
      * @return null|bool
      */
-    public function onlyForAjaxRequests($onlyForAjaxRequests = null)
+    public function onlyForAjaxRequests()
     {
-        if (func_num_args() == 0) {
-            return $this->onlyForAjaxRequests;
-        }
+        return $this->onlyForAjaxRequests;
+    }
 
+    /**
+     * Set if handler is only for ajax requests.
+     *
+     * @param bool $onlyForAjaxRequests
+     */
+    public function setOnlyForAjaxRequests($onlyForAjaxRequests = false)
+    {
         $this->onlyForAjaxRequests = (bool) $onlyForAjaxRequests;
     }
 
