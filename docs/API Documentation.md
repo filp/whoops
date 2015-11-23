@@ -121,6 +121,11 @@ HandlerInterface::setInspector(Whoops\Exception\Inspector $inspector)
 // Sets the Exception for this handler to handle
 HandlerInterface::setException(Exception $exception)
  #=> null
+ 
+// Should output only be sent if the current request is an
+// AJAX request?
+HandlerInterface::onlyForAjaxRequests(bool $yes = null)
+ #=> bool
 ```
 
 ## <a name="inspector"></a> `Whoops\Exception\Inspector`

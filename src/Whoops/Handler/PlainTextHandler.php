@@ -176,6 +176,23 @@ class PlainTextHandler extends Handler
         }
         $this->outputOnlyIfCommandLine = (bool) $outputOnlyIfCommandLine;
     }
+    
+    public function onlyForAjaxRequests($onlyForAjaxRequests = null) {
+        if ($onlyForAjaxRequests) {
+            // A little magic to save the user some head-scratching.
+            // $outputOnlyIfCommandLine is true by default, but that's plainly
+            // wrong when the user is setting onlyForAjaxRequests to true, so
+            // we quietly set $outputOnlyIfCommandLine to false.
+            $this->outputOnlyIfCommandLine(false);
+        }
+        
+        // Call super. It needs to be this ugly because the parent method's
+        // behaviour depends on the number of arguments passed.
+        return call_user_func_array(
+            array('parent', 'onlyForAjaxRequests'),
+            func_get_args()
+        );
+    }
 
     /**
      * Only output to logger.

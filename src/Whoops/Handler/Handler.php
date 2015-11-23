@@ -38,6 +38,11 @@ abstract class Handler implements HandlerInterface
      * @var Exception $exception
      */
     private $exception;
+    
+    /**
+     * @var bool
+     */
+    private $onlyForAjaxRequests = false;
 
     /**
      * @param Run $run
@@ -53,6 +58,19 @@ abstract class Handler implements HandlerInterface
     protected function getRun()
     {
         return $this->run;
+    }
+    
+    /**
+     * @param  bool|null $onlyForAjaxRequests
+     * @return null|bool
+     */
+    public function onlyForAjaxRequests($onlyForAjaxRequests = null)
+    {
+        if (func_num_args() == 0) {
+            return $this->onlyForAjaxRequests;
+        }
+
+        $this->onlyForAjaxRequests = (bool) $onlyForAjaxRequests;
     }
 
     /**

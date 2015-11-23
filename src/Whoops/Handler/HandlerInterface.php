@@ -34,4 +34,10 @@ interface HandlerInterface
      * @return void
      */
     public function setInspector(Inspector $inspector);
+    
+    /**
+     * @param bool|null $onlyForAjaxRequests
+     * Get or set whether this handler should only be used for Ajax requests.
+     */
+    public function onlyForAjaxRequests($onlyForAjaxRequests = null);
 }
