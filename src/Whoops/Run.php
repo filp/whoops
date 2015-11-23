@@ -52,7 +52,7 @@ class Run
 
         if (!$handler instanceof HandlerInterface) {
             throw new InvalidArgumentException(
-                  "Argument to " . __METHOD__ . " must be a callable, or instance of"
+                  "Argument to " . __METHOD__ . " must be a callable, or instance of "
                 . "Whoops\\Handler\\HandlerInterface"
             );
         }
