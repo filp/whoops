@@ -14,6 +14,7 @@
 
 ### Core Functions:
 - [`Whoops\isAjaxRequest()`](#fn-ajax) - Determines whether the current request was triggered by XMLHttpRequest
+- [`Whoops\isCommandLine()`](#fn-cli) - Determines whether the current request was triggered via php commandline interface (CLI)
 
 
 # Core Classes:
@@ -408,10 +409,33 @@ PrettyPageHandler::handle()
 
 ## <a name="fn-ajax"></a> `Whoops\isAjaxRequest()`
  #=> boolean
- 
+
 ```php
 // Use a certain handler only in AJAX triggered requests
 if (Whoops\isAjaxRequest()){
   $run->addHandler($myHandler)
 }
+```
+
+## <a name="fn-cli"></a> `Whoops\isCommandLine()`
+ #=> boolean
+
+```php
+// Use a certain handler only in php cli
+if (Whoops\isCommandLine()){
+  $run->addHandler($myHandler)
+}
+```
+
+```php
+/*
+Output the error message only if using command line.
+else, output to logger if available.
+Allow to safely add this handler to web pages.
+*/
+$plainTextHandler = new PlainTextHandler();
+if (!Whoops\isCommandLine()){
+  $plainTextHandler->loggerOnly(true);
+}
+$run->addHandler($myHandler)
 ```
