@@ -7,6 +7,7 @@
         <span class="frame-index"><?php echo (count($frames) - $i - 1) ?></span>
         <span class="frame-class"><?php echo $tpl->escape($frame->getClass() ?: '') ?></span>
         <span class="frame-function"><?php echo $tpl->escape($frame->getFunction() ?: '') ?></span>
+        <?php echo $tpl->dumpArgs($frame); ?>
       </div>
 
     <span class="frame-file">
@@ -14,4 +15,4 @@
    --><span class="frame-line"><?php echo (int) $frame->getLine() ?></span>
     </span>
   </div>
-<?php endforeach ?>
+<?php endforeach; ?>
