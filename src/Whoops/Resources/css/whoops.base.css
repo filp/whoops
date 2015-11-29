@@ -140,7 +140,8 @@ header {
       height: 18px;
       width: 18px;
       line-height: 18px;
-      border-radius: 100%;
+      border-radius: 5px;
+      padding: 0 1px 0 1px;
       text-align: center;
       display: inline-block;
     }
