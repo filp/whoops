@@ -258,8 +258,7 @@ class PlainTextHandler extends Handler
             return Handler::DONE;
         }
 
-        if (class_exists('\Whoops\Util\Misc')
-            && \Whoops\Util\Misc::canSendHeaders()) {
+        if (\Whoops\Util\Misc::canSendHeaders()) {
             header('Content-Type: text/plain');
         }
 
