@@ -185,6 +185,10 @@ class PrettyPageHandler extends Handler
         }, $this->getDataTables());
         $vars["tables"] = array_merge($extraTables, $vars["tables"]);
 
+        if (\Whoops\Util\Misc::canSendHeaders()) {
+            header('Content-Type: text/html');
+        }
+
         $helper->setVariables($vars);
         $helper->render($templateFile);
 
