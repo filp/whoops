@@ -229,13 +229,11 @@ class PlainTextHandlerTest extends TestCase
             $loggerOnly = false
         );
 
-        $lines = explode("\n", $text);
-
         // Check that the response has the correct value:
-        $this->assertEquals('Stack trace:', $lines[1]);
+        $this->assertContains('Stack trace:', $text);
 
         // Check that the trace is returned:
-        $this->assertEquals(
+        $this->assertContains(
             sprintf(
                 '%3d. %s->%s() %s:%d',
                 2,
@@ -244,7 +242,7 @@ class PlainTextHandlerTest extends TestCase
                 __FILE__,
                 55
             ),
-            $lines[3]
+            $text
         );
     }
 
@@ -271,10 +269,10 @@ class PlainTextHandlerTest extends TestCase
         $this->assertGreaterThan(60, count($lines));
 
         // Check that the response has the correct value:
-        $this->assertEquals('Stack trace:', $lines[1]);
+        $this->assertContains('Stack trace:', $text);
 
         // Check that the trace is returned:
-        $this->assertEquals(
+        $this->assertContains(
             sprintf(
                 '%3d. %s->%s() %s:%d',
                 2,
@@ -283,15 +281,15 @@ class PlainTextHandlerTest extends TestCase
                 __FILE__,
                 55
             ),
-            $lines[8]
+            $text
         );
         // Check that the trace arguments are returned:
-        $this->assertEquals(sprintf(
+        $this->assertContains(sprintf(
             '%s  string(%d) "%s"',
             PlainTextHandler::VAR_DUMP_PREFIX,
             strlen('test message'),
             'test message'
-            ), $lines[5]
+            ), $text
         );
     }
 
@@ -312,13 +310,11 @@ class PlainTextHandlerTest extends TestCase
             $loggerOnly = false
         );
 
-        $lines = explode("\n", $text);
-
         // Check that the response has the correct value:
-        $this->assertEquals('Stack trace:', $lines[1]);
+        $this->assertContains('Stack trace:', $text);
 
         // Check that the trace is returned:
-        $this->assertEquals(
+        $this->assertContains(
             sprintf(
                 '%3d. %s->%s() %s:%d',
                 2,
@@ -327,16 +323,16 @@ class PlainTextHandlerTest extends TestCase
                 __FILE__,
                 55
             ),
-            $lines[8]
+            $text
         );
 
         // Check that the trace arguments are returned:
-        $this->assertEquals(sprintf(
+        $this->assertContains(sprintf(
             '%s  string(%d) "%s"',
             PlainTextHandler::VAR_DUMP_PREFIX,
             strlen('test message'),
             'test message'
-            ), $lines[5]
+            ), $text
         );
     }
 
