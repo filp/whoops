@@ -19,7 +19,8 @@
         "mockery/mockery": "0.9.*"
     },
     "suggest": {
-        "symfony/var-dumper": "^2.6"
+        "symfony/var-dumper": "^2.6",
+        "whoops/soap": "Formats errors as SOAP responses"
     },
     "autoload": {
         "psr-4": {
