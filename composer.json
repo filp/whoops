@@ -19,7 +19,7 @@
         "mockery/mockery": "0.9.*"
     },
     "suggest": {
-        "symfony/var-dumper": "^2.6",
+        "symfony/var-dumper": "Pretty print complex values better with var-dumper available",
         "whoops/soap": "Formats errors as SOAP responses"
     },
     "autoload": {
