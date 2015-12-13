@@ -34,25 +34,19 @@ class PlainTextHandlerTest extends TestCase
      * @param  bool  $withTrace
      * @param  bool  $withTraceArgs
      * @param  bool  $loggerOnly
-     * @param  bool  $onlyForCommandLine
-     * @param  bool  $outputOnlyIfCommandLine
      * @return array
      */
     private function getPlainTextFromHandler(
         $withTrace = false,
         $withTraceArgs = false,
         $traceFunctionArgsOutputLimit = 1024,
-        $loggerOnly = false,
-        $onlyForCommandLine = false,
-        $outputOnlyIfCommandLine = true
+        $loggerOnly = false
     ) {
         $handler = $this->getHandler();
         $handler->addTraceToOutput($withTrace);
         $handler->addTraceFunctionArgsToOutput($withTraceArgs);
         $handler->setTraceFunctionArgsOutputLimit($traceFunctionArgsOutputLimit);
         $handler->loggerOnly($loggerOnly);
-        $handler->onlyForCommandLine($onlyForCommandLine);
-        $handler->outputOnlyIfCommandLine($outputOnlyIfCommandLine);
 
         $run = $this->getRunInstance();
         $run->pushHandler($handler);
@@ -165,64 +159,6 @@ class PlainTextHandlerTest extends TestCase
     }
 
     /**
-     * @covers Whoops\Handler\PlainTextHandler::onlyForCommandLine
-     */
-    public function testOnlyForCommandLine()
-    {
-        $handler = $this->getHandler();
-
-        $handler->onlyForCommandLine(true);
-        $this->assertEquals(true, $handler->onlyForCommandLine());
-
-        $handler->onlyForCommandLine(false);
-        $this->assertEquals(false, $handler->onlyForCommandLine());
-
-        $handler->onlyForCommandLine(null);
-        $this->assertEquals(null, $handler->onlyForCommandLine());
-
-        $handler->onlyForCommandLine(1);
-        $this->assertEquals(true, $handler->onlyForCommandLine());
-
-        $handler->onlyForCommandLine(0);
-        $this->assertEquals(false, $handler->onlyForCommandLine());
-
-        $handler->onlyForCommandLine('');
-        $this->assertEquals(false, $handler->onlyForCommandLine());
-
-        $handler->onlyForCommandLine('false');
-        $this->assertEquals(true, $handler->onlyForCommandLine());
-    }
-
-    /**
-     * @covers Whoops\Handler\PlainTextHandler::outputOnlyIfCommandLine
-     */
-    public function testOutputOnlyIfCommandLine()
-    {
-        $handler = $this->getHandler();
-
-        $handler->outputOnlyIfCommandLine(true);
-        $this->assertEquals(true, $handler->outputOnlyIfCommandLine());
-
-        $handler->outputOnlyIfCommandLine(false);
-        $this->assertEquals(false, $handler->outputOnlyIfCommandLine());
-
-        $handler->outputOnlyIfCommandLine(null);
-        $this->assertEquals(null, $handler->outputOnlyIfCommandLine());
-
-        $handler->outputOnlyIfCommandLine(1);
-        $this->assertEquals(true, $handler->outputOnlyIfCommandLine());
-
-        $handler->outputOnlyIfCommandLine(0);
-        $this->assertEquals(false, $handler->outputOnlyIfCommandLine());
-
-        $handler->outputOnlyIfCommandLine('');
-        $this->assertEquals(false, $handler->outputOnlyIfCommandLine());
-
-        $handler->outputOnlyIfCommandLine('false');
-        $this->assertEquals(true, $handler->outputOnlyIfCommandLine());
-    }
-
-    /**
      * @covers Whoops\Handler\PlainTextHandler::loggerOnly
      */
     public function testLoggerOnly()
@@ -261,9 +197,7 @@ class PlainTextHandlerTest extends TestCase
             $withTrace = false,
             $withTraceArgs = true,
             $traceFunctionArgsOutputLimit = 1024,
-            $loggerOnly = false,
-            $onlyForCommandLine = false,
-            $outputOnlyIfCommandLine = true
+            $loggerOnly = false
         );
 
         // Check that the response has the correct value:
@@ -283,7 +217,6 @@ class PlainTextHandlerTest extends TestCase
     /**
      * @covers Whoops\Handler\PlainTextHandler::addTraceToOutput
      * @covers Whoops\Handler\PlainTextHandler::getTraceOutput
-     * @covers Whoops\Handler\PlainTextHandler::canProcess
      * @covers Whoops\Handler\PlainTextHandler::canOutput
      * @covers Whoops\Handler\PlainTextHandler::handle
      */
@@ -293,27 +226,23 @@ class PlainTextHandlerTest extends TestCase
             $withTrace = true,
             $withTraceArgs = false,
             $traceFunctionArgsOutputLimit = 1024,
-            $loggerOnly = false,
-            $onlyForCommandLine = false,
-            $outputOnlyIfCommandLine = true
+            $loggerOnly = false
         );
 
-        $lines = explode("\n", $text);
-
         // Check that the response has the correct value:
-        $this->assertEquals('Stack trace:', $lines[1]);
+        $this->assertContains('Stack trace:', $text);
 
         // Check that the trace is returned:
-        $this->assertEquals(
+        $this->assertContains(
             sprintf(
                 '%3d. %s->%s() %s:%d',
                 2,
                 'Whoops\Handler\PlainTextHandlerTest',
                 'getException',
                 __FILE__,
-                61
+                55
             ),
-            $lines[3]
+            $text
         );
     }
 
@@ -322,7 +251,6 @@ class PlainTextHandlerTest extends TestCase
      * @covers Whoops\Handler\PlainTextHandler::addTraceFunctionArgsToOutput
      * @covers Whoops\Handler\PlainTextHandler::getTraceOutput
      * @covers Whoops\Handler\PlainTextHandler::getFrameArgsOutput
-     * @covers Whoops\Handler\PlainTextHandler::canProcess
      * @covers Whoops\Handler\PlainTextHandler::canOutput
      * @covers Whoops\Handler\PlainTextHandler::handle
      */
@@ -332,9 +260,7 @@ class PlainTextHandlerTest extends TestCase
             $withTrace = true,
             $withTraceArgs = true,
             $traceFunctionArgsOutputLimit = 2048,
-            $loggerOnly = false,
-            $onlyForCommandLine = false,
-            $outputOnlyIfCommandLine = true
+            $loggerOnly = false
         );
 
         $lines = explode("\n", $text);
@@ -343,27 +269,27 @@ class PlainTextHandlerTest extends TestCase
         $this->assertGreaterThan(60, count($lines));
 
         // Check that the response has the correct value:
-        $this->assertEquals('Stack trace:', $lines[1]);
+        $this->assertContains('Stack trace:', $text);
 
         // Check that the trace is returned:
-        $this->assertEquals(
+        $this->assertContains(
             sprintf(
                 '%3d. %s->%s() %s:%d',
                 2,
                 'Whoops\Handler\PlainTextHandlerTest',
                 'getException',
                 __FILE__,
-                61
+                55
             ),
-            $lines[8]
+            $text
         );
         // Check that the trace arguments are returned:
-        $this->assertEquals(sprintf(
+        $this->assertContains(sprintf(
             '%s  string(%d) "%s"',
             PlainTextHandler::VAR_DUMP_PREFIX,
             strlen('test message'),
             'test message'
-            ), $lines[5]
+            ), $text
         );
     }
 
@@ -372,7 +298,6 @@ class PlainTextHandlerTest extends TestCase
      * @covers Whoops\Handler\PlainTextHandler::addTraceFunctionArgsToOutput
      * @covers Whoops\Handler\PlainTextHandler::getTraceOutput
      * @covers Whoops\Handler\PlainTextHandler::getFrameArgsOutput
-     * @covers Whoops\Handler\PlainTextHandler::canProcess
      * @covers Whoops\Handler\PlainTextHandler::canOutput
      * @covers Whoops\Handler\PlainTextHandler::handle
      */
@@ -382,42 +307,37 @@ class PlainTextHandlerTest extends TestCase
             $withTrace = true,
             $withTraceArgs = 3,
             $traceFunctionArgsOutputLimit = 1024,
-            $loggerOnly = false,
-            $onlyForCommandLine = false,
-            $outputOnlyIfCommandLine = true
+            $loggerOnly = false
         );
 
-        $lines = explode("\n", $text);
-
         // Check that the response has the correct value:
-        $this->assertEquals('Stack trace:', $lines[1]);
+        $this->assertContains('Stack trace:', $text);
 
         // Check that the trace is returned:
-        $this->assertEquals(
+        $this->assertContains(
             sprintf(
                 '%3d. %s->%s() %s:%d',
                 2,
                 'Whoops\Handler\PlainTextHandlerTest',
                 'getException',
                 __FILE__,
-                61
+                55
             ),
-            $lines[8]
+            $text
         );
 
         // Check that the trace arguments are returned:
-        $this->assertEquals(sprintf(
+        $this->assertContains(sprintf(
             '%s  string(%d) "%s"',
             PlainTextHandler::VAR_DUMP_PREFIX,
             strlen('test message'),
             'test message'
-            ), $lines[5]
+            ), $text
         );
     }
 
     /**
      * @covers Whoops\Handler\PlainTextHandler::loggerOnly
-     * @covers Whoops\Handler\PlainTextHandler::canProcess
      * @covers Whoops\Handler\PlainTextHandler::handle
      */
     public function testReturnsWithLoggerOnlyOutput()
@@ -426,9 +346,7 @@ class PlainTextHandlerTest extends TestCase
             $withTrace = true,
             $withTraceArgs = true,
             $traceFunctionArgsOutputLimit = 1024,
-            $loggerOnly = true,
-            $onlyForCommandLine = false,
-            $outputOnlyIfCommandLine = true
+            $loggerOnly = true
         );
         // Check that the response has the correct value:
         $this->assertEquals('', $text);

@@ -120,6 +120,7 @@ class PrettyPageHandler extends Handler
         $templateFile = $this->getResource("views/layout.html.php");
         $cssFile      = $this->getResource("css/whoops.base.css");
         $zeptoFile    = $this->getResource("js/zepto.min.js");
+        $clipboard    = $this->getResource("js/clipboard.min.js");
         $jsFile       = $this->getResource("js/whoops.base.js");
 
         if ($this->customCss) {
@@ -143,6 +144,7 @@ class PrettyPageHandler extends Handler
             // @todo: Asset compiler
             "stylesheet" => file_get_contents($cssFile),
             "zepto"      => file_get_contents($zeptoFile),
+            "clipboard"  => file_get_contents($clipboard),
             "javascript" => file_get_contents($jsFile),
 
             // Template paths:
@@ -182,6 +184,10 @@ class PrettyPageHandler extends Handler
             return $table instanceof \Closure ? $table() : $table;
         }, $this->getDataTables());
         $vars["tables"] = array_merge($extraTables, $vars["tables"]);
+
+        if (\Whoops\Util\Misc::canSendHeaders()) {
+            header('Content-Type: text/html');
+        }
 
         $helper->setVariables($vars);
         $helper->render($templateFile);
