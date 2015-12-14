@@ -49,13 +49,17 @@ class InspectorTest extends TestCase
      */
     public function testDoesNotFailOnPHP7ErrorObject()
     {
-        if (class_exists('Error')) {
-            $inner = new \Error('inner');
-            $outer = $this->getException('outer', 0, $inner);
-            $inspector = $this->getInspectorInstance($outer);
-            $frames = $inspector->getFrames();
-            $this->assertSame($outer->getLine(), $frames[0]->getLine());
+        if (!class_exists('Error')) {
+            $this->markTestSkipped(
+              'PHP 5.x, the Error class is not available.'
+            );
         }
+
+        $inner = new \Error('inner');
+        $outer = $this->getException('outer', 0, $inner);
+        $inspector = $this->getInspectorInstance($outer);
+        $frames = $inspector->getFrames();
+        $this->assertSame($outer->getLine(), $frames[0]->getLine());
     }
     /**
      * @covers Whoops\Exception\Inspector::getExceptionName
