@@ -157,10 +157,10 @@ class Inspector
      *
      * If xdebug is installed
      *
-     * @param Exception $e
+     * @param  \Throwable $exception
      * @return array
      */
-    protected function getTrace(\Exception $e)
+    protected function getTrace($e)
     {
         $traces = $e->getTrace();
 
