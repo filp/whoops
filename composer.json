@@ -12,11 +12,11 @@
         }
     ],
     "require": {
-        "php": ">=5.5",
-        "phpunit/phpunit": "^4.8"
+        "php": ">=5.5"
     },
     "require-dev": {
-        "mockery/mockery": "0.9.*"
+        "mockery/mockery": "0.9.*",
+        "phpunit/phpunit": "^4.8"
     },
     "suggest": {
         "symfony/var-dumper": "Pretty print complex values better with var-dumper available",
