@@ -13,8 +13,8 @@
 - [`Whoops\Handler\PrettyPageHandler`](#handler-pretty) - Outputs a detailed, fancy error page
 
 ### Core Functions:
-- [`Whoops\isAjaxRequest()`](#fn-ajax) - Determines whether the current request was triggered by XMLHttpRequest
-- [`Whoops\isCommandLine()`](#fn-cli) - Determines whether the current request was triggered via php commandline interface (CLI)
+- [`Whoops\Util\Misc::isAjaxRequest()`](#fn-ajax) - Determines whether the current request was triggered by XMLHttpRequest
+- [`Whoops\Util\Misc::isCommandLine()`](#fn-cli) - Determines whether the current request was triggered via php commandline interface (CLI)
 
 
 # Core Classes:
@@ -407,22 +407,22 @@ PrettyPageHandler::handle()
 
 # Core Functions:
 
-## <a name="fn-ajax"></a> `Whoops\isAjaxRequest()`
+## <a name="fn-ajax"></a> `Whoops\Util\Misc::isAjaxRequest()`
  #=> boolean
 
 ```php
 // Use a certain handler only in AJAX triggered requests
-if (Whoops\isAjaxRequest()){
+if (Whoops\Util\Misc::isAjaxRequest()){
   $run->addHandler($myHandler)
 }
 ```
 
-## <a name="fn-cli"></a> `Whoops\isCommandLine()`
+## <a name="fn-cli"></a> `Whoops\Util\Misc::isCommandLine()`
  #=> boolean
 
 ```php
 // Use a certain handler only in php cli
-if (Whoops\isCommandLine()){
+if (Whoops\Util\Misc::isCommandLine()){
   $run->addHandler($myHandler)
 }
 ```

@@ -23,6 +23,22 @@ class Misc
         return isset($_SERVER["REQUEST_URI"]) && !headers_sent();
     }
 
+    public static function isAjaxRequest()
+    {
+        return (
+            !empty($_SERVER['HTTP_X_REQUESTED_WITH'])
+            && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
+    }
+
+    /**
+     * Check, if possible, that this execution was triggered by a command line.
+     * @return bool
+     */
+    public static function isCommandLine()
+    {
+        return PHP_SAPI == 'cli';
+    }
+
     /**
 	 * Translate ErrorException code into the represented constant.
 	 *
