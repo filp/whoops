@@ -40,7 +40,7 @@ If you use Laravel 4, you already have Whoops. There are also community-provided
 [Silex 2](https://github.com/texthtml/whoops-silex),
 [Phalcon](https://github.com/whoops-php/phalcon),
 [Laravel 3](https://gist.github.com/hugomrdias/5169713#file-start-php),
-[Laravel 5](https://mattstauffer.co/blog/bringing-whoops-back-to-laravel-5),
+[Laravel 5](https://mattstauffer.co/blog/bringing-whoops-back-to-laravel-5) ([possible problem](https://github.com/filp/whoops/issues/361)),
 [CakePHP 2](https://github.com/oldskool/WhoopsCakephp/tree/cake2),
 [CakePHP 3](https://github.com/oldskool/WhoopsCakephp),
 [Zend Framework 2](https://github.com/ghislainf/zf2-whoops),
