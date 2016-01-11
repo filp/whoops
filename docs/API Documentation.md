@@ -413,7 +413,7 @@ PrettyPageHandler::handle()
 ```php
 // Use a certain handler only in AJAX triggered requests
 if (Whoops\Util\Misc::isAjaxRequest()){
-  $run->addHandler($myHandler)
+  $run->addHandler($myHandler);
 }
 ```
 
@@ -423,7 +423,7 @@ if (Whoops\Util\Misc::isAjaxRequest()){
 ```php
 // Use a certain handler only in php cli
 if (Whoops\Util\Misc::isCommandLine()){
-  $run->addHandler($myHandler)
+  $run->addHandler($myHandler);
 }
 ```
 
@@ -437,5 +437,5 @@ $plainTextHandler = new PlainTextHandler();
 if (!Whoops\isCommandLine()){
   $plainTextHandler->loggerOnly(true);
 }
-$run->addHandler($myHandler)
+$run->addHandler($myHandler);
 ```
