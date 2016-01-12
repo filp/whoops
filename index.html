@@ -107,7 +107,7 @@ $run->pushHandler($handler);
 // first in the stack, it will be executed before the error
 // page handler, and will have a chance to decide if anything
 // needs to be done.
-if (Whoops\isAjaxRequest()) {
+if (Whoops\Util\Misc::isAjaxRequest()) {
   $run->pushHandler(new JsonResponseHandler);
 }
 
