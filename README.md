@@ -17,12 +17,6 @@ PHP errors for cool kids
 error interface that helps you debug your web projects, but at heart it's a simple yet
 powerful stacked error handling system.
 
-## Major version bump
-
-**This is documentation for upcoming Whoops version 2**.
-It is currently in its pre-release state, available with a separate, [pre-release download tag](https://packagist.org/packages/filp/whoops#dev-master).
-For documentation on the stable version, see [branch `v1`](https://github.com/filp/whoops/tree/v1).
-
 ## Features
 
 - Flexible, stack-based error handling
