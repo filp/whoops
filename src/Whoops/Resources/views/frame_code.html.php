@@ -29,6 +29,10 @@
             $start = key($range) + 1;
             $code  = join("\n", $range);
         ?>
+            <style>#frame-code-0 .linenums li:nth-child(<?= $line-$start+1 ?>) {
+                /* Style current line */
+                background-color: hsl(0, 0%, 33%); 
+            }</style>
             <pre class="code-block prettyprint linenums:<?php echo $start ?>"><?php echo $tpl->escape($code) ?></pre>
           <?php endif ?>
         <?php endif ?>
