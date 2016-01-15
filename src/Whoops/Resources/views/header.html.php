@@ -12,16 +12,21 @@
     <?php endif ?>
   </div>
 
-  <span id="plain-exception"><?php echo $tpl->escape($plain_exception) ?></span>
-  <button id="copy-button" class="clipboard" data-clipboard-text="<?php echo $tpl->escape($plain_exception) ?>" title="Copy exception details to clipabord">
-    COPY
-  </button>
-
-  <p class="exc-message">
+  <div class="exc-message">
     <?php if (!empty($message)): ?>
-      <?php echo $tpl->escape($message) ?>
+      <span><?php echo $tpl->escape($message) ?></span>
     <?php else: ?>
       <span class="exc-message-empty-notice">No message</span>
     <?php endif ?>
-  </p>
+
+    <ul class="search-for-help">
+      <li><a target="_blank" href="https://google.com/search?q=<?php echo urlencode(implode('\\', $name).' '.$message) ?>" title="Search for help on Google."><i class="google"></i></a></li>
+      <li><a target="_blank" href="https://stackoverflow.com/search?q=<?php echo urlencode(implode('\\', $name).' '.$message) ?>" title="Search for help on Stack Overflow."><i class="stackoverflow"></i></a></li>
+    </ul>
+
+    <span id="plain-exception"><?php echo $tpl->escape($plain_exception) ?></span>
+    <button id="copy-button" class="clipboard" data-clipboard-text="<?php echo $tpl->escape($plain_exception) ?>" title="Copy exception details to clipabord">
+      COPY
+    </button>
+  </div>
 </div>
