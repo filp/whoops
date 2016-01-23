@@ -156,8 +156,12 @@ function flush()
     return SystemFacadeTest::delegate('flush');
 }
 
-function set_error_handler(callable $handler, $types = E_ALL | E_STRICT)
+function set_error_handler(callable $handler, $types = 'use-php-defaults')
 {
+    // Workaround for PHP 5.5
+    if ($types === 'use-php-defaults') {
+        $types = E_ALL | E_STRICT;
+    }
     return SystemFacadeTest::delegate('set_error_handler', func_get_args());
 }
 

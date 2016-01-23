@@ -24,8 +24,12 @@ class SystemFacade
      *
      * @return callable|null
      */
-    public function setErrorHandler(callable $handler, $types = E_ALL | E_STRICT)
+    public function setErrorHandler(callable $handler, $types = 'use-php-defaults')
     {
+        // Workaround for PHP 5.5
+        if ($types === 'use-php-defaults') {
+            $types = E_ALL | E_STRICT;
+        }
         return set_error_handler($handler, $types);
     }
 
