@@ -15,7 +15,7 @@ use Whoops\Handler\HandlerInterface;
 use Whoops\Util\Misc;
 use Whoops\Util\SystemFacade;
 
-final class Run
+class Run
 {
     const EXCEPTION_HANDLER = "handleException";
     const ERROR_HANDLER     = "handleError";
