@@ -124,22 +124,7 @@ class SystemFacade
      */
     public function setHttpResponseCode($httpCode)
     {
-        if (function_exists('http_response_code')) {
-            return http_response_code($httpCode);
-        }
-
-        // http_response_code is added in 5.4.
-        // For compatibility with 5.3 we use the third argument in header call
-        // First argument must be a real header.
-        // If it is empty, PHP will ignore the third argument.
-        // If it is invalid, such as a single space, Apache will handle it well,
-        // but the PHP development server will hang.
-        // Setting a full status line would require us to hardcode
-        // string values for all different status code, and detect the protocol.
-        // which is an extra error-prone complexity.
-        header('X-Ignore-This: 1', true, $httpCode);
-
-        return $httpCode;
+        return http_response_code($httpCode);
     }
 
     /**
