@@ -136,6 +136,22 @@ header {
       font-size: 14px;
     }
 
+    .frame-arg {
+      margin-left: 20px;
+      display: block;
+    }
+
+      .frame-arg .frame-arg-type-null {
+        font-style: italic;
+      }
+
+      .frame-arg .frame-arg-type-string {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        display: block;
+      }
+
     .frame-index {
       font-size: 11px;
       color: #a29d9d;
@@ -183,6 +199,18 @@ header {
 
       border-bottom: none;
     }
+
+      .frame-code-arguments {
+        padding: 10px;
+        background: #333 none repeat scroll 0 0;
+        border-radius: 6px;
+        box-shadow: 0 3px 0 rgba(0, 0, 0, 0.05), 0 10px 30px rgba(0, 0, 0, 0.05), 0 0 1px 0 rgba(255, 255, 255, 0.07) inset;
+        color: #e9e4e5;
+      }
+
+        .frame-code-arguments li {
+          margin-left: 10px;
+        }
 
     .code-block {
       padding: 10px;

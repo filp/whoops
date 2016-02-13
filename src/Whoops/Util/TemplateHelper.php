@@ -9,6 +9,7 @@ namespace Whoops\Util;
 use Symfony\Component\VarDumper\Cloner\VarCloner;
 use Symfony\Component\VarDumper\Dumper\CliDumper;
 use Symfony\Component\VarDumper\Dumper\HtmlDumper;
+use Whoops\Exception\Frame;
 
 /**
  * Exposes useful tools for working with/in templates
@@ -98,6 +99,73 @@ class TemplateHelper
             return $dumper->dump($cloner->cloneVar($value));
         }
         return print_r($value, true);
+    }
+
+    /**
+     * Format the args of the given Frame as a human readable html string
+     *
+     * @param  Frame $frame
+     * @return string the rendered html
+     */
+    public function dumpArgs(Frame $frame)
+    {
+        $html = '';
+        $numFrames = count($frame->getArgs());
+
+        if ($numFrames) {
+            $html .= '(';
+
+            foreach($frame->getArgs() as $j => $frameArg) {
+                $class = 'frame-arg';
+                if ($j != $numFrames - 1 ) {
+                    $class .= ' frame-arg-separated';
+                }
+                $html .= '<span class="'. $class .'">'. $this->dumpArgType($frameArg) .'</span>';
+            }
+
+            $html .= ')';
+        }
+
+        return $html;
+    }
+
+    /**
+     * Format the arg to a human readable short value
+     *
+     * @param  Frame $frameArg
+     * @return string the rendered html
+     */
+    public function dumpArgType($frameArg) {
+        if (is_null($frameArg))
+            return '<span class="frame-arg-type-null">null</span>';
+
+        if (is_bool($frameArg))
+            return '<span class="frame-arg-type-bool">' . ($frameArg ? 'true' : 'false') . '</span>';
+
+        if (is_string($frameArg)) {
+            $html = '<span class="frame-arg-type-string">string (' . strlen($frameArg) . ') ';
+
+            if ($frameArg !== '')
+                $html .= htmlspecialchars(var_export($frameArg, true));
+
+            $html .= '</span>';
+
+            return $html;
+        }
+
+        if (is_resource($frameArg))
+            return 'Resource(' . get_resource_type($frameArg) . ')';
+
+        if (is_scalar($frameArg) || is_null($frameArg))
+            return $this->dump($frameArg, true);
+
+        if (is_object($frameArg))
+            return 'Object(' . get_class($frameArg) . ')';
+
+        if (is_array($frameArg))
+            return 'array(' . count($frameArg) . ') { ... }';
+
+        return '[UNKNOWN]';
     }
 
     /**
