@@ -136,6 +136,15 @@ header {
       font-size: 14px;
     }
 
+    .frame-arg {
+      margin-left: 20px;
+      display: block;
+    }
+
+    .frame-arg-separated .sf-dump::after {
+      content: ',';
+    }
+
     .frame-index {
       font-size: 11px;
       color: #a29d9d;

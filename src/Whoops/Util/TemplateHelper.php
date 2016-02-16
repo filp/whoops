@@ -9,6 +9,7 @@ namespace Whoops\Util;
 use Symfony\Component\VarDumper\Cloner\VarCloner;
 use Symfony\Component\VarDumper\Dumper\CliDumper;
 use Symfony\Component\VarDumper\Dumper\HtmlDumper;
+use Whoops\Exception\Frame;
 
 /**
  * Exposes useful tools for working with/in templates
@@ -62,6 +63,34 @@ class TemplateHelper
         );
     }
 
+    private function getDumper()
+    {
+        static $dumper = null;
+
+        if (!$dumper && class_exists('Symfony\Component\VarDumper\Cloner\VarCloner')) {
+            // re-use the same var-dumper instance, so it won't re-render the global styles/scripts on each dump.
+            $dumper = new HtmlDumper();
+
+            $styles = array(
+                'default' => '',
+                'num' => '',
+                'const' => '',
+                'str' => '',
+                'note' => '',
+                'ref' => '',
+                'public' => '',
+                'protected' => '',
+                'private' => '',
+                'meta' => '',
+                'key' => '',
+                'index' => '',
+            );
+            $dumper->setStyles($styles);
+        }
+
+        return $dumper;
+    }
+
     /**
      * Format the given value into a human readable string.
      *
@@ -70,34 +99,53 @@ class TemplateHelper
      */
     public function dump($value)
     {
-        if (class_exists('Symfony\Component\VarDumper\Cloner\VarCloner')) {
-            static $dumper = null;
+        $dumper = $this->getDumper();
 
-            // re-use the same var-dumper instance, so it won't re-render the global styles/scripts on each dump.
-            if (!$dumper) {
-                $dumper = new HtmlDumper();
-
-                $styles = array(
-                    'default' => '',
-                    'num' => '',
-                    'const' => '',
-                    'str' => '',
-                    'note' => '',
-                    'ref' => '',
-                    'public' => '',
-                    'protected' => '',
-                    'private' => '',
-                    'meta' => '',
-                    'key' => '',
-                    'index' => '',
-                );
-                $dumper->setStyles($styles);
-            }
-
+        if ($dumper) {
             $cloner = new VarCloner();
-            return $dumper->dump($cloner->cloneVar($value));
+            $output = '';
+            $dumper->dump($cloner->cloneVar($value),  function ($line, $depth) use (&$output) {
+                // A negative depth means "end of dump"
+                if ($depth >= 0) {
+                    // Adds a two spaces indentation to the line
+                    $output .= str_repeat('  ', $depth).$line."\n";
+                }
+            });
+            return $output;
         }
+
         return print_r($value, true);
+    }
+
+    /**
+     * Format the args of the given Frame as a human readable html string
+     *
+     * @param  Frame $frame
+     * @return string the rendered html
+     */
+    public function dumpArgs(Frame $frame)
+    {
+        // we support frame args only when the optional dumper is available
+        if (!$this->getDumper()) {
+            return '';
+        }
+
+        $html = '';
+        $numFrames = count($frame->getArgs());
+
+        if ($numFrames > 0) {
+            $html .= '(';
+            foreach($frame->getArgs() as $j => $frameArg) {
+                $class = 'frame-arg';
+                if ($j != $numFrames - 1 ) {
+                    $class .= ' frame-arg-separated';
+                }
+                $html .= '<span class="'. $class .'">'. $this->dump($frameArg) .'</span>';
+            }
+            $html .= ')';
+        }
+
+        return $html;
     }
 
     /**
