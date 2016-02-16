@@ -31,20 +31,32 @@
         ?>
             <style>
              #frame-code-0 .linenums li:nth-child(<?= $line-$start ?>) {
-                 background-color: rgba(255, 100, 100, .07); 
+                 background-color: rgba(255, 100, 100, .07);
                  padding: 2px;
               }
              #frame-code-0 .linenums li:nth-child(<?= $line-$start+1 ?>) {
-                 background-color: rgba(255, 100, 100, .17); 
+                 background-color: rgba(255, 100, 100, .17);
                  padding: 2px;
               }
              #frame-code-0 .linenums li:nth-child(<?= $line-$start+2 ?>) {
-                 background-color: rgba(255, 100, 100, .07); 
+                 background-color: rgba(255, 100, 100, .07);
                  padding: 2px;
               }
             </style>
             <pre class="code-block prettyprint linenums:<?php echo $start ?>"><?php echo $tpl->escape($code) ?></pre>
           <?php endif ?>
+        <?php endif ?>
+
+        <?php
+          // Append frame variables
+          $frameArgs = $frame->getArgs();
+        ?>
+        <?php if (count($frameArgs)): ?>
+          <ol class="frame-code-arguments" start="0">
+            <?php foreach ($frameArgs as $frameArgNo => $frameArg): ?>
+              <li><?php echo $tpl->dump($frameArg); ?></li>
+            <?php endforeach ?>
+          </ol>
         <?php endif ?>
 
         <?php
