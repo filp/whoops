@@ -15,7 +15,7 @@ $handler->setEditor('sublime');
 
 The following editors are currently supported by default.
 
-- `sublime`  - Sublime Text 2
+- `sublime`  - Sublime Text 2 and possibly 3 (on OS X you might need [a special handler](https://github.com/dhoulb/subl))
 - `emacs`    - Emacs
 - `textmate` - Textmate
 - `macvim`   - MacVim
