@@ -23,6 +23,11 @@ class TemplateHelper
     private $variables = array();
 
     /**
+     * @var HtmlDumper
+     */
+    private $htmlDumper;
+
+    /**
      * Escapes a string for output in an HTML document
      *
      * @param  string $raw
@@ -65,11 +70,9 @@ class TemplateHelper
 
     private function getDumper()
     {
-        static $dumper = null;
-
-        if (!$dumper && class_exists('Symfony\Component\VarDumper\Cloner\VarCloner')) {
+        if (!$this->htmlDumper && class_exists('Symfony\Component\VarDumper\Cloner\VarCloner')) {
             // re-use the same var-dumper instance, so it won't re-render the global styles/scripts on each dump.
-            $dumper = new HtmlDumper();
+            $this->htmlDumper = new HtmlDumper();
 
             $styles = array(
                 'default' => '',
@@ -85,10 +88,10 @@ class TemplateHelper
                 'key' => '',
                 'index' => '',
             );
-            $dumper->setStyles($styles);
+            $this->htmlDumper->setStyles($styles);
         }
 
-        return $dumper;
+        return $this->htmlDumper;
     }
 
     /**
