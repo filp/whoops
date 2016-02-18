@@ -10,7 +10,6 @@ use InvalidArgumentException;
 use RuntimeException;
 use UnexpectedValueException;
 use Whoops\Exception\Formatter;
-use Whoops\Util\Misc;
 use Whoops\Util\TemplateHelper;
 
 class PrettyPageHandler extends Handler
@@ -192,7 +191,7 @@ class PrettyPageHandler extends Handler
         }, $this->getDataTables());
         $vars["tables"] = array_merge($extraTables, $vars["tables"]);
 
-        if (\Whoops\Util\Misc::canSendHeaders()) {
+        if ($this->canSendHeaders()) {
             header('Content-Type: text/html');
         }
 

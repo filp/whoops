@@ -46,7 +46,7 @@ class JsonResponseHandler extends Handler
             ),
         );
 
-        if (\Whoops\Util\Misc::canSendHeaders()) {
+        if ($this->canSendHeaders()) {
             header('Content-Type: application/json');
         }
 

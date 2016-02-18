@@ -8,6 +8,7 @@ namespace Whoops\Handler;
 
 use Whoops\Exception\Inspector;
 use Whoops\Run;
+use Whoops\Util\Misc;
 
 /**
  * Abstract implementation of a Handler.
@@ -37,6 +38,11 @@ abstract class Handler implements HandlerInterface
      * @var \Throwable $exception
      */
     private $exception;
+
+    /**
+     * @var bool
+     */
+    private $sendHeaders;
 
     /**
      * @param Run $run
@@ -84,5 +90,26 @@ abstract class Handler implements HandlerInterface
     protected function getException()
     {
         return $this->exception;
+    }
+
+    public function canSendHeaders()
+    {
+        if ($this->sendHeaders === null) {
+            $this->sendHeaders = Misc::canSendHeaders();
+        }
+
+        return $this->sendHeaders;
+    }
+
+    /**
+     * Allows to disable all attempts to dynamically decide whether to
+     * send headers.
+     * Set this to false to ensure that the handler will not send headers.
+     * @param  bool $value
+     * @return null
+     */
+    public function setSendHeaders($value)
+    {
+        $this->sendHeaders = (bool) $value;
     }
 }
