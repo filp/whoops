@@ -348,9 +348,8 @@ class PrettyPageHandler extends Handler
         $editor['url'] = str_replace("%file", rawurlencode($filePath), $editor['url']);
 
         // The "%raw_file" will always use unix style paths. (even on Windows)
-        $f = str_replace('\\', '/', $filePath);
-        // Don't encode the file path for RAW.
-        $editor['url'] = str_replace("%raw_file", $f, $editor['url']);
+        // Also, don't url-encode the file path for RAW.
+        $editor['url'] = str_replace("%raw_file", str_replace('\\', '/', $filePath), $editor['url']);
 
         return $editor['url'];
     }
