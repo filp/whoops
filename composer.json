@@ -16,7 +16,8 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^4.8 || ^5.0",
-        "mockery/mockery": "0.9.*"
+        "mockery/mockery": "0.9.*",
+        "symfony/var-dumper": "~3.0"
     },
     "suggest": {
         "symfony/var-dumper": "Pretty print complex values better with var-dumper available",
