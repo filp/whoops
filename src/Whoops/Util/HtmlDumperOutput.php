@@ -6,6 +6,11 @@
 
 namespace Whoops\Util;
 
+/**
+ * Used as output callable for Symfony\Component\VarDumper\Dumper\HtmlDumper::dump()
+ *
+ * @see TemplateHelper::dump()
+ */
 class HtmlDumperOutput
 {
     private $output;
