@@ -23,12 +23,6 @@ interface HandlerInterface
     public function setRun(Run $run);
 
     /**
-     * @param  \Throwable $exception
-     * @return void
-     */
-    public function setException($exception);
-
-    /**
      * @param  Inspector $inspector
      * @return void
      */

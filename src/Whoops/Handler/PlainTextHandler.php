@@ -240,13 +240,13 @@ class PlainTextHandler extends Handler
      */
     public function handle()
     {
-        $exception = $this->getException();
+        $inspector = $this->getInspector();
 
         $response = sprintf("%s: %s in file %s on line %d%s\n",
-                get_class($exception),
-                $exception->getMessage(),
-                $exception->getFile(),
-                $exception->getLine(),
+                $inspector->getClass(),
+                $inspector->getMessage(),
+                $inspector->getFile(),
+                $inspector->getLine(),
                 $this->getTraceOutput()
             );
 

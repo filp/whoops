@@ -72,6 +72,8 @@ abstract class Handler implements HandlerInterface
 
     /**
      * @param \Throwable $exception
+     *
+     * @deprecated
      */
     public function setException($exception)
     {
@@ -79,7 +81,11 @@ abstract class Handler implements HandlerInterface
     }
 
     /**
+     * Get the exception via the inspector.
+     *
      * @return \Throwable
+     *
+     * @deprecated
      */
     protected function getException()
     {

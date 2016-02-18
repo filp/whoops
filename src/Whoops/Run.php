@@ -251,12 +251,12 @@ final class Run implements RunInterface
         foreach (array_reverse($this->handlerStack) as $handler) {
             $handler->setRun($this);
             $handler->setInspector($inspector);
-            $handler->setException($exception);
 
-            // The HandlerInterface does not require an Exception passed to handle()
+            // The HandlerInterface does not require setException or an Exception passed to handle()
             // and neither of our bundled handlers use it.
             // However, 3rd party handlers may have already relied on this parameter,
             // and removing it would be possibly breaking for users.
+            $handler->setException($exception);
             $handlerResponse = $handler->handle($exception);
 
             if (in_array($handlerResponse, array(Handler::LAST_HANDLER, Handler::QUIT))) {
