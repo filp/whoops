@@ -70,6 +70,7 @@ class PrettyPageHandler extends Handler
      */
     protected $editors = array(
         "sublime"  => "subl://open?url=file://%file&line=%line",
+        "sublime3"  => "subl://%raw_file:%line",
         "textmate" => "txmt://open?url=file://%file&line=%line",
         "emacs"    => "emacs://open?url=file://%file&line=%line",
         "macvim"   => "mvim://open/?url=file://%file&line=%line",
@@ -345,6 +346,11 @@ class PrettyPageHandler extends Handler
 
         $editor['url'] = str_replace("%line", rawurlencode($line), $editor['url']);
         $editor['url'] = str_replace("%file", rawurlencode($filePath), $editor['url']);
+
+        // The "%raw_file" will always use unix style paths. (even on Windows)
+        $f = str_replace('\\', '/', $filePath);
+        // Don't encode the file path for RAW.
+        $editor['url'] = str_replace("%raw_file", $f, $editor['url']);
 
         return $editor['url'];
     }
