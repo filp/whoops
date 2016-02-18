@@ -141,15 +141,11 @@ class TemplateHelper
         $numFrames = count($frame->getArgs());
 
         if ($numFrames > 0) {
-            $html .= '(';
+            $html = '<ol class="linenums">';
             foreach($frame->getArgs() as $j => $frameArg) {
-                $class = 'frame-arg';
-                if ($j != $numFrames - 1 ) {
-                    $class .= ' frame-arg-separated';
-                }
-                $html .= '<span class="'. $class .'">'. $this->dump($frameArg) .'</span>';
+                $html .= '<li>'. $this->dump($frameArg) .'</li>';
             }
-            $html .= ')';
+            $html .= '</ol>';
         }
 
         return $html;

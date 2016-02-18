@@ -136,15 +136,6 @@ header {
       font-size: 14px;
     }
 
-    .frame-arg {
-      margin-left: 20px;
-      display: block;
-    }
-
-    .frame-arg-separated .sf-dump::after {
-      content: ',';
-    }
-
     .frame-index {
       font-size: 11px;
       color: #a29d9d;
@@ -322,7 +313,7 @@ pre .xsl, code .xsl { color: #d0a0d0; }  /* xslt tag */
 pre .atn, code .atn { color: #ef7c61; font-weight: normal;} /* html/xml attribute name */
 pre .atv, code .atv { color: #bcd42a; }  /* html/xml attribute value  */
 pre .dec, code .dec { color: #606; }  /* decimal  */
-pre.prettyprint, code.prettyprint {
+pre.prettyprint, code.prettyprint, .frame-args.prettyprint, .frame-args.prettyprint samp {
   font-family: "Inconsolata", "Fira Mono", "Source Code Pro", Monaco, Consolas, "Lucida Console", monospace;
   background: #333;
   color: #e9e4e5;
