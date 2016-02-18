@@ -94,6 +94,26 @@ header {
       border-bottom: 1px solid rgba(0, 0, 0, .1);
     }
 
+    .details pre.sf-dump {
+      white-space: pre;
+      word-wrap: inherit;
+    }
+
+    .details pre.sf-dump,
+    .details pre.sf-dump .sf-dump-num,
+    .details pre.sf-dump .sf-dump-const,
+    .details pre.sf-dump .sf-dump-str,
+    .details pre.sf-dump .sf-dump-note,
+    .details pre.sf-dump .sf-dump-ref,
+    .details pre.sf-dump .sf-dump-public,
+    .details pre.sf-dump .sf-dump-protected,
+    .details pre.sf-dump .sf-dump-private,
+    .details pre.sf-dump .sf-dump-meta,
+    .details pre.sf-dump .sf-dump-key,
+    .details pre.sf-dump .sf-dump-index {
+      color: #463C54;
+    }
+
 .left-panel {
   height: 100%;
   overflow: auto;
