@@ -138,9 +138,9 @@ Inspector::__construct(Exception $exception)
 Inspector::getException()
  #=> Exception
 
-// Returns the string name of the Exception being inspected
+// Returns the name of the class of the Exception being inspected
 // A faster way of doing get_class($inspector->getException())
-Inspector::getExceptionName()
+Inspector::getClass()
  #=> string
 
 // Returns the string message for the Exception being inspected

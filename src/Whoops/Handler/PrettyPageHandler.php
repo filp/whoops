@@ -154,9 +154,9 @@ class PrettyPageHandler extends Handler
             "env_details" => $this->getResource("views/env_details.html.php"),
 
             "title"          => $this->getPageTitle(),
-            "name"           => explode("\\", $inspector->getExceptionName()),
             "message"        => $inspector->getException()->getMessage(),
             "code"           => $code,
+            "name"           => explode("\\", $inspector->getClass()),
             "plain_exception" => Formatter::formatExceptionPlain($inspector),
             "frames"         => $frames,
             "has_frames"     => !!count($frames),

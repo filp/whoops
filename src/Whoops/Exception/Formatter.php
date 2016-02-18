@@ -52,7 +52,7 @@ class Formatter
         $message = $inspector->getException()->getMessage();
         $frames = $inspector->getFrames();
 
-        $plain = $inspector->getExceptionName();
+        $plain = $inspector->getClass();
         $plain .= ' thrown with message "';
         $plain .= $message;
         $plain .= '"'."\n\n";

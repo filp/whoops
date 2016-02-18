@@ -62,14 +62,14 @@ class InspectorTest extends TestCase
         $this->assertSame($outer->getLine(), $frames[0]->getLine());
     }
     /**
-     * @covers Whoops\Exception\Inspector::getExceptionName
+     * @covers Whoops\Exception\Inspector::getClass
      */
-    public function testReturnsCorrectExceptionName()
+    public function testReturnsCorrectClass()
     {
         $exception = $this->getException();
         $inspector = $this->getInspectorInstance($exception);
 
-        $this->assertEquals(get_class($exception), $inspector->getExceptionName());
+        $this->assertEquals(get_class($exception), $inspector->getClass());
     }
 
     /**

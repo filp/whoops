@@ -42,7 +42,11 @@ class Inspector
     }
 
     /**
+     * Use getClass.
+     *
      * @return string
+     *
+     * @deprecated
      */
     public function getExceptionName()
     {
@@ -58,6 +62,13 @@ class Inspector
     }
 
     /**
+     * @return string
+     */
+    public function getClass()
+    {
+        return get_class($this->exception);
+    }
+
      * Does the wrapped Exception has a previous Exception?
      * @return bool
      */
