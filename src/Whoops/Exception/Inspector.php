@@ -54,7 +54,11 @@ class Inspector
     }
 
     /**
+     * Use getMessage.
+     *
      * @return string
+     *
+     * @deprecated
      */
     public function getExceptionMessage()
     {
@@ -67,6 +71,14 @@ class Inspector
     public function getClass()
     {
         return get_class($this->exception);
+    }
+
+    /**
+     * @return string
+     */
+    public function getMessage()
+    {
+        return $this->exception->getMessage();
     }
 
      * Does the wrapped Exception has a previous Exception?
@@ -151,7 +163,7 @@ class Inspector
                 // I assume it will always be set, but let's be safe
                 if (isset($newFrames[0])) {
                     $newFrames[0]->addComment(
-                        $previousInspector->getExceptionMessage(),
+                        $previousInspector->getMessage(),
                         'Exception message:'
                     );
                 }

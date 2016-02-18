@@ -145,7 +145,7 @@ Inspector::getClass()
 
 // Returns the string message for the Exception being inspected
 // A faster way of doing $inspector->getException()->getMessage()
-Inspector::getExceptionMessage()
+Inspector::getMessage()
  #=> string
 
 // Returns an iterator instance for all the frames in the stack
