@@ -80,18 +80,18 @@ class TemplateHelper
             $this->htmlDumper = new HtmlDumper($this->htmlDumperOutput);
 
             $styles = array(
-                'default' => '',
-                'num' => '',
-                'const' => '',
-                'str' => '',
-                'note' => '',
-                'ref' => '',
-                'public' => '',
-                'protected' => '',
-                'private' => '',
-                'meta' => '',
-                'key' => '',
-                'index' => '',
+                'default' => 'color:#FFFFFF; line-height:normal; font:12px "Inconsolata", "Fira Mono", "Source Code Pro", Monaco, Consolas, "Lucida Console", monospace !important; word-wrap: break-word; white-space: pre-wrap; position:relative; z-index:99999; word-break: normal',
+                'num' => 'color:#BCD42A',
+                'const' => 'color: #4bb1b1;',
+                'str' => 'color:#BCD42A',
+                'note' => 'color:#ef7c61',
+                'ref' => 'color:#A0A0A0',
+                'public' => 'color:#FFFFFF',
+                'protected' => 'color:#FFFFFF',
+                'private' => 'color:#FFFFFF',
+                'meta' => 'color:#FFFFFF',
+                'key' => 'color:#BCD42A',
+                'index' => 'color:#ef7c61',
             );
             $this->htmlDumper->setStyles($styles);
         }
