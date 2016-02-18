@@ -130,13 +130,6 @@ class PrettyPageHandler extends Handler
         $inspector = $this->getInspector();
         $frames    = $inspector->getFrames();
 
-        $code = $inspector->getException()->getCode();
-
-        if ($inspector->getException() instanceof \ErrorException) {
-            // ErrorExceptions wrap the php-error types within the "severity" property
-            $code = Misc::translateErrorCode($inspector->getException()->getSeverity());
-        }
-
         // List of variables that will be passed to the layout template.
         $vars = array(
             "page_title" => $this->getPageTitle(),
@@ -154,9 +147,9 @@ class PrettyPageHandler extends Handler
             "env_details" => $this->getResource("views/env_details.html.php"),
 
             "title"          => $this->getPageTitle(),
-            "message"        => $inspector->getException()->getMessage(),
-            "code"           => $code,
             "name"           => explode("\\", $inspector->getClass()),
+            "message"        => $inspector->getMessage(),
+            "code"           => $inspector->getCode(),
             "plain_exception" => Formatter::formatExceptionPlain($inspector),
             "frames"         => $frames,
             "has_frames"     => !!count($frames),

@@ -18,12 +18,11 @@ class Formatter
      */
     public static function formatExceptionAsDataArray(Inspector $inspector, $shouldAddTrace)
     {
-        $exception = $inspector->getException();
         $response = array(
-            'type'    => get_class($exception),
-            'message' => $exception->getMessage(),
-            'file'    => $exception->getFile(),
-            'line'    => $exception->getLine(),
+            'type'    => $inspector->getClass(),
+            'message' => $inspector->getMessage(),
+            'file'    => $inspector->getFile(),
+            'line'    => $inspector->getLine(),
         );
 
         if ($shouldAddTrace) {
@@ -49,12 +48,11 @@ class Formatter
 
     public static function formatExceptionPlain(Inspector $inspector)
     {
-        $message = $inspector->getException()->getMessage();
         $frames = $inspector->getFrames();
 
         $plain = $inspector->getClass();
         $plain .= ' thrown with message "';
-        $plain .= $message;
+        $plain .= $inspector->getMessage();
         $plain .= '"'."\n\n";
 
         $plain .= "Stacktrace:\n";

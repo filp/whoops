@@ -81,6 +81,36 @@ class Inspector
         return $this->exception->getMessage();
     }
 
+    /**
+     * @return int
+     */
+    public function getCode()
+    {
+        if ($this->exception instanceof \ErrorException) {
+            // ErrorExceptions wrap the php-error types within the "severity" property
+            return Misc::translateErrorCode($this->exception->getSeverity());
+        }
+
+        return $this->exception->getCode();
+    }
+
+    /**
+     * @return string
+     */
+    public function getFile()
+    {
+        return $this->exception->getFile();
+    }
+
+    /**
+     * @return int
+     */
+    public function getLine()
+    {
+        return $this->exception->getLine();
+    }
+
+    /**
      * Does the wrapped Exception has a previous Exception?
      * @return bool
      */
