@@ -13,17 +13,17 @@ class Inspector
     /**
      * @var \Throwable
      */
-    private $exception;
+    protected $exception;
 
     /**
      * @var \Whoops\Exception\FrameCollection
      */
-    private $frames;
+    protected $frames;
 
     /**
      * @var \Whoops\Exception\Inspector
      */
-    private $previousExceptionInspector;
+    protected $previousExceptionInspector;
 
     /**
      * @param \Throwable $exception The exception to inspect
@@ -130,7 +130,7 @@ class Inspector
             $previousException = $this->exception->getPrevious();
 
             if ($previousException) {
-                $this->previousExceptionInspector = new Inspector($previousException);
+                $this->previousExceptionInspector = new static($previousException);
             }
         }
 
