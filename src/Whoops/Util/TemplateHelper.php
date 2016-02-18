@@ -28,6 +28,11 @@ class TemplateHelper
     private $htmlDumper;
 
     /**
+     * @var HtmlDumperOutput
+     */
+    private $htmlDumperOutput;
+
+    /**
      * Escapes a string for output in an HTML document
      *
      * @param  string $raw
@@ -71,8 +76,9 @@ class TemplateHelper
     private function getDumper()
     {
         if (!$this->htmlDumper && class_exists('Symfony\Component\VarDumper\Cloner\VarCloner')) {
+            $this->htmlDumperOutput = new HtmlDumperOutput();
             // re-use the same var-dumper instance, so it won't re-render the global styles/scripts on each dump.
-            $this->htmlDumper = new HtmlDumper();
+            $this->htmlDumper = new HtmlDumper($this->htmlDumperOutput);
 
             $styles = array(
                 'default' => '',
@@ -106,14 +112,13 @@ class TemplateHelper
 
         if ($dumper) {
             $cloner = new VarCloner();
-            $output = '';
-            $dumper->dump($cloner->cloneVar($value),  function ($line, $depth) use (&$output) {
-                // A negative depth means "end of dump"
-                if ($depth >= 0) {
-                    // Adds a two spaces indentation to the line
-                    $output .= str_repeat('  ', $depth).$line."\n";
-                }
-            });
+
+            // re-use the same DumpOutput instance, so it won't re-render the global styles/scripts on each dump.
+            $dumper->dump($cloner->cloneVar($value), $this->htmlDumperOutput);
+
+            $output = $this->htmlDumperOutput->getOutput();
+            $this->htmlDumperOutput->clear();
+
             return $output;
         }
 
