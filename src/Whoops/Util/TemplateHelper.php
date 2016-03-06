@@ -7,8 +7,8 @@
 namespace Whoops\Util;
 
 use Symfony\Component\VarDumper\Cloner\VarCloner;
-use Symfony\Component\VarDumper\Dumper\CliDumper;
 use Symfony\Component\VarDumper\Dumper\HtmlDumper;
+use Whoops\Exception\Frame;
 
 /**
  * Exposes useful tools for working with/in templates
@@ -20,6 +20,16 @@ class TemplateHelper
      * @var array
      */
     private $variables = array();
+
+    /**
+     * @var HtmlDumper
+     */
+    private $htmlDumper;
+
+    /**
+     * @var HtmlDumperOutput
+     */
+    private $htmlDumperOutput;
 
     /**
      * Escapes a string for output in an HTML document
@@ -62,6 +72,33 @@ class TemplateHelper
         );
     }
 
+    private function getDumper()
+    {
+        if (!$this->htmlDumper && class_exists('Symfony\Component\VarDumper\Cloner\VarCloner')) {
+            $this->htmlDumperOutput = new HtmlDumperOutput();
+            // re-use the same var-dumper instance, so it won't re-render the global styles/scripts on each dump.
+            $this->htmlDumper = new HtmlDumper($this->htmlDumperOutput);
+
+            $styles = array(
+                'default' => 'color:#FFFFFF; line-height:normal; font:12px "Inconsolata", "Fira Mono", "Source Code Pro", Monaco, Consolas, "Lucida Console", monospace !important; word-wrap: break-word; white-space: pre-wrap; position:relative; z-index:99999; word-break: normal',
+                'num' => 'color:#BCD42A',
+                'const' => 'color: #4bb1b1;',
+                'str' => 'color:#BCD42A',
+                'note' => 'color:#ef7c61',
+                'ref' => 'color:#A0A0A0',
+                'public' => 'color:#FFFFFF',
+                'protected' => 'color:#FFFFFF',
+                'private' => 'color:#FFFFFF',
+                'meta' => 'color:#FFFFFF',
+                'key' => 'color:#BCD42A',
+                'index' => 'color:#ef7c61',
+            );
+            $this->htmlDumper->setStyles($styles);
+        }
+
+        return $this->htmlDumper;
+    }
+
     /**
      * Format the given value into a human readable string.
      *
@@ -70,34 +107,48 @@ class TemplateHelper
      */
     public function dump($value)
     {
-        if (class_exists('Symfony\Component\VarDumper\Cloner\VarCloner')) {
-            static $dumper = null;
+        $dumper = $this->getDumper();
 
-            // re-use the same var-dumper instance, so it won't re-render the global styles/scripts on each dump.
-            if (!$dumper) {
-                $dumper = new HtmlDumper();
-
-                $styles = array(
-                    'default' => '',
-                    'num' => '',
-                    'const' => '',
-                    'str' => '',
-                    'note' => '',
-                    'ref' => '',
-                    'public' => '',
-                    'protected' => '',
-                    'private' => '',
-                    'meta' => '',
-                    'key' => '',
-                    'index' => '',
-                );
-                $dumper->setStyles($styles);
-            }
-
+        if ($dumper) {
             $cloner = new VarCloner();
-            return $dumper->dump($cloner->cloneVar($value));
+
+            // re-use the same DumpOutput instance, so it won't re-render the global styles/scripts on each dump.
+            $dumper->dump($cloner->cloneVar($value), $this->htmlDumperOutput);
+
+            $output = $this->htmlDumperOutput->getOutput();
+            $this->htmlDumperOutput->clear();
+
+            return $output;
         }
+
         return print_r($value, true);
+    }
+
+    /**
+     * Format the args of the given Frame as a human readable html string
+     *
+     * @param  Frame $frame
+     * @return string the rendered html
+     */
+    public function dumpArgs(Frame $frame)
+    {
+        // we support frame args only when the optional dumper is available
+        if (!$this->getDumper()) {
+            return '';
+        }
+
+        $html = '';
+        $numFrames = count($frame->getArgs());
+
+        if ($numFrames > 0) {
+            $html = '<ol class="linenums">';
+            foreach($frame->getArgs() as $j => $frameArg) {
+                $html .= '<li>'. $this->dump($frameArg) .'</li>';
+            }
+            $html .= '</ol>';
+        }
+
+        return $html;
     }
 
     /**

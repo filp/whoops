@@ -47,6 +47,16 @@
           <?php endif ?>
         <?php endif ?>
 
+        <?php $frameArgs = $tpl->dumpArgs($frame); ?>
+        <?php if ($frameArgs): ?>
+          <div class="frame-file">
+              Arguments
+          </div>
+          <div class="code-block frame-args prettyprint">
+              <?php echo $frameArgs; ?>
+          </div>
+        <?php endif ?>
+
         <?php
           // Append comments for this frame
           $comments = $frame->getComments();
