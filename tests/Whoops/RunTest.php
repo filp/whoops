@@ -15,6 +15,11 @@ use Whoops\Handler\Handler;
 
 class RunTest extends TestCase
 {
+    public function testImplementsRunInterface()
+    {
+        class_implements('Whoops\\Run', 'Whoops\\RunInterface');
+    }
+
     /**
      * @param  string    $message
      * @return Exception

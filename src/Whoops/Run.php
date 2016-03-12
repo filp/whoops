@@ -15,29 +15,25 @@ use Whoops\Handler\HandlerInterface;
 use Whoops\Util\Misc;
 use Whoops\Util\SystemFacade;
 
-final class Run
+final class Run implements RunInterface
 {
-    const EXCEPTION_HANDLER = "handleException";
-    const ERROR_HANDLER     = "handleError";
-    const SHUTDOWN_HANDLER  = "handleShutdown";
-
-    protected $isRegistered;
-    protected $allowQuit       = true;
-    protected $sendOutput      = true;
+    private $isRegistered;
+    private $allowQuit       = true;
+    private $sendOutput      = true;
 
     /**
      * @var integer|false
      */
-    protected $sendHttpCode    = 500;
+    private $sendHttpCode    = 500;
 
     /**
      * @var HandlerInterface[]
      */
-    protected $handlerStack = array();
+    private $handlerStack = array();
 
-    protected $silencedPatterns = array();
+    private $silencedPatterns = array();
 
-    protected $system;
+    private $system;
 
     public function __construct(SystemFacade $system = null)
     {
@@ -103,7 +99,7 @@ final class Run
      * @param  \Throwable $exception
      * @return Inspector
      */
-    protected function getInspector($exception)
+    private function getInspector($exception)
     {
         return new Inspector($exception);
     }
