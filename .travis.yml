@@ -9,7 +9,15 @@ php:
 
 sudo: false
 
+addons:
+    apt_packages:
+        - php5enmod
+        - php5dismod
+
 before_script:
+# make sure composer does not run with xdebug, for perf reasons
+  - echo 'function composer() { COMPOSER="$(which composer)" || { echo "Could not find composer in path" >&2 ; return 1 ; } && php5dismod -s cli xdebug ; $COMPOSER "$@" ; STATUS=$? ; php5enmod -s cli xdebug ; return $STATUS ; }' >> ~/.bash_aliases
+  - . ~/.bash_aliases
   - composer install --no-interaction --prefer-source
   - if [ $TRAVIS_PHP_VERSION = "5.6" ]; then PHPUNIT_FLAGS="--coverage-clover build/logs/clover.xml"; fi
 
