@@ -1,4 +1,3 @@
-.cf:before, .cf:after {content: " ";display: table;} .cf:after {clear: both;} .cf {*zoom: 1;}
 body {
   font: 12px "Helvetica Neue", helvetica, arial, sans-serif;
   color: #131313;
@@ -13,9 +12,10 @@ body {
     text-decoration: none;
   }
 
-.container{
+.panel {
+    overflow-x: hidden;
+    overflow-y: scroll;
     height: 100%;
-    width: 100%;
     position: fixed;
     margin: 0;
     left: 0;
@@ -70,15 +70,8 @@ header {
         font-weight: 300;
       }
 
-.stack-container {
-  height: 100%;
-  position: relative;
-}
-
 .details-container {
-  height: 100%;
-  overflow: auto;
-  float: right;
+  left: 30%;
   width: 70%;
   background: #fafafa;
 }
@@ -115,9 +108,6 @@ header {
     }
 
 .left-panel {
-  height: 100%;
-  overflow: auto;
-  float: left;
   width: 30%;
   background: #ded8d8;
 }
@@ -415,6 +405,7 @@ kbd {
   }
 
   .details-container {
+    left: 32%;
     width: 68%;
   }
 
