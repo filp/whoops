@@ -8,6 +8,8 @@ namespace Whoops\Handler;
 
 use InvalidArgumentException;
 use RuntimeException;
+use Symfony\Component\VarDumper\Cloner\AbstractCloner;
+use Symfony\Component\VarDumper\Cloner\VarCloner;
 use UnexpectedValueException;
 use Whoops\Exception\Formatter;
 use Whoops\Util\Misc;
@@ -51,6 +53,11 @@ class PrettyPageHandler extends Handler
      * @var string
      */
     private $pageTitle = "Whoops! There was an error.";
+
+    /**
+     * @var array[]
+     */
+    private $applicationNamespaces;
 
     /**
      * A string identifier for a known IDE/text editor, or a closure
@@ -116,6 +123,10 @@ class PrettyPageHandler extends Handler
 
         // @todo: Make this more dynamic
         $helper = new TemplateHelper();
+
+        $cloner = new VarCloner();
+        $cloner->addCasters(['*' => [$this, 'castObject']]);
+        $helper->setCloner($cloner);
 
         $templateFile = $this->getResource("views/layout.html.php");
         $cssFile      = $this->getResource("css/whoops.base.css");
@@ -531,5 +542,46 @@ class PrettyPageHandler extends Handler
     public function setResourcesPath($resourcesPath)
     {
         $this->addResourcePath($resourcesPath);
+    }
+
+    /**
+     * Return the namespaces defined by the application.
+     *
+     * @return array
+     */
+    public function getApplicationNamespaces()
+    {
+        return $this->applicationNamespaces;
+    }
+
+    /**
+     * Set the namespaces defined by the application.
+     *
+     * @param array $applicationNamespaces
+     */
+    public function setApplicationNamespaces($applicationNamespaces)
+    {
+        $this->applicationNamespaces = $applicationNamespaces;
+    }
+
+    /**
+     * Caster that removes all internals for objects not in the namespaces defined by the application.
+     *
+     * @see AbstactCloner
+     * @return array
+     */
+    public function castObject($obj, $a, $stub, $isNested) {
+        $class = $stub->class;
+        $applicationNamespaces = $this->applicationNamespaces;
+        if ($applicationNamespaces && !isset(AbstractCloner::$defaultCasters[$class])) {
+            foreach ($applicationNamespaces as $namespace) {
+                if (substr($class, 0, strlen($namespace)) === $namespace) {
+                    return $a;
+                }
+            }
+            return [];
+        }
+
+        return $a;
     }
 }
