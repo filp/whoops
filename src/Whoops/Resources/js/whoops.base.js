@@ -1,17 +1,4 @@
 Zepto(function($) {
-
-  // a jQuery.getScript() equivalent to asyncronously load javascript files
-  // credits to http://stackoverflow.com/a/8812950/1597388
-  var getScript = function(src, func) {
-    var script = document.createElement('script');
-    script.async = 'async';
-    script.src = src;
-    if (func) {
-      script.onload = func;
-    }
-    document.getElementsByTagName('head')[0].appendChild( script );
-  };
-
   var $leftPanel      = $('.left-panel');
   var $frameContainer = $('.frames-container');
   var $appFramesTab   = $('#application-frames-tab');
@@ -29,11 +16,6 @@ Zepto(function($) {
   });
   $header.on('mouseleave', function () {
     $header.removeClass('header-expand');
-  });
-
-  // load prettify asyncronously to speed up page rendering
-  getScript('//cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js', function () {
-    renderCurrentCodeblock();
   });
 
   /*
@@ -58,6 +40,8 @@ Zepto(function($) {
     prettyPrint(highlightCurrentLine);
 
   }
+
+  renderCurrentCodeblock();
 
   /*
    * Highlight the active and neighboring lines for the current frame
