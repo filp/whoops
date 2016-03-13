@@ -21,7 +21,16 @@ Zepto(function($) {
   var $activeLine     = $frameContainer.find('.frame.active');
   var $activeFrame    = $container.find('.frame-code.active');
   var $ajaxEditors    = $('.editor-link[data-ajax]');
-  var headerHeight    = $('header').height();
+  var $header         = $('header');
+
+  $header.on('mouseenter', function () {
+    if ($header.find('.exception').height() >= 145) {
+      $header.addClass('header-expand');
+    }
+  });
+  $header.on('mouseleave', function () {
+    $header.removeClass('header-expand');
+  });
 
   var highlightCurrentLine = function() {
     // Highlight the active and neighboring lines for this frame:

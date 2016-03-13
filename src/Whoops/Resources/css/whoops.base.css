@@ -43,7 +43,7 @@ header {
   overflow: hidden;
 }
 
-  header:hover {
+  header.header-expand {
     max-height: 1000px;
   }
 
