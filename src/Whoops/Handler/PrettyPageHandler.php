@@ -53,6 +53,11 @@ class PrettyPageHandler extends Handler
     private $pageTitle = "Whoops! There was an error.";
 
     /**
+     * @var array[]
+     */
+    private $applicationPaths;
+
+    /**
      * A string identifier for a known IDE/text editor, or a closure
      * that resolves a string that can be used to open a given file
      * in an editor. If the string contains the special substrings
@@ -137,6 +142,19 @@ class PrettyPageHandler extends Handler
             $code = Misc::translateErrorCode($inspector->getException()->getSeverity());
         }
 
+        // Detect frames that belong to the application.
+        if ($this->applicationPaths) {
+            /* @var \Whoops\Exception\Frame $frame */
+            foreach ($frames as $frame) {
+                foreach ($this->applicationPaths as $path) {
+                    if (substr($frame->getFile(), 0, strlen($path)) === $path) {
+                        $frame->setApplication(true);
+                        break;
+                    }
+                }
+            }
+        }
+
         // List of variables that will be passed to the layout template.
         $vars = array(
             "page_title" => $this->getPageTitle(),
@@ -162,6 +180,9 @@ class PrettyPageHandler extends Handler
             "has_frames"     => !!count($frames),
             "handler"        => $this,
             "handlers"       => $this->getRun()->getHandlers(),
+
+            "active_frames_tab" => count($frames) && $frames->offsetGet(0)->isApplication() ?  'application' : 'all',
+            "has_frames_tabs"   => !empty($this->getApplicationPaths()),
 
             "tables"      => array(
                 "GET Data"              => $_GET,
@@ -531,5 +552,25 @@ class PrettyPageHandler extends Handler
     public function setResourcesPath($resourcesPath)
     {
         $this->addResourcePath($resourcesPath);
+    }
+
+    /**
+     * Return the application paths.
+     *
+     * @return array
+     */
+    public function getApplicationPaths()
+    {
+        return $this->applicationPaths;
+    }
+
+    /**
+     * Set the application paths.
+     *
+     * @param array $applicationPaths
+     */
+    public function setApplicationPaths($applicationPaths)
+    {
+        $this->applicationPaths = $applicationPaths;
     }
 }

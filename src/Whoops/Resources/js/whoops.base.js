@@ -17,6 +17,8 @@ Zepto(function($) {
   });
 
   var $frameContainer = $('.frames-container');
+  var $appFramesTab   = $('#application-frames-tab');
+  var $allFramesTab   = $('#all-frames-tab');
   var $container      = $('.details-container');
   var $activeLine     = $frameContainer.find('.frame.active');
   var $activeFrame    = $container.find('.frame-code.active');
@@ -95,23 +97,30 @@ Zepto(function($) {
   }
 
   $(document).on('keydown', function(e) {
+    var applicationFrames = $frameContainer.hasClass('frames-container-application'),
+        frameClass = applicationFrames ? '.frame.frame-application' : '.frame';
+
 	  if(e.ctrlKey) {
 		  // CTRL+Arrow-UP/Arrow-Down support:
 		  // 1) select the next/prev element
 		  // 2) make sure the newly selected element is within the view-scope
 		  // 3) focus the (right) container, so arrow-up/down (without ctrl) scroll the details
 		  if (e.which === 38 /* arrow up */) {
-			  $activeLine.prev('.frame').click();
+			  $activeLine.prev(frameClass).click();
 			  $activeLine[0].scrollIntoView();
 			  $container.focus();
 			  e.preventDefault();
 		  } else if (e.which === 40 /* arrow down */) {
-			  $activeLine.next('.frame').click();
+			  $activeLine.next(frameClass).click();
 			  $activeLine[0].scrollIntoView();
 			  $container.focus();
 			  e.preventDefault();
 		  }
-	  }
+	  } else if (e.which == 78 /* n */) {
+      if ($appFramesTab.length) {
+        setActiveFramesTab($('.frames-tab:not(.frames-tab-active)'));
+      }
+    }
   });
 
   // Avoid to quit the page with some protocol (e.g. IntelliJ Platform REST API)
@@ -125,4 +134,22 @@ Zepto(function($) {
     .removeClass('sf-dump-expanded')
     .addClass('sf-dump-compact');
   $('.sf-dump-toggle span').html('&#9654;');
+
+  // Make the given frames-tab active
+  function setActiveFramesTab($tab) {
+    $tab.addClass('frames-tab-active');
+
+    if ($tab.attr('id') == 'application-frames-tab') {
+      $frameContainer.addClass('frames-container-application');
+      $allFramesTab.removeClass('frames-tab-active');
+    } else {
+      $frameContainer.removeClass('frames-container-application');
+      $appFramesTab.removeClass('frames-tab-active');
+    }
+  }
+
+  $('a.frames-tab').on('click', function(e) {
+    e.preventDefault();
+    setActiveFramesTab($(this));
+  });
 });
