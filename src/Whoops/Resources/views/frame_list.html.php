@@ -5,13 +5,13 @@
   <div class="frame <?php echo ($i == 0 ? 'active' : '') ?>" id="frame-line-<?php echo $i ?>">
       <div class="frame-method-info">
         <span class="frame-index"><?php echo (count($frames) - $i - 1) ?></span>
-        <span class="frame-class"><?php echo $tpl->escape($frame->getClass() ?: '') ?></span>
-        <span class="frame-function"><?php echo $tpl->escape($frame->getFunction() ?: '') ?></span>
+        <span class="frame-class"><?php echo $tpl->breakOnDelimiter('\\', $tpl->escape($frame->getClass() ?: '')) ?></span>
+        <span class="frame-function"><?php echo $tpl->breakOnDelimiter('\\', $tpl->escape($frame->getFunction() ?: '')) ?></span>
       </div>
 
-    <span class="frame-file">
-      <?php echo ($frame->getFile(true) ?: '<#unknown>') ?><!--
+    <div class="frame-file">
+        <?php echo $frame->getFile() ? $tpl->breakOnDelimiter('/', $tpl->shorten($tpl->escape($frame->getFile()))) : '<#unknown>' ?><!--
    --><span class="frame-line"><?php echo (int) $frame->getLine() ?></span>
-    </span>
+    </div>
   </div>
 <?php endforeach; ?>

@@ -171,7 +171,6 @@ header {
 
     .frame-file {
       font-family: "Inconsolata", "Fira Mono", "Source Code Pro", Monaco, Consolas, "Lucida Console", monospace;
-      word-wrap: break-word;
       color: #a29d9d;
     }
 
@@ -256,6 +255,10 @@ header {
       font-size: 10px;
       color: white;
     }
+
+.delimiter {
+  display: inline-block;
+}
 
 .data-table-container label {
   font-size: 16px;
