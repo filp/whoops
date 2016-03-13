@@ -357,6 +357,10 @@ pre.prettyprint, code.prettyprint, .frame-args.prettyprint, .frame-args.prettypr
       background: rgba(255, 100, 100, .17);
     }
 
+pre.prettyprint:not(.prettyprinted) {
+  padding-left: 60px;
+}
+
 #plain-exception {
   display: none;
 }
