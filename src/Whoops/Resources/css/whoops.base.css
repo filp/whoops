@@ -157,6 +157,14 @@ header {
     }
 
     .frame-index {
+      float: left;
+    }
+
+    .frame-method-info {
+      margin-left: 24px;
+    }
+
+    .frame-index {
       font-size: 11px;
       color: #a29d9d;
       background-color: rgba(0, 0, 0, .05);
