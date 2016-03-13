@@ -6,6 +6,7 @@
 
 namespace Whoops\Util;
 
+use Symfony\Component\VarDumper\Cloner\ClonerInterface;
 use Symfony\Component\VarDumper\Cloner\VarCloner;
 use Symfony\Component\VarDumper\Dumper\HtmlDumper;
 use Whoops\Exception\Frame;
@@ -25,6 +26,11 @@ class TemplateHelper
      * @var HtmlDumper
      */
     private $htmlDumper;
+
+    /**
+     * @var ClonerInterface
+     */
+    private $cloner;
 
     /**
      * @var HtmlDumperOutput
@@ -110,10 +116,9 @@ class TemplateHelper
         $dumper = $this->getDumper();
 
         if ($dumper) {
-            $cloner = new VarCloner();
 
             // re-use the same DumpOutput instance, so it won't re-render the global styles/scripts on each dump.
-            $dumper->dump($cloner->cloneVar($value), $this->htmlDumperOutput);
+            $dumper->dump($this->cloner->cloneVar($value), $this->htmlDumperOutput);
 
             $output = $this->htmlDumperOutput->getOutput();
             $this->htmlDumperOutput->clear();
@@ -243,5 +248,29 @@ class TemplateHelper
     public function getVariables()
     {
         return $this->variables;
+    }
+
+    /**
+     * Set the cloner used for dumping variables.
+     *
+     * @param ClonerInterface $cloner
+     */
+    public function setCloner($cloner)
+    {
+        $this->cloner = $cloner;
+    }
+
+    /**
+     * Get the cloner used for dumping variables.
+     * 
+     * @return ClonerInterface
+     */
+    public function getCloner()
+    {
+        if (!$this->cloner) {
+            $this->cloner = new VarCloner();
+        }
+
+        return $this->cloner;
     }
 }
