@@ -15,6 +15,18 @@ use Whoops\Handler\Handler;
 
 class RunTest extends TestCase
 {
+    public function testImplementsRunInterface()
+    {
+        $this->assertNotFalse(class_implements('Whoops\\Run', 'Whoops\\RunInterface'));
+    }
+
+    public function testConstantsAreAccessibleFromTheClass()
+    {
+        $this->assertEquals(RunInterface::ERROR_HANDLER, Run::ERROR_HANDLER);
+        $this->assertEquals(RunInterface::EXCEPTION_HANDLER, Run::EXCEPTION_HANDLER);
+        $this->assertEquals(RunInterface::SHUTDOWN_HANDLER, Run::SHUTDOWN_HANDLER);
+    }
+
     /**
      * @param  string    $message
      * @return Exception
