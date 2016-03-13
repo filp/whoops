@@ -1,3 +1,10 @@
+# 2.1.0
+
+* Add a `SystemFacade` to allow clients to override Whoops behavior.
+* Show frame arguments in `PrettyPageHandler`.
+* Highlight the line with the error.
+* Add icons to search on Google and Stack Overflow.
+
 # 2.0.0
 
 Backwards compatibility breaking changes:
