@@ -16,6 +16,7 @@ Zepto(function($) {
     prettyPrint();
   });
 
+  var $leftPanel      = $('.left-panel');
   var $frameContainer = $('.frames-container');
   var $container      = $('.details-container');
   var $activeLine     = $frameContainer.find('.frame.active');
@@ -103,6 +104,20 @@ Zepto(function($) {
     return actionMsg;
   }
 
+  function scrollIntoView($node, $parent) {
+    var nodeOffset = $node.offset();
+    var nodeTop = nodeOffset.top;
+    var nodeBottom = nodeTop + nodeOffset.height;
+    var parentScrollTop = $parent.scrollTop();
+    var parentHeight = $parent.height();
+
+    if (nodeTop < 0) {
+      $parent.scrollTop(parentScrollTop + nodeTop);
+    } else if (nodeBottom > parentHeight) {
+      $parent.scrollTop(parentScrollTop + nodeBottom - parentHeight);
+    }
+  }
+
   $(document).on('keydown', function(e) {
 	  if(e.ctrlKey) {
 		  // CTRL+Arrow-UP/Arrow-Down support:
@@ -111,12 +126,12 @@ Zepto(function($) {
 		  // 3) focus the (right) container, so arrow-up/down (without ctrl) scroll the details
 		  if (e.which === 38 /* arrow up */) {
 			  $activeLine.prev('.frame').click();
-			  $activeLine[0].scrollIntoView();
+			  scrollIntoView($activeLine, $leftPanel);
 			  $container.focus();
 			  e.preventDefault();
 		  } else if (e.which === 40 /* arrow down */) {
 			  $activeLine.next('.frame').click();
-			  $activeLine[0].scrollIntoView();
+			  scrollIntoView($activeLine, $leftPanel);
 			  $container.focus();
 			  e.preventDefault();
 		  }
