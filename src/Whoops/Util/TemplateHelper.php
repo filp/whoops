@@ -6,6 +6,7 @@
 
 namespace Whoops\Util;
 
+use Symfony\Component\VarDumper\Caster\Caster;
 use Symfony\Component\VarDumper\Cloner\AbstractCloner;
 use Symfony\Component\VarDumper\Cloner\VarCloner;
 use Symfony\Component\VarDumper\Dumper\HtmlDumper;
@@ -117,8 +118,9 @@ class TemplateHelper
 
         if ($dumper) {
             // re-use the same DumpOutput instance, so it won't re-render the global styles/scripts on each dump.
+            // exclude verbose information (e.g. exception stack traces)
             $dumper->dump(
-                $this->getCloner()->cloneVar($value),
+                $this->getCloner()->cloneVar($value, Caster::EXCLUDE_VERBOSE),
                 $this->htmlDumperOutput
             );
 
