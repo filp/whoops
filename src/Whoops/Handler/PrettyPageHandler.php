@@ -8,6 +8,7 @@ namespace Whoops\Handler;
 
 use InvalidArgumentException;
 use RuntimeException;
+use Symfony\Component\VarDumper\Cloner\VarCloner;
 use UnexpectedValueException;
 use Whoops\Exception\Formatter;
 use Whoops\Util\Misc;
@@ -116,6 +117,16 @@ class PrettyPageHandler extends Handler
 
         // @todo: Make this more dynamic
         $helper = new TemplateHelper();
+
+        $cloner = new VarCloner();
+        $cloner->addCasters(['*' => function($obj, $a, $stub, $isNested) {
+            // Remove all internals
+            if ($isNested) {
+                return [];
+            }
+            return $a;
+        }]);
+        $helper->setCloner($cloner);
 
         $templateFile = $this->getResource("views/layout.html.php");
         $cssFile      = $this->getResource("css/whoops.base.css");
