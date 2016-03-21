@@ -180,8 +180,8 @@ class PrettyPageHandler extends Handler
 
         // Add extra entries list of data tables:
         // @todo: Consolidate addDataTable and addDataTableCallback
-        $extraTables = array_map(function ($table) {
-            return $table instanceof \Closure ? $table() : $table;
+        $extraTables = array_map(function ($table) use ($inspector) {
+            return $table instanceof \Closure ? $table($inspector) : $table;
         }, $this->getDataTables());
         $vars["tables"] = array_merge($extraTables, $vars["tables"]);
 
@@ -223,9 +223,9 @@ class PrettyPageHandler extends Handler
             throw new InvalidArgumentException('Expecting callback argument to be callable');
         }
 
-        $this->extraTables[$label] = function () use ($callback) {
+        $this->extraTables[$label] = function (\Whoops\Exception\Inspector $inspector = null) use ($callback) {
             try {
-                $result = call_user_func($callback);
+                $result = call_user_func($callback, $inspector);
 
                 // Only return the result if it can be iterated over by foreach().
                 return is_array($result) || $result instanceof \Traversable ? $result : array();

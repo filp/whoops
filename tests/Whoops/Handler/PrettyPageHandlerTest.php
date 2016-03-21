@@ -155,27 +155,46 @@ class PrettyPageHandlerTest extends TestCase
         $table3 = create_function('', 'return array("oh my" => "how times have changed!");');
         $expected3 = array('oh my' => 'how times have changed!');
 
+        // Test inspector parameter in data table callback
+        $table4 = function (\Whoops\Exception\Inspector $inspector) use ($expected1) {
+            return array(
+              'Exception class' => get_class($inspector->getException()),
+              'Exception message' => $inspector->getExceptionMessage(),
+            );
+        };
+        $expected4 = array(
+          'Exception class' => 'InvalidArgumentException',
+          'Exception message' => 'Test exception message',
+        );
+        $inspectorForTable4 = new \Whoops\Exception\Inspector(
+            new \InvalidArgumentException('Test exception message')
+        );
+
         // Sanity check, make sure expected values really are correct.
         $this->assertSame($expected1, $table1());
         $this->assertSame($expected2, $table2());
         $this->assertSame($expected3, $table3());
+        $this->assertSame($expected4, $table4($inspectorForTable4));
 
         $handler->addDataTableCallback('table1', $table1);
         $handler->addDataTableCallback('table2', $table2);
         $handler->addDataTableCallback('table3', $table3);
+        $handler->addDataTableCallback('table4', $table4);
 
         $tables = $handler->getDataTables();
-        $this->assertCount(3, $tables);
+        $this->assertCount(4, $tables);
 
         // Supplied callable is wrapped in a closure
         $this->assertInstanceOf('Closure', $tables['table1']);
         $this->assertInstanceOf('Closure', $tables['table2']);
         $this->assertInstanceOf('Closure', $tables['table3']);
+        $this->assertInstanceOf('Closure', $tables['table4']);
 
         // Run each wrapped callable and check results against expected output.
         $this->assertEquals($expected1, $tables['table1']());
         $this->assertEquals($expected2, $tables['table2']());
         $this->assertEquals($expected3, $tables['table3']());
+        $this->assertEquals($expected4, $tables['table4']($inspectorForTable4));
 
         $this->assertSame($tables['table1'], $handler->getDataTables('table1'));
         $this->assertSame($expected1, call_user_func($handler->getDataTables('table1')));
