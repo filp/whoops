@@ -119,22 +119,24 @@ class PrettyPageHandler extends Handler
         // @todo: Make this more dynamic
         $helper = new TemplateHelper();
 
-        $cloner = new VarCloner();
-        // Only dump object internals if a custom caster exists.
-        $cloner->addCasters(['*' => function ($obj, $a, $stub, $isNested, $filter = 0) {
-            $class = $stub->class;
-            $classes = [$class => $class] + class_parents($class) + class_implements($class);
+        if (class_exists('Symfony\Component\VarDumper\Cloner\VarCloner')) {
+            $cloner = new VarCloner();
+            // Only dump object internals if a custom caster exists.
+            $cloner->addCasters(['*' => function ($obj, $a, $stub, $isNested, $filter = 0) {
+                $class = $stub->class;
+                $classes = [$class => $class] + class_parents($class) + class_implements($class);
 
-            foreach ($classes as $class) {
-                if (isset(AbstractCloner::$defaultCasters[$class])) {
-                    return $a;
+                foreach ($classes as $class) {
+                    if (isset(AbstractCloner::$defaultCasters[$class])) {
+                        return $a;
+                    }
                 }
-            }
 
-            // Remove all internals
-            return [];
-        }]);
-        $helper->setCloner($cloner);
+                // Remove all internals
+                return [];
+            }]);
+            $helper->setCloner($cloner);
+        }
 
         $templateFile = $this->getResource("views/layout.html.php");
         $cssFile      = $this->getResource("css/whoops.base.css");
