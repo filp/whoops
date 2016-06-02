@@ -31,16 +31,15 @@ $run->pushHandler(new PrettyPageHandler());
 // Now, we want a second handler that will run before the error page,
 // and immediately return an error message in JSON format, if something
 // goes awry.
-$jsonHandler = new JsonResponseHandler();
+if (\Whoops\Util\Misc::isAjaxRequest()) {
+    $jsonHandler = new JsonResponseHandler();
 
-// Make sure it only triggers for AJAX requests:
-$jsonHandler->onlyForAjaxRequests(true);
+    // You can also tell JsonResponseHandler to give you a full stack trace:
+    // $jsonHandler->addTraceToOutput(true);
 
-// You can also tell JsonResponseHandler to give you a full stack trace:
-// $jsonHandler->addTraceToOutput(true);
-
-// And push it into the stack:
-$run->pushHandler($jsonHandler);
+    // And push it into the stack:
+    $run->pushHandler($jsonHandler);
+}
 
 // That's it! Register Whoops and throw a dummy exception:
 $run->register();

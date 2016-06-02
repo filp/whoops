@@ -6,9 +6,11 @@
 
 namespace Whoops\Util;
 
+use Symfony\Component\VarDumper\Caster\Caster;
+use Symfony\Component\VarDumper\Cloner\AbstractCloner;
 use Symfony\Component\VarDumper\Cloner\VarCloner;
-use Symfony\Component\VarDumper\Dumper\CliDumper;
 use Symfony\Component\VarDumper\Dumper\HtmlDumper;
+use Whoops\Exception\Frame;
 
 /**
  * Exposes useful tools for working with/in templates
@@ -20,6 +22,21 @@ class TemplateHelper
      * @var array
      */
     private $variables = array();
+
+    /**
+     * @var HtmlDumper
+     */
+    private $htmlDumper;
+
+    /**
+     * @var HtmlDumperOutput
+     */
+    private $htmlDumperOutput;
+
+    /**
+     * @var AbstractCloner
+     */
+    private $cloner;
 
     /**
      * Escapes a string for output in an HTML document
@@ -62,6 +79,33 @@ class TemplateHelper
         );
     }
 
+    private function getDumper()
+    {
+        if (!$this->htmlDumper && class_exists('Symfony\Component\VarDumper\Cloner\VarCloner')) {
+            $this->htmlDumperOutput = new HtmlDumperOutput();
+            // re-use the same var-dumper instance, so it won't re-render the global styles/scripts on each dump.
+            $this->htmlDumper = new HtmlDumper($this->htmlDumperOutput);
+
+            $styles = array(
+                'default' => 'color:#FFFFFF; line-height:normal; font:12px "Inconsolata", "Fira Mono", "Source Code Pro", Monaco, Consolas, "Lucida Console", monospace !important; word-wrap: break-word; white-space: pre-wrap; position:relative; z-index:99999; word-break: normal',
+                'num' => 'color:#BCD42A',
+                'const' => 'color: #4bb1b1;',
+                'str' => 'color:#BCD42A',
+                'note' => 'color:#ef7c61',
+                'ref' => 'color:#A0A0A0',
+                'public' => 'color:#FFFFFF',
+                'protected' => 'color:#FFFFFF',
+                'private' => 'color:#FFFFFF',
+                'meta' => 'color:#FFFFFF',
+                'key' => 'color:#BCD42A',
+                'index' => 'color:#ef7c61',
+            );
+            $this->htmlDumper->setStyles($styles);
+        }
+
+        return $this->htmlDumper;
+    }
+
     /**
      * Format the given value into a human readable string.
      *
@@ -70,34 +114,50 @@ class TemplateHelper
      */
     public function dump($value)
     {
-        if (class_exists('Symfony\Component\VarDumper\Cloner\VarCloner')) {
-            static $dumper = null;
+        $dumper = $this->getDumper();
 
-            // re-use the same var-dumper instance, so it won't re-render the global styles/scripts on each dump.
-            if (!$dumper) {
-                $dumper = new HtmlDumper();
+        if ($dumper) {
+            // re-use the same DumpOutput instance, so it won't re-render the global styles/scripts on each dump.
+            // exclude verbose information (e.g. exception stack traces)
+            $dumper->dump(
+                $this->getCloner()->cloneVar($value, Caster::EXCLUDE_VERBOSE),
+                $this->htmlDumperOutput
+            );
 
-                $styles = array(
-                    'default' => '',
-                    'num' => '',
-                    'const' => '',
-                    'str' => '',
-                    'note' => '',
-                    'ref' => '',
-                    'public' => '',
-                    'protected' => '',
-                    'private' => '',
-                    'meta' => '',
-                    'key' => '',
-                    'index' => '',
-                );
-                $dumper->setStyles($styles);
-            }
+            $output = $this->htmlDumperOutput->getOutput();
+            $this->htmlDumperOutput->clear();
 
-            $cloner = new VarCloner();
-            return $dumper->dump($cloner->cloneVar($value));
+            return $output;
         }
+
         return print_r($value, true);
+    }
+
+    /**
+     * Format the args of the given Frame as a human readable html string
+     *
+     * @param  Frame $frame
+     * @return string the rendered html
+     */
+    public function dumpArgs(Frame $frame)
+    {
+        // we support frame args only when the optional dumper is available
+        if (!$this->getDumper()) {
+            return '';
+        }
+
+        $html = '';
+        $numFrames = count($frame->getArgs());
+
+        if ($numFrames > 0) {
+            $html = '<ol class="linenums">';
+            foreach($frame->getArgs() as $j => $frameArg) {
+                $html .= '<li>'. $this->dump($frameArg) .'</li>';
+            }
+            $html .= '</ol>';
+        }
+
+        return $html;
     }
 
     /**
@@ -192,5 +252,28 @@ class TemplateHelper
     public function getVariables()
     {
         return $this->variables;
+    }
+
+    /**
+     * Set the cloner used for dumping variables.
+     *
+     * @param AbstractCloner $cloner
+     */
+    public function setCloner($cloner)
+    {
+        $this->cloner = $cloner;
+    }
+
+    /**
+     * Get the cloner used for dumping variables.
+     *
+     * @return AbstractCloner
+     */
+    public function getCloner()
+    {
+        if (!$this->cloner) {
+            $this->cloner = new VarCloner();
+        }
+        return $this->cloner;
     }
 }
