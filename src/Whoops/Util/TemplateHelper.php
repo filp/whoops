@@ -119,8 +119,15 @@ class TemplateHelper
         if ($dumper) {
             // re-use the same DumpOutput instance, so it won't re-render the global styles/scripts on each dump.
             // exclude verbose information (e.g. exception stack traces)
+            if (class_exists('Symfony\Component\VarDumper\Caster\Caster')) {
+                $cloner = $this->getCloner()->cloneVar($value, Caster::EXCLUDE_VERBOSE);
+            // Symfony VarDumper 2.6 Caster class dont exist.
+            } else {
+                $cloner = $this->getCloner()->cloneVar($value);
+            }
+
             $dumper->dump(
-                $this->getCloner()->cloneVar($value, Caster::EXCLUDE_VERBOSE),
+                $cloner,
                 $this->htmlDumperOutput
             );
 
