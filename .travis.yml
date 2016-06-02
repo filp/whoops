@@ -9,12 +9,22 @@ php:
 
 sudo: false
 
+env:
+  global:
+    SETUP=basic
+
+matrix:
+  include:
+    - php: 5.6
+      env: SETUP=lowest
+
 cache:
   directories:
     - "$HOME/.composer/cache"
 
 before_script:
-  - composer install --no-interaction --prefer-dist
+  - if [[ "$SETUP" = "basic" ]]; then composer install --no-interaction --prefer-dist; fi
+  - if [[ "$SETUP" = "lowest" ]]; then travis_retry composer update --prefer-dist --no-interaction --prefer-lowest --prefer-stable; fi
   - if [ $TRAVIS_PHP_VERSION = "5.6" ]; then PHPUNIT_FLAGS="--coverage-clover build/logs/clover.xml"; fi
 
 script:
