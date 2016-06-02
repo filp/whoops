@@ -25,7 +25,7 @@ cache:
 before_script:
   - if [[ "$SETUP" = "basic" ]]; then composer install --no-interaction --prefer-dist; fi
   - if [[ "$SETUP" = "lowest" ]]; then travis_retry composer update --prefer-dist --no-interaction --prefer-lowest --prefer-stable; fi
-  - if [ $TRAVIS_PHP_VERSION = "5.6" ]; then PHPUNIT_FLAGS="--coverage-clover build/logs/clover.xml"; fi
+  - if [[ $TRAVIS_PHP_VERSION = "5.6" && "$SETUP" = "basic" ]]; then PHPUNIT_FLAGS="--coverage-clover build/logs/clover.xml"; fi
 
 script:
   - vendor/bin/phpunit --verbose $PHPUNIT_FLAGS
