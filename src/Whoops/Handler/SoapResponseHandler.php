@@ -6,8 +6,6 @@
 
 namespace Whoops\Handler;
 
-use Throwable;
-
 /**
  * Catches an exception and converts it to an Soap XML
  * response.
@@ -29,9 +27,10 @@ class SoapResponseHandler extends Handler
     }
 
     /**
-     * Converts a Throwable into a SoapFault XML
+     * Converts a Throwable or Exception object into a SoapFault XML
+     * @param mixed $exception
      */
-    private function toXml(Throwable $exception)
+    private function toXml($exception)
     {
         $xml = '';
         $xml .= '<?xml version="1.0" encoding="UTF-8"?>';
