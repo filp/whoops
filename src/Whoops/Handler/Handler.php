@@ -34,7 +34,7 @@ abstract class Handler implements HandlerInterface
     private $inspector;
 
     /**
-     * @var mixed $exception
+     * @var \Exception | \Throwable $exception
      */
     private $exception;
 
@@ -71,7 +71,7 @@ abstract class Handler implements HandlerInterface
     }
 
     /**
-     * @param mixed $exception
+     * @param \Exception | \Throwable $exception
      */
     public function setException($exception)
     {
@@ -79,7 +79,7 @@ abstract class Handler implements HandlerInterface
     }
 
     /**
-     * @return mixed
+     * @return \Exception | \Throwable
      */
     protected function getException()
     {

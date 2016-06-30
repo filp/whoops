@@ -23,7 +23,7 @@ interface HandlerInterface
     public function setRun(Run $run);
 
     /**
-     * @param  mixed $exception
+     * @param \Exception | \Throwable $exception
      * @return void
      */
     public function setException($exception);
