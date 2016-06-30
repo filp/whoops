@@ -6,8 +6,6 @@
 
 namespace Whoops\Exception;
 
-use Throwable;
-
 class Inspector
 {
     /**
