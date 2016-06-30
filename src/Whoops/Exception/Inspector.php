@@ -58,7 +58,7 @@ class Inspector
     }
 
     /**
-     * Does the wrapped mixed have a previous Exception?
+     * Does the wrapped Exception have a previous Exception?
      * @return bool
      */
     public function hasPreviousException()
