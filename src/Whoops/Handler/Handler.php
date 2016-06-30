@@ -6,7 +6,7 @@
 
 namespace Whoops\Handler;
 
-use Exception;
+use Throwable;
 use Whoops\Exception\Inspector;
 use Whoops\Run;
 
@@ -35,7 +35,7 @@ abstract class Handler implements HandlerInterface
     private $inspector;
 
     /**
-     * @var Exception $exception
+     * @var Throwable $exception
      */
     private $exception;
 
@@ -72,15 +72,15 @@ abstract class Handler implements HandlerInterface
     }
 
     /**
-     * @param Exception $exception
+     * @param Throwable $exception
      */
-    public function setException(Exception $exception)
+    public function setException(Throwable $exception)
     {
         $this->exception = $exception;
     }
 
     /**
-     * @return Exception
+     * @return Throwable
      */
     protected function getException()
     {
