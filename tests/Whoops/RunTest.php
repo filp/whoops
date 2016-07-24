@@ -226,7 +226,7 @@ class RunTest extends TestCase
         // are given the handler, and in the inverse order they were
         // registered.
         $run->handleException($exception);
-        $this->assertEquals((array) $order, array(3, 2, 1));
+        $this->assertEquals((array) $order, [3, 2, 1]);
     }
 
     /**

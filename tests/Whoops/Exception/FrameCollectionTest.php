@@ -23,13 +23,13 @@ class FrameCollectionTest extends TestCase
     public function getFrameData()
     {
         $id = ++$this->frameIdCounter;
-        return array(
+        return [
             'file'     => __DIR__ . '/../../fixtures/frame.lines-test.php',
             'line'     => $id,
             'function' => 'test-' . $id,
             'class'    => 'MyClass',
-            'args'     => array(true, 'hello'),
-        );
+            'args'     => [true, 'hello'],
+        ];
     }
 
     /**
@@ -203,15 +203,15 @@ class FrameCollectionTest extends TestCase
     {
         $commonFrameTail = $this->getFrameDataList(3);
 
-        $diffFrame = array('line' => $this->frameIdCounter) + $this->getFrameData();
+        $diffFrame = ['line' => $this->frameIdCounter] + $this->getFrameData();
 
-        $frameCollection1 = new FrameCollection(array_merge(array(
+        $frameCollection1 = new FrameCollection(array_merge([
             $diffFrame,
-        ), $commonFrameTail));
+        ], $commonFrameTail));
 
-        $frameCollection2 = new FrameCollection(array_merge(array(
+        $frameCollection2 = new FrameCollection(array_merge([
             $this->getFrameData(),
-        ), $commonFrameTail));
+        ], $commonFrameTail));
 
         $diff = $frameCollection1->topDiff($frameCollection2);
 

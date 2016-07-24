@@ -80,7 +80,7 @@ class TemplateHelperTest extends TestCase
         $template = __DIR__ . "/../../fixtures/template.php";
 
         ob_start();
-        $this->helper->render($template, array("name" => "B<o>b"));
+        $this->helper->render($template, ["name" => "B<o>b"]);
         $output = ob_get_clean();
 
         $this->assertEquals(
@@ -98,19 +98,19 @@ class TemplateHelperTest extends TestCase
      */
     public function testTemplateVariables()
     {
-        $this->helper->setVariables(array(
+        $this->helper->setVariables([
             "name" => "Whoops",
             "type" => "library",
             "desc" => "php errors for cool kids",
-        ));
+        ]);
 
         $this->helper->setVariable("name", "Whoops!");
         $this->assertEquals($this->helper->getVariable("name"), "Whoops!");
         $this->helper->delVariable("type");
 
-        $this->assertEquals($this->helper->getVariables(), array(
+        $this->assertEquals($this->helper->getVariables(), [
             "name" => "Whoops!",
             "desc" => "php errors for cool kids",
-        ));
+        ]);
     }
 }
