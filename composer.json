@@ -28,6 +28,11 @@
             "Whoops\\": "src/Whoops/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Whoops\\": "tests/Whoops/"
+        }
+    },
     "extra": {
         "branch-alias": {
             "dev-master": "2.0-dev"
