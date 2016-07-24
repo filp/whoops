@@ -3,7 +3,6 @@
 namespace Whoops\Handler;
 
 use Whoops\TestCase;
-use Whoops\Handler\CallbackHandler;
 
 class CallbackHandlerTest extends TestCase
 {
