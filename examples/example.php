@@ -29,12 +29,12 @@ $run     = new Run();
 $handler = new PrettyPageHandler();
 
 // Add a custom table to the layout:
-$handler->addDataTable('Ice-cream I like', array(
+$handler->addDataTable('Ice-cream I like', [
     'Chocolate' => 'yes',
     'Coffee & chocolate' => 'a lot',
     'Strawberry & chocolate' => 'it\'s alright',
     'Vanilla' => 'ew',
-));
+]);
 
 $run->pushHandler($handler);
 

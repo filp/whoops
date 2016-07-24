@@ -102,7 +102,7 @@ class Inspector
                     $file = '[internal]';
                     $line = 0;
                     
-                    $next_frame = !empty($frames[$k + 1]) ? $frames[$k + 1] : array();
+                    $next_frame = !empty($frames[$k + 1]) ? $frames[$k + 1] : [];
                     
                     if ($this->isValidNextFrame($next_frame)) {
                         $file = $next_frame['file'];
@@ -174,7 +174,7 @@ class Inspector
         }
 
         if (!extension_loaded('xdebug') || !xdebug_is_enabled()) {
-            return array();
+            return [];
         }
 
         // Use xdebug to get the full stack trace and remove the shutdown handler stack trace
@@ -193,14 +193,14 @@ class Inspector
      */
     protected function getFrameFromException($exception)
     {
-        return array(
+        return [
             'file'  => $exception->getFile(),
             'line'  => $exception->getLine(),
             'class' => get_class($exception),
-            'args'  => array(
+            'args'  => [
                 $exception->getMessage(),
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -211,12 +211,12 @@ class Inspector
      */
     protected function getFrameFromError(ErrorException $exception)
     {
-        return array(
+        return [
             'file'  => $exception->getFile(),
             'line'  => $exception->getLine(),
             'class' => null,
-            'args'  => array(),
-        );
+            'args'  => [],
+        ];
     }
     
     /**

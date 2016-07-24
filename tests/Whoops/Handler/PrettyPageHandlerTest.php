@@ -100,15 +100,15 @@ class PrettyPageHandlerTest extends TestCase
         // should have no tables by default:
         $this->assertEmpty($handler->getDataTables());
 
-        $tableOne = array(
+        $tableOne = [
             'ice' => 'cream',
             'ice-ice' => 'baby',
-        );
+        ];
 
-        $tableTwo = array(
+        $tableTwo = [
             'dolan' => 'pls',
             'time'  => time(),
-        );
+        ];
 
         $handler->addDataTable('table 1', $tableOne);
         $handler->addDataTable('table 2', $tableTwo);
@@ -137,23 +137,23 @@ class PrettyPageHandlerTest extends TestCase
 
         $this->assertEmpty($handler->getDataTables());
         $table1 = function () {
-            return array(
+            return [
                 'hammer' => 'time',
                 'foo'    => 'bar',
-            );
+            ];
         };
-        $expected1 = array('hammer' => 'time', 'foo' => 'bar');
+        $expected1 = ['hammer' => 'time', 'foo' => 'bar'];
 
         $table2 = function () use ($expected1) {
-            return array(
+            return [
                 'another' => 'table',
                 'this'    => $expected1,
-            );
+            ];
         };
-        $expected2 = array('another' => 'table', 'this' => $expected1);
+        $expected2 = ['another' => 'table', 'this' => $expected1];
 
         $table3 = create_function('', 'return array("oh my" => "how times have changed!");');
-        $expected3 = array('oh my' => 'how times have changed!');
+        $expected3 = ['oh my' => 'how times have changed!'];
 
         // Sanity check, make sure expected values really are correct.
         $this->assertSame($expected1, $table1());
@@ -231,10 +231,10 @@ class PrettyPageHandlerTest extends TestCase
         $handler->setEditor(function ($file, $line) {
             $file = rawurlencode($file);
             $line = rawurlencode($line);
-            return array(
+            return [
                 'url' => "http://google.com/search/?q=$file:$line",
                 'ajax' => true,
-            );
+            ];
         });
 
         $this->assertEquals(
@@ -251,10 +251,10 @@ class PrettyPageHandlerTest extends TestCase
         $handler->setEditor(function ($file, $line) {
             $file = rawurlencode($file);
             $line = rawurlencode($line);
-            return array(
+            return [
                 'url' => "http://google.com/search/?q=$file:$line",
                 'ajax' => false,
-            );
+            ];
         });
 
         $this->assertEquals(
