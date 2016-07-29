@@ -7,7 +7,7 @@
 namespace Whoops\Handler;
 
 use Whoops\Exception\Inspector;
-use Whoops\Run;
+use Whoops\RunInterface;
 
 /**
  * Abstract implementation of a Handler.
@@ -24,7 +24,7 @@ abstract class Handler implements HandlerInterface
     const QUIT         = 0x30;
 
     /**
-     * @var Run
+     * @var RunInterface
      */
     private $run;
 
@@ -39,15 +39,15 @@ abstract class Handler implements HandlerInterface
     private $exception;
 
     /**
-     * @param Run $run
+     * @param RunInterface $run
      */
-    public function setRun(Run $run)
+    public function setRun(RunInterface $run)
     {
         $this->run = $run;
     }
 
     /**
-     * @return Run
+     * @return RunInterface
      */
     protected function getRun()
     {
