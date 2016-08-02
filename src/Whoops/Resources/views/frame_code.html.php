@@ -29,20 +29,6 @@
             $start = key($range) + 1;
             $code  = join("\n", $range);
         ?>
-            <style>
-             #frame-code-0 .linenums li:nth-child(<?= $line-$start ?>) {
-                 background-color: rgba(255, 100, 100, .07); 
-                 padding: 2px;
-              }
-             #frame-code-0 .linenums li:nth-child(<?= $line-$start+1 ?>) {
-                 background-color: rgba(255, 100, 100, .17); 
-                 padding: 2px;
-              }
-             #frame-code-0 .linenums li:nth-child(<?= $line-$start+2 ?>) {
-                 background-color: rgba(255, 100, 100, .07); 
-                 padding: 2px;
-              }
-            </style>
             <pre class="code-block prettyprint linenums:<?php echo $start ?>"><?php echo $tpl->escape($code) ?></pre>
           <?php endif ?>
         <?php endif ?>
