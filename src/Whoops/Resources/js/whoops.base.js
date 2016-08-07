@@ -65,9 +65,9 @@ Zepto(function($) {
 
   });
 
+  // Scroll to the active
   function scrollToLine() {
 
-    var $activeLine     = $frameContainer.find('.frame.active');
     var activeLineNumber = +($activeLine.find('.frame-line').text());
     var id     = /frame\-line\-([\d]*)/.exec($activeLine.attr('id'))[1];
 
