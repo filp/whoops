@@ -21,7 +21,8 @@
           if ($line !== null):
 
           // the $line is 1-indexed, we nab -1 where needed to account for this
-          $range = $frame->getFileLines($line - 10, 20);
+          //$range = $frame->getFileLines($line - 10, 20);
+          $range = $frame->getFileLines(0);
 
           // getFileLines can return null if there is no source code
           if ($range):
@@ -30,20 +31,21 @@
             $code  = join("\n", $range);
         ?>
             <style>
-             #frame-code-0 .linenums li:nth-child(<?= $line-$start ?>) {
+             #frame-code-<?=$i?> .linenums li:nth-child(<?= $line-1 ?>) {
                  background-color: rgba(255, 100, 100, .07); 
                  padding: 2px;
               }
-             #frame-code-0 .linenums li:nth-child(<?= $line-$start+1 ?>) {
+             #frame-code-<?=$i?> .linenums li:nth-child(<?= $line ?>) {
                  background-color: rgba(255, 100, 100, .17); 
                  padding: 2px;
               }
-             #frame-code-0 .linenums li:nth-child(<?= $line-$start+2 ?>) {
+             #frame-code-<?=$i?> .linenums li:nth-child(<?= $line+1 ?>) {
                  background-color: rgba(255, 100, 100, .07); 
                  padding: 2px;
               }
             </style>
-            <pre class="code-block prettyprint linenums:<?php echo $start ?>"><?php echo $tpl->escape($code) ?></pre>
+            <pre id="frame-code-linenums-<?=$i?>" class="code-block prettyprint linenums:<?php echo $start ?>"><?php echo $tpl->escape($code) ?></pre>
+
           <?php endif ?>
         <?php endif ?>
 

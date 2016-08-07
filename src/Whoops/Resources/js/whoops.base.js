@@ -1,4 +1,6 @@
 Zepto(function($) {
+
+
   // a jQuery.getScript() equivalent to asyncronously load javascript files
   // credits to http://stackoverflow.com/a/8812950/1597388
   var getScript = function(src, func) {
@@ -36,6 +38,9 @@ Zepto(function($) {
 
   // Highlight the active for the first frame:
   highlightCurrentLine();
+  setTimeout(function() {
+    scrollToLine();
+  }, 500);
 
   $frameContainer.on('click', '.frame', function() {
     var $this  = $(this);
@@ -54,9 +59,23 @@ Zepto(function($) {
 
       highlightCurrentLine();
 
-      $container.scrollTop(0);
+      scrollToLine();
+
     }
+
   });
+
+  function scrollToLine() {
+
+    var $activeLine     = $frameContainer.find('.frame.active');
+    var activeLineNumber = +($activeLine.find('.frame-line').text());
+    var id     = /frame\-line\-([\d]*)/.exec($activeLine.attr('id'))[1];
+
+    $line = $('#frame-code-' + id + ' .linenums li:nth-child(' + (activeLineNumber-8) + ')');
+    $line[0].scrollIntoView({block: 'end', behavior: 'smooth'});
+    $container.scrollTop(0);
+
+  }
 
   var clipboard = new Clipboard('.clipboard');
   var showTooltip = function(elem, msg) {
