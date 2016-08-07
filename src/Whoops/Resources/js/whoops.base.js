@@ -71,7 +71,7 @@ Zepto(function($) {
     var activeLineNumber = +($activeLine.find('.frame-line').text());
     var id     = /frame\-line\-([\d]*)/.exec($activeLine.attr('id'))[1];
 
-    $line = $('#frame-code-' + id + ' .linenums li:nth-child(' + (activeLineNumber-8) + ')');
+    $line = $('#frame-code-' + id + ' .linenums li:nth-child(' + (activeLineNumber-10) + ')');
     $line[0].scrollIntoView({block: 'end', behavior: 'smooth'});
     $container.scrollTop(0);
 
