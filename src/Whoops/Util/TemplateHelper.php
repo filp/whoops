@@ -60,7 +60,7 @@ class TemplateHelper
             $flags |= ENT_IGNORE;
         }
 
-        return htmlspecialchars($raw, $flags, "UTF-8");
+        return nl2br(htmlspecialchars($raw, $flags, "UTF-8"));
     }
 
     /**
