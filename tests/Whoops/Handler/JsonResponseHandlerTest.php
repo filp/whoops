@@ -33,8 +33,9 @@ class JsonResponseHandlerTest extends TestCase
      */
     private function getJsonResponseFromHandler($withTrace = false, $jsonApi = false)
     {
+
         $handler = $this->getHandler();
-        $handler->jsonApi = true;
+        $handler->jsonApi = $jsonApi;
         $handler->addTraceToOutput($withTrace);
 
         $run = $this->getRunInstance();

@@ -24,7 +24,7 @@ class JsonResponseHandler extends Handler
      * return the json:api compliant version
      * @var bool
      */
-    public $jsonAPI = false;
+    public $jsonApi = false;
 
 
 
@@ -48,7 +48,7 @@ class JsonResponseHandler extends Handler
     public function handle()
     {
 
-      if ($this->jsonAPI == true) {
+      if ($this->jsonApi == true) {
         $response = [
           'errors' => [
             Formatter::formatExceptionAsDataArray(
