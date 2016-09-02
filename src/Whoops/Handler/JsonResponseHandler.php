@@ -21,10 +21,24 @@ class JsonResponseHandler extends Handler
     private $returnFrames = false;
 
     /**
-     * return the json:api compliant version
      * @var bool
      */
-    public $jsonApi = false;
+    private $jsonApi = false;
+
+    /**
+     * @param bool|false 
+     * @return bool|status
+     */
+    public function setJsonApi($jsonApi=false)
+    {
+
+      if (is_bool($jsonApi)) {
+        $this->jsonApi = $jsonApi;
+        return true;
+      }
+
+      return false;
+    }
 
     /**
      * @param  bool|null  $returnFrames

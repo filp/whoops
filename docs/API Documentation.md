@@ -305,7 +305,7 @@ The `JSON` body has the following format:
 ```
 
 
-By setting the handler's `jsonApi` property to `true` the output is compliant to the [json:api spec](http://jsonapi.org/examples/#error-objects) :
+By calling `jsonApi()` with `true` the output is compliant to the [json:api spec](http://jsonapi.org/examples/#error-objects) :
 
 ```json
 {
