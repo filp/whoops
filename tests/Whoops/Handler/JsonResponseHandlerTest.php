@@ -66,9 +66,9 @@ class JsonResponseHandlerTest extends TestCase
         $this->assertArrayHasKey('line', $json['errors'][0]);
 
         // Check the field values:
-        $this->assertEquals($json['errors']['file'][0], __FILE__);
-        $this->assertEquals($json['errors']['message'][0], 'test message');
-        $this->assertEquals($json['errors']['type'][0], get_class($this->getException()));
+        $this->assertEquals($json['errors'][0]['file'], __FILE__);
+        $this->assertEquals($json['errors'][0]['message'], 'test message');
+        $this->assertEquals($json['errors'][0]['type'], get_class($this->getException()));
 
         // Check that the trace is NOT returned:
         $this->assertArrayNotHasKey('trace', $json['errors'][0]);
