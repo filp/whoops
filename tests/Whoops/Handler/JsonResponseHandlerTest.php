@@ -34,6 +34,7 @@ class JsonResponseHandlerTest extends TestCase
     private function getJsonResponseFromHandler($withTrace = false, $jsonApi = false)
     {
         $handler = $this->getHandler();
+        $handler->jsonApi = true;
         $handler->addTraceToOutput($withTrace);
 
         $run = $this->getRunInstance();
@@ -100,7 +101,7 @@ class JsonResponseHandlerTest extends TestCase
      */
     public function testReturnsJsonApi()
     {
-        $json = $this->getJsonResponseFromHandler($withTrace = false, $jsonApi  = true);
+        $json = $this->getJsonResponseFromHandler($withTrace = false, $jsonApi = true);
 
         // Check that the response has the expected keys:
         $this->assertArrayHasKey('errors', $json);
