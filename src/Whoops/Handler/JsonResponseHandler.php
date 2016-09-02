@@ -26,8 +26,6 @@ class JsonResponseHandler extends Handler
      */
     public $jsonApi = false;
 
-
-
     /**
      * @param  bool|null  $returnFrames
      * @return bool|$this
