@@ -26,18 +26,13 @@ class JsonResponseHandler extends Handler
     private $jsonApi = false;
 
     /**
-     * @param bool|false 
-     * @return bool|status
+     * @param bool Default is false
+     * @return $this
      */
     public function setJsonApi($jsonApi=false)
     {
-
-      if (is_bool($jsonApi)) {
-        $this->jsonApi = $jsonApi;
-        return true;
-      }
-
-      return false;
+        $this->jsonApi = (bool) $jsonApi;
+        return $this;
     }
 
     /**
@@ -60,7 +55,7 @@ class JsonResponseHandler extends Handler
     public function handle()
     {
 
-      if ($this->jsonApi == true) {
+      if ($this->jsonApi === true) {
         $response = [
           'errors' => [
             Formatter::formatExceptionAsDataArray(
