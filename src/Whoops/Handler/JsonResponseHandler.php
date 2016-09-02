@@ -40,10 +40,12 @@ class JsonResponseHandler extends Handler
     public function handle()
     {
         $response = [
-            'error' => Formatter::formatExceptionAsDataArray(
+          'errors' => [
+            Formatter::formatExceptionAsDataArray(
                 $this->getInspector(),
                 $this->addTraceToOutput()
             ),
+          ],
         ];
 
         if (\Whoops\Util\Misc::canSendHeaders()) {
