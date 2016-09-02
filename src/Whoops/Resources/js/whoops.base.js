@@ -36,7 +36,7 @@ Zepto(function($) {
     $('.code-block').removeClass('prettyprint');
 
     // pass the id in when we can for speed
-    if (typeof(id) == 'undefined' || typeof(id) == 'object') {
+    if (typeof(id) === 'undefined' || typeof(id) === 'object') {
       var id = /frame\-line\-([\d]*)/.exec($activeLine.attr('id'))[1];
     }
 

@@ -60,18 +60,18 @@ class JsonResponseHandlerTest extends TestCase
         $json = $this->getJsonResponseFromHandler($withTrace = false);
 
         // Check that the response has the expected keys:
-        $this->assertArrayHasKey('errors', $json);
-        $this->assertArrayHasKey('type', $json['errors'][0]);
-        $this->assertArrayHasKey('file', $json['errors'][0]);
-        $this->assertArrayHasKey('line', $json['errors'][0]);
+        $this->assertArrayHasKey('error', $json);
+        $this->assertArrayHasKey('type', $json['error']);
+        $this->assertArrayHasKey('file', $json['error']);
+        $this->assertArrayHasKey('line', $json['error']);
 
         // Check the field values:
-        $this->assertEquals($json['errors'][0]['file'], __FILE__);
-        $this->assertEquals($json['errors'][0]['message'], 'test message');
-        $this->assertEquals($json['errors'][0]['type'], get_class($this->getException()));
+        $this->assertEquals($json['error']['file'], __FILE__);
+        $this->assertEquals($json['error']['message'], 'test message');
+        $this->assertEquals($json['error']['type'], get_class($this->getException()));
 
         // Check that the trace is NOT returned:
-        $this->assertArrayNotHasKey('trace', $json['errors'][0]);
+        $this->assertArrayNotHasKey('trace', $json['error']);
     }
 
     /**
@@ -83,10 +83,10 @@ class JsonResponseHandlerTest extends TestCase
         $json = $this->getJsonResponseFromHandler($withTrace = true);
 
         // Check that the trace is returned:
-        $this->assertArrayHasKey('trace', $json['errors'][0]);
+        $this->assertArrayHasKey('trace', $json['error']);
 
         // Check that a random frame has the expected fields
-        $traceFrame = reset($json['errors'][0]['trace']);
+        $traceFrame = reset($json['error']['trace']);
         $this->assertArrayHasKey('file', $traceFrame);
         $this->assertArrayHasKey('line', $traceFrame);
         $this->assertArrayHasKey('function', $traceFrame);
