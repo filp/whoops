@@ -279,7 +279,7 @@ CallbackHandler::handle()
 
 ## <a name="handler-json"></a> `Whoops\Handler\JsonResponseHandler`
 
-The `JsonResponseHandler`, upon receiving an exception to handle, simply constructs a `JSON` payload, and outputs it. Methods are available to control the detail of the output, and if it should only execute for AJAX requests - paired with another handler under it, such as the `PrettyPageHandler`, it allows you to have meaningful output for both regular and AJAX requests. Neat!
+The `JsonResponseHandler`, upon receiving an exception to handle, simply constructs a `JSON` payload, and outputs it. Methods are available to control the detail of the output, and if it should only execute for AJAX requests - paired with another handler under it, such as the `PrettyPageHandler`, it allows you to have meaningful output for both regular and AJAX requests. A property is availble to alter the style of output as well. Neat!
 
 The `JSON` body has the following format:
 
@@ -301,6 +301,23 @@ The `JSON` body has the following format:
         # ... more frames here ...
      ]
   }
+}
+```
+
+
+By calling `jsonApi()` with `true` the output is compliant to the [json:api spec](http://jsonapi.org/examples/#error-objects) :
+
+```json
+{
+  "errors":
+    [
+        {
+          "type": "RuntimeException",
+          "message": "Something broke!",
+          "file": "/var/project/foo/bar.php",
+          "line": 22,
+        }
+    ]
 }
 ```
 
