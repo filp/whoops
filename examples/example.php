@@ -36,6 +36,17 @@ $handler->addDataTable('Ice-cream I like', [
     'Vanilla' => 'ew',
 ]);
 
+$handler->addDataTableCallback('Details', function(\Whoops\Exception\Inspector $inspector) {
+    $data = array();
+    $exception = $inspector->getException();
+    if ($exception instanceof SomeSpecificException) {
+        $data['Important exception data'] = $exception->getSomeSpecificData();
+    }
+    $data['Exception class'] = get_class($exception);
+    $data['Exception code'] = $exception->getCode();
+    return $data;
+});
+
 $run->pushHandler($handler);
 
 // Example: tag all frames inside a function with their function name
