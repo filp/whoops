@@ -55,7 +55,6 @@ class JsonResponseHandler extends Handler
      */
     public function handle()
     {
-
       if ($this->jsonApi === true) {
         $response = [
           'errors' => [
