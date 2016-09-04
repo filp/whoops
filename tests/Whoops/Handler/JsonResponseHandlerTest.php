@@ -59,7 +59,7 @@ class JsonResponseHandlerTest extends TestCase
      */
     public function testReturnsWithoutFrames()
     {
-        $json = $this->getJsonResponseFromHandler($withTrace = false, $jsonApi = false);
+        $json = $this->getJsonResponseFromHandler(false,false);
 
         // Check that the response has the expected keys:
         $this->assertArrayHasKey('error', $json);
@@ -82,7 +82,7 @@ class JsonResponseHandlerTest extends TestCase
      */
     public function testReturnsWithFrames()
     {
-        $json = $this->getJsonResponseFromHandler($withTrace = true, $jsonApi = false);
+        $json = $this->getJsonResponseFromHandler(true,false);
 
         // Check that the trace is returned:
         $this->assertArrayHasKey('trace', $json['error']);
@@ -102,7 +102,7 @@ class JsonResponseHandlerTest extends TestCase
      */
     public function testReturnsJsonApi()
     {
-        $json = $this->getJsonResponseFromHandler($withTrace = false, $jsonApi = true);
+        $json = $this->getJsonResponseFromHandler(false,true);
 
         // Check that the response has the expected keys:
         $this->assertArrayHasKey('errors', $json);
