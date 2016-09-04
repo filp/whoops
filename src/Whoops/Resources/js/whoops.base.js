@@ -1,5 +1,6 @@
 Zepto(function($) {
 
+
   // a jQuery.getScript() equivalent to asyncronously load javascript files
   // credits to http://stackoverflow.com/a/8812950/1597388
   var getScript = function(src, func) {
@@ -12,6 +13,11 @@ Zepto(function($) {
     document.getElementsByTagName('head')[0].appendChild( script );
   };
 
+  // load prettify asyncronously to speedup page rendering
+  getScript('//cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.js', function() {
+    prettyPrint();
+  });
+
   var $frameContainer = $('.frames-container');
   var $container      = $('.details-container');
   var $activeLine     = $frameContainer.find('.frame.active');
@@ -19,69 +25,34 @@ Zepto(function($) {
   var $ajaxEditors    = $('.editor-link[data-ajax]');
   var headerHeight    = $('header').height();
 
-  // load prettify asyncronously to speed up page rendering
-  getScript('//cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js', function () {
-    renderCurrentCodeblock();
-  });
-
-  /*
-   * add prettyprint classes to our current active codeblock
-   * run prettyPrint() to highlight the active code
-   * scroll to the line when prettyprint is done
-   * highlight the current line
-   */
-  var renderCurrentCodeblock = function(id) {
-
-    // remove previous codeblocks so we only render the active one
-    $('.code-block').removeClass('prettyprint');
-
-    // pass the id in when we can for speed
-    if (typeof(id) === 'undefined' || typeof(id) === 'object') {
-      var id = /frame\-line\-([\d]*)/.exec($activeLine.attr('id'))[1];
-    }
-
-    $('#frame-code-linenums-' + id).addClass('prettyprint');
-    $('#frame-code-args-' + id).addClass('prettyprint');
-
-    prettyPrint(highlightCurrentLine);
-
-  }
-
   /*
    * Highlight the active and neighboring lines for the current frame
    * Adjust the offset to make sure that line is veritcally centered
    */
 
   var highlightCurrentLine = function() {
+    // Highlight the active and neighboring lines for this frame:
     var activeLineNumber = +($activeLine.find('.frame-line').text());
     var $lines           = $activeFrame.find('.linenums li');
     var firstLine        = +($lines.first().val());
 
-    var $offset = $($lines[activeLineNumber - firstLine - 10]);
-    if ($offset.length > 0) {
-      $offset[0].scrollIntoView();
-    }
-
     $($lines[activeLineNumber - firstLine - 1]).addClass('current');
     $($lines[activeLineNumber - firstLine]).addClass('current active');
     $($lines[activeLineNumber - firstLine + 1]).addClass('current');
-
-    $container.scrollTop(0);
-
   }
 
-  /*
-   * click handler for loading codeblocks 
-   */
+  // Highlight the active for the first frame:
+  highlightCurrentLine();
+  setTimeout(function() {
+    scrollToLine();
+  }, 500);
 
   $frameContainer.on('click', '.frame', function() {
-
     var $this  = $(this);
     var id     = /frame\-line\-([\d]*)/.exec($this.attr('id'))[1];
     var $codeFrame = $('#frame-code-' + id);
 
     if ($codeFrame) {
-
       $activeLine.removeClass('active');
       $activeFrame.removeClass('active');
 
@@ -91,11 +62,25 @@ Zepto(function($) {
       $activeLine  = $this;
       $activeFrame = $codeFrame;
 
-      renderCurrentCodeblock(id);
+      highlightCurrentLine();
+
+      scrollToLine();
 
     }
 
   });
+
+  // Scroll to the active
+  function scrollToLine() {
+
+    var activeLineNumber = +($activeLine.find('.frame-line').text());
+    var id     = /frame\-line\-([\d]*)/.exec($activeLine.attr('id'))[1];
+
+    $line = $('#frame-code-' + id + ' .linenums li:nth-child(' + (activeLineNumber-10) + ')');
+    $line[0].scrollIntoView({block: 'end', behavior: 'smooth'});
+    $container.scrollTop(0);
+
+  }
 
   var clipboard = new Clipboard('.clipboard');
   var showTooltip = function(elem, msg) {

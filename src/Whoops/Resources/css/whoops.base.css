@@ -205,8 +205,6 @@ header {
     }
 
     .code-block {
-      max-height: 345px;
-      overflow: hidden;
       padding: 10px;
       margin: 0;
       border-radius: 6px;
@@ -221,6 +219,8 @@ header {
     .linenums {
       margin: 0;
       margin-left: 10px;
+      max-height: 345px;
+      overflow: hidden;
     }
 
     .frame-comments {
@@ -338,16 +338,16 @@ pre .xsl, code .xsl { color: #d0a0d0; }  /* xslt tag */
 pre .atn, code .atn { color: #ef7c61; font-weight: normal;} /* html/xml attribute name */
 pre .atv, code .atv { color: #bcd42a; }  /* html/xml attribute value  */
 pre .dec, code .dec { color: #606; }  /* decimal  */
-pre.code-block, code.code-block, .frame-args.code-block, .frame-args.code-block samp {
+pre.prettyprint, code.prettyprint, .frame-args.prettyprint, .frame-args.prettyprint samp {
   font-family: "Inconsolata", "Fira Mono", "Source Code Pro", Monaco, Consolas, "Lucida Console", monospace;
   background: #333;
   color: #e9e4e5;
 }
-  pre.code-block {
+  pre.prettyprint {
     white-space: pre-wrap;
   }
 
-  pre.code-block a, code.code-block a {
+  pre.prettyprint a, code.prettyprint a {
     text-decoration:none;
   }
 
