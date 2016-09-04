@@ -79,6 +79,39 @@ class TemplateHelper
         );
     }
 
+    /**
+     * Makes sure that the given string breaks on the delimiter.
+     *
+     * @param  string $delimiter
+     * @param  string $s
+     * @return string
+     */
+    public function breakOnDelimiter($delimiter, $s)
+    {
+        $parts = explode($delimiter, $s);
+        foreach ($parts as &$part) {
+            $part = '<div class="delimiter">' . $part . '</div>';
+        }
+
+        return implode($delimiter, $parts);
+    }
+
+    /**
+     * Replace the part of the path that all files have in common.
+     *
+     * @param  string $path
+     * @return string
+     */
+    public function shorten($path)
+    {
+        $dirname = dirname(dirname(dirname(dirname(dirname(dirname(__DIR__))))));
+        if ($dirname != "/") {
+            $path = str_replace($dirname, '&hellip;', $path);
+        }
+
+        return $path;
+    }
+
     private function getDumper()
     {
         if (!$this->htmlDumper && class_exists('Symfony\Component\VarDumper\Cloner\VarCloner')) {
