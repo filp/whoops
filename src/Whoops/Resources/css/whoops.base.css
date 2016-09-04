@@ -41,6 +41,7 @@ header {
   padding: 35px 40px;
   max-height: 180px;
   overflow: hidden;
+  transition: 0.5s;
 }
 
   header:hover {
