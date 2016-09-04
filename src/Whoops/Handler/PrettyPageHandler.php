@@ -210,6 +210,11 @@ class PrettyPageHandler extends Handler
             header('Content-Type: text/html');
         }
 
+        $plainTextHandler = new PlainTextHandler();
+        $plainTextHandler->setException($this->getException());
+        $plainTextHandler->setInspector($this->getInspector());
+        $vars["preface"] = "<!--\n\n\n" . $plainTextHandler->generateResponse() . "\n\n\n\n\n\n\n\n\n\n\n-->";
+
         $helper->setVariables($vars);
         $helper->render($templateFile);
 
