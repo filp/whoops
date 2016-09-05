@@ -13,7 +13,7 @@ namespace Whoops\Util;
  */
 class HtmlDumperOutput
 {
-    private $output;
+    protected $output;
 
     public function __invoke($line, $depth)
     {

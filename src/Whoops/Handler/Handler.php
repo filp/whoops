@@ -26,17 +26,17 @@ abstract class Handler implements HandlerInterface
     /**
      * @var RunInterface
      */
-    private $run;
+    protected $run;
 
     /**
      * @var Inspector $inspector
      */
-    private $inspector;
+    protected $inspector;
 
     /**
      * @var \Throwable $exception
      */
-    private $exception;
+    protected $exception;
 
     /**
      * @param RunInterface $run

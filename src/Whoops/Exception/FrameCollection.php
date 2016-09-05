@@ -22,7 +22,7 @@ class FrameCollection implements ArrayAccess, IteratorAggregate, Serializable, C
     /**
      * @var array[]
      */
-    private $frames;
+    protected $frames;
 
     /**
      * @param array $frames
