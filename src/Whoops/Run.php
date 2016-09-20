@@ -181,6 +181,17 @@ final class Run implements RunInterface
         return $this;
     }
 
+
+    /**
+     * Returns an array with silent errors in path configuration
+     *
+     * @return array
+     */
+    public function getSilenceErrorsInPaths()
+    {
+        return $this->silencedPatterns;
+    }
+
     /*
      * Should Whoops send HTTP error code to the browser if possible?
      * Whoops will by default send HTTP code 500, but you may wish to
