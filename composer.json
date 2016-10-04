@@ -3,6 +3,7 @@
     "license": "MIT",
     "description": "php error handling for cool kids",
     "keywords": ["library", "error", "handling", "exception", "whoops", "zf2"],
+    "homepage": "https://filp.github.io/whoops/",
     "authors": [
         {
             "name": "Filipe Dobreira",
