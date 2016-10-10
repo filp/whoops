@@ -437,13 +437,4 @@ class RunTest extends TestCase
         $run->sendHttpCode(true);
         $this->assertEquals(500, $run->sendHttpCode());
     }
-
-    /**
-     * @covers Whoops\Run::sendHttpCode
-     * @expectedException InvalidArgumentException
-     */
-    public function testSendHttpCodeWrongCode()
-    {
-        $this->getRunInstance()->sendHttpCode(1337);
-    }
 }

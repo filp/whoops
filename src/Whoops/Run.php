@@ -203,12 +203,6 @@ final class Run implements RunInterface
             $code = 500;
         }
 
-        if ($code < 400 || 600 <= $code) {
-            throw new InvalidArgumentException(
-                 "Invalid status code '$code', must be 4xx or 5xx"
-            );
-        }
-
         return $this->sendHttpCode = $code;
     }
 
