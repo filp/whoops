@@ -20,6 +20,7 @@ use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
 
 require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/lib.php';
 
 class Exception extends BaseException
 {
@@ -35,6 +36,8 @@ $handler->addDataTable('Ice-cream I like', [
     'Strawberry & chocolate' => 'it\'s alright',
     'Vanilla' => 'ew',
 ]);
+
+$handler->setApplicationPaths([__FILE__]);
 
 $handler->addDataTableCallback('Details', function(\Whoops\Exception\Inspector $inspector) {
     $data = array();
@@ -72,7 +75,9 @@ function fooBar()
 
 function bar()
 {
-    fooBar();
+    whoops_add_stack_frame(function(){
+        fooBar();
+    });
 }
 
 bar();
