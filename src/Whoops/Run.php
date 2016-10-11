@@ -331,6 +331,7 @@ final class Run implements RunInterface
                 $levelMatches = $level & $entry["levels"];
                 if ($pathMatches && $levelMatches) {
                     // Ignore the error, abort handling
+                    // See https://github.com/filp/whoops/issues/418
                     return true;
                 }
             }
