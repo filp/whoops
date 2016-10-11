@@ -1,7 +1,7 @@
 # Open Files In An Editor
 
 When using the pretty error page feature, whoops comes with the ability to
-open referenced files directly in your IDE or editor. 
+open referenced files directly in your IDE or editor.
 This feature only works in case your php-source files are locally accessible to the machine on which the editor is installed.
 
 ```php
@@ -21,6 +21,7 @@ The following editors are currently supported by default.
 - `macvim`   - MacVim
 - `xdebug`   - xdebug (uses [xdebug.file_link_format](http://xdebug.org/docs/all_settings#file_link_format))
 - `phpstorm` - PhpStorm
+- `idea`     - IDEA
 
 Adding your own editor is simple:
 
