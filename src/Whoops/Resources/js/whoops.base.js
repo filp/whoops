@@ -12,12 +12,22 @@ Zepto(function($) {
     document.getElementsByTagName('head')[0].appendChild( script );
   };
 
+  var $leftPanel      = $('.left-panel');
   var $frameContainer = $('.frames-container');
   var $container      = $('.details-container');
   var $activeLine     = $frameContainer.find('.frame.active');
   var $activeFrame    = $container.find('.frame-code.active');
   var $ajaxEditors    = $('.editor-link[data-ajax]');
-  var headerHeight    = $('header').height();
+  var $header         = $('header');
+
+  $header.on('mouseenter', function () {
+    if ($header.find('.exception').height() >= 145) {
+      $header.addClass('header-expand');
+    }
+  });
+  $header.on('mouseleave', function () {
+    $header.removeClass('header-expand');
+  });
 
   // load prettify asyncronously to speed up page rendering
   getScript('//cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js', function () {
@@ -71,7 +81,7 @@ Zepto(function($) {
   }
 
   /*
-   * click handler for loading codeblocks 
+   * click handler for loading codeblocks
    */
 
   $frameContainer.on('click', '.frame', function() {
@@ -133,20 +143,34 @@ Zepto(function($) {
     return actionMsg;
   }
 
+  function scrollIntoView($node, $parent) {
+    var nodeOffset = $node.offset();
+    var nodeTop = nodeOffset.top;
+    var nodeBottom = nodeTop + nodeOffset.height;
+    var parentScrollTop = $parent.scrollTop();
+    var parentHeight = $parent.height();
+
+    if (nodeTop < 0) {
+      $parent.scrollTop(parentScrollTop + nodeTop);
+    } else if (nodeBottom > parentHeight) {
+      $parent.scrollTop(parentScrollTop + nodeBottom - parentHeight);
+    }
+  }
+
   $(document).on('keydown', function(e) {
-	  if(e.ctrlKey) {
-		  // CTRL+Arrow-UP/Arrow-Down support:
+	  if(e.ctrlKey || e.which === 74  || e.which === 75) {
+		  // CTRL+Arrow-UP/k and Arrow-Down/j support:
 		  // 1) select the next/prev element
 		  // 2) make sure the newly selected element is within the view-scope
 		  // 3) focus the (right) container, so arrow-up/down (without ctrl) scroll the details
-		  if (e.which === 38 /* arrow up */) {
+		  if (e.which === 38 /* arrow up */ || e.which === 75 /* k */) {
 			  $activeLine.prev('.frame').click();
-			  $activeLine[0].scrollIntoView();
+			  scrollIntoView($activeLine, $leftPanel);
 			  $container.focus();
 			  e.preventDefault();
-		  } else if (e.which === 40 /* arrow down */) {
+		  } else if (e.which === 40 /* arrow down */ || e.which === 74 /* j */) {
 			  $activeLine.next('.frame').click();
-			  $activeLine[0].scrollIntoView();
+			  scrollIntoView($activeLine, $leftPanel);
 			  $container.focus();
 			  e.preventDefault();
 		  }
