@@ -23,14 +23,14 @@ class MiscTest extends TestCase
 
     public function provideTranslateException()
     {
-        return array(
+        return [
             // When passing an error constant value, ensure the error constant
             // is returned.
-            array('E_USER_WARNING', E_USER_WARNING),
+            ['E_USER_WARNING', E_USER_WARNING],
 
             // When passing a value not equal to an error constant, ensure
             // E_UNKNOWN is returned.
-            array('E_UNKNOWN', 3),
-        );
+            ['E_UNKNOWN', 3],
+        ];
     }
 }

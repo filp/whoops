@@ -12,12 +12,12 @@ use Whoops\TestCase;
 class InspectorTest extends TestCase
 {
     /**
-     * @param  string    $message
-     * @param  int       $code
+     * @param  string     $message
+     * @param  int        $code
      * @param  Exception $previous
      * @return Exception
      */
-    protected function getException($message = null, $code = 0, Exception $previous = null)
+    protected function getException($message = null, $code = 0, $previous = null)
     {
         return new Exception($message, $code, $previous);
     }
@@ -26,7 +26,7 @@ class InspectorTest extends TestCase
      * @param  Exception                  $exception|null
      * @return Whoops\Exception\Inspector
      */
-    protected function getInspectorInstance(Exception $exception = null)
+    protected function getInspectorInstance($exception = null)
     {
         return new Inspector($exception);
     }
@@ -44,6 +44,23 @@ class InspectorTest extends TestCase
         $this->assertSame($outer->getLine(), $frames[0]->getLine());
     }
 
+    /**
+     * @covers Whoops\Exception\Inspector::getFrames
+     */
+    public function testDoesNotFailOnPHP7ErrorObject()
+    {
+        if (!class_exists('Error')) {
+            $this->markTestSkipped(
+              'PHP 5.x, the Error class is not available.'
+            );
+        }
+
+        $inner = new \Error('inner');
+        $outer = $this->getException('outer', 0, $inner);
+        $inspector = $this->getInspectorInstance($outer);
+        $frames = $inspector->getFrames();
+        $this->assertSame($outer->getLine(), $frames[0]->getLine());
+    }
     /**
      * @covers Whoops\Exception\Inspector::getExceptionName
      */

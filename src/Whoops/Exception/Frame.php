@@ -24,7 +24,7 @@ class Frame implements Serializable
     /**
      * @var array[]
      */
-    protected $comments = array();
+    protected $comments = [];
 
     /**
      * @param array[]
@@ -58,7 +58,9 @@ class Frame implements Serializable
         if ($shortened && is_string($file)) {
             // Replace the part of the path that all frames have in common, and add 'soft hyphens' for smoother line-breaks.
             $dirname = dirname(dirname(dirname(dirname(dirname(dirname(__DIR__))))));
-            $file = str_replace($dirname, "&hellip;", $file);
+            if ($dirname !== '/') {
+                $file = str_replace($dirname, "&hellip;", $file);
+            }
             $file = str_replace("/", "/&shy;", $file);
         }
 
@@ -94,7 +96,7 @@ class Frame implements Serializable
      */
     public function getArgs()
     {
-        return isset($this->frame['args']) ? (array) $this->frame['args'] : array();
+        return isset($this->frame['args']) ? (array) $this->frame['args'] : [];
     }
 
     /**
@@ -136,10 +138,10 @@ class Frame implements Serializable
      */
     public function addComment($comment, $context = 'global')
     {
-        $this->comments[] = array(
+        $this->comments[] = [
             'comment' => $comment,
             'context' => $context,
-        );
+        ];
     }
 
     /**

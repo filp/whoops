@@ -10,10 +10,10 @@
           <?php if ($filePath && $editorHref = $handler->getEditorHref($filePath, (int) $line)): ?>
             Open:
             <a href="<?php echo $editorHref ?>" class="editor-link"<?php echo ($handler->getEditorAjax($filePath, (int) $line) ? ' data-ajax' : '') ?>>
-              <strong><?php echo $tpl->escape($filePath ?: '<#unknown>') ?></strong>
+              <strong><?php echo $tpl->breakOnDelimiter('/', $tpl->escape($filePath ?: '<#unknown>')) ?></strong>
             </a>
           <?php else: ?>
-            <strong><?php echo $tpl->escape($filePath ?: '<#unknown>') ?></strong>
+            <strong><?php echo $tpl->breakOnDelimiter('/', $tpl->escape($filePath ?: '<#unknown>')) ?></strong>
           <?php endif ?>
         </div>
         <?php
@@ -21,7 +21,7 @@
           if ($line !== null):
 
           // the $line is 1-indexed, we nab -1 where needed to account for this
-          $range = $frame->getFileLines($line - 8, 10);
+          $range = $frame->getFileLines($line - 20, 40);
 
           // getFileLines can return null if there is no source code
           if ($range):
@@ -29,8 +29,19 @@
             $start = key($range) + 1;
             $code  = join("\n", $range);
         ?>
-            <pre class="code-block prettyprint linenums:<?php echo $start ?>"><?php echo $tpl->escape($code) ?></pre>
+            <pre id="frame-code-linenums-<?=$i?>" class="code-block linenums:<?php echo $start ?>"><?php echo $tpl->escape($code) ?></pre>
+
           <?php endif ?>
+        <?php endif ?>
+
+        <?php $frameArgs = $tpl->dumpArgs($frame); ?>
+        <?php if ($frameArgs): ?>
+          <div class="frame-file">
+              Arguments
+          </div>
+          <div id="frame-code-args-<?=$i?>" class="code-block frame-args">
+              <?php echo $frameArgs; ?>
+          </div>
         <?php endif ?>
 
         <?php

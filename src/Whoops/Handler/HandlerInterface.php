@@ -6,9 +6,8 @@
 
 namespace Whoops\Handler;
 
-use Exception;
 use Whoops\Exception\Inspector;
-use Whoops\Run;
+use Whoops\RunInterface;
 
 interface HandlerInterface
 {
@@ -18,16 +17,16 @@ interface HandlerInterface
     public function handle();
 
     /**
-     * @param  Run  $run
+     * @param  RunInterface  $run
      * @return void
      */
-    public function setRun(Run $run);
+    public function setRun(RunInterface $run);
 
     /**
-     * @param  Exception $exception
+     * @param  \Throwable $exception
      * @return void
      */
-    public function setException(Exception $exception);
+    public function setException($exception);
 
     /**
      * @param  Inspector $inspector

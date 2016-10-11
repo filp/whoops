@@ -1,24 +1,35 @@
 language: php
 
 php:
-  # 5.3.0 is not supported by Travis
-  - 5.3.3
-  - 5.3
-  - 5.4
+  - 5.5.9
   - 5.5
   - 5.6
   - 7.0
+  - 7.1
   - hhvm
 
+sudo: false
+
+env:
+  global:
+    SETUP=basic
+
+matrix:
+  include:
+    - php: 5.6
+      env: SETUP=lowest
+
+cache:
+  directories:
+    - "$HOME/.composer/cache"
+
 before_script:
-  - composer self-update
-  # --prefer-source is required to avoid hitting GitHub API limit:
-  # https://github.com/composer/composer/issues/1314
-  - composer install --no-interaction --prefer-source
-  - if [ $TRAVIS_PHP_VERSION = "5.6" ]; then PHPUNIT_FLAGS="--coverage-clover build/logs/clover.xml"; fi
+  - if [[ "$SETUP" = "basic" ]]; then composer install --no-interaction --prefer-dist; fi
+  - if [[ "$SETUP" = "lowest" ]]; then travis_retry composer update --prefer-dist --no-interaction --prefer-lowest --prefer-stable; fi
+  - if [[ $TRAVIS_PHP_VERSION = "5.6" && "$SETUP" = "basic" ]]; then PHPUNIT_FLAGS="--coverage-clover build/logs/clover.xml"; fi
 
 script:
-  - phpunit --verbose $PHPUNIT_FLAGS
+  - vendor/bin/phpunit --verbose $PHPUNIT_FLAGS
 
 after_success:
   - if [ $TRAVIS_PHP_VERSION = "5.6" ]; then wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml; fi

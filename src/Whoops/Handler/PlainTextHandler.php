@@ -44,16 +44,6 @@ class PlainTextHandler extends Handler
     /**
      * @var bool
      */
-    private $onlyForCommandLine = false;
-
-    /**
-     * @var bool
-     */
-    private $outputOnlyIfCommandLine = true;
-
-    /**
-     * @var bool
-     */
     private $loggerOnly = false;
 
     /**
@@ -139,6 +129,22 @@ class PlainTextHandler extends Handler
     }
 
     /**
+     * Create plain text response and return it as a string
+     * @return string
+     */
+    public function generateResponse()
+    {
+        $exception = $this->getException();
+        return sprintf("%s: %s in file %s on line %d%s\n",
+            get_class($exception),
+            $exception->getMessage(),
+            $exception->getFile(),
+            $exception->getLine(),
+            $this->getTraceOutput()
+        );
+    }
+
+    /**
      * Get the size limit in bytes of frame arguments var_dump output.
      * If the limit is reached, the var_dump output is discarded.
      * Prevent memory limit errors.
@@ -147,34 +153,6 @@ class PlainTextHandler extends Handler
     public function getTraceFunctionArgsOutputLimit()
     {
         return $this->traceFunctionArgsOutputLimit;
-    }
-
-    /**
-     * Restrict error handling to command line calls.
-     * @param  bool|null $onlyForCommandLine
-     * @return null|bool
-     */
-    public function onlyForCommandLine($onlyForCommandLine = null)
-    {
-        if (func_num_args() == 0) {
-            return $this->onlyForCommandLine;
-        }
-        $this->onlyForCommandLine = (bool) $onlyForCommandLine;
-    }
-
-    /**
-     * Output the error message only if using command line.
-     * else, output to logger if available.
-     * Allow to safely add this handler to web pages.
-     * @param  bool|null $outputOnlyIfCommandLine
-     * @return null|bool
-     */
-    public function outputOnlyIfCommandLine($outputOnlyIfCommandLine = null)
-    {
-        if (func_num_args() == 0) {
-            return $this->outputOnlyIfCommandLine;
-        }
-        $this->outputOnlyIfCommandLine = (bool) $outputOnlyIfCommandLine;
     }
 
     /**
@@ -192,31 +170,12 @@ class PlainTextHandler extends Handler
     }
 
     /**
-     * Check, if possible, that this execution was triggered by a command line.
-     * @return bool
-     */
-    private function isCommandLine()
-    {
-        return PHP_SAPI == 'cli';
-    }
-
-    /**
-     * Test if handler can process the exception..
-     * @return bool
-     */
-    private function canProcess()
-    {
-        return $this->isCommandLine() || !$this->onlyForCommandLine();
-    }
-
-    /**
      * Test if handler can output to stdout.
      * @return bool
      */
     private function canOutput()
     {
-        return ($this->isCommandLine() || ! $this->outputOnlyIfCommandLine())
-            && ! $this->loggerOnly();
+        return !$this->loggerOnly();
     }
 
     /**
@@ -297,19 +256,7 @@ class PlainTextHandler extends Handler
      */
     public function handle()
     {
-        if (! $this->canProcess()) {
-            return Handler::DONE;
-        }
-
-        $exception = $this->getException();
-
-        $response = sprintf("%s: %s in file %s on line %d%s\n",
-                get_class($exception),
-                $exception->getMessage(),
-                $exception->getFile(),
-                $exception->getLine(),
-                $this->getTraceOutput()
-            );
+        $response = $this->generateResponse();
 
         if ($this->getLogger()) {
             $this->getLogger()->error($response);
@@ -319,8 +266,7 @@ class PlainTextHandler extends Handler
             return Handler::DONE;
         }
 
-        if (class_exists('\Whoops\Util\Misc')
-            && \Whoops\Util\Misc::canSendHeaders()) {
+        if (\Whoops\Util\Misc::canSendHeaders()) {
             header('Content-Type: text/plain');
         }
 

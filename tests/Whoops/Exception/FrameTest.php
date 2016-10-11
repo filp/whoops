@@ -15,13 +15,13 @@ class FrameTest extends TestCase
      */
     private function getFrameData()
     {
-        return array(
+        return [
             'file'     => __DIR__ . '/../../fixtures/frame.lines-test.php',
             'line'     => 0,
             'function' => 'test',
             'class'    => 'MyClass',
-            'args'     => array(true, 'hello'),
-        );
+            'args'     => [true, 'hello'],
+        ];
     }
 
     /**
@@ -137,11 +137,11 @@ class FrameTest extends TestCase
     public function testGetComments()
     {
         $frame    = $this->getFrameInstance();
-        $testComments = array(
+        $testComments = [
             'Dang, yo!',
             'Errthangs broken!',
             'Dayumm!',
-        );
+        ];
 
         $frame->addComment($testComments[0]);
         $frame->addComment($testComments[1]);
@@ -163,11 +163,11 @@ class FrameTest extends TestCase
     public function testGetFilteredComments()
     {
         $frame    = $this->getFrameInstance();
-        $testComments = array(
-            array('Dang, yo!', 'test'),
-            array('Errthangs broken!', 'test'),
+        $testComments = [
+            ['Dang, yo!', 'test'],
+            ['Errthangs broken!', 'test'],
             'Dayumm!',
-        );
+        ];
 
         $frame->addComment($testComments[0][0], $testComments[0][1]);
         $frame->addComment($testComments[1][0], $testComments[1][1]);
@@ -211,8 +211,8 @@ class FrameTest extends TestCase
      */
     public function testEquals()
     {
-        $frame1 = $this->getFrameInstance(array('line' => 1, 'file' => 'test-file.php'));
-        $frame2 = $this->getFrameInstance(array('line' => 1, 'file' => 'test-file.php'));
+        $frame1 = $this->getFrameInstance(['line' => 1, 'file' => 'test-file.php']);
+        $frame2 = $this->getFrameInstance(['line' => 1, 'file' => 'test-file.php']);
         $this->assertTrue ($frame1->equals($frame2));
     }
 }

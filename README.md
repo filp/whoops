@@ -1,5 +1,5 @@
 # whoops
-php errors for cool kids
+PHP errors for cool kids
 
 [![Total Downloads](https://img.shields.io/packagist/dm/filp/whoops.svg)](https://packagist.org/packages/filp/whoops)
 [![Latest Version](http://img.shields.io/packagist/v/filp/whoops.svg)](https://packagist.org/packages/filp/whoops)
@@ -11,13 +11,13 @@ php errors for cool kids
 
 -----
 
-![Whoops!](http://i.imgur.com/xvwyvOY.png)
+![Whoops!](http://i.imgur.com/0VQpe96.png)
 
-**whoops** is an error handler base/framework for PHP. Out-of-the-box, it provides a pretty
+**whoops** is an error handler framework for PHP. Out-of-the-box, it provides a pretty
 error interface that helps you debug your web projects, but at heart it's a simple yet
 powerful stacked error handling system.
 
-## (current) Features
+## Features
 
 - Flexible, stack-based error handling
 - Stand-alone library with (currently) no required dependencies
@@ -25,27 +25,25 @@ powerful stacked error handling system.
 - Includes a pretty rad error page for your webapp projects
 - Includes the ability to [open referenced files directly in your editor and IDE](docs/Open%20Files%20In%20An%20Editor.md)
 - Includes handlers for different response formats (JSON, XML, SOAP)
-- Includes a Silex Service Provider for painless integration with [Silex](http://silex.sensiolabs.org/)
-- Includes a Phalcon Service Provider for painless integration with [Phalcon](http://phalconphp.com/)
-- Includes a Module for equally painless integration with [Zend Framework 2](http://framework.zend.com/)
 - Easy to extend and integrate with existing libraries
 - Clean, well-structured & tested code-base
 
 ## Installing
 If you use Laravel 4, you already have Whoops. There are also community-provided instructions on how to integrate Whoops into
-[Silex](docs/Framework%20Integration.md#integrating-with-silex),
+[Silex 1](https://github.com/whoops-php/silex-1),
 [Silex 2](https://github.com/texthtml/whoops-silex),
-[Phalcon](docs/Framework%20Integration.md#integrating-with-phalcon),
+[Phalcon](https://github.com/whoops-php/phalcon),
 [Laravel 3](https://gist.github.com/hugomrdias/5169713#file-start-php),
-[Laravel 5](https://mattstauffer.co/blog/bringing-whoops-back-to-laravel-5),
-[CakePHP 2](https://github.com/oldskool/WhoopsCakephp),
-[CakePHP 3](https://github.com/oldskool/WhoopsCakephp/tree/cake3),
+[Laravel 5](https://github.com/GrahamCampbell/Laravel-Exceptions),
+[CakePHP 2](https://github.com/oldskool/WhoopsCakephp/tree/cake2),
+[CakePHP 3](https://github.com/oldskool/WhoopsCakephp),
 [Zend Framework 2](https://github.com/ghislainf/zf2-whoops),
 [Yii 1](https://github.com/igorsantos07/yii-whoops),
 [FuelPHP](https://github.com/indigophp/fuel-whoops),
 [Slim](https://github.com/zeuxisoo/php-slim-whoops/),
 [Pimple](https://github.com/texthtml/whoops-pimple),
-or any framework consuming [StackPHP middlewares](https://github.com/thecodingmachine/whoops-stackphp).
+or any framework consuming [StackPHP middlewares](https://github.com/thecodingmachine/whoops-stackphp)
+or [PSR-7 middlewares](https://github.com/franzliedke/whoops-middleware).
 
 If you are not using any of these frameworks, here's a very simple way to install:
 
@@ -65,6 +63,8 @@ If you are not using any of these frameworks, here's a very simple way to instal
 
 For more options, have a look at the **example files** in `examples/` to get a feel for how things work. Also take a look at the [API Documentation](docs/API%20Documentation.md) and the list of available handers below.
 
+You may also want to override some system calls Whoops does. To do that, extend `Whoops\Util\SystemFacade`, override functions that you want and pass it as the argument to the `Run` constructor.
+
 ### Available Handlers
 
 **whoops** currently ships with the following built-in handlers, available in the `Whoops\Handler` namespace:
@@ -74,11 +74,9 @@ For more options, have a look at the **example files** in `examples/` to get a f
 - [`CallbackHandler`](https://github.com/filp/whoops/blob/master/src/Whoops/Handler/CallbackHandler.php) - Wraps a closure or other callable as a handler. You do not need to use this handler explicitly, **whoops** will automatically wrap any closure or callable you pass to `Whoops\Run::pushHandler`
 - [`JsonResponseHandler`](https://github.com/filp/whoops/blob/master/src/Whoops/Handler/JsonResponseHandler.php) - Captures exceptions and returns information on them as a JSON string. Can be used to, for example, play nice with AJAX requests.
 - [`XmlResponseHandler`](https://github.com/filp/whoops/blob/master/src/Whoops/Handler/XmlResponseHandler.php) - Captures exceptions and returns information on them as a XML string. Can be used to, for example, play nice with AJAX requests.
-- [`SoapResponseHandler`](https://github.com/filp/whoops/blob/master/src/Whoops/Handler/SoapResponseHandler.php) - Captures exceptions and returns information on them as a SOAP string. Might be used for SOAP Webservices.
+
+You can also use pluggable handlers, such as [SOAP handler](https://github.com/whoops-php/soap).
 
 ## Authors
 
-This library was primarily developed by [Filipe Dobreira](https://github.com/filp), and is currently maintained by [Denis Sokolov](https://github.com/denis-sokolov). A lot of awesome fixes and enhancements were also sent in by [various contributors](https://github.com/filp/whoops/contributors).
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/filp/whoops/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+This library was primarily developed by [Filipe Dobreira](https://github.com/filp), and is currently maintained by [Denis Sokolov](https://github.com/denis-sokolov). A lot of awesome fixes and enhancements were also sent in by [various contributors](https://github.com/filp/whoops/contributors). Special thanks to [Graham Campbell](https://github.com/GrahamCampbell) and [Markus Staab](https://github.com/staabm) for continuous participation.

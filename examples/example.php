@@ -29,12 +29,23 @@ $run     = new Run();
 $handler = new PrettyPageHandler();
 
 // Add a custom table to the layout:
-$handler->addDataTable('Ice-cream I like', array(
+$handler->addDataTable('Ice-cream I like', [
     'Chocolate' => 'yes',
     'Coffee & chocolate' => 'a lot',
     'Strawberry & chocolate' => 'it\'s alright',
     'Vanilla' => 'ew',
-));
+]);
+
+$handler->addDataTableCallback('Details', function(\Whoops\Exception\Inspector $inspector) {
+    $data = array();
+    $exception = $inspector->getException();
+    if ($exception instanceof SomeSpecificException) {
+        $data['Important exception data'] = $exception->getSomeSpecificData();
+    }
+    $data['Exception class'] = get_class($exception);
+    $data['Exception code'] = $exception->getCode();
+    return $data;
+});
 
 $run->pushHandler($handler);
 

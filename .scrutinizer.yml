@@ -3,7 +3,6 @@ imports:
 
 filter:
   paths: [src/*]
-  excluded_paths: [src/deprecated/*]
 
 tools:
   php_cs_fixer:
