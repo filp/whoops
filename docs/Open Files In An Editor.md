@@ -15,13 +15,13 @@ $handler->setEditor('sublime');
 
 The following editors are currently supported by default.
 
-- `sublime`  - Sublime Text 2 and possibly 3 (on OS X you might need [a special handler](https://github.com/dhoulb/subl))
 - `emacs`    - Emacs
-- `textmate` - Textmate
-- `macvim`   - MacVim
-- `xdebug`   - xdebug (uses [xdebug.file_link_format](http://xdebug.org/docs/all_settings#file_link_format))
-- `phpstorm` - PhpStorm
 - `idea`     - IDEA
+- `macvim`   - MacVim
+- `phpstorm` - PhpStorm
+- `sublime`  - Sublime Text 2 and possibly 3 (on OS X you might need [a special handler](https://github.com/dhoulb/subl))
+- `textmate` - Textmate
+- `xdebug`   - xdebug (uses [xdebug.file_link_format](http://xdebug.org/docs/all_settings#file_link_format))
 
 Adding your own editor is simple:
 
