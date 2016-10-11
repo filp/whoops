@@ -27,6 +27,11 @@ class Frame implements Serializable
     protected $comments = [];
 
     /**
+     * @var bool
+     */
+    protected $application;
+
+    /**
      * @param array[]
      */
     public function __construct(array $frame)
@@ -267,5 +272,25 @@ class Frame implements Serializable
             return false;
         }
         return $frame->getFile() === $this->getFile() && $frame->getLine() === $this->getLine();
+    }
+
+    /**
+     * Returns whether this frame belongs to the application or not.
+     *
+     * @return boolean
+     */
+    public function isApplication()
+    {
+        return $this->application;
+    }
+
+    /**
+     * Mark as an frame belonging to the application.
+     * 
+     * @param boolean $application
+     */
+    public function setApplication($application)
+    {
+        $this->application = $application;
     }
 }

@@ -120,6 +120,27 @@ header {
     font-size: 11px;
   }
 
+  .frames-description.frames-description-application {
+    text-align: center;
+    font-size: 12px;
+  }
+  .frames-container.frames-container-application .frame:not(.frame-application) {
+    display: none;
+  }
+
+  .frames-tab {
+    color: #a29d9d;
+    display: inline-block;
+    padding: 4px 8px;
+    margin: 0 2px;
+    border-radius: 3px;
+  }
+
+  .frames-tab.frames-tab-active {
+    background-color: #2a2a2a;
+    color: #bebebe;
+  }
+
   .frame {
     padding: 14px;
     cursor: pointer;
@@ -166,6 +187,11 @@ header {
       padding: 0 1px 0 1px;
       text-align: center;
       display: inline-block;
+    }
+
+    .frame-application .frame-index {
+      background-color: #2a2a2a;
+      color: #bebebe;
     }
 
     .frame-file {
