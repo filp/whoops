@@ -188,10 +188,17 @@ class PrettyPageHandler extends Handler
             "javascript" => file_get_contents($jsFile),
 
             // Template paths:
-            "header"      => $this->getResource("views/header.html.php"),
-            "frame_list"  => $this->getResource("views/frame_list.html.php"),
-            "frame_code"  => $this->getResource("views/frame_code.html.php"),
-            "env_details" => $this->getResource("views/env_details.html.php"),
+            "header"                     => $this->getResource("views/header.html.php"),
+            "header_outer"               => $this->getResource("views/header_outer.html.php"),
+            "frame_list"                 => $this->getResource("views/frame_list.html.php"),
+            "frames_description"         => $this->getResource("views/frames_description.html.php"),
+            "frames_container"           => $this->getResource("views/frames_container.html.php"),
+            "panel_details"              => $this->getResource("views/panel_details.html.php"),
+            "panel_details_outer"        => $this->getResource("views/panel_details_outer.html.php"),
+            "panel_left"                 => $this->getResource("views/panel_left.html.php"),
+            "panel_left_outer"           => $this->getResource("views/panel_left_outer.html.php"),
+            "frame_code"                 => $this->getResource("views/frame_code.html.php"),
+            "env_details"                => $this->getResource("views/env_details.html.php"),
 
             "title"          => $this->getPageTitle(),
             "name"           => explode("\\", $inspector->getExceptionName()),
