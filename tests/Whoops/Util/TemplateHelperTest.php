@@ -11,7 +11,7 @@ use Whoops\TestCase;
 class TemplateHelperTest extends TestCase
 {
     /**
-     * @var Whoops\Util\TemplateHelper
+     * @var TemplateHelper
      */
     private $helper;
 
@@ -60,6 +60,17 @@ class TemplateHelperTest extends TestCase
         $this->assertEquals(
             $this->helper->escapeButPreserveUris($original),
             "This is a &lt;a href=&#039;&#039;&gt;<a href=\"http://google.com\" target=\"_blank\">http://google.com</a>&lt;/a&gt; test string"
+        );
+    }
+
+    /**
+     * @covers Whoops\Util\TemplateHelper::breakOnDelimiter
+     */
+    public function testBreakOnDelimiter()
+    {
+        $this->assertSame(
+            '<div class="delimiter">abc</div>-<div class="delimiter">123</div>-<div class="delimiter">456</div>',
+            $this->helper->breakOnDelimiter('-', 'abc-123-456')
         );
     }
 

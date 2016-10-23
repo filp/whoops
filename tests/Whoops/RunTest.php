@@ -440,6 +440,15 @@ class RunTest extends TestCase
 
     /**
      * @covers Whoops\Run::sendHttpCode
+     */
+    public function testSendHttpCodeNullCode()
+    {
+        $run = $this->getRunInstance();
+        $this->assertEquals(false, $run->sendHttpCode(null));
+    }
+
+    /**
+     * @covers Whoops\Run::sendHttpCode
      * @expectedException InvalidArgumentException
      */
     public function testSendHttpCodeWrongCode()
