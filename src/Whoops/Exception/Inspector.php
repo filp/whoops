@@ -153,7 +153,7 @@ class Inspector
     }
 
     /**
-     * Gets the backgrace from an exception.
+     * Gets the backtrace from an exception.
      *
      * If xdebug is installed
      *
