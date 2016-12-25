@@ -235,10 +235,6 @@ class PrettyPageHandler extends Handler
         }, $this->getDataTables());
         $vars["tables"] = array_merge($extraTables, $vars["tables"]);
 
-        if (\Whoops\Util\Misc::canSendHeaders()) {
-            header('Content-Type: text/html');
-        }
-
         $plainTextHandler = new PlainTextHandler();
         $plainTextHandler->setException($this->getException());
         $plainTextHandler->setInspector($this->getInspector());
@@ -248,6 +244,14 @@ class PrettyPageHandler extends Handler
         $helper->render($templateFile);
 
         return Handler::QUIT;
+    }
+
+    /**
+     * @return string
+     */
+    public function contentType()
+    {
+        return 'text/html';
     }
 
     /**
