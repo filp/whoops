@@ -53,6 +53,14 @@ class XmlResponseHandler extends Handler
     }
 
     /**
+     * @return string
+     */
+    public function contentType()
+    {
+        return 'application/xml';
+    }
+
+    /**
      * @param  SimpleXMLElement  $node Node to append data to, will be modified in place
      * @param  array|Traversable $data
      * @return SimpleXMLElement  The modified node, for chaining

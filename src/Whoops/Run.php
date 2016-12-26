@@ -258,6 +258,7 @@ final class Run implements RunInterface
 
         // Just in case there are no handlers:
         $handlerResponse = null;
+        $handlerContentType = null;
 
         foreach (array_reverse($this->handlerStack) as $handler) {
             $handler->setRun($this);
@@ -269,6 +270,9 @@ final class Run implements RunInterface
             // However, 3rd party handlers may have already relied on this parameter,
             // and removing it would be possibly breaking for users.
             $handlerResponse = $handler->handle($exception);
+
+            // Collect the content type for possible sending in the headers.
+            $handlerContentType = method_exists($handler, 'contentType') ? $handler->contentType() : null;
 
             if (in_array($handlerResponse, [Handler::LAST_HANDLER, Handler::QUIT])) {
                 // The Handler has handled the exception in some way, and
@@ -288,11 +292,15 @@ final class Run implements RunInterface
         // it so that it may be used by the caller
         if ($this->writeToOutput()) {
             // @todo Might be able to clean this up a bit better
-            // If we're going to quit execution, cleanup all other output
-            // buffers before sending our own output:
             if ($willQuit) {
+                // Cleanup all other output buffers before sending our output:
                 while ($this->system->getOutputBufferLevel() > 0) {
                     $this->system->endOutputBuffering();
+                }
+
+                // Send any headers if needed:
+                if (Misc::canSendHeaders() && $handlerContentType) {
+                    header("Content-Type: {$handlerContentType}");
                 }
             }
 

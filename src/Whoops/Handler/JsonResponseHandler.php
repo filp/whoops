@@ -73,12 +73,16 @@ class JsonResponseHandler extends Handler
         ];
       }
 
-        if (\Whoops\Util\Misc::canSendHeaders()) {
-            header('Content-Type: application/json');
-        }
-
         echo json_encode($response, defined('JSON_PARTIAL_OUTPUT_ON_ERROR') ? JSON_PARTIAL_OUTPUT_ON_ERROR : 0);
 
         return Handler::QUIT;
+    }
+
+    /**
+     * @return string
+     */
+    public function contentType()
+    {
+        return 'application/json';
     }
 }

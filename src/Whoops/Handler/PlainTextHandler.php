@@ -266,12 +266,16 @@ class PlainTextHandler extends Handler
             return Handler::DONE;
         }
 
-        if (\Whoops\Util\Misc::canSendHeaders()) {
-            header('Content-Type: text/plain');
-        }
-
         echo $response;
 
         return Handler::QUIT;
+    }
+
+    /**
+     * @return string
+     */
+    public function contentType()
+    {
+        return 'text/plain';
     }
 }
