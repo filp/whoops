@@ -20,23 +20,19 @@ class SystemFacade
 
     /**
      * @param callable $handler
-     * @param int      $types
+     * @param int      $types By default E_ALL | E_STRICT
      *
-     * @return callable|null
+     * @return string|null
      */
-    public function setErrorHandler(callable $handler, $types = 'use-php-defaults')
+    public function setErrorHandler(callable $handler, $types = null)
     {
-        // Workaround for PHP 5.5
-        if ($types === 'use-php-defaults') {
-            $types = E_ALL | E_STRICT;
-        }
-        return set_error_handler($handler, $types);
+        return set_error_handler($handler, $types === null ? E_ALL | E_STRICT : $types);
     }
 
     /**
      * @param callable $handler
      *
-     * @return callable|null
+     * @return string|null
      */
     public function setExceptionHandler(callable $handler)
     {
