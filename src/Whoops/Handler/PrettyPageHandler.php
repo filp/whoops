@@ -390,7 +390,7 @@ class PrettyPageHandler extends Handler
     {
         $editor = $this->getEditor($filePath, $line);
 
-        if (!$editor) {
+        if (empty($editor)) {
             return false;
         }
 
@@ -436,42 +436,44 @@ class PrettyPageHandler extends Handler
      * act as an Ajax request. The editor must be a
      * valid callable function/closure
      *
-     * @throws UnexpectedValueException  If editor resolver does not return a boolean
-     * @param  string                   $filePath
-     * @param  int                      $line
-     * @return mixed
+     * @param  string $filePath
+     * @param  int    $line
+     * @return array
      */
     protected function getEditor($filePath, $line)
     {
-        if ($this->editor === null && !is_string($this->editor) && !is_callable($this->editor))
-        {
-            return false;
+        if (!$this->editor || (!is_string($this->editor) && !is_callable($this->editor))) {
+            return [];
         }
-        else if(is_string($this->editor) && isset($this->editors[$this->editor]) && !is_callable($this->editors[$this->editor]))
-        {
+
+        if (is_string($this->editor) && isset($this->editors[$this->editor]) && !is_callable($this->editors[$this->editor])) {
            return [
                 'ajax' => false,
                 'url' => $this->editors[$this->editor],
             ];
         }
-        else if(is_callable($this->editor) || (isset($this->editors[$this->editor]) && is_callable($this->editors[$this->editor])))
-        {
-            if(is_callable($this->editor))
-            {
+
+        if (is_callable($this->editor) || (isset($this->editors[$this->editor]) && is_callable($this->editors[$this->editor]))) {
+            if (is_callable($this->editor)) {
                 $callback = call_user_func($this->editor, $filePath, $line);
-            }
-            else
-            {
+            } else {
                 $callback = call_user_func($this->editors[$this->editor], $filePath, $line);
+            }
+
+            if (is_string($callback)) {
+                return [
+                    'ajax' => false,
+                    'url' => $callback,
+                ];
             }
 
             return [
                 'ajax' => isset($callback['ajax']) ? $callback['ajax'] : false,
-                'url' => (is_array($callback) ? $callback['url'] : $callback),
+                'url' => isset($callback['url']) ? $callback['url'] : $callback,
             ];
         }
 
-        return false;
+        return [];
     }
 
     /**
@@ -495,7 +497,7 @@ class PrettyPageHandler extends Handler
      * Adds a path to the list of paths to be searched for
      * resources.
      *
-     * @throws InvalidArgumnetException If $path is not a valid directory
+     * @throws InvalidArgumentException If $path is not a valid directory
      *
      * @param  string $path
      * @return void
