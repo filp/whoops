@@ -98,6 +98,11 @@ class PrettyPageHandler extends Handler
     ];
 
     /**
+     * @var TemplateHelper
+     */
+    private $templateHelper;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -114,6 +119,27 @@ class PrettyPageHandler extends Handler
 
         // blacklist php provided auth based values
         $this->blacklist('_SERVER', 'PHP_AUTH_PW');
+
+        $this->templateHelper = new TemplateHelper();
+
+        if (class_exists('Symfony\Component\VarDumper\Cloner\VarCloner')) {
+            $cloner = new VarCloner();
+            // Only dump object internals if a custom caster exists.
+            $cloner->addCasters(['*' => function ($obj, $a, $stub, $isNested, $filter = 0) {
+                $class = $stub->class;
+                $classes = [$class => $class] + class_parents($class) + class_implements($class);
+
+                foreach ($classes as $class) {
+                    if (isset(AbstractCloner::$defaultCasters[$class])) {
+                        return $a;
+                    }
+                }
+
+                // Remove all internals
+                return [];
+            }]);
+            $this->templateHelper->setCloner($cloner);
+        }
     }
 
     /**
@@ -136,28 +162,6 @@ class PrettyPageHandler extends Handler
 
                 return Handler::DONE;
             }
-        }
-
-        // @todo: Make this more dynamic
-        $helper = new TemplateHelper();
-
-        if (class_exists('Symfony\Component\VarDumper\Cloner\VarCloner')) {
-            $cloner = new VarCloner();
-            // Only dump object internals if a custom caster exists.
-            $cloner->addCasters(['*' => function ($obj, $a, $stub, $isNested, $filter = 0) {
-                $class = $stub->class;
-                $classes = [$class => $class] + class_parents($class) + class_implements($class);
-
-                foreach ($classes as $class) {
-                    if (isset(AbstractCloner::$defaultCasters[$class])) {
-                        return $a;
-                    }
-                }
-
-                // Remove all internals
-                return [];
-            }]);
-            $helper->setCloner($cloner);
         }
 
         $templateFile = $this->getResource("views/layout.html.php");
@@ -256,8 +260,8 @@ class PrettyPageHandler extends Handler
         $plainTextHandler->setInspector($this->getInspector());
         $vars["preface"] = "<!--\n\n\n" . $plainTextHandler->generateResponse() . "\n\n\n\n\n\n\n\n\n\n\n-->";
 
-        $helper->setVariables($vars);
-        $helper->render($templateFile);
+        $this->templateHelper->setVariables($vars);
+        $this->templateHelper->render($templateFile);
 
         return Handler::QUIT;
     }
@@ -628,6 +632,16 @@ class PrettyPageHandler extends Handler
     public function setApplicationPaths($applicationPaths)
     {
         $this->applicationPaths = $applicationPaths;
+    }
+
+    /**
+     * Set the application root path.
+     *
+     * @param string $applicationRootPath
+     */
+    public function setApplicationRootPath($applicationRootPath)
+    {
+        $this->templateHelper->setApplicationRootPath($applicationRootPath);
     }
 
     /**
