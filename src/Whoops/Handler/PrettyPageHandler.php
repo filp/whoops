@@ -60,6 +60,19 @@ class PrettyPageHandler extends Handler
     private $applicationPaths;
 
     /**
+     * @var array[]
+     */
+    private $blacklist = [
+        '_GET' => [],
+        '_POST' => [],
+        '_FILES' => [],
+        '_COOKIE' => [],
+        '_SESSION' => [],
+        '_SERVER' => [],
+        '_ENV' => [],
+    ];
+
+    /**
      * A string identifier for a known IDE/text editor, or a closure
      * that resolves a string that can be used to open a given file
      * in an editor. If the string contains the special substrings
@@ -98,6 +111,9 @@ class PrettyPageHandler extends Handler
 
         // Add the default, local resource search path:
         $this->searchPaths[] = __DIR__ . "/../Resources";
+
+        // blacklist php provided auth based values
+        $this->blacklist('_SERVER', 'PHP_AUTH_PW');
     }
 
     /**
@@ -214,13 +230,13 @@ class PrettyPageHandler extends Handler
             "has_frames_tabs"   => $this->getApplicationPaths(),
 
             "tables"      => [
-                "GET Data"              => $_GET,
-                "POST Data"             => $_POST,
-                "Files"                 => $_FILES,
-                "Cookies"               => $_COOKIE,
-                "Session"               => isset($_SESSION) ? $_SESSION :  [],
-                "Server/Request Data"   => $_SERVER,
-                "Environment Variables" => $_ENV,
+                "GET Data"              => $this->masked('_GET'),
+                "POST Data"             => $this->masked('_POST'),
+                "Files"                 => $this->masked('_FILES'),
+                "Cookies"               => $this->masked('_COOKIE'),
+                "Session"               => isset($_SESSION) ? $this->masked('_SESSION') :  [],
+                "Server/Request Data"   => $this->masked('_SERVER'),
+                "Environment Variables" => $this->masked('_ENV'),
             ],
         ];
 
@@ -612,5 +628,34 @@ class PrettyPageHandler extends Handler
     public function setApplicationPaths($applicationPaths)
     {
         $this->applicationPaths = $applicationPaths;
+    }
+
+    /**
+     * blacklist a sensitive value within one of the superglobal arrays.
+     *
+     * @param $superGlobalName string the name of the superglobal array, e.g. '_GET'
+     * @param $key string the key within the superglobal
+     */
+    public function blacklist($superGlobalName, $key) {
+        $this->blacklist[$superGlobalName][] = $key;
+    }
+
+    /**
+     * Checks all values identified by the given superGlobalName within GLOBALS.
+     * Blacklisted values will be replaced by a equal length string cointaining only '*' characters.
+     *
+     * @param $superGlobalName string the name of the superglobal array, e.g. '_GET'
+     * @return array $values without sensitive data
+     */
+    private function masked($superGlobalName) {
+        $blacklisted = $this->blacklist[$superGlobalName];
+        $values = $GLOBALS[$superGlobalName];
+
+        foreach($blacklisted as $key) {
+            if (isset($values[$key])) {
+                $values[$key] = str_repeat('*', strlen($values[$key]));
+            }
+        }
+        return $values;
     }
 }
