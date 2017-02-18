@@ -75,6 +75,19 @@ class TemplateHelperTest extends TestCase
     }
 
     /**
+     * @covers Whoops\Util\TemplateHelper::shorten
+     */
+    public function testShorten()
+    {
+        $path = '/foo/bar/baz/abc.def';
+
+        $this->assertSame($path, $this->helper->shorten($path));
+
+        $this->helper->setApplicationRootPath('/foo/bar');
+        $this->assertSame('&hellip;/baz/abc.def', $this->helper->shorten($path));
+    }
+
+    /**
      * @covers Whoops\Util\TemplateHelper::slug
      */
     public function testSlug()
