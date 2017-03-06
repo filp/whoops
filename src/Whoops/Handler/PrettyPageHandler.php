@@ -665,9 +665,10 @@ class PrettyPageHandler extends Handler
     private function masked(array $superGlobal, $superGlobalName) {
         $blacklisted = $this->blacklist[$superGlobalName];
 
+        $values = array();
         foreach($blacklisted as $key) {
             if (isset($superGlobal[$key])) {
-                $superGlobal[$key] = str_repeat('*', strlen($superGlobal[$key]));
+                $values[$key] = str_repeat('*', strlen($superGlobal[$key]));
             }
         }
         return $values;
