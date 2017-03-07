@@ -134,7 +134,7 @@ class PrettyPageHandler extends Handler
                         return $a;
                     }
                 }
-
+https://github.com/filp/whoops/pull/486
                 // Remove all internals
                 return [];
             }]);
@@ -655,8 +655,10 @@ class PrettyPageHandler extends Handler
     }
 
     /**
-     * Checks all values identified by the given superGlobalName within GLOBALS.
+     * Checks all values within the given superGlobal array.
      * Blacklisted values will be replaced by a equal length string cointaining only '*' characters.
+     *
+     * We intentionally dont rely on $GLOBALS as it depends on 'auto_globals_jit' php.ini setting.
      *
      * @param $superGlobal array One of the superglobal arrays
      * @param $superGlobalName string the name of the superglobal array, e.g. '_GET'
