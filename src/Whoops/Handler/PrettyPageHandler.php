@@ -134,7 +134,7 @@ class PrettyPageHandler extends Handler
                         return $a;
                     }
                 }
-https://github.com/filp/whoops/pull/486
+
                 // Remove all internals
                 return [];
             }]);
