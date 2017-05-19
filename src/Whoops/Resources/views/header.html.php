@@ -4,7 +4,7 @@
       <?php if ($i == count($name) - 1): ?>
         <span class="exc-title-primary"><?php echo $tpl->escape($nameSection) ?></span>
       <?php else: ?>
-        <?php echo $tpl->escape($nameSection) . ' \\' ?>
+        <?php echo $tpl->escape($nameSection) , ' \\' ?>
       <?php endif ?>
     <?php endforeach ?>
     <?php if ($code): ?>
