@@ -15,7 +15,7 @@ use Whoops\Handler\HandlerInterface;
 use Whoops\Util\Misc;
 use Whoops\Util\SystemFacade;
 
-final class Run implements RunInterface
+class Run implements RunInterface
 {
     private $isRegistered;
     private $allowQuit       = true;
