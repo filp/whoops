@@ -29,22 +29,22 @@ class PlainTextHandler extends Handler
     /**
      * @var bool
      */
-    private $addTraceToOutput = true;
+    protected $addTraceToOutput = true;
 
     /**
      * @var bool|integer
      */
-    private $addTraceFunctionArgsToOutput = false;
+    protected $addTraceFunctionArgsToOutput = false;
 
     /**
      * @var integer
      */
-    private $traceFunctionArgsOutputLimit = 1024;
+    protected $traceFunctionArgsOutputLimit = 1024;
 
     /**
      * @var bool
      */
-    private $loggerOnly = false;
+    protected $loggerOnly = false;
 
     /**
      * Constructor.
@@ -173,7 +173,7 @@ class PlainTextHandler extends Handler
      * Test if handler can output to stdout.
      * @return bool
      */
-    private function canOutput()
+    protected function canOutput()
     {
         return !$this->loggerOnly();
     }
@@ -184,7 +184,7 @@ class PlainTextHandler extends Handler
      * @param  integer                 $line  [description]
      * @return string
      */
-    private function getFrameArgsOutput(Frame $frame, $line)
+    protected function getFrameArgsOutput(Frame $frame, $line)
     {
         if ($this->addTraceFunctionArgsToOutput() === false
             || $this->addTraceFunctionArgsToOutput() < $line) {
@@ -214,7 +214,7 @@ class PlainTextHandler extends Handler
      * Get the exception trace as plain text.
      * @return string
      */
-    private function getTraceOutput()
+    protected function getTraceOutput()
     {
         if (! $this->addTraceToOutput()) {
             return '';

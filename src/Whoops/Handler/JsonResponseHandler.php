@@ -18,12 +18,12 @@ class JsonResponseHandler extends Handler
     /**
      * @var bool
      */
-    private $returnFrames = false;
+    protected $returnFrames = false;
 
     /**
      * @var bool
      */
-    private $jsonApi = false;
+    protected $jsonApi = false;
 
     /**
      * Returns errors[[]] instead of error[] to be in compliance with the json:api spec

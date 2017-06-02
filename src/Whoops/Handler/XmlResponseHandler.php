@@ -19,7 +19,7 @@ class XmlResponseHandler extends Handler
     /**
      * @var bool
      */
-    private $returnFrames = false;
+    protected $returnFrames = false;
 
     /**
      * @param  bool|null  $returnFrames
@@ -65,7 +65,7 @@ class XmlResponseHandler extends Handler
      * @param  array|Traversable $data
      * @return SimpleXMLElement  The modified node, for chaining
      */
-    private static function addDataToNode(\SimpleXMLElement $node, $data)
+    protected static function addDataToNode(\SimpleXMLElement $node, $data)
     {
         assert('is_array($data) || $node instanceof Traversable');
 
@@ -96,7 +96,7 @@ class XmlResponseHandler extends Handler
      * @param  array|Traversable $data
      * @return string            XML
      */
-    private static function toXml($data)
+    protected static function toXml($data)
     {
         assert('is_array($data) || $node instanceof Traversable');
 

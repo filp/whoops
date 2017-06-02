@@ -23,36 +23,36 @@ class PrettyPageHandler extends Handler
      *
      * @var array
      */
-    private $searchPaths = [];
+    protected $searchPaths = [];
 
     /**
      * Fast lookup cache for known resource locations.
      *
      * @var array
      */
-    private $resourceCache = [];
+    protected $resourceCache = [];
 
     /**
      * The name of the custom css file.
      *
      * @var string
      */
-    private $customCss = null;
+    protected $customCss = null;
 
     /**
      * @var array[]
      */
-    private $extraTables = [];
+    protected $extraTables = [];
 
     /**
      * @var bool
      */
-    private $handleUnconditionally = false;
+    protected $handleUnconditionally = false;
 
     /**
      * @var string
      */
-    private $pageTitle = "Whoops! There was an error.";
+    protected $pageTitle = "Whoops! There was an error.";
 
     /**
      * @var array[]

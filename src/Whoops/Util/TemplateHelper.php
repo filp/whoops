@@ -21,22 +21,22 @@ class TemplateHelper
      * An array of variables to be passed to all templates
      * @var array
      */
-    private $variables = [];
+    protected $variables = [];
 
     /**
      * @var HtmlDumper
      */
-    private $htmlDumper;
+    protected $htmlDumper;
 
     /**
      * @var HtmlDumperOutput
      */
-    private $htmlDumperOutput;
+    protected $htmlDumperOutput;
 
     /**
      * @var AbstractCloner
      */
-    private $cloner;
+    protected $cloner;
 
     /**
      * @var string
@@ -124,7 +124,7 @@ class TemplateHelper
         return $path;
     }
 
-    private function getDumper()
+    protected function getDumper()
     {
         if (!$this->htmlDumper && class_exists('Symfony\Component\VarDumper\Cloner\VarCloner')) {
             $this->htmlDumperOutput = new HtmlDumperOutput();
