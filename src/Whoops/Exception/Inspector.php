@@ -92,29 +92,29 @@ class Inspector
     public function getFrames()
     {
         if ($this->frames === null) {
-            $frames = $this->getTrace($this->exception);            
-            
-            // Fill empty line/file info for call_user_func_array usages (PHP Bug #44428) 
+            $frames = $this->getTrace($this->exception);
+
+            // Fill empty line/file info for call_user_func_array usages (PHP Bug #44428)
             foreach ($frames as $k => $frame) {
-                
+
                 if (empty($frame['file'])) {
                     // Default values when file and line are missing
                     $file = '[internal]';
                     $line = 0;
-                    
+
                     $next_frame = !empty($frames[$k + 1]) ? $frames[$k + 1] : [];
-                    
+
                     if ($this->isValidNextFrame($next_frame)) {
                         $file = $next_frame['file'];
                         $line = $next_frame['line'];
                     }
-                    
+
                     $frames[$k]['file'] = $file;
                     $frames[$k]['line'] = $line;
                 }
-                
+
             }
-            
+
             // Find latest non-error handling frame index ($i) used to remove error handling frames
             $i = 0;
             foreach ($frames as $k => $frame) {
@@ -122,15 +122,15 @@ class Inspector
                     $i = $k;
                 }
             }
-            
+
             // Remove error handling frames
             if ($i > 0) {
-                array_splice($frames, 0, $i);               
-            } 
-            
+                array_splice($frames, 0, $i);
+            }
+
             $firstFrame = $this->getFrameFromException($this->exception);
             array_unshift($frames, $firstFrame);
-            
+
             $this->frames = new FrameCollection($frames);
 
             if ($previousInspector = $this->getPreviousExceptionInspector()) {
@@ -218,11 +218,11 @@ class Inspector
             'args'  => [],
         ];
     }
-    
+
     /**
      * Determine if the frame can be used to fill in previous frame's missing info
      * happens for call_user_func and call_user_func_array usages (PHP Bug #44428)
-     * 
+     *
      * @param array $frame
      * @return bool
      */
@@ -231,15 +231,15 @@ class Inspector
         if (empty($frame['file'])) {
             return false;
         }
-        
+
         if (empty($frame['line'])) {
             return false;
         }
-        
+
         if (empty($frame['function']) || !stristr($frame['function'], 'call_user_func')) {
             return false;
         }
-        
+
         return true;
     }
 }
