@@ -1,5 +1,7 @@
 language: php
 
+dist: trusty
+
 php:
   - 5.5.9
   - 5.5
