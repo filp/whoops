@@ -20,6 +20,16 @@
     <?php endif ?>
 
     <ul class="search-for-help">
+      <?php if (!empty($docref_url)): ?>
+      <li>
+        <a target="_blank" href="<?php echo $docref_url; ?>" title="Search for help in the PHP manual.">
+          <!-- PHP icon by Icons Solid -->
+          <!-- https://www.iconfinder.com/icons/322421/book_icon -->
+          <!-- Free for commercial use -->
+          <svg height="16px" id="Layer_1" style="enable-background:new 0 0 32 32;" version="1.1" viewBox="0 0 32 32" width="16px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g transform="translate(240 0)"><path d="M-211,4v26h-24c-1.104,0-2-0.895-2-2s0.896-2,2-2h22V0h-22c-2.209,0-4,1.791-4,4v24c0,2.209,1.791,4,4,4h26V4H-211z    M-235,8V2h20v22h-20V8z M-219,6h-12V4h12V6z M-223,10h-8V8h8V10z M-227,14h-4v-2h4V14z"/></g></svg>
+        </a>
+      </li>
+      <?php endif ?>
       <li>
         <a target="_blank" href="https://google.com/search?q=<?php echo urlencode(implode('\\', $name).' '.$message) ?>" title="Search for help on Google.">
           <!-- Google icon by Alfredo H, from https://www.iconfinder.com/alfredoh -->
