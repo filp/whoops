@@ -3,7 +3,6 @@ language: php
 dist: trusty
 
 php:
-  - 5.5.9
   - 5.5
   - 5.6
   - 7.0
@@ -20,6 +19,8 @@ matrix:
   include:
     - php: 5.6
       env: SETUP=lowest
+    - php: 5.5.9
+      dist: precise
 
 cache:
   directories:
