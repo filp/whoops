@@ -209,7 +209,7 @@ class PlainTextHandlerTest extends TestCase
                 get_class($this->getException()),
                 'test message',
                 __FILE__,
-                30
+                31
             ),
             $text
         );
@@ -241,7 +241,7 @@ class PlainTextHandlerTest extends TestCase
                 'Whoops\Handler\PlainTextHandlerTest',
                 'getException',
                 __FILE__,
-                55
+                56
             ),
             $text
         );
@@ -280,7 +280,7 @@ class PlainTextHandlerTest extends TestCase
                 'Whoops\Handler\PlainTextHandlerTest',
                 'getException',
                 __FILE__,
-                55
+                56
             ),
             $text
         );
@@ -322,7 +322,7 @@ class PlainTextHandlerTest extends TestCase
                 'Whoops\Handler\PlainTextHandlerTest',
                 'getException',
                 __FILE__,
-                55
+                56
             ),
             $text
         );
