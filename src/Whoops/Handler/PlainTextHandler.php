@@ -232,7 +232,7 @@ class PlainTextHandler extends Handler
      * @param mixed $var
      * @return void
      */
-    public function dump($var)
+    protected function dump($var)
     {
         if ($this->dumper) {
             call_user_func($this->dumper, $var);
