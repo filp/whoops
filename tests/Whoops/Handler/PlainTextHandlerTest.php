@@ -9,6 +9,7 @@ namespace Whoops\Handler;
 use RuntimeException;
 use StdClass;
 use Whoops\TestCase;
+use Whoops\Exception\Frame;
 
 class PlainTextHandlerTest extends TestCase
 {
@@ -350,5 +351,33 @@ class PlainTextHandlerTest extends TestCase
         );
         // Check that the response has the correct value:
         $this->assertEquals('', $text);
+    }
+
+    /**
+     * @covers Whoops\Handler\PlainTextHandler::loggerOnly
+     * @covers Whoops\Handler\PlainTextHandler::handle
+     */
+    public function testGetFrameArgsOutputUsesDumper()
+    {
+        $values = [];
+        $dumper = function ($var) use (&$values) {
+            $values[] = $var;
+        };
+
+        $handler = $this->getHandler();
+        $handler->setDumper($dumper);
+
+        $args = [
+           ['foo', 'bar', 'buz'],
+           [1, 2, 'Fizz', 4, 'Buzz'],
+        ];
+
+        $this->assertEquals('', $handler->dump(new Frame(['args' => $args[0]])));
+        $this->assertCount(1, $values);
+        $this->assertEquals($args[0], $values[0]->getArgs());
+
+        $this->assertEquals('', $handler->dump(new Frame(['args' => $args[1]])));
+        $this->assertCount(2, $values);
+        $this->assertEquals($args[1], $values[1]->getArgs());
     }
 }
