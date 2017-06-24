@@ -372,11 +372,11 @@ class PlainTextHandlerTest extends TestCase
            [1, 2, 'Fizz', 4, 'Buzz'],
         ];
 
-        $this->assertEquals('', $handler->_dump(new Frame(['args' => $args[0]])));
+        $this->assertEquals('', $handler->dump(new Frame(['args' => $args[0]])));
         $this->assertCount(1, $values);
         $this->assertEquals($args[0], $values[0]->getArgs());
 
-        $this->assertEquals('', $handler->_dump(new Frame(['args' => $args[1]])));
+        $this->assertEquals('', $handler->dump(new Frame(['args' => $args[1]])));
         $this->assertCount(2, $values);
         $this->assertEquals($args[1], $values[1]->getArgs());
     }
