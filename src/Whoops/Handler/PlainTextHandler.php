@@ -209,7 +209,7 @@ class PlainTextHandler extends Handler
 
         // Dump the arguments:
         ob_start();
-        $this->_dump($frame->getArgs());
+        $this->dump($frame->getArgs());
         if (ob_get_length() > $this->getTraceFunctionArgsOutputLimit()) {
             // The argument var_dump is to big.
             // Discarded to limit memory usage.
@@ -232,7 +232,7 @@ class PlainTextHandler extends Handler
      * @param mixed $var
      * @return void
      */
-    public function _dump($var)
+    public function dump($var)
     {
         if ($this->dumper) {
             call_user_func($this->dumper, $var);
