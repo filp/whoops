@@ -95,7 +95,7 @@ class PrettyPageHandler extends Handler
         "macvim"   => "mvim://open/?url=file://%file&line=%line",
         "phpstorm" => "phpstorm://open?file=%file&line=%line",
         "idea"     => "idea://open?file=%file&line=%line",
-        'vscode'   => "vscode://file/%file:%line",
+        "vscode"   => "vscode://file/%file:%line",
     ];
 
     /**

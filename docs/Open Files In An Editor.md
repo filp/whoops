@@ -22,6 +22,7 @@ The following editors are currently supported by default.
 - `sublime`  - Sublime Text 2 and possibly 3 (on OS X you might need [a special handler](https://github.com/dhoulb/subl))
 - `textmate` - Textmate
 - `xdebug`   - xdebug (uses [xdebug.file_link_format](http://xdebug.org/docs/all_settings#file_link_format))
+- `vscode`   - VSCode (ref [Opening VS Code with URLs](https://code.visualstudio.com/docs/editor/command-line#_opening-vs-code-with-urls))
 
 Adding your own editor is simple:
 
