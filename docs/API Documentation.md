@@ -323,11 +323,10 @@ The `JSON` body has the following format:
 JsonResponseHandler::addTraceToOutput(bool $yes = null)
  #=> bool
  
- // Should public properties from the Exception be added to the
- // JSON payload body?
- JsonResponseHandler::discoverPublicProperties(bool $yes = null)
+// Should public properties from the Exception be added to the
+// JSON payload body?
+JsonResponseHandler::discoverPublicProperties(bool $yes = null)
  #=> boll
- 
 
 JsonResponseHandler::handle()
  #=> int | null
