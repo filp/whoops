@@ -274,4 +274,13 @@ class Inspector
 
         return true;
     }
+
+    /**
+     * Returns the public properties from an exception.
+     * @return array
+     */
+    public function getPublicProperties()
+    {
+        return get_object_vars($this->exception);
+    }
 }
