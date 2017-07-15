@@ -299,7 +299,17 @@ The `JSON` body has the following format:
           "class": "MyApplication\DoerOfThings",
           "args": [ true, 10, "yay method arguments" ] },
         # ... more frames here ...
-     ]
+     ],
+     
+     # if JsonResponseHandler::discoverPublicProperties(true):
+     "properties": {
+        "foo": "bar",
+        "things": [
+           "meat",
+           "tomato",
+           "salad"
+        ]
+     }
   }
 }
 ```
@@ -312,6 +322,12 @@ The `JSON` body has the following format:
 // JSON payload body?
 JsonResponseHandler::addTraceToOutput(bool $yes = null)
  #=> bool
+ 
+ // Should public properties from the Exception be added to the
+ // JSON payload body?
+ JsonResponseHandler::discoverPublicProperties(bool $yes = null)
+ #=> boll
+ 
 
 JsonResponseHandler::handle()
  #=> int | null
