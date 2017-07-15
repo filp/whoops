@@ -24,18 +24,21 @@ class JsonResponseHandlerTest extends TestCase
      */
     public function getException($message = 'test message')
     {
-        return new RuntimeException($message);
+        $exception = new RuntimeException($message);
+        $exception->foo = 'bar'; // public property
+        return $exception;
     }
 
     /**
      * @param  bool  $withTrace
      * @return array
      */
-    private function getJsonResponseFromHandler($withTrace = false, $jsonApi = false)
+    private function getJsonResponseFromHandler($withTrace = false, $jsonApi = false, $discoverPublicProperties = false)
     {
         $handler = $this->getHandler();
         $handler->setJsonApi($jsonApi);
         $handler->addTraceToOutput($withTrace);
+        $handler->discoverPublicProperties($discoverPublicProperties);
 
         $run = $this->getRunInstance();
         $run->pushHandler($handler);
@@ -81,7 +84,7 @@ class JsonResponseHandlerTest extends TestCase
      */
     public function testReturnsWithFrames()
     {
-        $json = $this->getJsonResponseFromHandler($withTrace = true,$jsonApi = false);
+        $json = $this->getJsonResponseFromHandler($withTrace = true, $jsonApi = false);
 
         // Check that the trace is returned:
         $this->assertArrayHasKey('trace', $json['error']);
@@ -101,7 +104,11 @@ class JsonResponseHandlerTest extends TestCase
      */
     public function testReturnsJsonApi()
     {
-        $json = $this->getJsonResponseFromHandler($withTrace = false,$jsonApi = true);
+        $json = $this->getJsonResponseFromHandler(
+            $withTrace = false,
+            $jsonApi = true,
+            $discoverPublicProperties = false
+        );
 
         // Check that the response has the expected keys:
         $this->assertArrayHasKey('errors', $json);
@@ -116,7 +123,26 @@ class JsonResponseHandlerTest extends TestCase
 
         // Check that the trace is NOT returned:
         $this->assertArrayNotHasKey('trace', $json['errors']);
+        // Check that the public properties are NOT returned:
+        $this->assertArrayNotHasKey('properties', $json['errors'][0]);
     }
 
- 
+    /**
+     * @covers Whoops\Handler\JsonResponseHandler::discoverPublicProperties
+     * @covers Whoops\Handler\JsonResponseHandler::handle
+     */
+    public function testReturnsPublicProperties()
+    {
+        $json = $this->getJsonResponseFromHandler(
+            $withTrace = false,
+            $jsonApi = false,
+            $discoverPublicProperties = true
+        );
+
+        // Check that the response has the expected key:
+        $this->assertArrayHasKey('properties', $json['error']);
+
+        // Check the field values:
+        $this->assertEquals($json['error']['properties']['foo'], 'bar');
+    }
 }
