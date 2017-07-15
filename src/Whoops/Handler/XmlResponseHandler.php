@@ -22,6 +22,11 @@ class XmlResponseHandler extends Handler
     private $returnFrames = false;
 
     /**
+     * @var bool
+     */
+    private $discoverPublicProperties = false;
+
+    /**
      * @param  bool|null  $returnFrames
      * @return bool|$this
      */
@@ -36,6 +41,20 @@ class XmlResponseHandler extends Handler
     }
 
     /**
+     * @param  bool|null  $discoverPublicProperties
+     * @return bool|$this
+     */
+    public function discoverPublicProperties($discoverPublicProperties = null)
+    {
+        if (func_num_args() == 0) {
+            return $this->discoverPublicProperties;
+        }
+
+        $this->discoverPublicProperties = (bool) $discoverPublicProperties;
+        return $this;
+    }
+
+    /**
      * @return int
      */
     public function handle()
@@ -43,7 +62,8 @@ class XmlResponseHandler extends Handler
         $response = [
             'error' => Formatter::formatExceptionAsDataArray(
                 $this->getInspector(),
-                $this->addTraceToOutput()
+                $this->addTraceToOutput(),
+                $this->discoverPublicProperties()
             ),
         ];
 
