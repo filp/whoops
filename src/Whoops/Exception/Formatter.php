@@ -14,10 +14,14 @@ class Formatter
      * for further convertion to other languages
      * @param  Inspector $inspector
      * @param  bool      $shouldAddTrace
+     * @param  bool      $shouldDiscoverPublicProperties
      * @return array
      */
-    public static function formatExceptionAsDataArray(Inspector $inspector, $shouldAddTrace)
-    {
+    public static function formatExceptionAsDataArray(
+        Inspector $inspector,
+        $shouldAddTrace,
+        $shouldDiscoverPublicProperties
+    ) {
         $exception = $inspector->getException();
         $response = [
             'type'    => get_class($exception),
@@ -42,6 +46,10 @@ class Formatter
             }
 
             $response['trace'] = $frameData;
+        }
+
+        if ($shouldDiscoverPublicProperties) {
+            $response['properties'] = $inspector->getPublicProperties();
         }
 
         return $response;
