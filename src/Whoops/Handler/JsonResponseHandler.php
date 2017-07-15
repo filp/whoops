@@ -26,6 +26,11 @@ class JsonResponseHandler extends Handler
     private $jsonApi = false;
 
     /**
+     * @var bool
+     */
+    private $discoverPublicProperties = false;
+
+    /**
      * Returns errors[[]] instead of error[] to be in compliance with the json:api spec
      * @param bool $jsonApi Default is false
      * @return $this
@@ -51,6 +56,20 @@ class JsonResponseHandler extends Handler
     }
 
     /**
+     * @param  bool|null  $discoverPublicProperties
+     * @return bool|$this
+     */
+    public function discoverPublicProperties($discoverPublicProperties = null)
+    {
+        if (func_num_args() == 0) {
+            return $this->discoverPublicProperties;
+        }
+
+        $this->discoverPublicProperties = (bool) $discoverPublicProperties;
+        return $this;
+    }
+
+    /**
      * @return int
      */
     public function handle()
@@ -60,7 +79,8 @@ class JsonResponseHandler extends Handler
           'errors' => [
             Formatter::formatExceptionAsDataArray(
                   $this->getInspector(),
-                  $this->addTraceToOutput()
+                  $this->addTraceToOutput(),
+                  $this->discoverPublicProperties()
             ),
           ]
         ];
@@ -68,7 +88,8 @@ class JsonResponseHandler extends Handler
         $response = [
             'error' => Formatter::formatExceptionAsDataArray(
                 $this->getInspector(),
-                $this->addTraceToOutput()
+                $this->addTraceToOutput(),
+                $this->discoverPublicProperties()
             ),
         ];
       }
