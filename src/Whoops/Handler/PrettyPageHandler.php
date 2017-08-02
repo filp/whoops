@@ -176,27 +176,8 @@ class PrettyPageHandler extends Handler
         }
 
         $inspector = $this->getInspector();
-        $frames    = $inspector->getFrames();
-
-        $code = $inspector->getException()->getCode();
-
-        if ($inspector->getException() instanceof \ErrorException) {
-            // ErrorExceptions wrap the php-error types within the "severity" property
-            $code = Misc::translateErrorCode($inspector->getException()->getSeverity());
-        }
-
-        // Detect frames that belong to the application.
-        if ($this->applicationPaths) {
-            /* @var \Whoops\Exception\Frame $frame */
-            foreach ($frames as $frame) {
-                foreach ($this->applicationPaths as $path) {
-                    if (substr($frame->getFile(), 0, strlen($path)) === $path) {
-                        $frame->setApplication(true);
-                        break;
-                    }
-                }
-            }
-        }
+        $frames = $this->getFrames();
+        $code = $this->getCode();
 
         // List of variables that will be passed to the layout template.
         $vars = [
@@ -235,14 +216,14 @@ class PrettyPageHandler extends Handler
             "active_frames_tab" => count($frames) && $frames->offsetGet(0)->isApplication() ?  'application' : 'all',
             "has_frames_tabs"   => $this->getApplicationPaths(),
 
-            "tables"      => [
-                "GET Data"              => $this->masked($_GET, '_GET'),
-                "POST Data"             => $this->masked($_POST, '_POST'),
-                "Files"                 => isset($_FILES) ? $this->masked($_FILES, '_FILES') : [],
-                "Cookies"               => $this->masked($_COOKIE, '_COOKIE'),
-                "Session"               => isset($_SESSION) ? $this->masked($_SESSION, '_SESSION') :  [],
-                "Server/Request Data"   => $this->masked($_SERVER, '_SERVER'),
-                "Environment Variables" => $this->masked($_ENV, '_ENV'),
+            "tables" => [
+                "GET Data"              => $this->getMasked($_GET, '_GET'),
+                "POST Data"             => $this->getMasked($_POST, '_POST'),
+                "Files"                 => isset($_FILES) ? $this->getMasked($_FILES, '_FILES') : [],
+                "Cookies"               => $this->getMasked($_COOKIE, '_COOKIE'),
+                "Session"               => isset($_SESSION) ? $this->getMasked($_SESSION, '_SESSION') :  [],
+                "Server/Request Data"   => $this->getMasked($_SERVER, '_SERVER'),
+                "Environment Variables" => $this->getMasked($_ENV, '_ENV'),
             ],
         ];
 
@@ -252,9 +233,12 @@ class PrettyPageHandler extends Handler
 
         // Add extra entries list of data tables:
         // @todo: Consolidate addDataTable and addDataTableCallback
-        $extraTables = array_map(function ($table) use ($inspector) {
-            return $table instanceof \Closure ? $table($inspector) : $table;
-        }, $this->getDataTables());
+        $extraTables = array_map(
+            function ($table) use ($inspector) {
+                return $table instanceof \Closure ? $table($inspector) : $table;
+            },
+            $this->getDataTables()
+        );
         $vars["tables"] = array_merge($extraTables, $vars["tables"]);
 
         $plainTextHandler = new PlainTextHandler();
@@ -266,6 +250,47 @@ class PrettyPageHandler extends Handler
         $this->templateHelper->render($templateFile);
 
         return Handler::QUIT;
+    }
+
+    /**
+     * Get frames.
+     *
+     * @return \Whoops\Exception\FrameCollection;
+     */
+    protected function getFrames()
+    {
+        $frames = $this->getInspector()->getFrames();
+
+        if ($this->getApplicationPaths()) {
+            foreach ($frames as $frame) {
+                foreach ($this->getApplicationPaths() as $path) {
+                    if (strpos($frame->getFile(), $path) === 0) {
+                        $frame->setApplication(true);
+                        break;
+                    }
+                }
+            }
+        }
+
+        return $frames;
+    }
+
+    /**
+     * Get exception code.
+     *
+     * @return string
+     */
+    protected function getCode()
+    {
+        $exception = $this->getException();
+
+        $code = $exception->getCode();
+        if ($exception instanceof \ErrorException) {
+            // ErrorExceptions wrap the php-error types within the 'severity' property
+            $code = Misc::translateErrorCode($exception->getSeverity());
+        }
+
+        return (string) $code;
     }
 
     /**
@@ -666,7 +691,7 @@ class PrettyPageHandler extends Handler
      * @param $superGlobalName string the name of the superglobal array, e.g. '_GET'
      * @return array $values without sensitive data
      */
-    private function masked(array $superGlobal, $superGlobalName) {
+    private function getMasked(array $superGlobal, $superGlobalName) {
         $blacklisted = $this->blacklist[$superGlobalName];
 
         $values = $superGlobal;
