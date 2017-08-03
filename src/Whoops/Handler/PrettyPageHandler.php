@@ -176,8 +176,8 @@ class PrettyPageHandler extends Handler
         }
 
         $inspector = $this->getInspector();
-        $frames = $this->getFrames();
-        $code = $this->getCode();
+        $frames = $this->getExceptionFrames();
+        $code = $this->getExceptionCode();
 
         // List of variables that will be passed to the layout template.
         $vars = [
@@ -216,14 +216,14 @@ class PrettyPageHandler extends Handler
             "active_frames_tab" => count($frames) && $frames->offsetGet(0)->isApplication() ?  'application' : 'all',
             "has_frames_tabs"   => $this->getApplicationPaths(),
 
-            "tables" => [
-                "GET Data"              => $this->getMasked($_GET, '_GET'),
-                "POST Data"             => $this->getMasked($_POST, '_POST'),
-                "Files"                 => isset($_FILES) ? $this->getMasked($_FILES, '_FILES') : [],
-                "Cookies"               => $this->getMasked($_COOKIE, '_COOKIE'),
-                "Session"               => isset($_SESSION) ? $this->getMasked($_SESSION, '_SESSION') :  [],
-                "Server/Request Data"   => $this->getMasked($_SERVER, '_SERVER'),
-                "Environment Variables" => $this->getMasked($_ENV, '_ENV'),
+            "tables"      => [
+                "GET Data"              => $this->masked($_GET, '_GET'),
+                "POST Data"             => $this->masked($_POST, '_POST'),
+                "Files"                 => isset($_FILES) ? $this->masked($_FILES, '_FILES') : [],
+                "Cookies"               => $this->masked($_COOKIE, '_COOKIE'),
+                "Session"               => isset($_SESSION) ? $this->masked($_SESSION, '_SESSION') :  [],
+                "Server/Request Data"   => $this->masked($_SERVER, '_SERVER'),
+                "Environment Variables" => $this->masked($_ENV, '_ENV'),
             ],
         ];
 
@@ -233,12 +233,9 @@ class PrettyPageHandler extends Handler
 
         // Add extra entries list of data tables:
         // @todo: Consolidate addDataTable and addDataTableCallback
-        $extraTables = array_map(
-            function ($table) use ($inspector) {
-                return $table instanceof \Closure ? $table($inspector) : $table;
-            },
-            $this->getDataTables()
-        );
+        $extraTables = array_map(function ($table) use ($inspector) {
+            return $table instanceof \Closure ? $table($inspector) : $table;
+        }, $this->getDataTables());
         $vars["tables"] = array_merge($extraTables, $vars["tables"]);
 
         $plainTextHandler = new PlainTextHandler();
@@ -253,11 +250,11 @@ class PrettyPageHandler extends Handler
     }
 
     /**
-     * Get frames.
+     * Get the stack trace frames of the exception that is currently being handled.
      *
      * @return \Whoops\Exception\FrameCollection;
      */
-    protected function getFrames()
+    protected function getExceptionFrames()
     {
         $frames = $this->getInspector()->getFrames();
 
@@ -276,11 +273,11 @@ class PrettyPageHandler extends Handler
     }
 
     /**
-     * Get exception code.
+     * Get the code of the exception that is currently being handled.
      *
      * @return string
      */
-    protected function getCode()
+    protected function getExceptionCode()
     {
         $exception = $this->getException();
 
@@ -691,7 +688,7 @@ class PrettyPageHandler extends Handler
      * @param $superGlobalName string the name of the superglobal array, e.g. '_GET'
      * @return array $values without sensitive data
      */
-    private function getMasked(array $superGlobal, $superGlobalName) {
+    private function masked(array $superGlobal, $superGlobalName) {
         $blacklisted = $this->blacklist[$superGlobalName];
 
         $values = $superGlobal;
