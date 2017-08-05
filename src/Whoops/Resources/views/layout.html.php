@@ -5,16 +5,13 @@
 ?>
 <!DOCTYPE html>
 
+<!--
+
 
 <?php echo $preface; ?>
 
 
-
-
-
-
-
-
+-->
 
 <html>
   <head>
