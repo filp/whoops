@@ -179,6 +179,8 @@ class PrettyPageHandler extends Handler
         $frames = $this->getExceptionFrames();
         $code = $this->getExceptionCode();
 
+        $plainTextException = $this->getExceptionPlainText();
+
         // List of variables that will be passed to the layout template.
         $vars = [
             "page_title" => $this->getPageTitle(),
@@ -202,12 +204,13 @@ class PrettyPageHandler extends Handler
             "frame_code"                 => $this->getResource("views/frame_code.html.php"),
             "env_details"                => $this->getResource("views/env_details.html.php"),
 
+            "preface"        => $this->templateHelper->escape($plainTextException),
             "title"          => $this->getPageTitle(),
             "name"           => explode("\\", $inspector->getExceptionName()),
             "message"        => $inspector->getExceptionMessage(),
             "docref_url"     => $inspector->getExceptionDocrefUrl(),
             "code"           => $code,
-            "plain_exception" => Formatter::formatExceptionPlain($inspector),
+            "plain_exception" => $plainTextException,
             "frames"         => $frames,
             "has_frames"     => !!count($frames),
             "handler"        => $this,
@@ -237,11 +240,6 @@ class PrettyPageHandler extends Handler
             return $table instanceof \Closure ? $table($inspector) : $table;
         }, $this->getDataTables());
         $vars["tables"] = array_merge($extraTables, $vars["tables"]);
-
-        $plainTextHandler = new PlainTextHandler();
-        $plainTextHandler->setException($this->getException());
-        $plainTextHandler->setInspector($this->getInspector());
-        $vars["preface"] = "<!--\n\n\n" .  $this->templateHelper->escape($plainTextHandler->generateResponse()) . "\n\n\n\n\n\n\n\n\n\n\n-->";
 
         $this->templateHelper->setVariables($vars);
         $this->templateHelper->render($templateFile);
@@ -288,6 +286,20 @@ class PrettyPageHandler extends Handler
         }
 
         return (string) $code;
+    }
+
+    /**
+     * Get exception being handled as plain text.
+     *
+     * @return string
+     */
+    protected function getExceptionPlainText()
+    {
+        $plainTextHandler = new PlainTextHandler();
+        $plainTextHandler->setException($this->getException());
+        $plainTextHandler->setInspector($this->getInspector());
+
+        return $plainTextHandler->generateResponse();
     }
 
     /**

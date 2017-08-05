@@ -3,7 +3,19 @@
 * Layout template file for Whoops's pretty error output.
 */
 ?>
-<!DOCTYPE html><?php echo $preface; ?>
+<!DOCTYPE html>
+
+
+<?php echo $preface; ?>
+
+
+
+
+
+
+
+
+
 <html>
   <head>
     <meta charset="utf-8">
