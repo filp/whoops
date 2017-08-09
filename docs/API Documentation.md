@@ -367,7 +367,7 @@ PrettyPageHandler::addResourcePath(string $resourcesPath)
 // Sets an editor to use to open referenced files, either by
 // a string identifier, or as an arbitrary callable that returns
 // a string or an array that can be used as an href attribute.
-// Available built-in editors are available here: https://github.com/filp/whoops/blob/master/docs/Open Files In An Editor.md
+// Available built-in editors can be found here: https://github.com/filp/whoops/blob/master/docs/Open Files In An Editor.md
 
 PrettyPageHandler::setEditor(string $editor)
 PrettyPageHandler::setEditor(function ($file, $line) { return string })
