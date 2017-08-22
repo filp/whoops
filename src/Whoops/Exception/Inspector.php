@@ -195,8 +195,7 @@ class Inspector
     protected function getTrace($e)
     {
         // Use xdebug to get the full stack trace and remove the shutdown handler stack trace
-        if (extension_loaded('xdebug') && xdebug_is_enabled()
-            && $e instanceof \ErrorException && Misc::isLevelFatal($e->getSeverity())) {
+        if ($this->useXdebugForTrace($e)) {
             $stack = array_reverse(xdebug_get_function_stack());
             $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
 
@@ -204,6 +203,18 @@ class Inspector
         }
 
         return $e->getTrace();
+    }
+
+    /**
+     * Determine if we should use xdebug for our stack trace
+     *
+     * @param \Throwable $e
+     * @return bool
+     */
+    protected function useXdebugForTrace($e)
+    {
+        return extension_loaded('xdebug') && xdebug_is_enabled()
+            && $e instanceof \ErrorException && Misc::isLevelFatal($e->getSeverity());
     }
 
     /**
