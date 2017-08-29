@@ -14,13 +14,20 @@ use Whoops\RunInterface;
  */
 abstract class Handler implements HandlerInterface
 {
-    /**
-     * Return constants that can be returned from Handler::handle
-     * to message the handler walker.
+    /*
+     Return constants that can be returned from Handler::handle
+     to message the handler walker.
      */
     const DONE         = 0x10; // returning this is optional, only exists for
                                // semantic purposes
+    /**
+     * The Handler has handled the Throwable in some way, and wishes to skip any other Handler.
+     * Execution will continue.
+     */
     const LAST_HANDLER = 0x20;
+    /**
+     * The Handler has handled the Throwable in some way, and wishes to quit/stop execution
+     */
     const QUIT         = 0x30;
 
     /**
