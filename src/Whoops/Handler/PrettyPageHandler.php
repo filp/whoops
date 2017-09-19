@@ -151,7 +151,7 @@ class PrettyPageHandler extends Handler
         if (!$this->handleUnconditionally()) {
             // Check conditions for outputting HTML:
             // @todo: Make this more robust
-            if (php_sapi_name() === 'cli') {
+            if (PHP_SAPI === 'cli') {
                 // Help users who have been relying on an internal test value
                 // fix their code to the proper method
                 if (isset($_ENV['whoops-test'])) {
@@ -176,27 +176,8 @@ class PrettyPageHandler extends Handler
         }
 
         $inspector = $this->getInspector();
-        $frames    = $inspector->getFrames();
-
-        $code = $inspector->getException()->getCode();
-
-        if ($inspector->getException() instanceof \ErrorException) {
-            // ErrorExceptions wrap the php-error types within the "severity" property
-            $code = Misc::translateErrorCode($inspector->getException()->getSeverity());
-        }
-
-        // Detect frames that belong to the application.
-        if ($this->applicationPaths) {
-            /* @var \Whoops\Exception\Frame $frame */
-            foreach ($frames as $frame) {
-                foreach ($this->applicationPaths as $path) {
-                    if (substr($frame->getFile(), 0, strlen($path)) === $path) {
-                        $frame->setApplication(true);
-                        break;
-                    }
-                }
-            }
-        }
+        $frames = $this->getExceptionFrames();
+        $code = $this->getExceptionCode();
 
         // List of variables that will be passed to the layout template.
         $vars = [
@@ -266,6 +247,47 @@ class PrettyPageHandler extends Handler
         $this->templateHelper->render($templateFile);
 
         return Handler::QUIT;
+    }
+
+    /**
+     * Get the stack trace frames of the exception that is currently being handled.
+     *
+     * @return \Whoops\Exception\FrameCollection;
+     */
+    protected function getExceptionFrames()
+    {
+        $frames = $this->getInspector()->getFrames();
+
+        if ($this->getApplicationPaths()) {
+            foreach ($frames as $frame) {
+                foreach ($this->getApplicationPaths() as $path) {
+                    if (strpos($frame->getFile(), $path) === 0) {
+                        $frame->setApplication(true);
+                        break;
+                    }
+                }
+            }
+        }
+
+        return $frames;
+    }
+
+    /**
+     * Get the code of the exception that is currently being handled.
+     *
+     * @return string
+     */
+    protected function getExceptionCode()
+    {
+        $exception = $this->getException();
+
+        $code = $exception->getCode();
+        if ($exception instanceof \ErrorException) {
+            // ErrorExceptions wrap the php-error types within the 'severity' property
+            $code = Misc::translateErrorCode($exception->getSeverity());
+        }
+
+        return (string) $code;
     }
 
     /**
