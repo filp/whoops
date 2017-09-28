@@ -47,8 +47,20 @@ class Formatter
         return $response;
     }
 
+    /**
+     * @param Inspector $inspector
+     *
+     * @return string
+     *
+     * @deprecated
+     */
     public static function formatExceptionPlain(Inspector $inspector)
     {
+        @trigger_error(
+            'Using plain exception formatter is deprecated and will be removed in next releases',
+            E_USER_DEPRECATED
+        );
+
         $message = $inspector->getException()->getMessage();
         $frames = $inspector->getFrames();
 
