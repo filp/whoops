@@ -1,7 +1,9 @@
 <?php
 namespace Whoops\Util;
 
-class SystemFacadeTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class SystemFacadeTest extends TestCase
 {
     /**
      * @var \Mockery\Mock
