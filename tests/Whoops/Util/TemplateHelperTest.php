@@ -59,7 +59,7 @@ class TemplateHelperTest extends TestCase
 
         $this->assertEquals(
             $this->helper->escapeButPreserveUris($original),
-            "This is a &lt;a href=&#039;&#039;&gt;<a href=\"http://google.com\" target=\"_blank\">http://google.com</a>&lt;/a&gt; test string"
+            "This is a &lt;a href=&#039;&#039;&gt;<a href=\"http://google.com\" target=\"_blank\" rel=\"noreferrer noopener\">http://google.com</a>&lt;/a&gt; test string"
         );
     }
 
