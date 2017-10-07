@@ -7,6 +7,8 @@
 namespace Whoops\Exception;
 
 
+use Whoops\Handler\PlainTextHandler;
+
 class Formatter
 {
     /**
@@ -57,7 +59,10 @@ class Formatter
     public static function formatExceptionPlain(Inspector $inspector)
     {
         @trigger_error(
-            'Using plain exception formatter is deprecated and will be removed in next releases',
+            sprintf(
+            'Plain exception formatter is deprecated and will be removed in next releases. Use %s instead',
+                PlainTextHandler::class . '::generateResponse'
+            ),
             E_USER_DEPRECATED
         );
 
