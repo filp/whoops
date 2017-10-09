@@ -49,7 +49,7 @@ class FrameCollectionTest extends TestCase
 
     /**
      * @param  array                            $frames
-     * @return Whoops\Exception\FrameCollection
+     * @return \Whoops\Exception\FrameCollection
      */
     private function getFrameCollectionInstance($frames = null)
     {

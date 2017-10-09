@@ -24,7 +24,7 @@ class InspectorTest extends TestCase
 
     /**
      * @param  Exception                  $exception|null
-     * @return Whoops\Exception\Inspector
+     * @return \Whoops\Exception\Inspector
      */
     protected function getInspectorInstance($exception = null)
     {
