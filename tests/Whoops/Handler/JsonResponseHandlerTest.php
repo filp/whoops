@@ -12,7 +12,7 @@ use Whoops\TestCase;
 class JsonResponseHandlerTest extends TestCase
 {
     /**
-     * @return Whoops\Handler\JsonResponseHandler
+     * @return \Whoops\Handler\JsonResponseHandler
      */
     private function getHandler()
     {

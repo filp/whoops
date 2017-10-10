@@ -14,9 +14,9 @@ use Whoops\Exception\Frame;
 class PlainTextHandlerTest extends TestCase
 {
     /**
-     * @throws InvalidArgumentException        If argument is not null or a LoggerInterface
-     * @param  Psr\Log\LoggerInterface|null    $logger
-     * @return Whoops\Handler\PlainTextHandler
+     * @throws \InvalidArgumentException        If argument is not null or a LoggerInterface
+     * @param  \Psr\Log\LoggerInterface|null    $logger
+     * @return \Whoops\Handler\PlainTextHandler
      */
     private function getHandler($logger = null)
     {
@@ -63,7 +63,7 @@ class PlainTextHandlerTest extends TestCase
     /**
      * @covers Whoops\Handler\PlainTextHandler::__construct
      * @covers Whoops\Handler\PlainTextHandler::setLogger
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function testConstructor()
     {

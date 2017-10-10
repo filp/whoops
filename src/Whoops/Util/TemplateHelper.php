@@ -266,7 +266,7 @@ class TemplateHelper
      * Sets a single template variable, by its name:
      *
      * @param string $variableName
-     * @param mixd   $variableValue
+     * @param mixed  $variableValue
      */
     public function setVariable($variableName, $variableValue)
     {
