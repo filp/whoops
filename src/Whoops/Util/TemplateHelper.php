@@ -88,7 +88,7 @@ class TemplateHelper
         $escaped = $this->escape($raw);
         return preg_replace(
             "@([A-z]+?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@",
-            "<a href=\"$1\" target=\"_blank\">$1</a>",
+            "<a href=\"$1\" target=\"_blank\" rel=\"noreferrer noopener\">$1</a>",
             $escaped
         );
     }
