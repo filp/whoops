@@ -491,7 +491,7 @@ class PrettyPageHandler extends Handler
         }
 
         if (is_string($this->editor) && isset($this->editors[$this->editor]) && !is_callable($this->editors[$this->editor])) {
-           return [
+            return [
                 'ajax' => false,
                 'url' => $this->editors[$this->editor],
             ];
@@ -674,7 +674,8 @@ class PrettyPageHandler extends Handler
      * @param $superGlobalName string the name of the superglobal array, e.g. '_GET'
      * @param $key string the key within the superglobal
      */
-    public function blacklist($superGlobalName, $key) {
+    public function blacklist($superGlobalName, $key)
+    {
         $this->blacklist[$superGlobalName][] = $key;
     }
 
@@ -688,11 +689,12 @@ class PrettyPageHandler extends Handler
      * @param $superGlobalName string the name of the superglobal array, e.g. '_GET'
      * @return array $values without sensitive data
      */
-    private function masked(array $superGlobal, $superGlobalName) {
+    private function masked(array $superGlobal, $superGlobalName)
+    {
         $blacklisted = $this->blacklist[$superGlobalName];
 
         $values = $superGlobal;
-        foreach($blacklisted as $key) {
+        foreach ($blacklisted as $key) {
             if (isset($superGlobal[$key])) {
                 $values[$key] = str_repeat('*', strlen($superGlobal[$key]));
             }
