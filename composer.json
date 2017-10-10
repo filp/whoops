@@ -2,7 +2,7 @@
     "name": "filp/whoops",
     "license": "MIT",
     "description": "php error handling for cool kids",
-    "keywords": ["library", "error", "handling", "exception", "whoops", "zf2"],
+    "keywords": ["library", "error", "handling", "exception", "whoops", "throwable"],
     "homepage": "https://filp.github.io/whoops/",
     "authors": [
         {
