@@ -31,11 +31,6 @@ Zepto(function($) {
     $header.removeClass('header-expand');
   });
 
-  // load prettify asyncronously to speed up page rendering
-  getScript('//cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js', function () {
-    renderCurrentCodeblock();
-  });
-
   /*
    * add prettyprint classes to our current active codeblock
    * run prettyPrint() to highlight the active code
