@@ -680,6 +680,20 @@ class PrettyPageHandler extends Handler
     }
 
     /**
+     * Get the blacklisted values for the given superGlobal
+     *
+     * @param $superGlobalName string the name of the superglobal array, e.g. '_GET'
+     * @return array
+     */
+    private function getBlacklistForSuperGlobal($superGlobalName)
+    {
+        return array_unique(array_merge(
+            (array) $this->blacklist['*'],
+            (array) $this->blacklist[$superGlobalName]
+        ));
+    }
+
+    /**
      * Checks all values within the given superGlobal array.
      * Blacklisted values will be replaced by a equal length string cointaining only '*' characters.
      *
@@ -691,7 +705,7 @@ class PrettyPageHandler extends Handler
      */
     private function masked(array $superGlobal, $superGlobalName)
     {
-        $blacklisted = $this->blacklist[$superGlobalName];
+        $blacklisted = $this->getBlacklistForSuperGlobal($superGlobalName);
 
         $values = $superGlobal;
         foreach ($blacklisted as $key) {
