@@ -46,7 +46,7 @@ class TemplateHelper
     public function __construct()
     {
         // root path for ordinary composer projects
-        $this->applicationRootPath = dirname(dirname(dirname(dirname(dirname(dirname(__DIR__))))));
+        $this->applicationRootPath = $this->ordinaryRootPath();
     }
 
     /**
@@ -119,7 +119,7 @@ class TemplateHelper
     public function shorten($path)
     {
         if ($this->applicationRootPath != "/") {
-            $path = str_replace($this->applicationRootPath, '&hellip;', $path);
+            $path = str_replace(rtrim($this->applicationRootPath, '/'), '&hellip;', $path);
         }
 
         return $path;
@@ -337,7 +337,7 @@ class TemplateHelper
      */
     public function setApplicationRootPath($applicationRootPath)
     {
-        $this->applicationRootPath = $applicationRootPath;
+        $this->applicationRootPath = rtrim($applicationRootPath ?: $this->ordinaryRootPath(), '/') . '/';
     }
 
     /**
@@ -348,5 +348,20 @@ class TemplateHelper
     public function getApplicationRootPath()
     {
         return $this->applicationRootPath;
+    }
+
+    public function replaceFileRootPath($path)
+    {
+        $originalRootPath = $this->ordinaryRootPath();
+        $applicationRootPath = $this->getApplicationRootPath();
+
+        return $originalRootPath !== $applicationRootPath && mb_strpos($path, $originalRootPath) === 0
+            ? $applicationRootPath . mb_substr($path, mb_strlen($originalRootPath))
+            : $path;
+    }
+
+    public function ordinaryRootPath()
+    {
+        return dirname(dirname(dirname(dirname(dirname(dirname(__DIR__))))));
     }
 }

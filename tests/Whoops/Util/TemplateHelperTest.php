@@ -6,6 +6,7 @@
 
 namespace Whoops\Util;
 
+use Mockery;
 use Whoops\TestCase;
 
 class TemplateHelperTest extends TestCase
@@ -85,6 +86,24 @@ class TemplateHelperTest extends TestCase
 
         $this->helper->setApplicationRootPath('/foo/bar');
         $this->assertSame('&hellip;/baz/abc.def', $this->helper->shorten($path));
+    }
+
+    /**
+     * @covers \Whoops\Util\TemplateHelper::replaceFileRootPath()
+     */
+    public function testReplaceFileRootPath()
+    {
+
+        $helper = Mockery::mock(TemplateHelper::class)->makePartial();
+        $helper->shouldReceive('ordinaryRootPath')->andReturn('/ordinary/path/');
+
+        $helper->setApplicationRootPath('/foo/bar');
+
+        $this->assertSame(
+            '/foo/bar/baz/abc.def',
+            $helper->replaceFileRootPath('/ordinary/path/baz/abc.def'));
+
+        Mockery::close();
     }
 
     /**
