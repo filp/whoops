@@ -33,5 +33,4 @@ class HtmlDumperOutput
     {
         $this->output = null;
     }
-
 }

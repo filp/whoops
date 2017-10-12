@@ -7,6 +7,7 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="robots" content="noindex,nofollow"/>
     <title><?php echo $tpl->escape($page_title) ?></title>
 
     <style><?php echo $stylesheet ?></style>

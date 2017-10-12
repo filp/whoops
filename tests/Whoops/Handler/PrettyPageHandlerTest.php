@@ -156,7 +156,7 @@ class PrettyPageHandlerTest extends TestCase
         $expected3 = ['oh my' => 'how times have changed!'];
 
         // Test inspector parameter in data table callback
-        $table4 = function (\Whoops\Exception\Inspector $inspector) use ($expected1) {
+        $table4 = function (\Whoops\Exception\Inspector $inspector) {
             return array(
               'Exception class' => get_class($inspector->getException()),
               'Exception message' => $inspector->getExceptionMessage(),

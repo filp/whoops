@@ -67,7 +67,8 @@ class Inspector
         return $this->extractDocrefUrl($this->exception->getMessage())['url'];
     }
 
-    private function extractDocrefUrl($message) {
+    private function extractDocrefUrl($message)
+    {
         $docref = [
             'message' => $message,
             'url' => null,
@@ -128,7 +129,6 @@ class Inspector
 
             // Fill empty line/file info for call_user_func_array usages (PHP Bug #44428)
             foreach ($frames as $k => $frame) {
-
                 if (empty($frame['file'])) {
                     // Default values when file and line are missing
                     $file = '[internal]';
@@ -144,7 +144,6 @@ class Inspector
                     $frames[$k]['file'] = $file;
                     $frames[$k]['line'] = $line;
                 }
-
             }
 
             // Find latest non-error handling frame index ($i) used to remove error handling frames

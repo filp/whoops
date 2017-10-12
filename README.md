@@ -29,7 +29,7 @@ powerful stacked error handling system.
 - Clean, well-structured & tested code-base
 
 ## Installing
-If you use Laravel 4, you already have Whoops. There are also community-provided instructions on how to integrate Whoops into
+If you use Laravel 4 or Laravel 5.5+, you already have Whoops. There are also community-provided instructions on how to integrate Whoops into
 [Silex 1](https://github.com/whoops-php/silex-1),
 [Silex 2](https://github.com/texthtml/whoops-silex),
 [Phalcon](https://github.com/whoops-php/phalcon),

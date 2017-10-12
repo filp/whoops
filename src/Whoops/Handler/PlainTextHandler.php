@@ -151,7 +151,8 @@ class PlainTextHandler extends Handler
     public function generateResponse()
     {
         $exception = $this->getException();
-        return sprintf("%s: %s in file %s on line %d%s\n",
+        return sprintf(
+            "%s: %s in file %s on line %d%s\n",
             get_class($exception),
             $exception->getMessage(),
             $exception->getFile(),
@@ -221,7 +222,8 @@ class PlainTextHandler extends Handler
             );
         }
 
-        return sprintf("\n%s",
+        return sprintf(
+            "\n%s",
             preg_replace('/^/m', self::VAR_DUMP_PREFIX, ob_get_clean())
         );
     }

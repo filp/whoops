@@ -286,7 +286,7 @@ class Frame implements Serializable
 
     /**
      * Mark as an frame belonging to the application.
-     * 
+     *
      * @param boolean $application
      */
     public function setApplication($application)
