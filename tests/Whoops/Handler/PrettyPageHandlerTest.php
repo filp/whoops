@@ -339,4 +339,27 @@ class PrettyPageHandlerTest extends TestCase
 
         ini_set('xdebug.file_link_format', $originalValue);
     }
+
+    /**
+     * @covers PrettyPageHandler::blacklist
+     * @covers PrettyPageHandler::getBlacklistForSuperGlobal
+     */
+    public function testGetBlacklistForSuperGlobal()
+    {
+        $handler = $this->getHandler();
+        $handler->blacklist('_ENV', 'DB_PASSWORD');
+        $handler->blacklist('_ENV', 'API_KEY');
+        $handler->blacklist('*', 'API_KEY');
+        $handler->blacklist('*', 'MAIL_PASSWORD');
+
+        $this->assertEquals(
+            ['API_KEY', 'MAIL_PASSWORD', 'DB_PASSWORD'],
+            $handler->getBlacklistForSuperGlobal('_ENV')
+        );
+
+        $this->assertEquals(
+            ['API_KEY', 'MAIL_PASSWORD'],
+            $handler->getBlacklistForSuperGlobal('_POST')
+        );
+    }
 }

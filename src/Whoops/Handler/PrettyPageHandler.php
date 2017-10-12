@@ -70,6 +70,7 @@ class PrettyPageHandler extends Handler
         '_SESSION' => [],
         '_SERVER' => [],
         '_ENV' => [],
+        '*' => [],
     ];
 
     /**
@@ -685,11 +686,11 @@ class PrettyPageHandler extends Handler
      * @param $superGlobalName string the name of the superglobal array, e.g. '_GET'
      * @return array
      */
-    private function getBlacklistForSuperGlobal($superGlobalName)
+    public function getBlacklistForSuperGlobal($superGlobalName)
     {
         return array_unique(array_merge(
-            (array) $this->blacklist['*'],
-            (array) $this->blacklist[$superGlobalName]
+            $this->blacklist['*'],
+            $this->blacklist[$superGlobalName]
         ));
     }
 
