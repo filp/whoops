@@ -41,8 +41,6 @@ Zepto(function($) {
 
   }
 
-  renderCurrentCodeblock();
-
   /*
    * Highlight the active and neighboring lines for the current frame
    * Adjust the offset to make sure that line is veritcally centered
@@ -169,6 +167,9 @@ Zepto(function($) {
       }
     }
   });
+
+  // Render late enough for highlightCurrentLine to be ready
+  renderCurrentCodeblock();
 
   // Avoid to quit the page with some protocol (e.g. IntelliJ Platform REST API)
   $ajaxEditors.on('click', function(e){
