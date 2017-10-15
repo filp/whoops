@@ -384,12 +384,14 @@ pre.code-block, code.code-block, .frame-args.code-block, .frame-args.code-block 
 
   .linenums li.current{
     background: rgba(255, 100, 100, .07);
-    padding-top: 4px;
-    padding-left: 1px;
   }
     .linenums li.current.active {
       background: rgba(255, 100, 100, .17);
     }
+
+pre:not(.prettyprinted) {
+  padding-left: 60px;
+}
 
 #plain-exception {
   display: none;
