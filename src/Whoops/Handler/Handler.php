@@ -19,7 +19,7 @@ abstract class Handler implements HandlerInterface
      * to message the handler walker.
      */
     const DONE         = 0x10; // returning this is optional, only exists for
-                               // semantic purposes
+    // semantic purposes
     const LAST_HANDLER = 0x20;
     const QUIT         = 0x30;
 

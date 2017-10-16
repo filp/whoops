@@ -285,12 +285,14 @@ class PlainTextHandlerTest extends TestCase
             $text
         );
         // Check that the trace arguments are returned:
-        $this->assertContains(sprintf(
+        $this->assertContains(
+            sprintf(
             '%s  string(%d) "%s"',
             PlainTextHandler::VAR_DUMP_PREFIX,
             strlen('test message'),
             'test message'
-            ), $text
+            ),
+            $text
         );
     }
 
@@ -328,12 +330,14 @@ class PlainTextHandlerTest extends TestCase
         );
 
         // Check that the trace arguments are returned:
-        $this->assertContains(sprintf(
+        $this->assertContains(
+            sprintf(
             '%s  string(%d) "%s"',
             PlainTextHandler::VAR_DUMP_PREFIX,
             strlen('test message'),
             'test message'
-            ), $text
+            ),
+            $text
         );
     }
 

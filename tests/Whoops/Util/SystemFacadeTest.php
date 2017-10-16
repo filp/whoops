@@ -71,21 +71,24 @@ class SystemFacadeTest extends \PHPUnit_Framework_TestCase
     {
         self::$runtime->shouldReceive('set_error_handler')->once();
 
-        $this->facade->setErrorHandler(function(){});
+        $this->facade->setErrorHandler(function () {
+        });
     }
 
     public function test_it_delegates_error_handling_with_level_to_the_native_implementation()
     {
         self::$runtime->shouldReceive('set_error_handler')->once();
 
-        $this->facade->setErrorHandler(function(){}, E_CORE_ERROR);
+        $this->facade->setErrorHandler(function () {
+        }, E_CORE_ERROR);
     }
 
     public function test_it_delegates_exception_handling_to_the_native_implementation()
     {
         self::$runtime->shouldReceive('set_exception_handler')->once();
 
-        $this->facade->setExceptionHandler(function(){});
+        $this->facade->setExceptionHandler(function () {
+        });
     }
 
     public function test_it_delegates_restoring_the_exception_handler_to_the_native_implementation()
@@ -106,7 +109,8 @@ class SystemFacadeTest extends \PHPUnit_Framework_TestCase
     {
         self::$runtime->shouldReceive('register_shutdown_function')->once();
 
-        $this->facade->registerShutdownFunction(function(){});
+        $this->facade->registerShutdownFunction(function () {
+        });
     }
 
     public function test_it_delegates_error_reporting_to_the_native_implementation()

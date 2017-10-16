@@ -108,7 +108,8 @@ class RunTest extends TestCase
     public function testPushClosureBecomesHandler()
     {
         $run = $this->getRunInstance();
-        $run->pushHandler(function () {});
+        $run->pushHandler(function () {
+        });
         $this->assertInstanceOf('Whoops\\Handler\\CallbackHandler', $run->popHandler());
     }
 
@@ -212,11 +213,17 @@ class RunTest extends TestCase
         $handlerThree = $this->getHandler();
 
         $handlerOne->shouldReceive('handle')
-            ->andReturnUsing(function () use ($order) { $order[] = 1; });
+            ->andReturnUsing(function () use ($order) {
+                $order[] = 1;
+            });
         $handlerTwo->shouldReceive('handle')
-            ->andReturnUsing(function () use ($order) { $order[] = 2; });
+            ->andReturnUsing(function () use ($order) {
+                $order[] = 2;
+            });
         $handlerThree->shouldReceive('handle')
-            ->andReturnUsing(function () use ($order) { $order[] = 3; });
+            ->andReturnUsing(function () use ($order) {
+                $order[] = 3;
+            });
 
         $run->pushHandler($handlerOne);
         $run->pushHandler($handlerTwo);

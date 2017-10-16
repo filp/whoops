@@ -39,7 +39,7 @@ $handler->addDataTable('Ice-cream I like', [
 
 $handler->setApplicationPaths([__FILE__]);
 
-$handler->addDataTableCallback('Details', function(\Whoops\Exception\Inspector $inspector) {
+$handler->addDataTableCallback('Details', function (\Whoops\Exception\Inspector $inspector) {
     $data = array();
     $exception = $inspector->getException();
     if ($exception instanceof SomeSpecificException) {
@@ -54,16 +54,13 @@ $run->pushHandler($handler);
 
 // Example: tag all frames inside a function with their function name
 $run->pushHandler(function ($exception, $inspector, $run) {
-
     $inspector->getFrames()->map(function ($frame) {
-
         if ($function = $frame->getFunction()) {
             $frame->addComment("This frame is within function '$function'", 'cpt-obvious');
         }
 
         return $frame;
     });
-
 });
 
 $run->register();
@@ -75,7 +72,7 @@ function fooBar()
 
 function bar()
 {
-    whoops_add_stack_frame(function(){
+    whoops_add_stack_frame(function () {
         fooBar();
     });
 }

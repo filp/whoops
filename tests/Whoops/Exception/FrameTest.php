@@ -213,6 +213,6 @@ class FrameTest extends TestCase
     {
         $frame1 = $this->getFrameInstance(['line' => 1, 'file' => 'test-file.php']);
         $frame2 = $this->getFrameInstance(['line' => 1, 'file' => 'test-file.php']);
-        $this->assertTrue ($frame1->equals($frame2));
+        $this->assertTrue($frame1->equals($frame2));
     }
 }
