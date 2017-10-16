@@ -285,7 +285,6 @@ class PrettyPageHandlerTest extends TestCase
             $handler->getEditorAjax('/foo/bar.php', 10),
             false
         );
-
     }
 
     /**

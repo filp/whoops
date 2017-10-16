@@ -1,15 +1,15 @@
 <?php /* Display a code block for all frames in the stack.
        * @todo: This should PROBABLY be done on-demand, lest
        * we get 200 frames to process. */ ?>
-<div class="frame-code-container <?php echo (!$has_frames ? 'empty' : '') ?>">
+<div class="frame-code-container <?php echo(!$has_frames ? 'empty' : '') ?>">
   <?php foreach ($frames as $i => $frame): ?>
     <?php $line = $frame->getLine(); ?>
-      <div class="frame-code <?php echo ($i == 0 ) ? 'active' : '' ?>" id="frame-code-<?php echo $i ?>">
+      <div class="frame-code <?php echo ($i == 0) ? 'active' : '' ?>" id="frame-code-<?php echo $i ?>">
         <div class="frame-file">
           <?php $filePath = $frame->getFile(); ?>
           <?php if ($filePath && $editorHref = $handler->getEditorHref($filePath, (int) $line)): ?>
             Open:
-            <a href="<?php echo $editorHref ?>" class="editor-link"<?php echo ($handler->getEditorAjax($filePath, (int) $line) ? ' data-ajax' : '') ?>>
+            <a href="<?php echo $editorHref ?>" class="editor-link"<?php echo($handler->getEditorAjax($filePath, (int) $line) ? ' data-ajax' : '') ?>>
               <strong><?php echo $tpl->breakOnDelimiter('/', $tpl->escape($filePath ?: '<#unknown>')) ?></strong>
             </a>
           <?php else: ?>
@@ -25,7 +25,9 @@
 
           // getFileLines can return null if there is no source code
           if ($range):
-            $range = array_map(function ($line) { return empty($line) ? ' ' : $line;}, $range);
+            $range = array_map(function ($line) {
+                return empty($line) ? ' ' : $line;
+            }, $range);
             $start = key($range) + 1;
             $code  = join("\n", $range);
         ?>
