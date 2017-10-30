@@ -183,7 +183,7 @@ class TemplateHelper
             return $output;
         }
 
-        return var_dump($value);
+        return var_export($value, true);
     }
 
     /**
