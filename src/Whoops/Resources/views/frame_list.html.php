@@ -10,7 +10,7 @@
       </div>
 
     <div class="frame-file">
-        <?php echo $frame->getFile() ? $tpl->breakOnDelimiter('/', $tpl->shorten($tpl->escape($frame->getFile()))) : '<#unknown>' ?><!--
+        <?php echo $frame->getFile() ? $tpl->breakOnDelimiter('/', $tpl->shorten($tpl->escape($tpl->replaceFileRootPath($frame->getFile())))) : '<#unknown>' ?><!--
    --><span class="frame-line"><?php echo (int) $frame->getLine() ?></span>
     </div>
   </div>

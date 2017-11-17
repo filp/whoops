@@ -6,7 +6,7 @@
     <?php $line = $frame->getLine(); ?>
       <div class="frame-code <?php echo ($i == 0 ) ? 'active' : '' ?>" id="frame-code-<?php echo $i ?>">
         <div class="frame-file">
-          <?php $filePath = $frame->getFile(); ?>
+          <?php $filePath = $tpl->replaceFileRootPath($frame->getFile()); ?>
           <?php if ($filePath && $editorHref = $handler->getEditorHref($filePath, (int) $line)): ?>
             Open:
             <a href="<?php echo $editorHref ?>" class="editor-link"<?php echo ($handler->getEditorAjax($filePath, (int) $line) ? ' data-ajax' : '') ?>>
