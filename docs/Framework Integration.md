@@ -1,6 +1,6 @@
 # Contributing an integration with a framework
 
-Lately we're prefering to keep integration libraries out of the Whoops core.
+Lately we're preferring to keep integration libraries out of the Whoops core.
 If possible, consider managing an official Whoops-SomeFramework integration.
 
 The procedure is not hard at all.

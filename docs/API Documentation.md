@@ -193,7 +193,7 @@ The `Frame` class models a single frame in an exception's stack trace. You can u
 ### Methods
 
 ```php
-// Returns the file path for the file where this frame occured.
+// Returns the file path for the file where this frame occurred.
 // The optional $shortened argument allows you to retrieve a
 // shorter, human-readable file path for display.
 Frame::getFile(bool $shortened = false)
@@ -203,12 +203,12 @@ Frame::getFile(bool $shortened = false)
 Frame::getLine()
  #=> int | null
 
-// Returns the class name for this frame, if it occured
+// Returns the class name for this frame, if it occurred
 // within a class/instance.
 Frame::getClass()
  #=> string | null
 
-// Returns the function name for this frame, if it occured
+// Returns the function name for this frame, if it occurred
 // within a function/method
 Frame::getFunction()
  #=> string | null
@@ -219,7 +219,7 @@ Frame::getArgs()
  #=> array
 
 // Returns the full file contents for the file where this frame
-// occured.
+// occurred.
 Frame::getFileContents()
  #=> string | null
 
