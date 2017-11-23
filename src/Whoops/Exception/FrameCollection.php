@@ -42,7 +42,7 @@ class FrameCollection implements ArrayAccess, IteratorAggregate, Serializable, C
      */
     public function filter($callable)
     {
-        $this->frames = array_filter($this->frames, $callable);
+        $this->frames = array_values(array_filter($this->frames, $callable));
         return $this;
     }
 
