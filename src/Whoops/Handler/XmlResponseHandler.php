@@ -67,7 +67,7 @@ class XmlResponseHandler extends Handler
      */
     private static function addDataToNode(\SimpleXMLElement $node, $data)
     {
-        assert('is_array($data) || $node instanceof Traversable');
+        assert(is_array($data) || $data instanceof Traversable);
 
         foreach ($data as $key => $value) {
             if (is_numeric($key)) {
@@ -98,7 +98,7 @@ class XmlResponseHandler extends Handler
      */
     private static function toXml($data)
     {
-        assert('is_array($data) || $node instanceof Traversable');
+        assert(is_array($data) || $data instanceof Traversable);
 
         $node = simplexml_load_string("<?xml version='1.0' encoding='utf-8'?><root />");
 
