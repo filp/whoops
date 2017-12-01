@@ -152,7 +152,9 @@ class PrettyPageHandlerTest extends TestCase
         };
         $expected2 = ['another' => 'table', 'this' => $expected1];
 
-        $table3 = create_function('', 'return array("oh my" => "how times have changed!");');
+        $table3 = function() {
+			return array("oh my" => "how times have changed!");
+		};
         $expected3 = ['oh my' => 'how times have changed!'];
 
         // Test inspector parameter in data table callback
