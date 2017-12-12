@@ -100,7 +100,7 @@ class FrameTest extends TestCase
         $data  = $this->getFrameData();
         $frame = $this->getFrameInstance($data);
 
-        $this->assertEquals($frame->getFileContents(), file_get_contents($data['file']));
+        $this->assertStringEqualsFile($data['file'], $frame->getFileContents());
     }
 
     /**

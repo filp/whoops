@@ -89,25 +89,25 @@ class PlainTextHandlerTest extends TestCase
         $handler = $this->getHandler();
 
         $handler->addTraceToOutput(true);
-        $this->assertEquals(true, $handler->addTraceToOutput());
+        $this->assertTrue($handler->addTraceToOutput());
 
         $handler->addTraceToOutput(false);
-        $this->assertEquals(false, $handler->addTraceToOutput());
+        $this->assertFalse($handler->addTraceToOutput());
 
         $handler->addTraceToOutput(null);
         $this->assertEquals(null, $handler->addTraceToOutput());
 
         $handler->addTraceToOutput(1);
-        $this->assertEquals(true, $handler->addTraceToOutput());
+        $this->assertTrue($handler->addTraceToOutput());
 
         $handler->addTraceToOutput(0);
-        $this->assertEquals(false, $handler->addTraceToOutput());
+        $this->assertFalse($handler->addTraceToOutput());
 
         $handler->addTraceToOutput('');
-        $this->assertEquals(false, $handler->addTraceToOutput());
+        $this->assertFalse($handler->addTraceToOutput());
 
         $handler->addTraceToOutput('false');
-        $this->assertEquals(true, $handler->addTraceToOutput());
+        $this->assertTrue($handler->addTraceToOutput());
     }
 
     /**
@@ -118,10 +118,10 @@ class PlainTextHandlerTest extends TestCase
         $handler = $this->getHandler();
 
         $handler->addTraceFunctionArgsToOutput(true);
-        $this->assertEquals(true, $handler->addTraceFunctionArgsToOutput());
+        $this->assertTrue($handler->addTraceFunctionArgsToOutput());
 
         $handler->addTraceFunctionArgsToOutput(false);
-        $this->assertEquals(false, $handler->addTraceFunctionArgsToOutput());
+        $this->assertFalse($handler->addTraceFunctionArgsToOutput());
 
         $handler->addTraceFunctionArgsToOutput(null);
         $this->assertEquals(null, $handler->addTraceFunctionArgsToOutput());
@@ -133,10 +133,10 @@ class PlainTextHandlerTest extends TestCase
         $this->assertEquals(0, $handler->addTraceFunctionArgsToOutput());
 
         $handler->addTraceFunctionArgsToOutput('');
-        $this->assertEquals(false, $handler->addTraceFunctionArgsToOutput());
+        $this->assertFalse($handler->addTraceFunctionArgsToOutput());
 
         $handler->addTraceFunctionArgsToOutput('false');
-        $this->assertEquals(true, $handler->addTraceFunctionArgsToOutput());
+        $this->assertTrue($handler->addTraceFunctionArgsToOutput());
     }
 
     /**
@@ -167,25 +167,25 @@ class PlainTextHandlerTest extends TestCase
         $handler = $this->getHandler();
 
         $handler->loggerOnly(true);
-        $this->assertEquals(true, $handler->loggerOnly());
+        $this->assertTrue($handler->loggerOnly());
 
         $handler->loggerOnly(false);
-        $this->assertEquals(false, $handler->loggerOnly());
+        $this->assertFalse($handler->loggerOnly());
 
         $handler->loggerOnly(null);
         $this->assertEquals(null, $handler->loggerOnly());
 
         $handler->loggerOnly(1);
-        $this->assertEquals(true, $handler->loggerOnly());
+        $this->assertTrue($handler->loggerOnly());
 
         $handler->loggerOnly(0);
-        $this->assertEquals(false, $handler->loggerOnly());
+        $this->assertFalse($handler->loggerOnly());
 
         $handler->loggerOnly('');
-        $this->assertEquals(false, $handler->loggerOnly());
+        $this->assertFalse($handler->loggerOnly());
 
         $handler->loggerOnly('false');
-        $this->assertEquals(true, $handler->loggerOnly());
+        $this->assertTrue($handler->loggerOnly());
     }
 
     /**

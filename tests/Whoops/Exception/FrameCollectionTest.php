@@ -66,7 +66,7 @@ class FrameCollectionTest extends TestCase
     public function testArrayAccessExists()
     {
         $collection = $this->getFrameCollectionInstance();
-        $this->assertTrue(isset($collection[0]));
+        $this->assertArrayHasKey(0, $collection);
     }
 
     /**
@@ -167,7 +167,7 @@ class FrameCollectionTest extends TestCase
         $arr = $frames->getArray();
         $arr[0] = 'foobar';
         $newCopy = $frames->getArray();
-        $this->assertFalse($arr[0] === $newCopy);
+        $this->assertNotSame($arr[0], $newCopy);
     }
 
     /**
