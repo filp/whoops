@@ -14,4 +14,4 @@
    --><span class="frame-line"><?php echo (int) $frame->getLine() ?></span>
     </div>
   </div>
-<?php endforeach; ?>
+<?php endforeach;

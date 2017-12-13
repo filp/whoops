@@ -1,3 +1,4 @@
-<?php $tpl->render($header_outer) ?>
-<?php $tpl->render($frames_description) ?>
-<?php $tpl->render($frames_container) ?>
+<?php 
+$tpl->render($header_outer);
+$tpl->render($frames_description);
+$tpl->render($frames_container);
