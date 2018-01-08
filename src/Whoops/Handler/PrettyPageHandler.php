@@ -698,7 +698,7 @@ class PrettyPageHandler extends Handler
         $values = $superGlobal;
         foreach ($blacklisted as $key) {
             if (isset($superGlobal[$key])) {
-                $values[$key] = str_repeat('*', strlen($superGlobal[$key]));
+                $values[$key] = 'BLACKLISTED';
             }
         }
         return $values;
