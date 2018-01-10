@@ -7,6 +7,7 @@
 namespace Whoops\Handler;
 
 use SimpleXMLElement;
+use Traversable;
 use Whoops\Exception\Formatter;
 
 /**
@@ -62,12 +63,12 @@ class XmlResponseHandler extends Handler
 
     /**
      * @param  SimpleXMLElement  $node Node to append data to, will be modified in place
-     * @param  array|\Traversable $data
+     * @param  array|Traversable $data
      * @return SimpleXMLElement  The modified node, for chaining
      */
-    private static function addDataToNode(\SimpleXMLElement $node, $data)
+    private static function addDataToNode(SimpleXMLElement $node, $data)
     {
-        assert(is_array($data) || $data instanceof \Traversable);
+        assert(is_array($data) || $data instanceof Traversable);
 
         foreach ($data as $key => $value) {
             if (is_numeric($key)) {
@@ -93,12 +94,12 @@ class XmlResponseHandler extends Handler
     /**
      * The main function for converting to an XML document.
      *
-     * @param  array|\Traversable $data
+     * @param  array|Traversable $data
      * @return string            XML
      */
     private static function toXml($data)
     {
-        assert(is_array($data) || $data instanceof \Traversable);
+        assert(is_array($data) || $data instanceof Traversable);
 
         $node = simplexml_load_string("<?xml version='1.0' encoding='utf-8'?><root />");
 

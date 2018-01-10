@@ -20,7 +20,7 @@ use UnexpectedValueException;
 class FrameCollection implements ArrayAccess, IteratorAggregate, Serializable, Countable
 {
     /**
-     * @var array[]
+     * @var Frame[]
      */
     private $frames;
 
@@ -181,7 +181,7 @@ class FrameCollection implements ArrayAccess, IteratorAggregate, Serializable, C
      * Gets the innermost part of stack trace that is not the same as that of outer exception
      *
      * @param  FrameCollection $parentFrames Outer exception frames to compare tail against
-     * @return array
+     * @return Frame[]
      */
     public function topDiff(FrameCollection $parentFrames)
     {
