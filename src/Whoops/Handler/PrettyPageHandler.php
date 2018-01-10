@@ -528,7 +528,7 @@ class PrettyPageHandler extends Handler
      */
     public function setPageTitle($title)
     {
-        $this->pageTitle = (string) $title;
+        $this->pageTitle = $title;
     }
 
     /**
