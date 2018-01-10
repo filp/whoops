@@ -32,7 +32,7 @@ class Frame implements Serializable
     protected $application;
 
     /**
-     * @param array[]
+     * @param array[] $frame
      */
     public function __construct(array $frame)
     {

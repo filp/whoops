@@ -60,7 +60,7 @@ class PrettyPageHandlerTest extends TestCase
         $handler = $this->getHandler();
         $handler->setPageTitle($title);
 
-        $this->assertEquals($title, $handler->getPagetitle());
+        $this->assertEquals($title, $handler->getPageTitle());
     }
 
     /**
