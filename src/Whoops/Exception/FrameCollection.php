@@ -181,7 +181,7 @@ class FrameCollection implements ArrayAccess, IteratorAggregate, Serializable, C
      * Gets the innermost part of stack trace that is not the same as that of outer exception
      *
      * @param  FrameCollection $parentFrames Outer exception frames to compare tail against
-     * @return Frame[]
+     * @return array
      */
     public function topDiff(FrameCollection $parentFrames)
     {

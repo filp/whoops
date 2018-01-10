@@ -40,7 +40,7 @@ class PrettyPageHandler extends Handler
     private $customCss = null;
 
     /**
-     * @var array[]
+     * @var array[]|\Closure
      */
     private $extraTables = [];
 
