@@ -459,6 +459,39 @@ kbd {
   }
 }
 
+/* Stack panels */
+@media (max-width: 600px) {
+  .panel {
+    position: static;
+    width: 100%;
+  }
+}
+
+/* Stack details tables */
+@media (max-width: 400px) {
+  .data-table,
+  .data-table tbody,
+  .data-table tbody tr,
+  .data-table tbody td {
+    display: block;
+    width: 100%;
+  }
+
+    .data-table tbody tr:first-child {
+      padding-top: 0;
+    }
+
+      .data-table tbody td:first-child,
+      .data-table tbody td:last-child {
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      .data-table tbody td:last-child {
+        padding-top: 3px;
+      }
+}
+
 .tooltipped {
   position: relative
 }
