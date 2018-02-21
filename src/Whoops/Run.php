@@ -15,6 +15,7 @@ use Whoops\Handler\HandlerInterface;
 use Whoops\Util\Misc;
 use Whoops\Util\SystemFacade;
 
+include('RunInterface.php');
 final class Run implements RunInterface
 {
     private $isRegistered;
