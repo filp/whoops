@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 class SystemFacadeTest extends TestCase
 {
     /**
-     * @var \Mockery\Mock
+     * @var \Mockery\MockInterface|null
      */
     public static $runtime;
 

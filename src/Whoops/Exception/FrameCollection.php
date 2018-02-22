@@ -20,7 +20,7 @@ use UnexpectedValueException;
 class FrameCollection implements ArrayAccess, IteratorAggregate, Serializable, Countable
 {
     /**
-     * @var array[]
+     * @var Frame[]
      */
     private $frames;
 

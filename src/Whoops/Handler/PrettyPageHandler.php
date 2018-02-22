@@ -40,7 +40,7 @@ class PrettyPageHandler extends Handler
     private $customCss = null;
 
     /**
-     * @var array[]
+     * @var array[]|\Closure
      */
     private $extraTables = [];
 
@@ -389,7 +389,7 @@ class PrettyPageHandler extends Handler
      *       return "http://stackoverflow.com";
      *   });
      * @param string $identifier
-     * @param string $resolver
+     * @param string|callable $resolver
      */
     public function addEditor($identifier, $resolver)
     {
@@ -529,7 +529,7 @@ class PrettyPageHandler extends Handler
      */
     public function setPageTitle($title)
     {
-        $this->pageTitle = (string) $title;
+        $this->pageTitle = $title;
     }
 
     /**
@@ -674,8 +674,8 @@ class PrettyPageHandler extends Handler
     /**
      * blacklist a sensitive value within one of the superglobal arrays.
      *
-     * @param $superGlobalName string the name of the superglobal array, e.g. '_GET'
-     * @param $key string the key within the superglobal
+     * @param string $superGlobalName string the name of the superglobal array, e.g. '_GET'
+     * @param string $key string the key within the superglobal
      */
     public function blacklist($superGlobalName, $key)
     {
@@ -688,8 +688,8 @@ class PrettyPageHandler extends Handler
      *
      * We intentionally dont rely on $GLOBALS as it depends on 'auto_globals_jit' php.ini setting.
      *
-     * @param $superGlobal array One of the superglobal arrays
-     * @param $superGlobalName string the name of the superglobal array, e.g. '_GET'
+     * @param array $superGlobal array One of the superglobal arrays
+     * @param string $superGlobalName string the name of the superglobal array, e.g. '_GET'
      * @return array $values without sensitive data
      */
     private function masked(array $superGlobal, $superGlobalName)

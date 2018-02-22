@@ -7,7 +7,7 @@
 namespace Whoops\Handler;
 
 use RuntimeException;
-use StdClass;
+use stdClass;
 use Whoops\TestCase;
 use Whoops\Exception\Frame;
 
@@ -67,7 +67,7 @@ class PlainTextHandlerTest extends TestCase
      */
     public function testConstructor()
     {
-        $logger = new StdClass(); // guaranteed to be invalid!
+        $logger = new stdClass(); // guaranteed to be invalid!
         $this->getHandler($logger);
     }
 
@@ -77,7 +77,7 @@ class PlainTextHandlerTest extends TestCase
      */
     public function testSetLogger()
     {
-        $logger = new StdClass(); // guaranteed to be invalid!
+        $logger = new stdClass(); // guaranteed to be invalid!
         $this->getHandler()->setLogger($logger);
     }
 

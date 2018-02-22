@@ -38,7 +38,7 @@ class FrameCollectionTest extends TestCase
      */
     public function getFrameDataList($total)
     {
-        $total = max((int) $total, 1);
+        $total = max($total, 1);
         $self  = $this;
         $frames = array_map(function () use ($self) {
             return $self->getFrameData();

@@ -40,7 +40,7 @@ class RunTest extends TestCase
     }
 
     /**
-     * @return Handler
+     * @return \Mockery\MockInterface
      */
     protected function getHandler()
     {
@@ -394,7 +394,7 @@ class RunTest extends TestCase
             $this->assertSame(99, $e->getLine());
         }
     }
-    
+
     /**
      * @covers Whoops\Run::handleException
      * @covers Whoops\Run::writeToOutput

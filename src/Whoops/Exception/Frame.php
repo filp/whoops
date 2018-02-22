@@ -32,7 +32,7 @@ class Frame implements Serializable
     protected $application;
 
     /**
-     * @param array[]
+     * @param array[] $frame
      */
     public function __construct(array $frame)
     {
@@ -206,8 +206,8 @@ class Frame implements Serializable
 
             // Get a subset of lines from $start to $end
             if ($length !== null) {
-                $start  = (int) $start;
-                $length = (int) $length;
+                $start  = $start;
+                $length = $length;
                 if ($start < 0) {
                     $start = 0;
                 }

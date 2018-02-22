@@ -32,7 +32,7 @@ class JsonResponseHandler extends Handler
      */
     public function setJsonApi($jsonApi = false)
     {
-        $this->jsonApi = (bool) $jsonApi;
+        $this->jsonApi = $jsonApi;
         return $this;
     }
 
