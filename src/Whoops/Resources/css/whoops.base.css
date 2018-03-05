@@ -12,6 +12,11 @@ body {
     text-decoration: none;
   }
 
+.Whoops.container {
+    position: relative;
+    z-index: 9999999999;
+}
+
 .panel {
     overflow-y: scroll;
     height: 100%;
