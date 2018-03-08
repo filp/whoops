@@ -104,7 +104,7 @@ class TemplateHelper
     {
         $parts = explode($delimiter, $s);
         foreach ($parts as &$part) {
-            $part = '<div class="delimiter">' . $part . '</div>';
+            $part = '<span class="delimiter">' . $part . '</span>';
         }
 
         return implode($delimiter, $parts);

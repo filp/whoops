@@ -69,7 +69,7 @@ class TemplateHelperTest extends TestCase
     public function testBreakOnDelimiter()
     {
         $this->assertSame(
-            '<div class="delimiter">abc</div>-<div class="delimiter">123</div>-<div class="delimiter">456</div>',
+            '<span class="delimiter">abc</span>-<span class="delimiter">123</span>-<span class="delimiter">456</span>',
             $this->helper->breakOnDelimiter('-', 'abc-123-456')
         );
     }
