@@ -692,14 +692,14 @@ class PrettyPageHandler extends Handler
      * @param $superGlobalName string the name of the superglobal array, e.g. '_GET'
      * @return array $values without sensitive data
      */
-    private function masked(array $superGlobal, $superGlobalName)
+    private function masked(array $superGlobal, $superGlobalName, int $length = 20)
     {
         $blacklisted = $this->blacklist[$superGlobalName];
 
         $values = $superGlobal;
         foreach ($blacklisted as $key) {
             if (isset($superGlobal[$key])) {
-                $values[$key] = str_repeat('*', strlen($superGlobal[$key]));
+                $values[$key] = str_repeat('*', $length);
             }
         }
         return $values;
