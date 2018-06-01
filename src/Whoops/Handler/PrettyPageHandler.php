@@ -63,6 +63,7 @@ class PrettyPageHandler extends Handler
      * @var array[]
      */
     private $blacklist = [
+        '*' => [],
         '_GET' => [],
         '_POST' => [],
         '_FILES' => [],
@@ -694,7 +695,7 @@ class PrettyPageHandler extends Handler
      */
     private function masked(array $superGlobal, $superGlobalName)
     {
-        $blacklisted = $this->blacklist[$superGlobalName];
+        $blacklisted = array_unique(array_merge($this->blacklist[$superGlobalName], $this->blacklist['*']));
 
         $values = $superGlobal;
         foreach ($blacklisted as $key) {
