@@ -1,3 +1,7 @@
+# 2.2.0
+
+* Support PHP 7.2
+
 # 2.1.0
 
 * Add a `SystemFacade` to allow clients to override Whoops behavior.
