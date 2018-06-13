@@ -395,12 +395,9 @@ pre:not(.prettyprinted) {
   display: none;
 }
 
-#copy-button {
+.rightButton {
   cursor: pointer;
   border: 0;
-}
-
-.clipboard {
   opacity: .8;
   background: none;
 
@@ -412,7 +409,7 @@ pre:not(.prettyprinted) {
   outline: none !important;
 }
 
-  .clipboard:hover {
+  .rightButton:hover {
     box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.3);
     color: rgba(255, 255, 255, 0.3);
   }
