@@ -288,6 +288,14 @@ class PrettyPageHandlerTest extends TestCase
             false
         );
 
+        $handler->setEditor(function ($file, $line) {
+            return false;
+        });
+
+        $this->assertEquals(
+            $handler->getEditorHref('/foo/bar.php', 10),
+            false
+        );
     }
 
     /**
