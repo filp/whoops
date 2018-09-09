@@ -433,7 +433,7 @@ class PrettyPageHandler extends Handler
      * @param  int                      $line
      * @return string|bool
      */
-    public function getEditorHref($filePath, $linel)
+    public function getEditorHref($filePath, $line)
     {
         $editor = $this->getEditor($filePath, $line);
 
