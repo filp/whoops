@@ -119,11 +119,6 @@ class Frame implements Serializable
                 return null;
             }
 
-            // Return null if the file doesn't actually exist.
-            if (!is_file($filePath)) {
-                return null;
-            }
-
             $this->fileContentsCache = file_get_contents($filePath);
         }
 
