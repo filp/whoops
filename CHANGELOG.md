@@ -1,3 +1,7 @@
+# 2.3.0
+
+* Show previous exception messages.
+
 # 2.2.0
 
 * Support PHP 7.2
