@@ -15,6 +15,25 @@
   <div class="exc-message">
     <?php if (!empty($message)): ?>
       <span><?php echo $tpl->escape($message) ?></span>
+
+
+      <?php if (count($previousMessages)): ?>
+        <div class="exc-title prev-exc-title">
+          <span class="exc-title-secondary">Previous exceptions</span>
+        </div>
+
+        <ul>
+          <?php foreach ($previousMessages as $i => $previousMessage): ?>
+            <li>
+              <?php echo $tpl->escape($previousMessage) ?>
+              <span class="prev-exc-code">(<?php echo $previousCodes[$i] ?>)</span>
+            </li>
+          <?php endforeach; ?>
+        </ul>
+      <?php endif ?>
+
+
+
     <?php else: ?>
       <span class="exc-message-empty-notice">No message</span>
     <?php endif ?>

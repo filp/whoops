@@ -52,7 +52,7 @@ header {
     color: #bebebe;
     font-size: 14px;
   }
-    .exc-title-primary {
+    .exc-title-primary, .exc-title-secondary {
       color: #e95353;
     }
 
@@ -69,6 +69,25 @@ header {
         color: #a29d9d;
         font-weight: 300;
       }
+
+.prev-exc-title {
+  margin: 10px 0;
+}
+
+.prev-exc-title + ul {
+  margin: 0;
+  padding: 0 0 0 20px;
+  line-height: 12px;
+}
+
+.prev-exc-title + ul li {
+  font: 12px "Helvetica Neue", helvetica, arial, sans-serif;
+}
+
+.prev-exc-title + ul li .prev-exc-code {
+  display: inline-block;
+  color: #bebebe;
+}
 
 .details-container {
   left: 30%;
