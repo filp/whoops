@@ -1,3 +1,5 @@
+# 2.3.1
+
 * Prevent exception in Whoops when caught exception frame is not related to real file
 
 # 2.3.0
