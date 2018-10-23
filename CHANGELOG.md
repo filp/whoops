@@ -1,3 +1,5 @@
+* Prevent exception in Whoops when caught exception frame is not related to real file
+
 # 2.3.0
 
 * Show previous exception messages.

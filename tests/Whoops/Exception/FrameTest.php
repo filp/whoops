@@ -104,6 +104,20 @@ class FrameTest extends TestCase
     }
 
     /**
+     * @covers Whoops\Exception\Frame::getFileContents
+     * @testWith ["[internal]"]
+     *           ["Unknown"]
+     * @see https://github.com/filp/whoops/pull/599
+     */
+    public function testGetFileContentsWhenFrameIsNotRelatedToSpecificFile($fakeFilename)
+    {
+        $data  = array_merge($this->getFrameData(), ['file' => $fakeFilename]);
+        $frame = $this->getFrameInstance($data);
+
+        $this->assertNull($frame->getFileContents());
+    }
+
+    /**
      * @covers Whoops\Exception\Frame::getFileLines
      */
     public function testGetFileLines()
