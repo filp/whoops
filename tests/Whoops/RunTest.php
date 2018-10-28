@@ -113,6 +113,47 @@ class RunTest extends TestCase
     }
 
     /**
+     * @covers Whoops\Run::prependHandler
+     */
+    public function testPrependHandler()
+    {
+        $run = $this->getRunInstance();
+        $run->clearHandlers();
+
+        $handlerOne = $this->getHandler();
+        $handlerTwo = $this->getHandler();
+
+        $run->prependHandler($handlerOne);
+        $run->prependHandler($handlerTwo);
+
+        $handlers = $run->getHandlers();
+
+        $this->assertCount(2, $handlers);
+        $this->assertContains($handlerOne, $handlers);
+        $this->assertContains($handlerTwo, $handlers);
+    }
+
+    /**
+     * @expectedException InvalidArgumentException
+     * @covers Whoops\Run::prependHandler
+     */
+    public function testPrependInvalidHandler()
+    {
+        $run = $this->getRunInstance();
+        $run->prependHandler($banana = 'actually turnip');
+    }
+
+    /**
+     * @covers Whoops\Run::prependHandler
+     */
+    public function testPrependClosureBecomesHandler()
+    {
+        $run = $this->getRunInstance();
+        $run->prependHandler(function () {});
+        $this->assertInstanceOf('Whoops\\Handler\\CallbackHandler', $run->popHandler());
+    }
+
+    /**
      * @covers Whoops\Run::popHandler
      * @covers Whoops\Run::getHandlers
      */
