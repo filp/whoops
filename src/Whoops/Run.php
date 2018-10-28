@@ -65,6 +65,30 @@ final class Run implements RunInterface
     }
 
     /**
+     * Prepends a handler to the begining of the stack
+     *
+     * @throws InvalidArgumentException  If argument is not callable or instance of HandlerInterface
+     * @param  Callable|HandlerInterface $handler
+     * @return Run
+     */
+    public function prependHandler($handler)
+    {
+        if (is_callable($handler)) {
+            $handler = new CallbackHandler($handler);
+        }
+
+        if (!$handler instanceof HandlerInterface) {
+            throw new InvalidArgumentException(
+                  "Argument to " . __METHOD__ . " must be a callable, or instance of "
+                . "Whoops\\Handler\\HandlerInterface"
+            );
+        }
+
+        array_unshift($this->handlerStack, $handler);
+        return $this;
+    }
+
+    /**
      * Removes the last handler in the stack and returns it.
      * Returns null if there"s nothing else to pop.
      * @return null|HandlerInterface
