@@ -26,6 +26,15 @@ interface RunInterface
     public function pushHandler($handler);
 
     /**
+     * Prepends a handler to the begining of the stack
+     *
+     * @throws InvalidArgumentException  If argument is not callable or instance of HandlerInterface
+     * @param  Callable|HandlerInterface $handler
+     * @return Run
+     */
+    public function prependHandler($handler);
+
+    /**
      * Removes the last handler in the stack and returns it.
      * Returns null if there"s nothing else to pop.
      *
