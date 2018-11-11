@@ -300,6 +300,7 @@ final class Run implements RunInterface
 
                 // Send any headers if needed:
                 if (Misc::canSendHeaders() && $handlerContentType) {
+                    header("X-Robots-Tag: noindex, nofollow");
                     header("Content-Type: {$handlerContentType}");
                 }
             }
