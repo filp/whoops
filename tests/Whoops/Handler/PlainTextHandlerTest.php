@@ -13,6 +13,9 @@ use Whoops\Exception\Frame;
 
 class PlainTextHandlerTest extends TestCase
 {
+    const DEFAULT_EXCEPTION_LINE = 34;
+    const DEFAULT_LINE_OF_CALLER = 65;
+
     /**
      * @throws \InvalidArgumentException        If argument is not null or a LoggerInterface
      * @param  \Psr\Log\LoggerInterface|null    $logger
@@ -32,28 +35,34 @@ class PlainTextHandlerTest extends TestCase
     }
 
     /**
-     * @param  bool  $withTrace
-     * @param  bool  $withTraceArgs
-     * @param  bool  $loggerOnly
+     * @param  bool $withTrace
+     * @param  bool $withTraceArgs
+     * @param  int $traceFunctionArgsOutputLimit
+     * @param  bool $loggerOnly
+     * @param bool $previousOutput
+     * @param  null $exception
      * @return array
      */
     private function getPlainTextFromHandler(
         $withTrace = false,
         $withTraceArgs = false,
         $traceFunctionArgsOutputLimit = 1024,
-        $loggerOnly = false
+        $loggerOnly = false,
+        $previousOutput = false,
+        $exception = null
     ) {
         $handler = $this->getHandler();
         $handler->addTraceToOutput($withTrace);
         $handler->addTraceFunctionArgsToOutput($withTraceArgs);
         $handler->setTraceFunctionArgsOutputLimit($traceFunctionArgsOutputLimit);
+        $handler->addPreviousToOutput($previousOutput);
         $handler->loggerOnly($loggerOnly);
 
         $run = $this->getRunInstance();
         $run->pushHandler($handler);
         $run->register();
 
-        $exception = $this->getException();
+        $exception = $exception ?: $this->getException();
         ob_start();
         $run->handleException($exception);
 
@@ -209,7 +218,59 @@ class PlainTextHandlerTest extends TestCase
                 get_class($this->getException()),
                 'test message',
                 __FILE__,
-                31
+                self::DEFAULT_EXCEPTION_LINE
+            ),
+            $text
+        );
+    }
+
+    public function testReturnsWithoutPreviousExceptions()
+    {
+        $text = $this->getPlainTextFromHandler(
+            $withTrace = false,
+            $withTraceArgs = true,
+            $traceFunctionArgsOutputLimit = 1024,
+            $loggerOnly = false,
+            $previousOutput = false,
+            new RuntimeException('Outer exception message', 0, new RuntimeException('Inner exception message'))
+        );
+
+        // Check that the response does not contain Inner exception message:
+        $this->assertNotContains(
+            sprintf(
+                "%s: %s in file %s",
+                RuntimeException::class,
+                'Inner exception message',
+                __FILE__
+            ),
+            $text
+        );
+    }
+
+    public function testReturnsWithPreviousExceptions()
+    {
+        $text = $this->getPlainTextFromHandler(
+            $withTrace = false,
+            $withTraceArgs = true,
+            $traceFunctionArgsOutputLimit = 1024,
+            $loggerOnly = false,
+            $previousOutput = true,
+            new RuntimeException('Outer exception message', 0, new RuntimeException('Inner exception message'))
+        );
+
+        // Check that the response has the correct message:
+        $this->assertEquals(
+            sprintf(
+                "%s: %s in file %s on line %d\n" .
+                "%s: %s in file %s on line %d\n",
+                RuntimeException::class,
+                'Outer exception message',
+                __FILE__,
+                258,
+                'Before: ' . RuntimeException::class,
+                'Inner exception message',
+                __FILE__,
+                258
             ),
             $text
         );
@@ -238,10 +299,10 @@ class PlainTextHandlerTest extends TestCase
             sprintf(
                 '%3d. %s->%s() %s:%d',
                 2,
-                'Whoops\Handler\PlainTextHandlerTest',
+                __CLASS__,
                 'getException',
                 __FILE__,
-                56
+                self::DEFAULT_LINE_OF_CALLER
             ),
             $text
         );
@@ -280,7 +341,7 @@ class PlainTextHandlerTest extends TestCase
                 'Whoops\Handler\PlainTextHandlerTest',
                 'getException',
                 __FILE__,
-                56
+                self::DEFAULT_LINE_OF_CALLER
             ),
             $text
         );
@@ -322,7 +383,7 @@ class PlainTextHandlerTest extends TestCase
                 'Whoops\Handler\PlainTextHandlerTest',
                 'getException',
                 __FILE__,
-                56
+                self::DEFAULT_LINE_OF_CALLER
             ),
             $text
         );
