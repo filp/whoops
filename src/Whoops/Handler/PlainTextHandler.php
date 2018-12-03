@@ -176,7 +176,7 @@ class PlainTextHandler extends Handler
         if ($this->addPreviousToOutput) {
             $previous = $exception->getPrevious();
             while ($previous) {
-                $message .= "\nBefore: " . $this->getExceptionOutput($previous);
+                $message .= "\n\nCaused by\n" . $this->getExceptionOutput($previous);
                 $previous = $previous->getPrevious();
             }
         }
@@ -313,7 +313,7 @@ class PlainTextHandler extends Handler
      * @param \Throwable $exception
      * @return string
      */
-    protected function getExceptionOutput($exception)
+    private function getExceptionOutput($exception)
     {
         return sprintf(
             "%s: %s in file %s on line %d",

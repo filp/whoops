@@ -267,7 +267,7 @@ class PlainTextHandlerTest extends TestCase
                 'Outer exception message',
                 __FILE__,
                 258,
-                'Before: ' . RuntimeException::class,
+                "\nCaused by\n" . RuntimeException::class,
                 'Inner exception message',
                 __FILE__,
                 258
