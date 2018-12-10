@@ -703,11 +703,46 @@ class PrettyPageHandler extends Handler
         $blacklisted = $this->blacklist[$superGlobalName];
 
         $values = $superGlobal;
-        foreach ($blacklisted as $key) {
-            if (isset($superGlobal[$key])) {
-                $values[$key] = str_repeat('*', strlen($superGlobal[$key]));
+        foreach ($blacklisted as $pattern) {
+            foreach($values as $key => $value) {
+                if ($this->matchesPattern($pattern, $key)) {
+                    $values[$key] = str_repeat('*', strlen($value));
+                }
             }
         }
         return $values;
+    }
+
+    /**
+     * Check if a value matches a pattern.
+     *
+     * Based on Laravel's \Illuminate\Support\Str::is() method.
+     * Copyright (c) Taylor Otwell
+     *
+     * @param $pattern
+     * @param $value
+     * @return bool
+     */
+    private function matchesPattern($pattern, $value)
+    {
+        // If the given value is an exact match we can of course return true right
+        // from the beginning. Otherwise, we will translate asterisks and do an
+        // actual pattern match against the two strings to see if they match.
+        if ($pattern == $value) {
+            return true;
+        }
+
+        $pattern = preg_quote($pattern, '#');
+
+        // Asterisks are translated into zero-or-more regular expression wildcards
+        // to make it convenient to check if the strings starts with the given
+        // pattern such as "library/*", making any string check convenient.
+        $pattern = str_replace('\*', '.*', $pattern);
+
+        if (preg_match('#^'.$pattern.'\z#u', $value) === 1) {
+            return true;
+        }
+
+        return false;
     }
 }
