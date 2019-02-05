@@ -391,7 +391,7 @@ class PrettyPageHandler extends Handler
      *       return "http://stackoverflow.com";
      *   });
      * @param string $identifier
-     * @param string $resolver
+     * @param string|callable $resolver
      */
     public function addEditor($identifier, $resolver)
     {
