@@ -24,6 +24,7 @@ The following editors are currently supported by default.
 - `xdebug`   - xdebug (uses [xdebug.file_link_format](http://xdebug.org/docs/all_settings#file_link_format))
 - `vscode`   - VSCode (ref [Opening VS Code with URLs](https://code.visualstudio.com/docs/editor/command-line#_opening-vs-code-with-urls))
 - `atom`     - Atom (ref [Add core URI handlers](https://github.com/atom/atom/pull/15935))
+- `espresso` - Espresso
 
 Adding your own editor is simple:
 
