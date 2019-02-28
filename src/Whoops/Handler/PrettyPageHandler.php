@@ -97,6 +97,7 @@ class PrettyPageHandler extends Handler
         "idea"     => "idea://open?file=%file&line=%line",
         "vscode"   => "vscode://file/%file:%line",
         "atom"     => "atom://core/open/file?filename=%file&line=%line",
+        "espresso" => "x-espresso://open?filepath=%file&lines=%line",
     ];
 
     /**
