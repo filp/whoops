@@ -5,27 +5,42 @@
  */
 
 namespace Whoops;
-use Whoops\TestCase;
-use Whoops\Run;
-use Whoops\Handler\Handler;
-use RuntimeException;
+
 use ArrayObject;
+use Exception;
+use InvalidArgumentException;
 use Mockery as m;
+use RuntimeException;
+use Whoops\Handler\Handler;
 
 class RunTest extends TestCase
 {
+    public function testImplementsRunInterface()
+    {
+        $this->assertNotFalse(class_implements('Whoops\\Run', 'Whoops\\RunInterface'));
+    }
+
+    public function testConstantsAreAccessibleFromTheClass()
+    {
+        $this->assertEquals(RunInterface::ERROR_HANDLER, Run::ERROR_HANDLER);
+        $this->assertEquals(RunInterface::EXCEPTION_HANDLER, Run::EXCEPTION_HANDLER);
+        $this->assertEquals(RunInterface::SHUTDOWN_HANDLER, Run::SHUTDOWN_HANDLER);
+    }
 
     /**
-     * @param string $message
+     * @param  string    $message
      * @return Exception
      */
     protected function getException($message = null)
     {
-        return m::mock('Exception', array($message));
+        // HHVM does not support mocking exceptions
+        // Since we do not use any additional features of Mockery for exceptions,
+        // we can just use native Exceptions instead.
+        return new \Exception($message);
     }
-    
+
     /**
-     * @return Whoops\Handler\Handler
+     * @return Handler
      */
     protected function getHandler()
     {
@@ -40,8 +55,7 @@ class RunTest extends TestCase
 
             ->shouldReceive('setException')
                 ->andReturn(null)
-            ->mock()
-        ;
+            ->mock();
     }
 
     /**
@@ -79,6 +93,26 @@ class RunTest extends TestCase
     }
 
     /**
+     * @expectedException InvalidArgumentException
+     * @covers Whoops\Run::pushHandler
+     */
+    public function testPushInvalidHandler()
+    {
+        $run = $this->getRunInstance();
+        $run->pushHandler($banana = 'actually turnip');
+    }
+
+    /**
+     * @covers Whoops\Run::pushHandler
+     */
+    public function testPushClosureBecomesHandler()
+    {
+        $run = $this->getRunInstance();
+        $run->pushHandler(function () {});
+        $this->assertInstanceOf('Whoops\\Handler\\CallbackHandler', $run->popHandler());
+    }
+
+    /**
      * @covers Whoops\Run::popHandler
      * @covers Whoops\Run::getHandlers
      */
@@ -112,17 +146,12 @@ class RunTest extends TestCase
      */
     public function testRegisterHandler()
     {
-        $this->markTestSkipped("Need to test exception handler");
-
-        $run = $this->getRunInstance();
-        $run->register();
-
-        $handler = $this->getHandler();
-        $run->pushHandler($handler);
-
-        throw $this->getException();
-
-        $this->assertCount(2, $handler->exceptions);
+        // It is impossible to test the Run::register method using phpunit,
+        // as given how every test is always inside a giant try/catch block,
+        // any thrown exception will never hit a global exception handler.
+        // On the other hand, there is not much need in testing
+        // a call to a native PHP function.
+        $this->assertTrue(true);
     }
 
     /**
@@ -176,18 +205,18 @@ class RunTest extends TestCase
     {
         $run       = $this->getRunInstance();
         $exception = $this->getException();
-        $order     = new ArrayObject;
+        $order     = new ArrayObject();
 
         $handlerOne   = $this->getHandler();
         $handlerTwo   = $this->getHandler();
         $handlerThree = $this->getHandler();
 
         $handlerOne->shouldReceive('handle')
-            ->andReturnUsing(function() use($order) { $order[] = 1; });
+            ->andReturnUsing(function () use ($order) { $order[] = 1; });
         $handlerTwo->shouldReceive('handle')
-            ->andReturnUsing(function() use($order) { $order[] = 2; });
+            ->andReturnUsing(function () use ($order) { $order[] = 2; });
         $handlerThree->shouldReceive('handle')
-            ->andReturnUsing(function() use($order) { $order[] = 3; });
+            ->andReturnUsing(function () use ($order) { $order[] = 3; });
 
         $run->pushHandler($handlerOne);
         $run->pushHandler($handlerTwo);
@@ -197,7 +226,7 @@ class RunTest extends TestCase
         // are given the handler, and in the inverse order they were
         // registered.
         $run->handleException($exception);
-        $this->assertEquals((array) $order, array(3, 2, 1));
+        $this->assertEquals((array) $order, [3, 2, 1]);
     }
 
     /**
@@ -216,17 +245,18 @@ class RunTest extends TestCase
         $test = $this;
         $handlerOne
             ->shouldReceive('handle')
-            ->andReturnUsing(function () use($test) {
+            ->andReturnUsing(function () use ($test) {
                 $test->fail('$handlerOne should not be called');
-            })
-        ;
+            });
 
         $handlerTwo
             ->shouldReceive('handle')
-            ->andReturn(Handler::LAST_HANDLER)
-        ;
+            ->andReturn(Handler::LAST_HANDLER);
 
         $run->handleException($this->getException());
+
+        // Reached the end without errors
+        $this->assertTrue(true);
     }
 
     /**
@@ -243,12 +273,40 @@ class RunTest extends TestCase
         $test = $this;
         $handler
             ->shouldReceive('handle')
-            ->andReturnUsing(function () use($test) {
+            ->andReturnUsing(function () use ($test) {
                 $test->fail('$handler should not be called, error not suppressed');
-            })
-        ;
+            });
 
         @trigger_error("Test error suppression");
+
+        // Reached the end without errors
+        $this->assertTrue(true);
+    }
+
+    public function testErrorCatching()
+    {
+        $run = $this->getRunInstance();
+        $run->register();
+
+        $handler = $this->getHandler();
+        $run->pushHandler($handler);
+
+        $test = $this;
+        $handler
+            ->shouldReceive('handle')
+            ->andReturnUsing(function () use ($test) {
+                $test->fail('$handler should not be called error should be caught');
+            });
+
+        try {
+            trigger_error('foo', E_USER_NOTICE);
+            $this->fail('Should not continue after error thrown');
+        } catch (\ErrorException $e) {
+            // Do nothing
+            $this->assertTrue(true);
+            return;
+        }
+        $this->fail('Should not continue here, should have been caught.');
     }
 
     /**
@@ -265,14 +323,136 @@ class RunTest extends TestCase
         $test = $this;
         $handler
             ->shouldReceive('handle')
-            ->andReturnUsing(function () use($test) {
+            ->andReturnUsing(function () use ($test) {
                 $test->fail('$handler should not be called, error_reporting not respected');
-            })
-        ;
+            });
 
         $oldLevel = error_reporting(E_ALL ^ E_USER_NOTICE);
         trigger_error("Test error reporting", E_USER_NOTICE);
         error_reporting($oldLevel);
+
+        // Reached the end without errors
+        $this->assertTrue(true);
     }
 
+    /**
+     * @covers Whoops\Run::silenceErrorsInPaths
+     */
+    public function testSilenceErrorsInPaths()
+    {
+        $run = $this->getRunInstance();
+        $run->register();
+
+        $handler = $this->getHandler();
+        $run->pushHandler($handler);
+
+        $test = $this;
+        $handler
+            ->shouldReceive('handle')
+            ->andReturnUsing(function () use ($test) {
+                $test->fail('$handler should not be called, silenceErrorsInPaths not respected');
+            });
+
+        $run->silenceErrorsInPaths('@^'.preg_quote(__FILE__, '@').'$@', E_USER_NOTICE);
+        trigger_error('Test', E_USER_NOTICE);
+        $this->assertTrue(true);
+    }
+
+    /**
+     * @covers Whoops\Run::handleError
+     */
+    public function testGetSilencedError()
+    {
+        $run = $this->getRunInstance();
+        $run->register();
+
+        $handler = $this->getHandler();
+        $run->pushHandler($handler);
+
+        @strpos();
+
+        $error = error_get_last();
+
+        $this->assertTrue($error && strpos($error['message'], 'strpos()') !== false);
+    }
+
+    /**
+     * @covers Whoops\Run::handleError
+     * @see https://github.com/filp/whoops/issues/267
+     */
+    public function testErrorWrappedInException()
+    {
+        try {
+            $run = $this->getRunInstance();
+            $run->handleError(E_WARNING, 'my message', 'my file', 99);
+            $this->fail("missing expected exception");
+        } catch (\ErrorException $e) {
+            $this->assertSame(E_WARNING, $e->getSeverity());
+            $this->assertSame(E_WARNING, $e->getCode(), "For BC reasons getCode() should match getSeverity()");
+            $this->assertSame('my message', $e->getMessage());
+            $this->assertSame('my file', $e->getFile());
+            $this->assertSame(99, $e->getLine());
+        }
+    }
+    
+    /**
+     * @covers Whoops\Run::handleException
+     * @covers Whoops\Run::writeToOutput
+     */
+    public function testOutputIsSent()
+    {
+        $run = $this->getRunInstance();
+        $run->pushHandler(function () {
+            echo "hello there";
+        });
+
+        ob_start();
+        $run->handleException(new RuntimeException());
+        $this->assertEquals("hello there", ob_get_clean());
+    }
+
+    /**
+     * @covers Whoops\Run::handleException
+     * @covers Whoops\Run::writeToOutput
+     */
+    public function testOutputIsNotSent()
+    {
+        $run = $this->getRunInstance();
+        $run->writeToOutput(false);
+        $run->pushHandler(function () {
+            echo "hello there";
+        });
+
+        ob_start();
+        $this->assertEquals("hello there", $run->handleException(new RuntimeException()));
+        $this->assertEquals("", ob_get_clean());
+    }
+
+    /**
+     * @covers Whoops\Run::sendHttpCode
+     */
+    public function testSendHttpCode()
+    {
+        $run = $this->getRunInstance();
+        $run->sendHttpCode(true);
+        $this->assertEquals(500, $run->sendHttpCode());
+    }
+
+    /**
+     * @covers Whoops\Run::sendHttpCode
+     */
+    public function testSendHttpCodeNullCode()
+    {
+        $run = $this->getRunInstance();
+        $this->assertEquals(false, $run->sendHttpCode(null));
+    }
+
+    /**
+     * @covers Whoops\Run::sendHttpCode
+     * @expectedException InvalidArgumentException
+     */
+    public function testSendHttpCodeWrongCode()
+    {
+        $this->getRunInstance()->sendHttpCode(1337);
+    }
 }

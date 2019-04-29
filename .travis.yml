@@ -1,6 +1,40 @@
 language: php
+
+dist: trusty
+
 php:
-    - 5.4
-    - 5.3
+  - 5.5
+  - 5.6
+  - 7.0
+  - 7.1
+  - 7.2
+  - 7.3
+  - hhvm
+
+sudo: false
+
+env:
+  global:
+    SETUP=basic
+
+matrix:
+  include:
+    - php: 5.6
+      env: SETUP=lowest
+    - php: 5.5.9
+      dist: precise
+
+cache:
+  directories:
+    - "$HOME/.composer/cache"
+
 before_script:
-    - composer install --dev
+  - if [[ "$SETUP" = "basic" ]]; then composer install --no-interaction --prefer-dist; fi
+  - if [[ "$SETUP" = "lowest" ]]; then travis_retry composer update --prefer-dist --no-interaction --prefer-lowest --prefer-stable; fi
+  - if [[ $TRAVIS_PHP_VERSION = "5.6" && "$SETUP" = "basic" ]]; then PHPUNIT_FLAGS="--coverage-clover build/logs/clover.xml"; fi
+
+script:
+  - vendor/bin/phpunit --verbose $PHPUNIT_FLAGS
+
+after_success:
+  - if [ $TRAVIS_PHP_VERSION = "5.6" ]; then wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml; fi

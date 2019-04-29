@@ -5,9 +5,11 @@
  */
 
 namespace Whoops\Exception;
-use InvalidArgumentException;
 
-class Frame
+use InvalidArgumentException;
+use Serializable;
+
+class Frame implements Serializable
 {
     /**
      * @var array
@@ -22,7 +24,12 @@ class Frame
     /**
      * @var array[]
      */
-    protected $comments = array();
+    protected $comments = [];
+
+    /**
+     * @var bool
+     */
+    protected $application;
 
     /**
      * @param array[]
@@ -33,18 +40,35 @@ class Frame
     }
 
     /**
-     * @param  bool $shortened
+     * @param  bool        $shortened
      * @return string|null
      */
     public function getFile($shortened = false)
     {
-        $file = !empty($this->frame['file']) ? $this->frame['file'] : null;
+        if (empty($this->frame['file'])) {
+            return null;
+        }
+
+        $file = $this->frame['file'];
+
+        // Check if this frame occurred within an eval().
+        // @todo: This can be made more reliable by checking if we've entered
+        // eval() in a previous trace, but will need some more work on the upper
+        // trace collector(s).
+        if (preg_match('/^(.*)\((\d+)\) : (?:eval\(\)\'d|assert) code$/', $file, $matches)) {
+            $file = $this->frame['file'] = $matches[1];
+            $this->frame['line'] = (int) $matches[2];
+        }
+
         if ($shortened && is_string($file)) {
             // Replace the part of the path that all frames have in common, and add 'soft hyphens' for smoother line-breaks.
             $dirname = dirname(dirname(dirname(dirname(dirname(dirname(__DIR__))))));
-            $file = str_replace($dirname, "…", $file);
+            if ($dirname !== '/') {
+                $file = str_replace($dirname, "&hellip;", $file);
+            }
             $file = str_replace("/", "/&shy;", $file);
         }
+
         return $file;
     }
 
@@ -77,7 +101,7 @@ class Frame
      */
     public function getArgs()
     {
-        return isset($this->frame['args']) ? (array) $this->frame['args'] : array();
+        return isset($this->frame['args']) ? (array) $this->frame['args'] : [];
     }
 
     /**
@@ -87,7 +111,14 @@ class Frame
      */
     public function getFileContents()
     {
-        if($this->fileContentsCache === null && $filePath = $this->getFile()) {
+        if ($this->fileContentsCache === null && $filePath = $this->getFile()) {
+            // Leave the stage early when 'Unknown' or '[internal]' is passed
+            // this would otherwise raise an exception when
+            // open_basedir is enabled.
+            if ($filePath === "Unknown" || $filePath === '[internal]') {
+                return null;
+            }
+
             $this->fileContentsCache = file_get_contents($filePath);
         }
 
@@ -107,10 +138,10 @@ class Frame
      */
     public function addComment($comment, $context = 'global')
     {
-        $this->comments[] = array(
+        $this->comments[] = [
             'comment' => $comment,
-            'context' => $context
-        );
+            'context' => $context,
+        ];
     }
 
     /**
@@ -118,20 +149,31 @@ class Frame
      * a filter to only retrieve comments from a specific
      * context.
      *
-     * @param  string $filter
+     * @param  string  $filter
      * @return array[]
      */
     public function getComments($filter = null)
     {
         $comments = $this->comments;
 
-        if($filter !== null) {
-            $comments = array_filter($comments, function($c) use($filter) {
+        if ($filter !== null) {
+            $comments = array_filter($comments, function ($c) use ($filter) {
                 return $c['context'] == $filter;
             });
         }
 
         return $comments;
+    }
+
+    /**
+     * Returns the array containing the raw frame data from which
+     * this Frame object was built
+     *
+     * @return array
+     */
+    public function getRawFrame()
+    {
+        return $this->frame;
     }
 
     /**
@@ -147,25 +189,25 @@ class Frame
      *     Get one line for this file, starting at line 10 (zero-indexed, remember!)
      *     $frame->getFileLines(9, 1); // array( 10 => '...', 11 => '...')
      *
-     * @param  int $start
-     * @param  int $length
+     * @throws InvalidArgumentException if $length is less than or equal to 0
+     * @param  int                      $start
+     * @param  int                      $length
      * @return string[]|null
      */
     public function getFileLines($start = 0, $length = null)
     {
-        if(null !== ($contents = $this->getFileContents())) {
+        if (null !== ($contents = $this->getFileContents())) {
             $lines = explode("\n", $contents);
 
             // Get a subset of lines from $start to $end
-            if($length !== null)
-            {
+            if ($length !== null) {
                 $start  = (int) $start;
                 $length = (int) $length;
                 if ($start < 0) {
                     $start = 0;
                 }
 
-                if($length <= 0) {
+                if ($length <= 0) {
                     throw new InvalidArgumentException(
                         "\$length($length) cannot be lower or equal to 0"
                     );
@@ -176,5 +218,74 @@ class Frame
 
             return $lines;
         }
+    }
+
+    /**
+     * Implements the Serializable interface, with special
+     * steps to also save the existing comments.
+     *
+     * @see Serializable::serialize
+     * @return string
+     */
+    public function serialize()
+    {
+        $frame = $this->frame;
+        if (!empty($this->comments)) {
+            $frame['_comments'] = $this->comments;
+        }
+
+        return serialize($frame);
+    }
+
+    /**
+     * Unserializes the frame data, while also preserving
+     * any existing comment data.
+     *
+     * @see Serializable::unserialize
+     * @param string $serializedFrame
+     */
+    public function unserialize($serializedFrame)
+    {
+        $frame = unserialize($serializedFrame);
+
+        if (!empty($frame['_comments'])) {
+            $this->comments = $frame['_comments'];
+            unset($frame['_comments']);
+        }
+
+        $this->frame = $frame;
+    }
+
+    /**
+     * Compares Frame against one another
+     * @param  Frame $frame
+     * @return bool
+     */
+    public function equals(Frame $frame)
+    {
+        if (!$this->getFile() || $this->getFile() === 'Unknown' || !$this->getLine()) {
+            return false;
+        }
+        return $frame->getFile() === $this->getFile() && $frame->getLine() === $this->getLine();
+    }
+
+    /**
+     * Returns whether this frame belongs to the application or not.
+     *
+     * @return boolean
+     */
+    public function isApplication()
+    {
+        return $this->application;
+    }
+
+    /**
+     * Mark as an frame belonging to the application.
+     *
+     * @param boolean $application
+     */
+    public function setApplication($application)
+    {
+        $this->application = $application;
     }
 }

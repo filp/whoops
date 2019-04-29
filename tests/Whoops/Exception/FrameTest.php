@@ -5,9 +5,8 @@
  */
 
 namespace Whoops\Exception;
-use Whoops\Exception\Frame;
+
 use Whoops\TestCase;
-use Mockery as m;
 
 class FrameTest extends TestCase
 {
@@ -16,21 +15,22 @@ class FrameTest extends TestCase
      */
     private function getFrameData()
     {
-        return array(
+        return [
             'file'     => __DIR__ . '/../../fixtures/frame.lines-test.php',
             'line'     => 0,
             'function' => 'test',
             'class'    => 'MyClass',
-            'args'     => array(true, 'hello')
-        );
+            'args'     => [true, 'hello'],
+        ];
     }
 
     /**
-     * @return Whoops\Exception\Frame
+     * @param  array $data
+     * @return Frame
      */
     private function getFrameInstance($data = null)
     {
-        if($data === null) {
+        if ($data === null) {
             $data = $this->getFrameData();
         }
 
@@ -100,7 +100,21 @@ class FrameTest extends TestCase
         $data  = $this->getFrameData();
         $frame = $this->getFrameInstance($data);
 
-        $this->assertEquals($frame->getFileContents(), file_get_contents($data['file']));
+        $this->assertStringEqualsFile($data['file'], $frame->getFileContents());
+    }
+
+    /**
+     * @covers Whoops\Exception\Frame::getFileContents
+     * @testWith ["[internal]"]
+     *           ["Unknown"]
+     * @see https://github.com/filp/whoops/pull/599
+     */
+    public function testGetFileContentsWhenFrameIsNotRelatedToSpecificFile($fakeFilename)
+    {
+        $data  = array_merge($this->getFrameData(), ['file' => $fakeFilename]);
+        $frame = $this->getFrameInstance($data);
+
+        $this->assertNull($frame->getFileContents());
     }
 
     /**
@@ -137,11 +151,11 @@ class FrameTest extends TestCase
     public function testGetComments()
     {
         $frame    = $this->getFrameInstance();
-        $testComments = array(
+        $testComments = [
             'Dang, yo!',
             'Errthangs broken!',
-            'Dayumm!'
-        );
+            'Dayumm!',
+        ];
 
         $frame->addComment($testComments[0]);
         $frame->addComment($testComments[1]);
@@ -163,11 +177,11 @@ class FrameTest extends TestCase
     public function testGetFilteredComments()
     {
         $frame    = $this->getFrameInstance();
-        $testComments = array(
-            array('Dang, yo!', 'test'),
-            array('Errthangs broken!', 'test'),
-            'Dayumm!'
-        );
+        $testComments = [
+            ['Dang, yo!', 'test'],
+            ['Errthangs broken!', 'test'],
+            'Dayumm!',
+        ];
 
         $frame->addComment($testComments[0][0], $testComments[0][1]);
         $frame->addComment($testComments[1][0], $testComments[1][1]);
@@ -178,5 +192,41 @@ class FrameTest extends TestCase
         $this->assertCount(2, $comments);
         $this->assertEquals($comments[0]['comment'], $testComments[0][0]);
         $this->assertEquals($comments[1]['comment'], $testComments[1][0]);
+    }
+
+    /**
+     * @covers Whoops\Exception\Frame::serialize
+     * @covers Whoops\Exception\Frame::unserialize
+     */
+    public function testFrameIsSerializable()
+    {
+        $data            = $this->getFrameData();
+        $frame           = $this->getFrameInstance();
+        $commentText     = "Gee I hope this works";
+        $commentContext  = "test";
+
+        $frame->addComment($commentText, $commentContext);
+
+        $serializedFrame = serialize($frame);
+        $newFrame        = unserialize($serializedFrame);
+
+        $this->assertInstanceOf('Whoops\\Exception\\Frame', $newFrame);
+        $this->assertEquals($newFrame->getFile(), $data['file']);
+        $this->assertEquals($newFrame->getLine(), $data['line']);
+
+        $comments = $newFrame->getComments();
+        $this->assertCount(1, $comments);
+        $this->assertEquals($comments[0]["comment"], $commentText);
+        $this->assertEquals($comments[0]["context"], $commentContext);
+    }
+
+    /**
+     * @covers Whoops\Exception\Frame::equals
+     */
+    public function testEquals()
+    {
+        $frame1 = $this->getFrameInstance(['line' => 1, 'file' => 'test-file.php']);
+        $frame2 = $this->getFrameInstance(['line' => 1, 'file' => 'test-file.php']);
+        $this->assertTrue ($frame1->equals($frame2));
     }
 }

@@ -5,32 +5,62 @@
  */
 
 namespace Whoops\Exception;
-use Whoops\Exception\Inspector;
-use Whoops\TestCase;
-use RuntimeException;
+
 use Exception;
-use Mockery as m;
+use Whoops\TestCase;
 
 class InspectorTest extends TestCase
 {
     /**
-     * @param string $message
+     * @param  string     $message
+     * @param  int        $code
+     * @param  Exception $previous
      * @return Exception
      */
-    protected function getException($message = null)
+    protected function getException($message = null, $code = 0, $previous = null)
     {
-        return m::mock('Exception', array($message));
+        return new Exception($message, $code, $previous);
     }
 
     /**
-     * @param  Exception $exception|null
-     * @return Whoops\Exception\Inspector
+     * @param  Exception                  $exception|null
+     * @return \Whoops\Exception\Inspector
      */
-    protected function getInspectorInstance(Exception $exception = null)
+    protected function getInspectorInstance($exception = null)
     {
         return new Inspector($exception);
     }
 
+    /**
+     * @covers Whoops\Exception\Inspector::getFrames
+     */
+    public function testCorrectNestedFrames($value = '')
+    {
+        // Create manually to have a different line number from the outer
+        $inner = new Exception('inner');
+        $outer = $this->getException('outer', 0, $inner);
+        $inspector = $this->getInspectorInstance($outer);
+        $frames = $inspector->getFrames();
+        $this->assertSame($outer->getLine(), $frames[0]->getLine());
+    }
+
+    /**
+     * @covers Whoops\Exception\Inspector::getFrames
+     */
+    public function testDoesNotFailOnPHP7ErrorObject()
+    {
+        if (!class_exists('Error')) {
+            $this->markTestSkipped(
+              'PHP 5.x, the Error class is not available.'
+            );
+        }
+
+        $inner = new \Error('inner');
+        $outer = $this->getException('outer', 0, $inner);
+        $inspector = $this->getInspectorInstance($outer);
+        $frames = $inspector->getFrames();
+        $this->assertSame($outer->getLine(), $frames[0]->getLine());
+    }
     /**
      * @covers Whoops\Exception\Inspector::getExceptionName
      */
@@ -57,11 +87,100 @@ class InspectorTest extends TestCase
     /**
      * @covers Whoops\Exception\Inspector::getFrames
      */
-    public function testGetFramesReturnsIterator()
+    public function testGetFramesReturnsCollection()
     {
         $exception = $this->getException();
         $inspector = $this->getInspectorInstance($exception);
 
-        $this->assertInstanceOf('Whoops\\Exception\\FrameIterator', $inspector->getFrames());
+        $this->assertInstanceOf('Whoops\\Exception\\FrameCollection', $inspector->getFrames());
+    }
+
+    /**
+     * @covers Whoops\Exception\Inspector::hasPreviousException
+     * @covers Whoops\Exception\Inspector::getPreviousExceptionInspector
+     */
+    public function testPreviousException()
+    {
+        $previousException = $this->getException("I'm here first!");
+        $exception         = $this->getException("Oh boy", null, $previousException);
+        $inspector         = $this->getInspectorInstance($exception);
+
+        $this->assertTrue($inspector->hasPreviousException());
+        $this->assertEquals($previousException, $inspector->getPreviousExceptionInspector()->getException());
+    }
+
+    /**
+     * @covers Whoops\Exception\Inspector::hasPreviousException
+     */
+    public function testNegativeHasPreviousException()
+    {
+        $exception         = $this->getException("Oh boy");
+        $inspector         = $this->getInspectorInstance($exception);
+
+        $this->assertFalse($inspector->hasPreviousException());
+    }
+
+    /**
+     * @covers Whoops\Exception\Inspector::getPreviousExceptions
+     */
+    public function testGetPreviousExceptionsReturnsListOfExceptions()
+    {
+        $exception1        = $this->getException('My first exception');
+        $exception2        = $this->getException('My second exception', 0, $exception1);
+        $exception3        = $this->getException('And the third one', 0, $exception2);
+
+        $inspector         = $this->getInspectorInstance($exception3);
+
+        $previousExceptions = $inspector->getPreviousExceptions();
+        $this->assertCount(2, $previousExceptions);
+        $this->assertEquals($exception2, $previousExceptions[0]);
+        $this->assertEquals($exception1, $previousExceptions[1]);
+    }
+
+    /**
+     * @covers Whoops\Exception\Inspector::getPreviousExceptions
+     */
+    public function testGetPreviousExceptionsReturnsEmptyListIfThereAreNoPreviousExceptions()
+    {
+        $exception         = $this->getException('My exception');
+        $inspector         = $this->getInspectorInstance($exception);
+
+        $previousExceptions = $inspector->getPreviousExceptions();
+        $this->assertCount(0, $previousExceptions);
+    }
+
+    /**
+     * @covers Whoops\Exception\Inspector::getPreviousExceptionMessages
+     */
+    public function testGetPreviousExceptionMessages()
+    {
+        $exception1        = $this->getException('My first exception');
+        $exception2        = $this->getException('My second exception', 0, $exception1);
+        $exception3        = $this->getException('And the third one', 0, $exception2);
+
+        $inspector         = $this->getInspectorInstance($exception3);
+
+        $previousExceptions = $inspector->getPreviousExceptionMessages();
+
+        $this->assertEquals($exception2->getMessage(), $previousExceptions[0]);
+        $this->assertEquals($exception1->getMessage(), $previousExceptions[1]);
+    }
+
+
+    /**
+     * @covers Whoops\Exception\Inspector::getPreviousExceptionCodes
+     */
+    public function testGetPreviousExceptionCodes()
+    {
+        $exception1        = $this->getException('My first exception', 99);
+        $exception2        = $this->getException('My second exception', 20, $exception1);
+        $exception3        = $this->getException('And the third one', 10, $exception2);
+
+        $inspector         = $this->getInspectorInstance($exception3);
+
+        $previousExceptions = $inspector->getPreviousExceptionCodes();
+
+        $this->assertEquals($exception2->getCode(), $previousExceptions[0]);
+        $this->assertEquals($exception1->getCode(), $previousExceptions[1]);
     }
 }
