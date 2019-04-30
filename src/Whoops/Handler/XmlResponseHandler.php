@@ -47,7 +47,7 @@ class XmlResponseHandler extends Handler
             ),
         ];
 
-        echo static::toXml($response);
+        echo self::toXml($response);
 
         return Handler::QUIT;
     }
