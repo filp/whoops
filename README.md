@@ -28,6 +28,10 @@ powerful stacked error handling system.
 - Easy to extend and integrate with existing libraries
 - Clean, well-structured & tested code-base
 
+## Sponsors
+
+<a href="https://blackfire.io/docs/introduction"><img src="https://i.imgur.com/zR8rsqk.png" alt="Blackfire.io" width="254" height="64"></a>
+
 ## Installing
 If you use Laravel 4 or Laravel 5.5+, you already have Whoops. There are also community-provided instructions on how to integrate Whoops into
 [Silex 1](https://github.com/whoops-php/silex-1),
