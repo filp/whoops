@@ -375,6 +375,7 @@ final class Run implements RunInterface
         if ($error && Misc::isLevelFatal($error['type'])) {
             // If there was a fatal error,
             // it was not handled in handleError yet.
+            $this->allowQuit = false;
             $this->handleError(
                 $error['type'],
                 $error['message'],
