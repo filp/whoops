@@ -18,7 +18,7 @@ The following editors are currently supported by default.
 - `emacs`    - Emacs
 - `idea`     - IDEA
 - `macvim`   - MacVim
-- `phpstorm` - PhpStorm (macOS only)
+- `phpstorm` - PhpStorm
 - `sublime`  - Sublime Text 2 and possibly 3 (on OS X you might need [a special handler](https://github.com/inopinatus/sublime_url))
 - `textmate` - Textmate
 - `xdebug`   - xdebug (uses [xdebug.file_link_format](http://xdebug.org/docs/all_settings#file_link_format))
