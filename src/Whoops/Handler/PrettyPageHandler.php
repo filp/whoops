@@ -705,7 +705,7 @@ class PrettyPageHandler extends Handler
 
         $values = $superGlobal;
         foreach ($blacklisted as $key) {
-            if (isset($superGlobal[$key])) {
+            if (isset($superGlobal[$key]) && is_string($superGlobal[$key])) {
                 $values[$key] = str_repeat('*', strlen($superGlobal[$key]));
             }
         }
