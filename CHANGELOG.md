@@ -1,3 +1,7 @@
+# 2.3.2
+
+* Various fixes from the community.
+
 # 2.3.1
 
 * Prevent exception in Whoops when caught exception frame is not related to real file
