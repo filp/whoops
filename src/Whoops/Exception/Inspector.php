@@ -252,7 +252,7 @@ class Inspector
         }
 
         if (!extension_loaded('xdebug') || !xdebug_is_enabled()) {
-            return [];
+            return $traces;
         }
 
         // Use xdebug to get the full stack trace and remove the shutdown handler stack trace
