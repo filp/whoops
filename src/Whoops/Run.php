@@ -29,7 +29,7 @@ final class Run implements RunInterface
     /**
      * @var HandlerInterface[]
      */
-    private $handlerStack = [];
+    private $handlerQueue = [];
 
     private $silencedPatterns = [];
 
@@ -41,7 +41,7 @@ final class Run implements RunInterface
     }
 
     /**
-     * Prepends a handler to the start of the stack
+     * Prepends a handler to the start of the queue
      *
      * @throws InvalidArgumentException  If argument is not callable or instance of HandlerInterface
      * @param  Callable|HandlerInterface $handler
@@ -54,7 +54,7 @@ final class Run implements RunInterface
     }
 
     /**
-     * Appends a handler to the end of the stack
+     * Appends a handler to the end of the queue
      *
      * @throws InvalidArgumentException  If argument is not callable or instance of HandlerInterface
      * @param  Callable|HandlerInterface $handler
@@ -62,12 +62,12 @@ final class Run implements RunInterface
      */
     public function appendHandler($handler)
     {
-        array_push($this->handlerStack, $this->resolveHandler($handler));
+        array_push($this->handlerQueue, $this->resolveHandler($handler));
         return $this;
     }
 
     /**
-     * Prepends a handler to the start of the stack
+     * Prepends a handler to the start of the queue
      *
      * @throws InvalidArgumentException  If argument is not callable or instance of HandlerInterface
      * @param  Callable|HandlerInterface $handler
@@ -75,7 +75,7 @@ final class Run implements RunInterface
      */
     public function prependHandler($handler)
     {
-        array_unshift($this->handlerStack, $this->resolveHandler($handler));
+        array_unshift($this->handlerQueue, $this->resolveHandler($handler));
         return $this;
     }
 
@@ -103,43 +103,43 @@ final class Run implements RunInterface
     }
 
     /**
-     * Removes the last handler in the stack and returns it.
+     * Removes the last handler in the queue and returns it.
      * Returns null if there"s nothing else to pop.
      * @return null|HandlerInterface
      */
     public function popHandler()
     {
-        return array_pop($this->handlerStack);
+        return array_pop($this->handlerQueue);
     }
 
     /**
-     * Removes the first handler in the stack and returns it.
+     * Removes the first handler in the queue and returns it.
      * Returns null if there"s nothing else to shift.
      * @return null|HandlerInterface
      */
     public function shiftHandler()
     {
-        return array_shift($this->handlerStack);
+        return array_shift($this->handlerQueue);
     }
 
     /**
      * Returns an array with all handlers, in the
-     * order they were added to the stack.
+     * order they were added to the queue.
      * @return array
      */
     public function getHandlers()
     {
-        return $this->handlerStack;
+        return $this->handlerQueue;
     }
 
     /**
-     * Clears all handlers in the handlerStack, including
+     * Clears all handlers in the handlerQueue, including
      * the default PrettyPage handler.
      * @return Run
      */
     public function clearHandlers()
     {
-        $this->handlerStack = [];
+        $this->handlerQueue = [];
         return $this;
     }
 
@@ -308,7 +308,7 @@ final class Run implements RunInterface
         $handlerResponse = null;
         $handlerContentType = null;
 
-        foreach ($this->handlerStack as $handler) {
+        foreach ($this->handlerQueue as $handler) {
             $handler->setRun($this);
             $handler->setInspector($inspector);
             $handler->setException($exception);
