@@ -29,7 +29,7 @@ final class Run implements RunInterface
     /**
      * @var HandlerInterface[]
      */
-    private $handlerStack = [];
+    private $handlerQueue = [];
 
     private $silencedPatterns = [];
 
@@ -41,13 +41,52 @@ final class Run implements RunInterface
     }
 
     /**
-     * Pushes a handler to the end of the stack
+     * Prepends a handler to the start of the queue
+     *
+     * @throws InvalidArgumentException  If argument is not callable or instance of HandlerInterface
+     * @param  Callable|HandlerInterface $handler
+     * @return Run
+     * @deprecated use appendHandler and prependHandler instead
+     */
+    public function pushHandler($handler)
+    {
+        return $this->prependHandler($handler);
+    }
+
+    /**
+     * Appends a handler to the end of the queue
      *
      * @throws InvalidArgumentException  If argument is not callable or instance of HandlerInterface
      * @param  Callable|HandlerInterface $handler
      * @return Run
      */
-    public function pushHandler($handler)
+    public function appendHandler($handler)
+    {
+        array_push($this->handlerQueue, $this->resolveHandler($handler));
+        return $this;
+    }
+
+    /**
+     * Prepends a handler to the start of the queue
+     *
+     * @throws InvalidArgumentException  If argument is not callable or instance of HandlerInterface
+     * @param  Callable|HandlerInterface $handler
+     * @return Run
+     */
+    public function prependHandler($handler)
+    {
+        array_unshift($this->handlerQueue, $this->resolveHandler($handler));
+        return $this;
+    }
+
+    /**
+     * Create a CallbackHandler from callable and throw if handler is invalid
+     *
+     * @throws InvalidArgumentException  If argument is not callable or instance of HandlerInterface
+     * @param Callable|HandlerInterface $handler
+     * @return HandlerInterface
+     */
+    private function resolveHandler($handler)
     {
         if (is_callable($handler)) {
             $handler = new CallbackHandler($handler);
@@ -55,43 +94,52 @@ final class Run implements RunInterface
 
         if (!$handler instanceof HandlerInterface) {
             throw new InvalidArgumentException(
-                  "Argument to " . __METHOD__ . " must be a callable, or instance of "
+                "Argument to " . __METHOD__ . " must be a callable, or instance of "
                 . "Whoops\\Handler\\HandlerInterface"
             );
         }
 
-        $this->handlerStack[] = $handler;
-        return $this;
+        return $handler;
     }
 
     /**
-     * Removes the last handler in the stack and returns it.
+     * Removes the last handler in the queue and returns it.
      * Returns null if there"s nothing else to pop.
      * @return null|HandlerInterface
      */
     public function popHandler()
     {
-        return array_pop($this->handlerStack);
+        return array_pop($this->handlerQueue);
+    }
+
+    /**
+     * Removes the first handler in the queue and returns it.
+     * Returns null if there"s nothing else to shift.
+     * @return null|HandlerInterface
+     */
+    public function shiftHandler()
+    {
+        return array_shift($this->handlerQueue);
     }
 
     /**
      * Returns an array with all handlers, in the
-     * order they were added to the stack.
+     * order they were added to the queue.
      * @return array
      */
     public function getHandlers()
     {
-        return $this->handlerStack;
+        return $this->handlerQueue;
     }
 
     /**
-     * Clears all handlers in the handlerStack, including
+     * Clears all handlers in the handlerQueue, including
      * the default PrettyPage handler.
      * @return Run
      */
     public function clearHandlers()
     {
-        $this->handlerStack = [];
+        $this->handlerQueue = [];
         return $this;
     }
 
@@ -260,7 +308,7 @@ final class Run implements RunInterface
         $handlerResponse = null;
         $handlerContentType = null;
 
-        foreach (array_reverse($this->handlerStack) as $handler) {
+        foreach ($this->handlerQueue as $handler) {
             $handler->setRun($this);
             $handler->setInspector($inspector);
             $handler->setException($exception);
