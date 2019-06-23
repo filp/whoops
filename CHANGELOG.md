@@ -1,3 +1,7 @@
+# 2.4.0
+
+* Allow to prepend and append handlers.
+
 # 2.3.2
 
 * Various fixes from the community.
