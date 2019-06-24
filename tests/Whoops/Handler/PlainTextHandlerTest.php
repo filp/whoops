@@ -63,10 +63,13 @@ class PlainTextHandlerTest extends TestCase
         $run->register();
 
         $exception = $exception ?: $this->getException();
-        ob_start();
-        $run->handleException($exception);
-
-        return ob_get_clean();
+        
+        try {
+            ob_start();
+            $run->handleException($exception);
+        } finally {
+            return ob_get_clean();
+        }
     }
 
     /**
