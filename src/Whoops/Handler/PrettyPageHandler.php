@@ -17,6 +17,17 @@ use Whoops\Util\TemplateHelper;
 
 class PrettyPageHandler extends Handler
 {
+    const EDITOR_SUBLIME = "sublime";
+    const EDITOR_TEXTMATE = "textmate";
+    const EDITOR_EMACS = "emacs";
+    const EDITOR_MACVIM = "macvim";
+    const EDITOR_PHPSTORM = "phpstorm";
+    const EDITOR_IDEA = "idea";
+    const EDITOR_VSCODE = "vscode";
+    const EDITOR_ATOM = "atom";
+    const EDITOR_ESPRESSO = "espresso";
+    const EDITOR_XDEBUG = "xdebug";
+
     /**
      * Search paths to be scanned for resources, in the reverse
      * order they're declared.
