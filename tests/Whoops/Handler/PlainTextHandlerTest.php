@@ -269,11 +269,11 @@ class PlainTextHandlerTest extends TestCase
                 RuntimeException::class,
                 'Outer exception message',
                 __FILE__,
-                258,
+                261,
                 "\nCaused by\n" . RuntimeException::class,
                 'Inner exception message',
                 __FILE__,
-                258
+                261
             ),
             $text
         );
