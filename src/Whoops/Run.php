@@ -304,11 +304,11 @@ final class Run implements RunInterface
         // or return it silently.
         $this->system->startOutputBuffering();
         
-        try {
-            // Just in case there are no handlers:
-            $handlerResponse = null;
-            $handlerContentType = null;
+        // Just in case there are no handlers:
+        $handlerResponse = null;
+        $handlerContentType = null;
 
+        try {
             foreach ($this->handlerQueue as $handler) {
                 $handler->setRun($this);
                 $handler->setInspector($inspector);
