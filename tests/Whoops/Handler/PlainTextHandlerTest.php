@@ -63,10 +63,13 @@ class PlainTextHandlerTest extends TestCase
         $run->register();
 
         $exception = $exception ?: $this->getException();
-        ob_start();
-        $run->handleException($exception);
-
-        return ob_get_clean();
+        
+        try {
+            ob_start();
+            $run->handleException($exception);
+        } finally {
+            return ob_get_clean();
+        }
     }
 
     /**
@@ -266,11 +269,11 @@ class PlainTextHandlerTest extends TestCase
                 RuntimeException::class,
                 'Outer exception message',
                 __FILE__,
-                258,
+                261,
                 "\nCaused by\n" . RuntimeException::class,
                 'Inner exception message',
                 __FILE__,
-                258
+                261
             ),
             $text
         );
