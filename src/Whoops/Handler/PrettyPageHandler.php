@@ -126,6 +126,9 @@ class PrettyPageHandler extends Handler
             $this->editors['xdebug'] = function ($file, $line) {
                 return str_replace(['%f', '%l'], [$file, $line], ini_get('xdebug.file_link_format'));
             };
+
+            // If xdebug is available, use it as default editor.
+            $this->setEditor('xdebug');
         }
 
         // Add the default, local resource search path:
