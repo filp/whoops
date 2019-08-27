@@ -82,8 +82,8 @@ class RunTest extends TestCase
         $handlerOne = $this->getHandler();
         $handlerTwo = $this->getHandler();
 
-        $run->prependHandler($handlerOne);
-        $run->prependHandler($handlerTwo);
+        $run->pushHandler($handlerOne);
+        $run->pushHandler($handlerTwo);
 
         $handlers = $run->getHandlers();
 
@@ -99,7 +99,7 @@ class RunTest extends TestCase
     public function testPushInvalidHandler()
     {
         $run = $this->getRunInstance();
-        $run->prependHandler($banana = 'actually turnip');
+        $run->pushHandler($banana = 'actually turnip');
     }
 
     /**
@@ -108,7 +108,7 @@ class RunTest extends TestCase
     public function testPushClosureBecomesHandler()
     {
         $run = $this->getRunInstance();
-        $run->prependHandler(function () {});
+        $run->pushHandler(function () {});
         $this->assertInstanceOf('Whoops\\Handler\\CallbackHandler', $run->popHandler());
     }
 
@@ -124,9 +124,9 @@ class RunTest extends TestCase
         $handlerTwo   = $this->getHandler();
         $handlerThree = $this->getHandler();
 
-        $run->appendHandler($handlerOne);
-        $run->appendHandler($handlerTwo);
-        $run->appendHandler($handlerThree);
+        $run->pushHandler($handlerOne);
+        $run->pushHandler($handlerTwo);
+        $run->pushHandler($handlerThree);
 
         $this->assertSame($handlerThree, $run->popHandler());
         $this->assertSame($handlerTwo, $run->popHandler());
@@ -164,7 +164,7 @@ class RunTest extends TestCase
         $run->register();
 
         $handler = $this->getHandler();
-        $run->prependHandler($handler);
+        $run->pushHandler($handler);
 
         $run->unregister();
         throw $this->getException("I'm not supposed to be caught!");
@@ -183,10 +183,10 @@ class RunTest extends TestCase
         $handlerThree = $this->getHandler();
         $handlerFour  = $this->getHandler();
 
-        $run->appendHandler($handlerOne);
-        $run->appendHandler($handlerTwo);
-        $run->appendHandler($handlerThree);
-        $run->appendHandler($handlerFour);
+        $run->pushHandler($handlerOne);
+        $run->pushHandler($handlerTwo);
+        $run->pushHandler($handlerThree);
+        $run->pushHandler($handlerFour);
 
         $handlers = $run->getHandlers();
 
@@ -218,9 +218,9 @@ class RunTest extends TestCase
         $handlerThree->shouldReceive('handle')
             ->andReturnUsing(function () use ($order) { $order[] = 3; });
 
-        $run->prependHandler($handlerOne);
-        $run->prependHandler($handlerTwo);
-        $run->prependHandler($handlerThree);
+        $run->pushHandler($handlerOne);
+        $run->pushHandler($handlerTwo);
+        $run->pushHandler($handlerThree);
 
         // Get an exception to be handled, and verify that the handlers
         // are given the handler, and in the inverse order they were
@@ -239,8 +239,8 @@ class RunTest extends TestCase
         $handlerOne = $this->getHandler();
         $handlerTwo = $this->getHandler();
 
-        $run->prependHandler($handlerOne);
-        $run->prependHandler($handlerTwo);
+        $run->pushHandler($handlerOne);
+        $run->pushHandler($handlerTwo);
 
         $test = $this;
         $handlerOne
@@ -268,7 +268,7 @@ class RunTest extends TestCase
         $run->register();
 
         $handler = $this->getHandler();
-        $run->prependHandler($handler);
+        $run->pushHandler($handler);
 
         $test = $this;
         $handler
@@ -289,7 +289,7 @@ class RunTest extends TestCase
         $run->register();
 
         $handler = $this->getHandler();
-        $run->prependHandler($handler);
+        $run->pushHandler($handler);
 
         $test = $this;
         $handler
@@ -318,7 +318,7 @@ class RunTest extends TestCase
         $run->register();
 
         $handler = $this->getHandler();
-        $run->prependHandler($handler);
+        $run->pushHandler($handler);
 
         $test = $this;
         $handler
@@ -344,7 +344,7 @@ class RunTest extends TestCase
         $run->register();
 
         $handler = $this->getHandler();
-        $run->prependHandler($handler);
+        $run->pushHandler($handler);
 
         $test = $this;
         $handler
@@ -367,7 +367,7 @@ class RunTest extends TestCase
         $run->register();
 
         $handler = $this->getHandler();
-        $run->prependHandler($handler);
+        $run->pushHandler($handler);
 
         @strpos();
 
@@ -394,7 +394,7 @@ class RunTest extends TestCase
             $this->assertSame(99, $e->getLine());
         }
     }
-    
+
     /**
      * @covers Whoops\Run::handleException
      * @covers Whoops\Run::writeToOutput
@@ -402,7 +402,7 @@ class RunTest extends TestCase
     public function testOutputIsSent()
     {
         $run = $this->getRunInstance();
-        $run->prependHandler(function () {
+        $run->pushHandler(function () {
             echo "hello there";
         });
 
@@ -419,7 +419,7 @@ class RunTest extends TestCase
     {
         $run = $this->getRunInstance();
         $run->writeToOutput(false);
-        $run->prependHandler(function () {
+        $run->pushHandler(function () {
             echo "hello there";
         });
 
@@ -454,5 +454,59 @@ class RunTest extends TestCase
     public function testSendHttpCodeWrongCode()
     {
         $this->getRunInstance()->sendHttpCode(1337);
+    }
+
+    public function testAppendHandler()
+    {
+        $run       = $this->getRunInstance();
+        $exception = $this->getException();
+        $order     = new ArrayObject();
+
+        $handlerOne   = $this->getHandler();
+        $handlerTwo   = $this->getHandler();
+        $handlerThree = $this->getHandler();
+
+        $handlerOne->shouldReceive('handle')
+            ->andReturnUsing(function () use ($order) { $order[] = 1; });
+        $handlerTwo->shouldReceive('handle')
+            ->andReturnUsing(function () use ($order) { $order[] = 2; });
+        $handlerThree->shouldReceive('handle')
+            ->andReturnUsing(function () use ($order) { $order[] = 3; });
+
+        $run->appendHandler($handlerOne);
+        $run->appendHandler($handlerTwo);
+        $run->appendHandler($handlerThree);
+
+        // Get an exception to be handled, and verify that the handlers
+        // are given the handler, and in the right order.
+        $run->handleException($exception);
+        $this->assertEquals([1, 2, 3], $order->getArrayCopy());
+    }
+
+    public function testPrependHandler()
+    {
+        $run       = $this->getRunInstance();
+        $exception = $this->getException();
+        $order     = new ArrayObject();
+
+        $handlerOne   = $this->getHandler();
+        $handlerTwo   = $this->getHandler();
+        $handlerThree = $this->getHandler();
+
+        $handlerOne->shouldReceive('handle')
+            ->andReturnUsing(function () use ($order) { $order[] = 1; });
+        $handlerTwo->shouldReceive('handle')
+            ->andReturnUsing(function () use ($order) { $order[] = 2; });
+        $handlerThree->shouldReceive('handle')
+            ->andReturnUsing(function () use ($order) { $order[] = 3; });
+
+        $run->prependHandler($handlerOne);
+        $run->prependHandler($handlerTwo);
+        $run->prependHandler($handlerThree);
+
+        // Get an exception to be handled, and verify that the handlers
+        // are given the handler, and in the right order.
+        $run->handleException($exception);
+        $this->assertEquals([3, 2, 1], $order->getArrayCopy());
     }
 }
