@@ -303,7 +303,7 @@ final class Run implements RunInterface
         // we might want to send it straight away to the client,
         // or return it silently.
         $this->system->startOutputBuffering();
-        
+
         // Just in case there are no handlers:
         $handlerResponse = null;
         $handlerContentType = null;
@@ -377,11 +377,14 @@ final class Run implements RunInterface
      * @param string $message
      * @param string $file
      * @param int    $line
+     * @param array  $errcontext
      *
      * @return bool
      * @throws ErrorException
+     *
+     * @see https://www.php.net/manual/en/function.set-error-handler.php documentation
      */
-    public function handleError($level, $message, $file = null, $line = null)
+    public function handleError($level, $message, $file = null, $line = null, $errcontext = [])
     {
         if ($level & $this->system->getErrorReportingLevel()) {
             foreach ($this->silencedPatterns as $entry) {
