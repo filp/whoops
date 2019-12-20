@@ -1,28 +1,32 @@
 language: php
 
-dist: trusty
-
-php:
-  - 5.5
-  - 5.6
-  - 7.0
-  - 7.1
-  - 7.2
-  - 7.3
-  - hhvm-3.30
-
-sudo: false
-
 env:
   global:
     SETUP=basic
 
 matrix:
   include:
-    - php: 5.6
-      env: SETUP=lowest
     - php: 5.5.9
-      dist: precise
+      dist: trusty
+    - php: 5.5
+      dist: trusty
+    - php: 5.6
+      dist: xenial
+    - php: 5.6
+      dist: xenial
+      env: SETUP=lowest
+    - php: 7.0
+      dist: xenial
+    - php: 7.1
+      dist: bionic
+    - php: 7.2
+      dist: bionic
+    - php: 7.3
+      dist: bionic
+    - php: 7.4
+      dist: bionic
+    - php: hhvm-3.30
+      dist: trusty
 
 cache:
   directories:
