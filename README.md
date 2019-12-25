@@ -62,7 +62,7 @@ If you are not using any of these frameworks, here's a very simple way to instal
 
     ```php
     $whoops = new \Whoops\Run;
-    $whoops->prependHandler(new \Whoops\Handler\PrettyPageHandler);
+    $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
     $whoops->register();
     ```
 

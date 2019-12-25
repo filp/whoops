@@ -26,7 +26,7 @@ $run = new Run();
 
 // We want the error page to be shown by default, if this is a
 // regular request, so that's the first thing to go into the stack:
-$run->prependHandler(new PrettyPageHandler());
+$run->pushHandler(new PrettyPageHandler());
 
 // Now, we want a second handler that will run before the error page,
 // and immediately return an error message in JSON format, if something
@@ -42,8 +42,8 @@ if (\Whoops\Util\Misc::isAjaxRequest()) {
     // tl;dr: error[] becomes errors[[]]
    $jsonHandler->setJsonApi(true);
 
-    // And prepend it into the stack:
-    $run->prependHandler($jsonHandler);
+    // And push it into the stack:
+    $run->pushHandler($jsonHandler);
 }
 
 // That's it! Register Whoops and throw a dummy exception:

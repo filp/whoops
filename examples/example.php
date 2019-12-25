@@ -50,10 +50,10 @@ $handler->addDataTableCallback('Details', function(\Whoops\Exception\Inspector $
     return $data;
 });
 
-$run->prependHandler($handler);
+$run->pushHandler($handler);
 
 // Example: tag all frames inside a function with their function name
-$run->prependHandler(function ($exception, $inspector, $run) {
+$run->pushHandler(function ($exception, $inspector, $run) {
 
     $inspector->getFrames()->map(function ($frame) {
 
