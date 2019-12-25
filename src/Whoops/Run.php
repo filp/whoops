@@ -41,7 +41,25 @@ final class Run implements RunInterface
     }
 
     /**
-     * Pushes a handler to the end of the stack
+     * Explicitly request your handler runs as the last of all currently registered handlers
+     */
+    public function appendHandler($handler)
+    {
+        array_unshift($this->handlerStack, $this->resolveHandler($handler));
+        return $this;
+    }
+
+    /**
+     * Explicitly request your handler runs as the first of all currently registered handlers
+     */
+    public function prependHandler($handler)
+    {
+        return $this->pushHandler($handler);
+    }
+
+    /**
+     * Register your handler as the last of all currently registered handlers.
+     * Prefer using appendHandler and prependHandler for clarity.
      *
      * @throws InvalidArgumentException  If argument is not callable or instance of HandlerInterface
      * @param  Callable|HandlerInterface $handler
@@ -49,18 +67,7 @@ final class Run implements RunInterface
      */
     public function pushHandler($handler)
     {
-        if (is_callable($handler)) {
-            $handler = new CallbackHandler($handler);
-        }
-
-        if (!$handler instanceof HandlerInterface) {
-            throw new InvalidArgumentException(
-                  "Argument to " . __METHOD__ . " must be a callable, or instance of "
-                . "Whoops\\Handler\\HandlerInterface"
-            );
-        }
-
-        $this->handlerStack[] = $handler;
+        $this->handlerStack[] = $this->resolveHandler($handler);
         return $this;
     }
 
@@ -392,6 +399,22 @@ final class Run implements RunInterface
      * @var bool
      */
     private $canThrowExceptions = true;
+
+    private function resolveHandler($handler)
+    {
+        if (is_callable($handler)) {
+            $handler = new CallbackHandler($handler);
+        }
+
+        if (!$handler instanceof HandlerInterface) {
+            throw new InvalidArgumentException(
+                  "Handler must be a callable, or instance of "
+                . "Whoops\\Handler\\HandlerInterface"
+            );
+        }
+
+        return $handler;
+    }
 
     /**
      * Echo something to the browser

@@ -184,16 +184,16 @@ class RunTest extends TestCase
         $handlerFour  = $this->getHandler();
 
         $run->pushHandler($handlerOne);
-        $run->pushHandler($handlerTwo);
-        $run->pushHandler($handlerThree);
-        $run->pushHandler($handlerFour);
+        $run->prependHandler($handlerTwo);
+        $run->appendHandler($handlerThree);
+        $run->appendHandler($handlerFour);
 
         $handlers = $run->getHandlers();
 
-        $this->assertSame($handlers[0], $handlerOne);
-        $this->assertSame($handlers[1], $handlerTwo);
-        $this->assertSame($handlers[2], $handlerThree);
-        $this->assertSame($handlers[3], $handlerFour);
+        $this->assertSame($handlers[0], $handlerFour);
+        $this->assertSame($handlers[1], $handlerThree);
+        $this->assertSame($handlers[2], $handlerOne);
+        $this->assertSame($handlers[3], $handlerTwo);
     }
 
     /**
@@ -238,20 +238,38 @@ class RunTest extends TestCase
 
         $handlerOne = $this->getHandler();
         $handlerTwo = $this->getHandler();
+        $handlerThree = $this->getHandler();
+        $handlerFour = $this->getHandler();
 
         $run->pushHandler($handlerOne);
-        $run->pushHandler($handlerTwo);
+        $run->prependHandler($handlerTwo);
+        $run->appendHandler($handlerThree);
+        $run->appendHandler($handlerFour);
 
         $test = $this;
-        $handlerOne
+        $handlerFour
             ->shouldReceive('handle')
             ->andReturnUsing(function () use ($test) {
-                $test->fail('$handlerOne should not be called');
+                $test->fail('$handlerFour should not be called');
+            });
+
+        $handlerThree
+            ->shouldReceive('handle')
+            ->andReturn(Handler::LAST_HANDLER);
+
+        $twoRan = false;
+
+        $handlerOne
+            ->shouldReceive('handle')
+            ->andReturnUsing(function () use ($test, &$twoRan) {
+                $test->assertTrue($twoRan);
             });
 
         $handlerTwo
             ->shouldReceive('handle')
-            ->andReturn(Handler::LAST_HANDLER);
+            ->andReturnUsing(function () use (&$twoRan) {
+                $twoRan = true;
+            });
 
         $run->handleException($this->getException());
 
@@ -394,7 +412,7 @@ class RunTest extends TestCase
             $this->assertSame(99, $e->getLine());
         }
     }
-    
+
     /**
      * @covers Whoops\Run::handleException
      * @covers Whoops\Run::writeToOutput
