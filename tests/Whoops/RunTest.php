@@ -142,6 +142,30 @@ class RunTest extends TestCase
     }
 
     /**
+     * @covers Whoops\Run::removeFirstHandler
+     * @covers Whoops\Run::removeLastHandler
+     * @covers Whoops\Run::getHandlers
+     */
+    public function testRemoveHandler()
+    {
+        $run = $this->getRunInstance();
+
+        $handlerOne   = $this->getHandler();
+        $handlerTwo   = $this->getHandler();
+        $handlerThree = $this->getHandler();
+
+        $run->pushHandler($handlerOne);
+        $run->pushHandler($handlerTwo);
+        $run->pushHandler($handlerThree);
+
+        $run->removeLastHandler();
+        $this->assertSame($handlerTwo, $run->getHandlers()[0]);
+        $run->removeFirstHandler();
+        $this->assertSame($handlerTwo, $run->getHandlers()[0]);
+        $this->assertCount(1, $run->getHandlers());
+    }
+
+    /**
      * @covers Whoops\Run::register
      */
     public function testRegisterHandler()
