@@ -34,13 +34,14 @@ string Run::SHUTDOWN_HANDLER  // (name for shutdown handler method)
 ### Methods
 
 ```php
-// Pushes a new handler to the stack of handlers
-Run::pushHandler(Whoops\HandlerInterface $handler)
- #=> Whoops\Run
-
-// Pops and returns the last handler from the stack
-Run::popHandler()
- #=> Whoops\HandlerInterface
+Run::prependHandler(Whoops\HandlerInterface $handler)
+  #=> Whoops\Run
+Run::appendHandler(Whoops\HandlerInterface $handler)
+  #=> Whoops\Run
+Run::removeFirstHandler()
+  #=> null
+Run::removeLastHandler()
+  #=> null
 
 // Returns all handlers in the stack
 Run::getHandlers()
@@ -373,11 +374,11 @@ PrettyPageHandler::setEditor(string $editor)
 PrettyPageHandler::setEditor(function ($file, $line) { return string })
 
 // Additionally you may want that the link acts as an ajax request (e.g. Intellij platform)
-PrettyPageHandler::setEditor(function ($file, $line) { 
+PrettyPageHandler::setEditor(function ($file, $line) {
         return array(
             'url' => "http://localhost:63342/api/file/?file=$file&line=$line",
             'ajax' => true
-        ); 
+        );
     }
 )
  #=> null
@@ -394,8 +395,8 @@ PrettyPageHandler::setEditor(function ($file, $line) {
 // $handler->addEditor('whatevs', 'whatevs://open?file=file://%file&line=%line')
 PrettyPageHandler::addEditor(string $editor, $resolver)
  #=> null
- 
- 
+
+
 
 PrettyPageHandler::handle()
  #=> int | null
