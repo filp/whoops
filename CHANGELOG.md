@@ -1,3 +1,7 @@
+# 2.7.1
+
+* Fix a PHP warning in some cases with anonymous classes.
+
 # 2.7.0
 
 * removeFirstHandler and removeLastHandler.
