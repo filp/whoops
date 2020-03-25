@@ -64,6 +64,11 @@ Run::unregister()
 Run::allowQuit($allowQuit = null)
  #=> bool
 
+// Silence errors for paths matching regular expressions and PHP error constants.
+// Can be called multiple times.
+Run::silenceErrorsInPaths($patterns, $levels = E_STRICT | E_DEPRECATED)
+ #=> Whoops\Run
+ 
 // If true, allows Whoops to send output produced by handlers directly
 // to the client. You'll want to set this to false if you want to
 // package the handlers' response into your HTTP response abstraction
