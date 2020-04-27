@@ -51,6 +51,13 @@ class PrettyPageHandler extends Handler
     private $customCss = null;
 
     /**
+     * The name of the custom js file.
+     *
+     * @var string
+     */
+    private $customJs = null;
+
+    /**
      * @var array[]
      */
     private $extraTables = [];
@@ -193,6 +200,10 @@ class PrettyPageHandler extends Handler
             $customCssFile = $this->getResource($this->customCss);
         }
 
+        if ($this->customJs) {
+            $customJsFile = $this->getResource($this->customJs);
+        }
+
         $inspector = $this->getInspector();
         $frames = $this->getExceptionFrames();
         $code = $this->getExceptionCode();
@@ -250,6 +261,10 @@ class PrettyPageHandler extends Handler
 
         if (isset($customCssFile)) {
             $vars["stylesheet"] .= file_get_contents($customCssFile);
+        }
+
+        if (isset($customJsFile)) {
+            $vars["javascript"] .= file_get_contents($customJsFile);
         }
 
         // Add extra entries list of data tables:
@@ -591,6 +606,17 @@ class PrettyPageHandler extends Handler
     public function addCustomCss($name)
     {
         $this->customCss = $name;
+    }
+
+    /**
+     * Adds a custom js file to be loaded.
+     *
+     * @param  string $name
+     * @return void
+     */
+    public function addCustomJs($name)
+    {
+        $this->customJs = $name;
     }
 
     /**
