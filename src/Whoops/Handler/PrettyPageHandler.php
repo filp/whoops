@@ -47,14 +47,14 @@ class PrettyPageHandler extends Handler
     /**
      * The name of the custom css file.
      *
-     * @var string
+     * @var string|null
      */
     private $customCss = null;
 
     /**
      * The name of the custom js file.
      *
-     * @var string
+     * @var string|null
      */
     private $customJs = null;
 
@@ -518,8 +518,8 @@ class PrettyPageHandler extends Handler
     /**
      * Determine if the editor link should act as an Ajax request.
      *
-     * @param string  $filePath
-     * @param int     $line
+     * @param string $filePath
+     * @param int    $line
      *
      * @throws UnexpectedValueException If editor resolver does not return a boolean
      *
@@ -611,7 +611,7 @@ class PrettyPageHandler extends Handler
     /**
      * Adds a path to the list of paths to be searched for resources.
      *
-     * @param  string $path
+     * @param string $path
      *
      * @throws InvalidArgumentException If $path is not a valid directory
      *
@@ -631,7 +631,7 @@ class PrettyPageHandler extends Handler
     /**
      * Adds a custom css file to be loaded.
      *
-     * @param string $name
+     * @param string|null $name
      *
      * @return void
      */
@@ -643,7 +643,8 @@ class PrettyPageHandler extends Handler
     /**
      * Adds a custom js file to be loaded.
      *
-     * @param  string $name
+     * @param string|null $name
+     *
      * @return void
      */
     public function addCustomJs($name)
@@ -666,7 +667,7 @@ class PrettyPageHandler extends Handler
      * way back to the first, enabling a cascading-type system of overrides for
      * all resources.
      *
-     * @param  string $resource
+     * @param string $resource
      *
      * @throws RuntimeException If resource cannot be found in any of the available paths
      *
@@ -778,7 +779,7 @@ class PrettyPageHandler extends Handler
      * only '*' characters. We intentionally dont rely on $GLOBALS as it
      * depends on the 'auto_globals_jit' php.ini setting.
      *
-     * @param array $superGlobal      One of the superglobal arrays
+     * @param array  $superGlobal     One of the superglobal arrays
      * @param string $superGlobalName The name of the superglobal array, e.g. '_GET'
      *
      * @return array $values without sensitive data
