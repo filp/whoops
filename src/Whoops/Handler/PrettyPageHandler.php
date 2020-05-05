@@ -125,7 +125,7 @@ class PrettyPageHandler extends Handler
     /**
      * @var TemplateHelper
      */
-    private $templateHelper;
+    protected $templateHelper;
 
     /**
      * Constructor.
@@ -410,7 +410,7 @@ class PrettyPageHandler extends Handler
     }
 
     /**
-     * Set whether to handle unconditionally. 
+     * Set whether to handle unconditionally.
      *
      * Allows to disable all attempts to dynamically decide whether to handle
      * or return prematurely. Set this to ensure that the handler will perform,
