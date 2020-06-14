@@ -761,15 +761,29 @@ class PrettyPageHandler extends Handler
 
     /**
      * blacklist a sensitive value within one of the superglobal arrays.
+     * Alias for the hideSuperglobalKey method.
      *
      * @param string $superGlobalName The name of the superglobal array, e.g. '_GET'
      * @param string $key             The key within the superglobal
+     * @see hideSuperglobalKey
      *
      * @return void
      */
     public function blacklist($superGlobalName, $key)
     {
         $this->blacklist[$superGlobalName][] = $key;
+    }
+
+    /**
+     * Hide a sensitive value within one of the superglobal arrays.
+     *
+     * @param string $superGlobalName The name of the superglobal array, e.g. '_GET'
+     * @param string $key             The key within the superglobal
+     * @return void
+     */
+    public function hideSuperglobalKey($superGlobalName, $key)
+    {
+        return $this->blacklist($superGlobalName, $key);
     }
 
     /**
