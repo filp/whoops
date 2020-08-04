@@ -1,3 +1,12 @@
+# 2.7.3
+
+* PrettyPageHandler functionality to hide superglobal keys has a clearer name hideSuperglobalKey
+
+# 2.7.2
+
+* PrettyPageHandler now accepts custom js files
+* PrettyPageHandler templateHelper is now accessible through inheritance
+
 # 2.7.1
 
 * Fix a PHP warning in some cases with anonymous classes.
