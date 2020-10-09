@@ -16,9 +16,9 @@ class TemplateHelperTest extends TestCase
     private $helper;
 
     /**
-     * {@inheritDoc}
+     * @before
      */
-    public function setUp()
+    public function getReady()
     {
         $this->helper = new TemplateHelper();
     }

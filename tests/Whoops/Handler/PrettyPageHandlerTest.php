@@ -81,12 +81,12 @@ class PrettyPageHandlerTest extends TestCase
 
     /**
      * @covers Whoops\Handler\PrettyPageHandler::addResourcePath
-     * @expectedException InvalidArgumentException
      */
     public function testSetInvalidResourcesPath()
     {
-        $path = __DIR__ . '/ZIMBABWE'; // guaranteed to be invalid!
-        $this->getHandler()->addResourcePath($path);
+        $this->expectExceptionOfType('InvalidArgumentException');
+
+        $this->getHandler()->addResourcePath(__DIR__ . '/ZIMBABWE');
     }
 
     /**

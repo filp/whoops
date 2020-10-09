@@ -22,6 +22,47 @@ class TestCase extends BaseTestCase
     }
 
     /**
+     * @param  string $class
+     * @return void
+     */
+    protected function expectExceptionOfType($class)
+    {
+        if (method_exists($this, 'expectException')) {
+            $this->expectException($class);
+        } else {
+            $this->setExpectedException($class);
+        }
+    }
+
+    /**
+     * @param  string $a
+     * @param  string $b
+     * @return void
+     */
+    protected function assertStringContains($a, $b)
+    {
+        if (method_exists($this, 'assertStringContainsString')) {
+            $this->assertStringContainsString($a, $b);
+        } else {
+            $this->assertContains($a, $b);
+        }
+    }
+
+    /**
+     * @param  string $a
+     * @param  string $b
+     * @return void
+     */
+    protected function assertStringNotContains($a, $b)
+    {
+        if (method_exists($this, 'assertStringNotContainsString')) {
+            $this->assertStringNotContainsString($a, $b);
+        } else {
+            $this->assertNotContains($a, $b);
+        }
+    }
+
+    /**
      * @param  object|string $class_or_object
      * @param  string        $method
      * @param  mixed[]       $args

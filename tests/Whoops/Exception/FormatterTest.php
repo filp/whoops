@@ -14,7 +14,7 @@ class FormatterTest extends TestCase
     {
         $msg = 'Sample exception message foo';
         $output = Formatter::formatExceptionPlain(new Inspector(new \Exception($msg)));
-        $this->assertContains($msg, $output);
-        $this->assertContains('Stacktrace', $output);
+        $this->assertStringContains($msg, $output);
+        $this->assertStringContains('Stacktrace', $output);
     }
 }
