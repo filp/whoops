@@ -29,12 +29,14 @@ matrix:
       dist: bionic
     - php: hhvm-3.30
       dist: trusty
+      before_install:
+        - travis_retry composer require "phpunit/phpunit:^5.7.27" --dev --no-update --no-interaction
 
 cache:
   directories:
     - "$HOME/.composer/cache"
 
-before_script:
+install:
   - if [[ "$SETUP" = "basic" ]]; then composer install --no-interaction --prefer-dist; fi
   - if [[ "$SETUP" = "lowest" ]]; then travis_retry composer update --prefer-dist --no-interaction --prefer-lowest --prefer-stable; fi
   - if [[ $TRAVIS_PHP_VERSION = "5.6" && "$SETUP" = "basic" ]]; then PHPUNIT_FLAGS="--coverage-clover build/logs/clover.xml"; fi
