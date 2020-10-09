@@ -31,6 +31,7 @@ matrix:
       dist: trusty
       before_install:
         - travis_retry composer require "phpunit/phpunit:^5.7.27" --dev --no-update --no-interaction
+        - travis_retry composer require "mockery/mockery:^0.9.11" --dev --no-update --no-interaction
 
 cache:
   directories:
