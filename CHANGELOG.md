@@ -1,3 +1,7 @@
+# 2.8.0
+
+* Support PHP 8
+
 # 2.7.3
 
 * PrettyPageHandler functionality to hide superglobal keys has a clearer name hideSuperglobalKey
