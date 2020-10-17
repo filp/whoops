@@ -22,13 +22,19 @@ class SystemFacadeTest extends TestCase
             : call_user_func_array("\\$fn", $args);
     }
 
-    protected function setUp()
+    /**
+     * @before
+     */
+    public function getReady()
     {
         self::$runtime = \Mockery::mock(['ob_start' => true]);
         $this->facade = new SystemFacade();
     }
 
-    protected function tearDown()
+    /**
+     * @after
+     */
+    public function finishUp()
     {
         self::$runtime = null;
         \Mockery::close();
