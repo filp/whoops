@@ -1,3 +1,7 @@
+# 2.9.0
+
+* JsonResponseHandler includes the exception code
+
 # 2.8.0
 
 * Support PHP 8
