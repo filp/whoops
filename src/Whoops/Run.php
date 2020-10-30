@@ -45,6 +45,7 @@ final class Run implements RunInterface
 
     /**
      * @var array
+     * @psalm-var list<array{patterns: string, levels: int}>
      */
     private $silencedPatterns = [];
 
