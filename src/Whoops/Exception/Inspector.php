@@ -251,7 +251,7 @@ class Inspector
             return $traces;
         }
 
-        if (!extension_loaded('xdebug') || !xdebug_is_enabled()) {
+        if (!extension_loaded('xdebug') || !function_exists('xdebug_is_enabled') || !xdebug_is_enabled()) {
             return $traces;
         }
 
