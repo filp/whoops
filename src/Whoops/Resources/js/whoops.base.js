@@ -117,7 +117,7 @@ Zepto(function($) {
   var btn = document.querySelector('.clipboard');
 
   btn.addEventListener('mouseleave', function(e) {
-    e.currentTarget.setAttribute('class', 'clipboard');
+    e.currentTarget.setAttribute('class', 'rightButton clipboard');
     e.currentTarget.removeAttribute('aria-label');
   });
 
