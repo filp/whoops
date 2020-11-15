@@ -70,6 +70,16 @@ For more options, have a look at the **example files** in [`examples/`](./exampl
 
 You may also want to override some system calls Whoops does. To do that, extend `Whoops\Util\SystemFacade`, override functions that you want and pass it as the argument to the `Run` constructor.
 
+You may also collect the HTML generated to process it yourself:
+
+    ```php
+    $whoops = new \Whoops\Run;
+    $whoops->allowQuit(false);
+    $whoops->writeToOutput(false);
+    $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+    $html = $whoops->handleException($e);
+    ```
+
 ### Available Handlers
 
 **whoops** currently ships with the following built-in handlers, available in the `Whoops\Handler` namespace:
