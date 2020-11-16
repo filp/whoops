@@ -72,13 +72,13 @@ You may also want to override some system calls Whoops does. To do that, extend 
 
 You may also collect the HTML generated to process it yourself:
 
-    ```php
-    $whoops = new \Whoops\Run;
-    $whoops->allowQuit(false);
-    $whoops->writeToOutput(false);
-    $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
-    $html = $whoops->handleException($e);
-    ```
+```php
+$whoops = new \Whoops\Run;
+$whoops->allowQuit(false);
+$whoops->writeToOutput(false);
+$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+$html = $whoops->handleException($e);
+```
 
 ### Available Handlers
 
