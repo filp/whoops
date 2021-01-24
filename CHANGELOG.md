@@ -1,3 +1,7 @@
+# 2.9.2
+
+* Fix copy button styles
+
 # 2.9.1
 
 * Fix xdebug function crash on PHP 8
