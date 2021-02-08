@@ -32,7 +32,7 @@ powerful stacked error handling system.
 <a href="https://blackfire.io/docs/introduction?utm_source=whoops&amp;utm_medium=github_readme&amp;utm_campaign=logo"><img src="https://i.imgur.com/zR8rsqk.png" alt="Blackfire.io" width="254" height="64"></a>
 
 ## Installing
-If you use Laravel 4 or Laravel 5.5+, you already have Whoops. There are also community-provided instructions on how to integrate Whoops into
+If you use Laravel 4, Laravel 5.5+ or [Mezzio](https://docs.mezzio.dev/mezzio/), you already have Whoops. There are also community-provided instructions on how to integrate Whoops into
 [Silex 1](https://github.com/whoops-php/silex-1),
 [Silex 2](https://github.com/texthtml/whoops-silex),
 [Phalcon](https://github.com/whoops-php/phalcon),
