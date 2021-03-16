@@ -63,7 +63,7 @@ class PlainTextHandlerTest extends TestCase
         $run->register();
 
         $exception = $exception ?: $this->getException();
-        
+
         try {
             ob_start();
             $run->handleException($exception);
@@ -100,7 +100,7 @@ class PlainTextHandlerTest extends TestCase
     {
         $handler = $this->getHandler();
 
-        $handler->addTraceToOutput(true);
+        $this->assertEquals($handler, $handler->addTraceToOutput(true));
         $this->assertTrue($handler->addTraceToOutput());
 
         $handler->addTraceToOutput(false);
@@ -129,7 +129,7 @@ class PlainTextHandlerTest extends TestCase
     {
         $handler = $this->getHandler();
 
-        $handler->addTraceFunctionArgsToOutput(true);
+        $this->assertEquals($handler, $handler->addTraceFunctionArgsToOutput(true));
         $this->assertTrue($handler->addTraceFunctionArgsToOutput());
 
         $handler->addTraceFunctionArgsToOutput(false);
@@ -178,7 +178,7 @@ class PlainTextHandlerTest extends TestCase
     {
         $handler = $this->getHandler();
 
-        $handler->loggerOnly(true);
+        $this->assertEquals($handler, $handler->loggerOnly(true));
         $this->assertTrue($handler->loggerOnly());
 
         $handler->loggerOnly(false);
