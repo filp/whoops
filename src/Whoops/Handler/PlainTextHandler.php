@@ -108,7 +108,7 @@ class PlainTextHandler extends Handler
     /**
      * Add error trace to output.
      * @param  bool|null  $addTraceToOutput
-     * @return bool|$this
+     * @return bool|static
      */
     public function addTraceToOutput($addTraceToOutput = null)
     {
@@ -123,7 +123,7 @@ class PlainTextHandler extends Handler
     /**
      * Add previous exceptions to output.
      * @param  bool|null $addPreviousToOutput
-     * @return bool|$this
+     * @return bool|static
      */
     public function addPreviousToOutput($addPreviousToOutput = null)
     {
