@@ -58,7 +58,7 @@ class PrettyPageHandlerTest extends TestCase
     {
         $title = 'My Cool Error Handler';
         $handler = $this->getHandler();
-        $handler->setPageTitle($title);
+        $this->assertEquals($handler, $handler->setPageTitle($title));
 
         $this->assertEquals($title, $handler->getPagetitle());
     }
@@ -72,7 +72,7 @@ class PrettyPageHandlerTest extends TestCase
         $path = __DIR__; // guaranteed to be valid!
         $handler = $this->getHandler();
 
-        $handler->addResourcePath($path);
+        $this->assertEquals($handler, $handler->addResourcePath($path));
         $allPaths = $handler->getResourcePaths();
 
         $this->assertCount(2, $allPaths);
@@ -110,8 +110,8 @@ class PrettyPageHandlerTest extends TestCase
             'time'  => time(),
         ];
 
-        $handler->addDataTable('table 1', $tableOne);
-        $handler->addDataTable('table 2', $tableTwo);
+        $this->assertEquals($handler, $handler->addDataTable('table 1', $tableOne));
+        $this->assertEquals($handler, $handler->addDataTable('table 2', $tableTwo));
 
         // should contain both tables:
         $tables = $handler->getDataTables();
@@ -178,10 +178,10 @@ class PrettyPageHandlerTest extends TestCase
         $this->assertSame($expected3, $table3());
         $this->assertSame($expected4, $table4($inspectorForTable4));
 
-        $handler->addDataTableCallback('table1', $table1);
-        $handler->addDataTableCallback('table2', $table2);
-        $handler->addDataTableCallback('table3', $table3);
-        $handler->addDataTableCallback('table4', $table4);
+        $this->assertEquals($handler, $handler->addDataTableCallback('table1', $table1));
+        $this->assertEquals($handler, $handler->addDataTableCallback('table2', $table2));
+        $this->assertEquals($handler, $handler->addDataTableCallback('table3', $table3));
+        $this->assertEquals($handler, $handler->addDataTableCallback('table4', $table4));
 
         $tables = $handler->getDataTables();
         $this->assertCount(4, $tables);
@@ -209,7 +209,7 @@ class PrettyPageHandlerTest extends TestCase
     public function testSetEditorSimple()
     {
         $handler = $this->getHandler();
-        $handler->setEditor('sublime');
+        $this->assertEquals($handler, $handler->setEditor('sublime'));
 
         $this->assertEquals(
             $handler->getEditorHref('/foo/bar.php', 10),
@@ -237,11 +237,11 @@ class PrettyPageHandlerTest extends TestCase
         $handler = $this->getHandler();
 
         // Test Callable editor with String return
-        $handler->setEditor(function ($file, $line) {
+        $this->assertEquals($handler, $handler->setEditor(function ($file, $line) {
             $file = rawurlencode($file);
             $line = rawurlencode($line);
             return "http://google.com/search/?q=$file:$line";
-        });
+        }));
 
         $this->assertEquals(
             $handler->getEditorHref('/foo/bar.php', 10),
@@ -249,14 +249,14 @@ class PrettyPageHandlerTest extends TestCase
         );
 
         // Then test Callable editor with Array return
-        $handler->setEditor(function ($file, $line) {
+        $this->assertEquals($handler, $handler->setEditor(function ($file, $line) {
             $file = rawurlencode($file);
             $line = rawurlencode($line);
             return [
                 'url' => "http://google.com/search/?q=$file:$line",
                 'ajax' => true,
             ];
-        });
+        }));
 
         $this->assertEquals(
             $handler->getEditorHref('/foo/bar.php', 10),
@@ -269,14 +269,14 @@ class PrettyPageHandlerTest extends TestCase
         );
 
 
-        $handler->setEditor(function ($file, $line) {
+        $this->assertEquals($handler, $handler->setEditor(function ($file, $line) {
             $file = rawurlencode($file);
             $line = rawurlencode($line);
             return [
                 'url' => "http://google.com/search/?q=$file:$line",
                 'ajax' => false,
             ];
-        });
+        }));
 
         $this->assertEquals(
             $handler->getEditorHref('/foo/bar.php', 10),
@@ -288,9 +288,9 @@ class PrettyPageHandlerTest extends TestCase
             false
         );
 
-        $handler->setEditor(function ($file, $line) {
+        $this->assertEquals($handler, $handler->setEditor(function ($file, $line) {
             return false;
-        });
+        }));
 
         $this->assertEquals(
             $handler->getEditorHref('/foo/bar.php', 10),
@@ -306,11 +306,12 @@ class PrettyPageHandlerTest extends TestCase
     public function testAddEditor()
     {
         $handler = $this->getHandler();
-        $handler->addEditor('test-editor', function ($file, $line) {
+        $this->assertEquals($handler, $handler->addEditor('test-editor',
+                function ($file, $line) {
             return "cool beans $file:$line";
-        });
+        }));
 
-        $handler->setEditor('test-editor');
+        $this->assertEquals($handler, $handler->setEditor('test-editor'));
 
         $this->assertEquals(
             $handler->getEditorHref('hello', 20),
@@ -332,7 +333,7 @@ class PrettyPageHandlerTest extends TestCase
         ini_set('xdebug.file_link_format', '%f:%l');
 
         $handler = $this->getHandler();
-        $handler->setEditor('xdebug');
+        $this->assertEquals($handler, $handler->setEditor('xdebug'));
 
         $this->assertEquals(
             '/foo/bar.php:10',

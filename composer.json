@@ -11,6 +11,9 @@
             "role": "Developer"
         }
     ],
+    "scripts": {
+        "test": "phpunit --testdox tests"
+    },
     "require": {
         "php": "^5.5.9 || ^7.0 || ^8.0",
         "psr/log": "^1.0.1"        
