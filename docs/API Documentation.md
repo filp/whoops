@@ -60,6 +60,10 @@ Run::register()
 Run::unregister()
  #=> Whoops\Run
 
+// Send a custom exit code in CLI context (default: 1)
+Run::sendExitCode($code = null)
+ #=> int
+
 // If true, allows Whoops to terminate script execution (default: true)
 Run::allowQuit($allowQuit = null)
  #=> bool

@@ -503,4 +503,33 @@ class RunTest extends TestCase
 
         $this->getRunInstance()->sendHttpCode(1337);
     }
+
+    /**
+     * @covers Whoops\Run::sendHttpCode
+     */
+    public function testSendExitCode()
+    {
+        $run = $this->getRunInstance();
+        $run->sendExitCode(42);
+        $this->assertEquals(42, $run->sendExitCode());
+    }
+
+    /**
+     * @covers Whoops\Run::sendExitCode
+     */
+    public function testSendExitCodeDefaultCode()
+    {
+        $run = $this->getRunInstance();
+        $this->assertEquals(1, $run->sendExitCode());
+    }
+
+    /**
+     * @covers Whoops\Run::sendExitCode
+     */
+    public function testSendExitCodeWrongCode()
+    {
+        $this->expectExceptionOfType('InvalidArgumentException');
+
+        $this->getRunInstance()->sendExitCode(255);
+    }
 }
