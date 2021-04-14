@@ -137,6 +137,14 @@ class SystemFacadeTest extends TestCase
 
         $this->facade->setHttpResponseCode(230);
     }
+
+    public function test_it_removes_any_location_header_already_sent()
+    {
+        self::$runtime->shouldReceive('headers_sent')->once()->withNoArgs();
+        self::$runtime->shouldReceive('header_remove')->once()->with('location');
+
+        $this->facade->setHttpResponseCode(204);
+    }
 }
 
 function ob_start()
@@ -201,6 +209,16 @@ function error_reporting($level = null)
 function error_get_last()
 {
     return SystemFacadeTest::delegate('error_get_last', func_get_args());
+}
+
+function header_remove($header = null)
+{
+    return SystemFacadeTest::delegate('header_remove', func_get_args());
+}
+
+function headers_sent(&$filename = null, &$line = null)
+{
+    return SystemFacadeTest::delegate('headers_sent', func_get_args());
 }
 
 function http_response_code($code = null)
