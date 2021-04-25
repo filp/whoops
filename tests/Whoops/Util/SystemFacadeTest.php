@@ -133,6 +133,8 @@ class SystemFacadeTest extends TestCase
 
     public function test_it_delegates_sending_an_http_response_code_to_the_native_implementation()
     {
+        self::$runtime->shouldReceive('headers_sent')->once()->withNoArgs();
+        self::$runtime->shouldReceive('header_remove')->once()->with('location');
         self::$runtime->shouldReceive('http_response_code')->once()->with(230);
 
         $this->facade->setHttpResponseCode(230);
@@ -201,6 +203,16 @@ function error_reporting($level = null)
 function error_get_last()
 {
     return SystemFacadeTest::delegate('error_get_last', func_get_args());
+}
+
+function header_remove($header = null)
+{
+    return SystemFacadeTest::delegate('header_remove', func_get_args());
+}
+
+function headers_sent(&$filename = null, &$line = null)
+{
+    return SystemFacadeTest::delegate('headers_sent', func_get_args());
 }
 
 function http_response_code($code = null)

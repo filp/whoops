@@ -124,6 +124,13 @@ class SystemFacade
      */
     public function setHttpResponseCode($httpCode)
     {
+        if (!headers_sent()) {
+            // Ensure that no 'location' header is present as otherwise this
+            // will override the HTTP code being set here, and mask the
+            // expected error page.
+            header_remove('location');
+        }
+
         return http_response_code($httpCode);
     }
 
