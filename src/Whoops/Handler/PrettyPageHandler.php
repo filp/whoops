@@ -27,6 +27,7 @@ class PrettyPageHandler extends Handler
     const EDITOR_ATOM = "atom";
     const EDITOR_ESPRESSO = "espresso";
     const EDITOR_XDEBUG = "xdebug";
+    const EDITOR_NETBEANS = "netbeans";
 
     /**
      * Search paths to be scanned for resources.
@@ -120,6 +121,7 @@ class PrettyPageHandler extends Handler
         "vscode"   => "vscode://file/%file:%line",
         "atom"     => "atom://core/open/file?filename=%file&line=%line",
         "espresso" => "x-espresso://open?filepath=%file&lines=%line",
+        "netbeans" => "netbeans://open/?f=%file:%line",
     ];
 
     /**
