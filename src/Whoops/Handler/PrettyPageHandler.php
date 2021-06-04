@@ -136,10 +136,10 @@ class PrettyPageHandler extends Handler
      */
     public function __construct()
     {
-        if (ini_get('xdebug.file_link_format') || extension_loaded('xdebug')) {
+        if (ini_get('xdebug.file_link_format') || get_cfg_var('xdebug.file_link_format')) {
             // Register editor using xdebug's file_link_format option.
             $this->editors['xdebug'] = function ($file, $line) {
-                return str_replace(['%f', '%l'], [$file, $line], ini_get('xdebug.file_link_format'));
+                return str_replace(['%f', '%l'], [$file, $line], ini_get('xdebug.file_link_format') ?: get_cfg_var('xdebug.file_link_format'));
             };
 
             // If xdebug is available, use it as default editor.
