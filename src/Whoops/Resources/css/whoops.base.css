@@ -372,49 +372,6 @@ header {
   font: 14px "Inconsolata", "Fira Mono", "Source Code Pro", Monaco, Consolas, "Lucida Console", monospace;
 }
 
-/* prettify code style
-Uses the Doxy theme as a base */
-pre .str, code .str { color: #BCD42A; }  /* string  */
-pre .kwd, code .kwd { color: #4bb1b1;  font-weight: bold; }  /* keyword*/
-pre .com, code .com { color: #888; font-weight: bold; } /* comment */
-pre .typ, code .typ { color: #ef7c61; }  /* type  */
-pre .lit, code .lit { color: #BCD42A; }  /* literal */
-pre .pun, code .pun { color: #fff; font-weight: bold;  } /* punctuation  */
-pre .pln, code .pln { color: #e9e4e5; }  /* plaintext  */
-pre .tag, code .tag { color: #4bb1b1; }  /* html/xml tag  */
-pre .htm, code .htm { color: #dda0dd; }  /* html tag */
-pre .xsl, code .xsl { color: #d0a0d0; }  /* xslt tag */
-pre .atn, code .atn { color: #ef7c61; font-weight: normal;} /* html/xml attribute name */
-pre .atv, code .atv { color: #bcd42a; }  /* html/xml attribute value  */
-pre .dec, code .dec { color: #606; }  /* decimal  */
-pre.code-block, code.code-block, .frame-args.code-block, .frame-args.code-block samp {
-  font-family: "Inconsolata", "Fira Mono", "Source Code Pro", Monaco, Consolas, "Lucida Console", monospace;
-  background: #333;
-  color: #e9e4e5;
-}
-  pre.code-block {
-    white-space: pre-wrap;
-  }
-
-  pre.code-block a, code.code-block a {
-    text-decoration:none;
-  }
-
-  .linenums li {
-    color: #A5A5A5;
-  }
-
-  .linenums li.current{
-    background: rgba(255, 100, 100, .07);
-  }
-    .linenums li.current.active {
-      background: rgba(255, 100, 100, .17);
-    }
-
-pre:not(.prettyprinted) {
-  padding-left: 60px;
-}
-
 #plain-exception {
   display: none;
 }
