@@ -74,7 +74,7 @@ final class Run implements RunInterface
     /**
      * Explicitly request your handler runs as the last of all currently registered handlers.
      *
-     * @param HandlerInterface $handler
+     * @param Callable|HandlerInterface $handler
      *
      * @return Run
      */
@@ -87,7 +87,7 @@ final class Run implements RunInterface
     /**
      * Explicitly request your handler runs as the first of all currently registered handlers.
      *
-     * @param HandlerInterface $handler
+     * @param Callable|HandlerInterface $handler
      *
      * @return Run
      */
