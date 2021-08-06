@@ -501,7 +501,7 @@ final class Run implements RunInterface
     /**
      * Resolves the giving handler.
      *
-     * @param HandlerInterface $handler
+     * @param Callable|HandlerInterface $handler
      *
      * @return HandlerInterface
      *
