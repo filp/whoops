@@ -40,7 +40,11 @@ Zepto(function($) {
     $activeFrame.find('.code-block').first().css({
       maxHeight: 345,
       overflow: 'hidden',
-    }).scrollTop(999);
+    });
+
+    var line = $activeFrame.find('.code-block .line-highlight').first()[0];
+    line.scrollIntoView();
+    line.parentElement.scrollTop -= 180;
 
     $container.scrollTop(0);
   }
