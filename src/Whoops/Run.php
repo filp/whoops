@@ -74,7 +74,7 @@ final class Run implements RunInterface
     /**
      * Explicitly request your handler runs as the last of all currently registered handlers.
      *
-     * @param HandlerInterface $handler
+     * @param callable|HandlerInterface $handler
      *
      * @return Run
      */
@@ -87,7 +87,7 @@ final class Run implements RunInterface
     /**
      * Explicitly request your handler runs as the first of all currently registered handlers.
      *
-     * @param HandlerInterface $handler
+     * @param callable|HandlerInterface $handler
      *
      * @return Run
      */
@@ -100,7 +100,7 @@ final class Run implements RunInterface
      * Register your handler as the last of all currently registered handlers (to be executed first).
      * Prefer using appendHandler and prependHandler for clarity.
      *
-     * @param Callable|HandlerInterface $handler
+     * @param callable|HandlerInterface $handler
      *
      * @return Run
      *
@@ -501,7 +501,7 @@ final class Run implements RunInterface
     /**
      * Resolves the giving handler.
      *
-     * @param HandlerInterface $handler
+     * @param callable|HandlerInterface $handler
      *
      * @return HandlerInterface
      *
