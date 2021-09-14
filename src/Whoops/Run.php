@@ -393,7 +393,7 @@ final class Run implements RunInterface
             // @todo Might be able to clean this up a bit better
             if ($willQuit) {
                 // Cleanup all other output buffers before sending our output:
-                while ($this->system->getOutputBufferLevel() > 0) {
+                while ($this->system->getOutputBufferLevel() > 0 && $this->system->getOutputBufferLength() > 0) {
                     $this->system->endOutputBuffering();
                 }
 
