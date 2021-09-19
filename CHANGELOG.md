@@ -1,3 +1,7 @@
+# 2.14.2
+
+* Support PHP 8.1
+
 # 2.14.1
 
 * Fix syntax highlighting scrolling too far.
