@@ -31,7 +31,7 @@ class RunTest extends TestCase
      * @param  string    $message
      * @return Exception
      */
-    protected function getException($message = null)
+    protected function getException($message = "")
     {
         // HHVM does not support mocking exceptions
         // Since we do not use any additional features of Mockery for exceptions,

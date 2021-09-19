@@ -17,7 +17,7 @@ class InspectorTest extends TestCase
      * @param  Exception $previous
      * @return Exception
      */
-    protected function getException($message = null, $code = 0, $previous = null)
+    protected function getException($message = "", $code = 0, $previous = null)
     {
         return new Exception($message, $code, $previous);
     }
@@ -102,7 +102,7 @@ class InspectorTest extends TestCase
     public function testPreviousException()
     {
         $previousException = $this->getException("I'm here first!");
-        $exception         = $this->getException("Oh boy", null, $previousException);
+        $exception         = $this->getException("Oh boy", 0, $previousException);
         $inspector         = $this->getInspectorInstance($exception);
 
         $this->assertTrue($inspector->hasPreviousException());
