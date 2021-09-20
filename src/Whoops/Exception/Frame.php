@@ -233,12 +233,7 @@ class Frame implements Serializable
      */
     public function serialize()
     {
-        $frame = $this->frame;
-        if (!empty($this->comments)) {
-            $frame['_comments'] = $this->comments;
-        }
-
-        return serialize($frame);
+        return serialize($this->__serialize());
     }
 
     /**
@@ -250,8 +245,21 @@ class Frame implements Serializable
      */
     public function unserialize($serializedFrame)
     {
-        $frame = unserialize($serializedFrame);
+        $this->__unserialize(unserialize($serializedFrame));
+    }
 
+    public function __serialize(): array
+    {
+        $frame = $this->frame;
+        if (!empty($this->comments)) {
+            $frame['_comments'] = $this->comments;
+        }
+
+        return $frame;
+    }
+
+    public function __unserialize(array $frame): void
+    {
         if (!empty($frame['_comments'])) {
             $this->comments = $frame['_comments'];
             unset($frame['_comments']);
