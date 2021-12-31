@@ -812,12 +812,12 @@ class PrettyPageHandler extends Handler
      * Non-string values will be replaced with a fixed asterisk count.
      * We intentionally dont rely on $GLOBALS as it depends on the 'auto_globals_jit' php.ini setting.
      *
-     * @param array  $superGlobal     One of the superglobal arrays
+     * @param array|\ArrayAccess  $superGlobal     One of the superglobal arrays
      * @param string $superGlobalName The name of the superglobal array, e.g. '_GET'
      *
      * @return array $values without sensitive data
      */
-    private function masked(array $superGlobal, $superGlobalName)
+    private function masked($superGlobal, $superGlobalName)
     {
         $blacklisted = $this->blacklist[$superGlobalName];
 
