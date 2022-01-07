@@ -1,3 +1,7 @@
+# 2.14.5
+
+* Allow ArrayAccess on super globals
+
 # 2.14.4
 
 * Fix PHP 5.5 support.
