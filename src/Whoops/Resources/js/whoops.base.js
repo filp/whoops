@@ -39,7 +39,7 @@ Zepto(function($) {
     // Let’s hide a big chunk of that code and then scroll the remaining block
     $activeFrame.find('.code-block').first().css({
       maxHeight: 345,
-      overflow: 'hidden',
+      // overflow: 'hidden',
     });
 
     var line = $activeFrame.find('.code-block .line-highlight').first()[0];
