@@ -30,7 +30,7 @@ class TestCase extends BaseTestCase
         if (method_exists($this, 'expectException')) {
             $this->expectException($class);
         } else {
-            $this->setExpectedException($class);
+            $this->expectException($class);
         }
     }
 
