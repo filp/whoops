@@ -147,7 +147,7 @@ class PlainTextHandler extends Handler
             return $this->addTraceFunctionArgsToOutput;
         }
 
-        if (! is_integer($addTraceFunctionArgsToOutput)) {
+        if (! is_int($addTraceFunctionArgsToOutput)) {
             $this->addTraceFunctionArgsToOutput = (bool) $addTraceFunctionArgsToOutput;
         } else {
             $this->addTraceFunctionArgsToOutput = $addTraceFunctionArgsToOutput;

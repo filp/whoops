@@ -27,7 +27,7 @@
           if ($range):
             $range = array_map(function ($line) { return empty($line) ? ' ' : $line;}, $range);
             $start = key($range) + 1;
-            $code  = join("\n", $range);
+            $code  = implode("\n", $range);
         ?>
             <pre class="code-block line-numbers"
               data-line="<?php echo $line ?>"

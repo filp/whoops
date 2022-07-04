@@ -712,7 +712,7 @@ class PrettyPageHandler extends Handler
         // If we got this far, nothing was found.
         throw new RuntimeException(
             "Could not find resource '$resource' in any resource paths."
-            . "(searched: " . join(", ", $this->searchPaths). ")"
+            . "(searched: " . implode(", ", $this->searchPaths). ")"
         );
     }
 
