@@ -253,7 +253,7 @@ class PrettyPageHandler extends Handler
             "previousCodes"    => $inspector->getPreviousExceptionCodes(),
             "plain_exception"  => Formatter::formatExceptionPlain($inspector),
             "frames"           => $frames,
-            "has_frames"       => !!count($frames),
+            "has_frames"       => (bool)count($frames),
             "handler"          => $this,
             "handlers"         => $this->getRun()->getHandlers(),
 
