@@ -73,7 +73,7 @@ class PlainTextHandler extends Handler
      */
     public function setLogger($logger = null)
     {
-        if (! (is_null($logger)
+        if (! (null === $logger
             || $logger instanceof LoggerInterface)) {
             throw new InvalidArgumentException(
                 'Argument to ' . __METHOD__ .
