@@ -66,7 +66,7 @@ final class Run implements RunInterface
      */
     private $canThrowExceptions = true;
 
-    public function __construct(SystemFacade $system = null)
+    public function __construct(?SystemFacade $system = null)
     {
         $this->system = $system ?: new SystemFacade;
     }
