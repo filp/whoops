@@ -46,7 +46,7 @@ class TemplateHelper
     public function __construct()
     {
         // root path for ordinary composer projects
-        $this->applicationRootPath = dirname(dirname(dirname(dirname(dirname(dirname(__DIR__))))));
+        $this->applicationRootPath = dirname(__DIR__, 6);
     }
 
     /**
