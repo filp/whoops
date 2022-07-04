@@ -164,7 +164,7 @@ class PlainTextHandler extends Handler
      */
     public function setTraceFunctionArgsOutputLimit($traceFunctionArgsOutputLimit)
     {
-        $this->traceFunctionArgsOutputLimit = (integer) $traceFunctionArgsOutputLimit;
+        $this->traceFunctionArgsOutputLimit = (int) $traceFunctionArgsOutputLimit;
         return $this;
     }
 
