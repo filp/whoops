@@ -245,10 +245,10 @@ class TemplateHelper
             $variables = array_replace($variables, $additionalVariables);
         }
 
-        call_user_func(function () {
+        (function () {
             extract(func_get_arg(1));
             require func_get_arg(0);
-        }, $template, $variables);
+        })($template, $variables);
     }
 
     /**

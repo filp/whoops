@@ -266,7 +266,7 @@ class PlainTextHandler extends Handler
     protected function dump($var)
     {
         if ($this->dumper) {
-            call_user_func($this->dumper, $var);
+            ($this->dumper)($var);
         } else {
             var_dump($var);
         }

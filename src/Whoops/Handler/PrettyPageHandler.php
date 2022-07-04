@@ -385,7 +385,7 @@ class PrettyPageHandler extends Handler
 
         $this->extraTables[$label] = function (\Whoops\Exception\Inspector $inspector = null) use ($callback) {
             try {
-                $result = call_user_func($callback, $inspector);
+                $result = $callback($inspector);
 
                 // Only return the result if it can be iterated over by foreach().
                 return is_array($result) || $result instanceof \Traversable ? $result : [];
@@ -573,9 +573,9 @@ class PrettyPageHandler extends Handler
 
         if (is_callable($this->editor) || (isset($this->editors[$this->editor]) && is_callable($this->editors[$this->editor]))) {
             if (is_callable($this->editor)) {
-                $callback = call_user_func($this->editor, $filePath, $line);
+                $callback = ($this->editor)($filePath, $line);
             } else {
-                $callback = call_user_func($this->editors[$this->editor], $filePath, $line);
+                $callback = ($this->editors[$this->editor])($filePath, $line);
             }
 
             if (empty($callback)) {
