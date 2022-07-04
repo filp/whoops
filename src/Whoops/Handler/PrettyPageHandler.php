@@ -17,17 +17,17 @@ use Whoops\Util\TemplateHelper;
 
 class PrettyPageHandler extends Handler
 {
-    const EDITOR_SUBLIME = "sublime";
-    const EDITOR_TEXTMATE = "textmate";
-    const EDITOR_EMACS = "emacs";
-    const EDITOR_MACVIM = "macvim";
-    const EDITOR_PHPSTORM = "phpstorm";
-    const EDITOR_IDEA = "idea";
-    const EDITOR_VSCODE = "vscode";
-    const EDITOR_ATOM = "atom";
-    const EDITOR_ESPRESSO = "espresso";
-    const EDITOR_XDEBUG = "xdebug";
-    const EDITOR_NETBEANS = "netbeans";
+    public const EDITOR_SUBLIME = "sublime";
+    public const EDITOR_TEXTMATE = "textmate";
+    public const EDITOR_EMACS = "emacs";
+    public const EDITOR_MACVIM = "macvim";
+    public const EDITOR_PHPSTORM = "phpstorm";
+    public const EDITOR_IDEA = "idea";
+    public const EDITOR_VSCODE = "vscode";
+    public const EDITOR_ATOM = "atom";
+    public const EDITOR_ESPRESSO = "espresso";
+    public const EDITOR_XDEBUG = "xdebug";
+    public const EDITOR_NETBEANS = "netbeans";
 
     /**
      * Search paths to be scanned for resources.

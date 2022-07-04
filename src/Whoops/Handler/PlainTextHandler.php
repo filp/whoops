@@ -19,7 +19,7 @@ use Whoops\Exception\Frame;
 */
 class PlainTextHandler extends Handler
 {
-    const VAR_DUMP_PREFIX = '   | ';
+    public const VAR_DUMP_PREFIX = '   | ';
 
     /**
      * @var \Psr\Log\LoggerInterface
