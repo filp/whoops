@@ -30,9 +30,7 @@ class FrameCollection implements ArrayAccess, IteratorAggregate, Serializable, C
      */
     public function __construct(array $frames)
     {
-        $this->frames = array_map(function ($frame) {
-            return new Frame($frame);
-        }, $frames);
+        $this->frames = array_map(fn ($frame) => new Frame($frame), $frames);
     }
 
     /**
@@ -153,9 +151,7 @@ class FrameCollection implements ArrayAccess, IteratorAggregate, Serializable, C
      */
     public function countIsApplication()
     {
-        return count(array_filter($this->frames, function (Frame $f) {
-            return $f->isApplication();
-        }));
+        return count(array_filter($this->frames, fn (Frame $f) => $f->isApplication()));
     }
 
     /**

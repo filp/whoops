@@ -25,7 +25,7 @@
 
           // getFileLines can return null if there is no source code
           if ($range):
-            $range = array_map(function ($line) { return empty($line) ? ' ' : $line;}, $range);
+            $range = array_map(fn ($line) => empty($line) ? ' ' : $line, $range);
             $start = key($range) + 1;
             $code  = join("\n", $range);
         ?>

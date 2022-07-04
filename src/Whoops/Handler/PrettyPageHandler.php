@@ -138,9 +138,7 @@ class PrettyPageHandler extends Handler
     {
         if (ini_get('xdebug.file_link_format') || get_cfg_var('xdebug.file_link_format')) {
             // Register editor using xdebug's file_link_format option.
-            $this->editors['xdebug'] = function ($file, $line) {
-                return str_replace(['%f', '%l'], [$file, $line], ini_get('xdebug.file_link_format') ?: get_cfg_var('xdebug.file_link_format'));
-            };
+            $this->editors['xdebug'] = fn ($file, $line) => str_replace(['%f', '%l'], [$file, $line], ini_get('xdebug.file_link_format') ?: get_cfg_var('xdebug.file_link_format'));
 
             // If xdebug is available, use it as default editor.
             $this->setEditor('xdebug');
@@ -281,9 +279,7 @@ class PrettyPageHandler extends Handler
 
         // Add extra entries list of data tables:
         // @todo: Consolidate addDataTable and addDataTableCallback
-        $extraTables = array_map(function ($table) use ($inspector) {
-            return $table instanceof \Closure ? $table($inspector) : $table;
-        }, $this->getDataTables());
+        $extraTables = array_map(fn ($table) => $table instanceof \Closure ? $table($inspector) : $table, $this->getDataTables());
         $vars["tables"] = array_merge($extraTables, $vars["tables"]);
 
         $plainTextHandler = new PlainTextHandler();
