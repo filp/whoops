@@ -411,8 +411,7 @@ class PrettyPageHandler extends Handler
     public function getDataTables($label = null)
     {
         if ($label !== null) {
-            return isset($this->extraTables[$label]) ?
-                   $this->extraTables[$label] : [];
+            return $this->extraTables[$label] ?? [];
         }
 
         return $this->extraTables;
@@ -590,8 +589,8 @@ class PrettyPageHandler extends Handler
             }
 
             return [
-                'ajax' => isset($callback['ajax']) ? $callback['ajax'] : false,
-                'url' => isset($callback['url']) ? $callback['url'] : $callback,
+                'ajax' => $callback['ajax'] ?? false,
+                'url' => $callback['url'] ?? $callback,
             ];
         }
 

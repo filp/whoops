@@ -283,8 +283,7 @@ class TemplateHelper
      */
     public function getVariable($variableName, $defaultValue = null)
     {
-        return isset($this->variables[$variableName]) ?
-            $this->variables[$variableName] : $defaultValue;
+        return $this->variables[$variableName] ?? $defaultValue;
     }
 
     /**

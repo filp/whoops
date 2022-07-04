@@ -77,7 +77,7 @@ class Frame implements Serializable
      */
     public function getLine()
     {
-        return isset($this->frame['line']) ? $this->frame['line'] : null;
+        return $this->frame['line'] ?? null;
     }
 
     /**
@@ -85,7 +85,7 @@ class Frame implements Serializable
      */
     public function getClass()
     {
-        return isset($this->frame['class']) ? $this->frame['class'] : null;
+        return $this->frame['class'] ?? null;
     }
 
     /**
@@ -93,7 +93,7 @@ class Frame implements Serializable
      */
     public function getFunction()
     {
-        return isset($this->frame['function']) ? $this->frame['function'] : null;
+        return $this->frame['function'] ?? null;
     }
 
     /**
