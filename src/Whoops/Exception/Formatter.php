@@ -19,7 +19,7 @@ class Formatter
     {
         $exception = $inspector->getException();
         $response = [
-            'type'    => get_class($exception),
+            'type'    => $exception::class,
             'message' => $exception->getMessage(),
             'code'    => $exception->getCode(),
             'file'    => $exception->getFile(),

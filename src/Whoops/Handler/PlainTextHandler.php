@@ -78,7 +78,7 @@ class PlainTextHandler extends Handler
             throw new InvalidArgumentException(
                 'Argument to ' . __METHOD__ .
                 " must be a valid Logger Interface (aka. Monolog), " .
-                get_class($logger) . ' given.'
+                $logger::class . ' given.'
             );
         }
 
@@ -322,7 +322,7 @@ class PlainTextHandler extends Handler
     {
         return sprintf(
             "%s: %s in file %s on line %d",
-            get_class($exception),
+            $exception::class,
             $exception->getMessage(),
             $exception->getFile(),
             $exception->getLine()

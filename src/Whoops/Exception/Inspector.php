@@ -274,7 +274,7 @@ class Inspector
         return [
             'file'  => $exception->getFile(),
             'line'  => $exception->getLine(),
-            'class' => get_class($exception),
+            'class' => $exception::class,
             'args'  => [
                 $exception->getMessage(),
             ],
