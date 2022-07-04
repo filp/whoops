@@ -759,7 +759,7 @@ class PrettyPageHandler extends Handler
      *
      * @return void
      */
-    public function setApplicationPaths($applicationPaths)
+    public function setApplicationPaths($applicationPaths): void
     {
         $this->applicationPaths = $applicationPaths;
     }
@@ -771,7 +771,7 @@ class PrettyPageHandler extends Handler
      *
      * @return void
      */
-    public function setApplicationRootPath($applicationRootPath)
+    public function setApplicationRootPath($applicationRootPath): void
     {
         $this->templateHelper->setApplicationRootPath($applicationRootPath);
     }

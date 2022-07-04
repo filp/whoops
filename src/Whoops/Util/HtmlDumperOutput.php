@@ -15,7 +15,7 @@ class HtmlDumperOutput
 {
     private $output;
 
-    public function __invoke($line, $depth)
+    public function __invoke($line, $depth): void
     {
         // A negative depth means "end of dump"
         if ($depth >= 0) {
@@ -29,7 +29,7 @@ class HtmlDumperOutput
         return $this->output;
     }
 
-    public function clear()
+    public function clear(): void
     {
         $this->output = null;
     }

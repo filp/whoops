@@ -129,7 +129,7 @@ final class Run implements RunInterface
      *
      * @return void
      */
-    public function removeFirstHandler()
+    public function removeFirstHandler(): void
     {
         array_pop($this->handlerStack);
     }
@@ -139,7 +139,7 @@ final class Run implements RunInterface
      *
      * @return void
      */
-    public function removeLastHandler()
+    public function removeLastHandler(): void
     {
         array_shift($this->handlerStack);
     }
@@ -467,7 +467,7 @@ final class Run implements RunInterface
      *
      * @return void
      */
-    public function handleShutdown()
+    public function handleShutdown(): void
     {
         // If we reached this step, we are in shutdown handler.
         // An exception thrown in a shutdown handler will not be propagated

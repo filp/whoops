@@ -234,7 +234,7 @@ class TemplateHelper
      * @param string $template
      * @param array  $additionalVariables
      */
-    public function render($template, array $additionalVariables = null)
+    public function render($template, array $additionalVariables = null): void
     {
         $variables = $this->getVariables();
 
@@ -245,7 +245,7 @@ class TemplateHelper
             $variables = array_replace($variables, $additionalVariables);
         }
 
-        call_user_func(function () {
+        call_user_func(function (): void {
             extract(func_get_arg(1));
             require func_get_arg(0);
         }, $template, $variables);
@@ -257,7 +257,7 @@ class TemplateHelper
      *
      * @param array $variables
      */
-    public function setVariables(array $variables)
+    public function setVariables(array $variables): void
     {
         $this->variables = $variables;
     }
@@ -268,7 +268,7 @@ class TemplateHelper
      * @param string $variableName
      * @param mixed  $variableValue
      */
-    public function setVariable($variableName, $variableValue)
+    public function setVariable($variableName, $variableValue): void
     {
         $this->variables[$variableName] = $variableValue;
     }
@@ -292,7 +292,7 @@ class TemplateHelper
      *
      * @param string $variableName
      */
-    public function delVariable($variableName)
+    public function delVariable($variableName): void
     {
         unset($this->variables[$variableName]);
     }
@@ -312,7 +312,7 @@ class TemplateHelper
      *
      * @param AbstractCloner $cloner
      */
-    public function setCloner($cloner)
+    public function setCloner($cloner): void
     {
         $this->cloner = $cloner;
     }
@@ -335,7 +335,7 @@ class TemplateHelper
      *
      * @param string $applicationRootPath
      */
-    public function setApplicationRootPath($applicationRootPath)
+    public function setApplicationRootPath($applicationRootPath): void
     {
         $this->applicationRootPath = $applicationRootPath;
     }

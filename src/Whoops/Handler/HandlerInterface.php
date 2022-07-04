@@ -20,17 +20,17 @@ interface HandlerInterface
      * @param  RunInterface  $run
      * @return void
      */
-    public function setRun(RunInterface $run);
+    public function setRun(RunInterface $run): void;
 
     /**
      * @param  \Throwable $exception
      * @return void
      */
-    public function setException($exception);
+    public function setException($exception): void;
 
     /**
      * @param  Inspector $inspector
      * @return void
      */
-    public function setInspector(Inspector $inspector);
+    public function setInspector(Inspector $inspector): void;
 }

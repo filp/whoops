@@ -121,7 +121,7 @@ class FrameCollection implements ArrayAccess, IteratorAggregate, Serializable, C
      * @param int $offset
      */
     #[ReturnTypeWillChange]
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         throw new \Exception(__CLASS__ . ' is read only');
     }
@@ -131,7 +131,7 @@ class FrameCollection implements ArrayAccess, IteratorAggregate, Serializable, C
      * @param int $offset
      */
     #[ReturnTypeWillChange]
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         throw new \Exception(__CLASS__ . ' is read only');
     }
@@ -173,7 +173,7 @@ class FrameCollection implements ArrayAccess, IteratorAggregate, Serializable, C
      * @param string $serializedFrames
      */
     #[ReturnTypeWillChange]
-    public function unserialize($serializedFrames)
+    public function unserialize($serializedFrames): void
     {
         $this->frames = unserialize($serializedFrames);
     }
@@ -183,7 +183,7 @@ class FrameCollection implements ArrayAccess, IteratorAggregate, Serializable, C
         return $this->frames;
     }
 
-    public function __unserialize(array $serializedFrames)
+    public function __unserialize(array $serializedFrames): void
     {
         $this->frames = $serializedFrames;
     }
@@ -191,7 +191,7 @@ class FrameCollection implements ArrayAccess, IteratorAggregate, Serializable, C
     /**
      * @param Frame[] $frames Array of Frame instances, usually from $e->getPrevious()
      */
-    public function prependFrames(array $frames)
+    public function prependFrames(array $frames): void
     {
         $this->frames = array_merge($frames, $this->frames);
     }

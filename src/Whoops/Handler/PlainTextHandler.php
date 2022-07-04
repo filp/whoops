@@ -71,7 +71,7 @@ class PlainTextHandler extends Handler
      * @throws InvalidArgumentException     If argument is not null or a LoggerInterface
      * @param  \Psr\Log\LoggerInterface|null $logger
      */
-    public function setLogger($logger = null)
+    public function setLogger($logger = null): void
     {
         if (! (is_null($logger)
             || $logger instanceof LoggerInterface)) {
@@ -263,7 +263,7 @@ class PlainTextHandler extends Handler
      * @param mixed $var
      * @return void
      */
-    protected function dump($var)
+    protected function dump($var): void
     {
         if ($this->dumper) {
             call_user_func($this->dumper, $var);

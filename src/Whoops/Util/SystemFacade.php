@@ -46,7 +46,7 @@ class SystemFacade
     /**
      * @return void
      */
-    public function restoreExceptionHandler()
+    public function restoreExceptionHandler(): void
     {
         restore_exception_handler();
     }
@@ -54,7 +54,7 @@ class SystemFacade
     /**
      * @return void
      */
-    public function restoreErrorHandler()
+    public function restoreErrorHandler(): void
     {
         restore_error_handler();
     }
@@ -64,7 +64,7 @@ class SystemFacade
      *
      * @return void
      */
-    public function registerShutdownFunction(callable $function)
+    public function registerShutdownFunction(callable $function): void
     {
         register_shutdown_function($function);
     }
@@ -96,7 +96,7 @@ class SystemFacade
     /**
      * @return void
      */
-    public function flushOutputBuffer()
+    public function flushOutputBuffer(): void
     {
         flush();
     }
@@ -137,7 +137,7 @@ class SystemFacade
     /**
      * @param int $exitStatus
      */
-    public function stopExecution($exitStatus)
+    public function stopExecution($exitStatus): void
     {
         exit($exitStatus);
     }

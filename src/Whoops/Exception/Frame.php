@@ -140,7 +140,7 @@ class Frame implements Serializable
      * @param string $comment
      * @param string $context Optional string identifying the origin of the comment
      */
-    public function addComment($comment, $context = 'global')
+    public function addComment($comment, $context = 'global'): void
     {
         $this->comments[] = [
             'comment' => $comment,
@@ -257,7 +257,7 @@ class Frame implements Serializable
      * @see Serializable::unserialize
      * @param string $serializedFrame
      */
-    public function unserialize($serializedFrame)
+    public function unserialize($serializedFrame): void
     {
         $frame = unserialize($serializedFrame);
 
@@ -269,7 +269,7 @@ class Frame implements Serializable
         $this->frame = $frame;
     }
 
-    public function __unserialize($frame)
+    public function __unserialize($frame): void
     {
         if (!empty($frame['_comments'])) {
             $this->comments = $frame['_comments'];
@@ -307,7 +307,7 @@ class Frame implements Serializable
      *
      * @param boolean $application
      */
-    public function setApplication($application)
+    public function setApplication($application): void
     {
         $this->application = $application;
     }
