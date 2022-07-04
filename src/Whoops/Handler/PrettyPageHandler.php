@@ -138,7 +138,7 @@ class PrettyPageHandler extends Handler
     {
         if (ini_get('xdebug.file_link_format') || get_cfg_var('xdebug.file_link_format')) {
             // Register editor using xdebug's file_link_format option.
-            $this->editors['xdebug'] = function ($file, $line) {
+            $this->editors['xdebug'] = static function ($file, $line) {
                 return str_replace(['%f', '%l'], [$file, $line], ini_get('xdebug.file_link_format') ?: get_cfg_var('xdebug.file_link_format'));
             };
 
@@ -158,7 +158,7 @@ class PrettyPageHandler extends Handler
             $cloner = new VarCloner();
             // Only dump object internals if a custom caster exists for performance reasons
             // https://github.com/filp/whoops/pull/404
-            $cloner->addCasters(['*' => function ($obj, $a, $stub, $isNested, $filter = 0) {
+            $cloner->addCasters(['*' => static function ($obj, $a, $stub, $isNested, $filter = 0) {
                 $class = $stub->class;
                 $classes = [$class => $class] + class_parents($obj) + class_implements($obj);
 
@@ -281,7 +281,7 @@ class PrettyPageHandler extends Handler
 
         // Add extra entries list of data tables:
         // @todo: Consolidate addDataTable and addDataTableCallback
-        $extraTables = array_map(function ($table) use ($inspector) {
+        $extraTables = array_map(static function ($table) use ($inspector) {
             return $table instanceof \Closure ? $table($inspector) : $table;
         }, $this->getDataTables());
         $vars["tables"] = array_merge($extraTables, $vars["tables"]);
@@ -383,7 +383,7 @@ class PrettyPageHandler extends Handler
             throw new InvalidArgumentException('Expecting callback argument to be callable');
         }
 
-        $this->extraTables[$label] = function (\Whoops\Exception\Inspector $inspector = null) use ($callback) {
+        $this->extraTables[$label] = static function (\Whoops\Exception\Inspector $inspector = null) use ($callback) {
             try {
                 $result = call_user_func($callback, $inspector);
 

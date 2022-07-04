@@ -236,7 +236,7 @@ final class Run implements RunInterface
         $this->silencedPatterns = array_merge(
             $this->silencedPatterns,
             array_map(
-                function ($pattern) use ($levels) {
+                static function ($pattern) use ($levels) {
                     return [
                         "pattern" => $pattern,
                         "levels" => $levels,

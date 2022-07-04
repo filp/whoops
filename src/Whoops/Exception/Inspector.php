@@ -78,7 +78,7 @@ class Inspector
      */
     public function getPreviousExceptionCodes()
     {
-        return array_map(function ($prev) {
+        return array_map(static function ($prev) {
             /** @var \Throwable $prev */
             return $prev->getCode();
         }, $this->getPreviousExceptions());

@@ -161,7 +161,7 @@ class Frame implements Serializable
         $comments = $this->comments;
 
         if ($filter !== null) {
-            $comments = array_filter($comments, function ($c) use ($filter) {
+            $comments = array_filter($comments, static function ($c) use ($filter) {
                 return $c['context'] == $filter;
             });
         }

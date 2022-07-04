@@ -30,7 +30,7 @@ class FrameCollection implements ArrayAccess, IteratorAggregate, Serializable, C
      */
     public function __construct(array $frames)
     {
-        $this->frames = array_map(function ($frame) {
+        $this->frames = array_map(static function ($frame) {
             return new Frame($frame);
         }, $frames);
     }
@@ -57,7 +57,7 @@ class FrameCollection implements ArrayAccess, IteratorAggregate, Serializable, C
     {
         // Contain the map within a higher-order callable
         // that enforces type-correctness for the $callable
-        $this->frames = array_map(function ($frame) use ($callable) {
+        $this->frames = array_map(static function ($frame) use ($callable) {
             $frame = call_user_func($callable, $frame);
 
             if (!$frame instanceof Frame) {
@@ -153,7 +153,7 @@ class FrameCollection implements ArrayAccess, IteratorAggregate, Serializable, C
      */
     public function countIsApplication()
     {
-        return count(array_filter($this->frames, function (Frame $f) {
+        return count(array_filter($this->frames, static function (Frame $f) {
             return $f->isApplication();
         }));
     }
