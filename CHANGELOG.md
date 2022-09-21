@@ -20,7 +20,7 @@
 
 * Switched syntax highlighting to Prism.js
 
-Avoids licensing issues with prettify, and uses a maintaned, modern project.
+Avoids licensing issues with prettify, and uses a maintained, modern project.
 
 # 2.13.0
 
