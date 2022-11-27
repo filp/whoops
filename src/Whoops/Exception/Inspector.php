@@ -6,9 +6,11 @@
 
 namespace Whoops\Exception;
 
+use Whoops\Inspector\InspectorFactory;
+use Whoops\Inspector\InspectorInterface;
 use Whoops\Util\Misc;
 
-class Inspector
+class Inspector implements InspectorInterface
 {
     /**
      * @var \Throwable
@@ -31,11 +33,18 @@ class Inspector
     private $previousExceptions;
 
     /**
-     * @param \Throwable $exception The exception to inspect
+     * @var \Whoops\Inspector\InspectorFactoryInterface|null
      */
-    public function __construct($exception)
+    protected $inspectorFactory;
+
+    /**
+     * @param \Throwable $exception The exception to inspect
+     * @param \Whoops\Inspector\InspectorFactoryInterface $factory
+     */
+    public function __construct($exception, $factory = null)
     {
         $this->exception = $exception;
+        $this->inspectorFactory = $factory ?: new InspectorFactory();
     }
 
     /**
@@ -137,7 +146,7 @@ class Inspector
             $previousException = $this->exception->getPrevious();
 
             if ($previousException) {
-                $this->previousExceptionInspector = new Inspector($previousException);
+                $this->previousExceptionInspector = $this->inspectorFactory->create($previousException);
             }
         }
 

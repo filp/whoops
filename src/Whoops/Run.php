@@ -9,10 +9,13 @@ namespace Whoops;
 use InvalidArgumentException;
 use Throwable;
 use Whoops\Exception\ErrorException;
-use Whoops\Exception\Inspector;
 use Whoops\Handler\CallbackHandler;
 use Whoops\Handler\Handler;
 use Whoops\Handler\HandlerInterface;
+use Whoops\Inspector\CallableInspectorFactory;
+use Whoops\Inspector\InspectorFactory;
+use Whoops\Inspector\InspectorFactoryInterface;
+use Whoops\Inspector\InspectorInterface;
 use Whoops\Util\Misc;
 use Whoops\Util\SystemFacade;
 
@@ -66,9 +69,17 @@ final class Run implements RunInterface
      */
     private $canThrowExceptions = true;
 
+    /**
+     * The inspector factory to create inspectors.
+     *
+     * @var InspectorFactoryInterface
+     */
+    private $inspectorFactory;
+
     public function __construct(SystemFacade $system = null)
     {
         $this->system = $system ?: new SystemFacade;
+        $this->inspectorFactory = new InspectorFactory();
     }
 
     /**
@@ -179,6 +190,7 @@ final class Run implements RunInterface
             class_exists("\\Whoops\\Exception\\FrameCollection");
             class_exists("\\Whoops\\Exception\\Frame");
             class_exists("\\Whoops\\Exception\\Inspector");
+            class_exists("\\Whoops\\Inspector\\InspectorFactory");
 
             $this->system->setErrorHandler([$this, self::ERROR_HANDLER]);
             $this->system->setExceptionHandler([$this, self::EXCEPTION_HANDLER]);
@@ -488,14 +500,26 @@ final class Run implements RunInterface
         }
     }
 
+
+    /**
+     * @param InspectorFactoryInterface $factory
+     *
+     * @return void
+     */
+    public function setInspectorFactory(InspectorFactoryInterface $factory)
+    {
+        $this->inspectorFactory = $factory;
+    }
+
+
     /**
      * @param Throwable $exception
      *
-     * @return Inspector
+     * @return InspectorInterface
      */
     private function getInspector($exception)
     {
-        return new Inspector($exception);
+        return $this->inspectorFactory->create($exception);
     }
 
     /**
