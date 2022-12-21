@@ -1,3 +1,11 @@
+# 2.14.6
+
+* Added support of PHP version `8.2` for GitHub workflow tests ([#740][i740]).
+* Upgraded prismJS to version `1.29.0` due to security issue ([#741][i741]).
+
+[i740]: https://github.com/filp/whoops/pull/740
+[i741]: https://github.com/filp/whoops/pull/741
+
 # 2.14.5
 
 * Allow ArrayAccess on super globals
