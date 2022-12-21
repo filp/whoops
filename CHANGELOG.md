@@ -1,3 +1,9 @@
+# 2.14.6
+
+* Upgraded prismJS to version `1.29.0` due to security issue ([#741][i741]).
+
+[i741]: https://github.com/filp/whoops/pull/741
+
 # 2.14.5
 
 * Allow ArrayAccess on super globals
