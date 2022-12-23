@@ -8,7 +8,7 @@
 
 ## v2.14.5
 
-* Allow ArrayAccess on super globals.
+* Allow `ArrayAccess` on super globals.
 
 ## v2.14.4
 
@@ -60,7 +60,7 @@ Avoids licensing issues with prettify, and uses a maintained, modern project.
 
 ## v2.9.0
 
-* JsonResponseHandler includes the exception code.
+* `JsonResponseHandler` includes the exception code.
 
 ## v2.8.0
 
@@ -68,13 +68,13 @@ Avoids licensing issues with prettify, and uses a maintained, modern project.
 
 ## v2.7.3
 
-* PrettyPageHandler functionality to hide superglobal keys has a clearer name 
+* `PrettyPageHandler` functionality to hide superglobal keys has a clearer name 
 (`hideSuperglobalKey`).
 
 ## v2.7.2
 
-* PrettyPageHandler now accepts custom js files.
-* PrettyPageHandler templateHelper is now accessible through inheritance.
+* `PrettyPageHandler` now accepts custom js files.
+* `PrettyPageHandler` and `templateHelper` is now accessible through inheritance.
 
 ## v2.7.1
 
@@ -86,7 +86,7 @@ Avoids licensing issues with prettify, and uses a maintained, modern project.
 
 ## v2.6.0
 
-* Fix 2.4.0 pushHandler changing the order of handlers.
+* Fix 2.4.0 `pushHandler` changing the order of handlers.
 
 ## v2.5.1
 
