@@ -8,16 +8,16 @@
 
 ## v2.14.5
 
-* Allow ArrayAccess on super globals
+* Allow ArrayAccess on super globals.
 
 ## v2.14.4
 
-* Fix PHP 5.5 support.
-* Allow to use psr/log 2 or 3.
+* Fix PHP `5.5` support.
+* Allow to use psr/log `2` or `3`.
 
 ## v2.14.3
 
-* Support PHP 8.1
+* Support PHP `8.1`.
 
 ## v2.14.1
 
@@ -26,13 +26,13 @@
 
 ## v2.14.0
 
-* Switched syntax highlighting to Prism.js
+* Switched syntax highlighting to `Prism.js`.
 
 Avoids licensing issues with prettify, and uses a maintained, modern project.
 
 ## v2.13.0
 
-* Add Netbeans editor
+* Add Netbeans editor.
 
 ## v2.12.1
 
@@ -44,36 +44,37 @@ Avoids licensing issues with prettify, and uses a maintained, modern project.
 
 ## v2.11.0
 
-* Customize exit code
+* Customize exit code.
 
 ## v2.10.0
 
-* Better chaining on handler classes
+* Better chaining on handler classes.
 
 ## v2.9.2
 
-* Fix copy button styles
+* Fix copy button styles.
 
 ## v2.9.1
 
-* Fix xdebug function crash on PHP 8
+* Fix xdebug function crash on PHP `8`.
 
 ## v2.9.0
 
-* JsonResponseHandler includes the exception code
+* JsonResponseHandler includes the exception code.
 
 ## v2.8.0
 
-* Support PHP 8
+* Support PHP 8.
 
 ## v2.7.3
 
-* PrettyPageHandler functionality to hide superglobal keys has a clearer name hideSuperglobalKey
+* PrettyPageHandler functionality to hide superglobal keys has a clearer name 
+(`hideSuperglobalKey`).
 
 ## v2.7.2
 
-* PrettyPageHandler now accepts custom js files
-* PrettyPageHandler templateHelper is now accessible through inheritance
+* PrettyPageHandler now accepts custom js files.
+* PrettyPageHandler templateHelper is now accessible through inheritance.
 
 ## v2.7.1
 
@@ -81,7 +82,7 @@ Avoids licensing issues with prettify, and uses a maintained, modern project.
 
 ## v2.7.0
 
-* removeFirstHandler and removeLastHandler.
+* Added `removeFirstHandler` and `removeLastHandler`.
 
 ## v2.6.0
 
@@ -97,7 +98,7 @@ Avoids licensing issues with prettify, and uses a maintained, modern project.
 
 ## v2.4.1
 
-* Try harder to close all output buffers
+* Try harder to close all output buffers.
 
 ## v2.4.0
 
@@ -109,7 +110,7 @@ Avoids licensing issues with prettify, and uses a maintained, modern project.
 
 ## v2.3.1
 
-* Prevent exception in Whoops when caught exception frame is not related to real file
+* Prevent exception in Whoops when caught exception frame is not related to real file.
 
 ## v2.3.0
 
@@ -117,7 +118,7 @@ Avoids licensing issues with prettify, and uses a maintained, modern project.
 
 ## v2.2.0
 
-* Support PHP 7.2
+* Support PHP `7.2`.
 
 ## v2.1.0
 
