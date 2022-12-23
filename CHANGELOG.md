@@ -26,7 +26,7 @@
 
 ## v2.14.0
 
-* Switched syntax highlighting to `Prism.js`.
+* Switched syntax highlighting to Prism.js.
 
 Avoids licensing issues with prettify, and uses a maintained, modern project.
 
