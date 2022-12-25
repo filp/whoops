@@ -353,7 +353,6 @@ class PrettyPageHandler extends Handler
      * will be flattened with `print_r`.
      *
      * @param string $label
-     * @param array  $data
      *
      * @return static
      */
@@ -754,12 +753,10 @@ class PrettyPageHandler extends Handler
 
     /**
      * Set the application paths.
-     *
-     * @param array $applicationPaths
-     *
+     * 
      * @return void
      */
-    public function setApplicationPaths($applicationPaths)
+    public function setApplicationPaths(array $applicationPaths)
     {
         $this->applicationPaths = $applicationPaths;
     }

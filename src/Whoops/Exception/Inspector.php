@@ -301,7 +301,6 @@ class Inspector
      * Determine if the frame can be used to fill in previous frame's missing info
      * happens for call_user_func and call_user_func_array usages (PHP Bug #44428)
      *
-     * @param array $frame
      * @return bool
      */
     protected function isValidNextFrame(array $frame)
