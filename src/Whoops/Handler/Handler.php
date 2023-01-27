@@ -6,7 +6,7 @@
 
 namespace Whoops\Handler;
 
-use Whoops\Exception\Inspector;
+use Whoops\Inspector\InspectorInterface;
 use Whoops\RunInterface;
 
 /**
@@ -36,7 +36,7 @@ abstract class Handler implements HandlerInterface
     private $run;
 
     /**
-     * @var Inspector $inspector
+     * @var InspectorInterface $inspector
      */
     private $inspector;
 
@@ -62,15 +62,15 @@ abstract class Handler implements HandlerInterface
     }
 
     /**
-     * @param Inspector $inspector
+     * @param InspectorInterface $inspector
      */
-    public function setInspector(Inspector $inspector)
+    public function setInspector(InspectorInterface $inspector)
     {
         $this->inspector = $inspector;
     }
 
     /**
-     * @return Inspector
+     * @return InspectorInterface
      */
     protected function getInspector()
     {
