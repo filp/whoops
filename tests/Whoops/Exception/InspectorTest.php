@@ -96,6 +96,42 @@ class InspectorTest extends TestCase
     }
 
     /**
+     * @covers Whoops\Exception\Inspector::getFrames
+     */
+    public function testGetFramesWithFiltersReturnsCollection()
+    {
+        $exception = $this->getException();
+        $inspector = $this->getInspectorInstance($exception);
+
+        $frames = $inspector->getFrames([
+            function(Frame $frame) {
+                return true;
+            },
+        ]);
+
+        $this->assertInstanceOf('Whoops\\Exception\\FrameCollection', $frames);
+        $this->assertNotEmpty($frames);
+    }
+
+    /**
+     * @covers Whoops\Exception\Inspector::getFrames
+     */
+    public function testGetFramesWithFiltersReturnsEmptyCollection()
+    {
+        $exception = $this->getException();
+        $inspector = $this->getInspectorInstance($exception);
+
+        $frames = $inspector->getFrames([
+            function(Frame $frame) {
+                return false;
+            },
+        ]);
+
+        $this->assertInstanceOf('Whoops\\Exception\\FrameCollection', $frames);
+        $this->assertEmpty($frames);
+    }
+
+    /**
      * @covers Whoops\Exception\Inspector::hasPreviousException
      * @covers Whoops\Exception\Inspector::getPreviousExceptionInspector
      */

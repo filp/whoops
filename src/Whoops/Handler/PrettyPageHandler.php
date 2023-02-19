@@ -304,7 +304,7 @@ class PrettyPageHandler extends Handler
      */
     protected function getExceptionFrames()
     {
-        $frames = $this->getInspector()->getFrames();
+        $frames = $this->getInspector()->getFrames($this->getRun()->getFrameFilters());
 
         if ($this->getApplicationPaths()) {
             foreach ($frames as $frame) {

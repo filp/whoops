@@ -12,6 +12,7 @@ use InvalidArgumentException;
 use Mockery as m;
 use RuntimeException;
 use Whoops\Handler\Handler;
+use Whoops\Exception\Frame;
 
 class RunTest extends TestCase
 {
@@ -531,5 +532,43 @@ class RunTest extends TestCase
         $this->expectExceptionOfType('InvalidArgumentException');
 
         $this->getRunInstance()->sendExitCode(255);
+    }
+
+    /**
+     * @covers Whoops\Run::addFrameFilter
+     * @covers Whoops\Run::getFrameFilters
+     */
+    public function testAddFrameFilter()
+    {
+        $run = $this->getRunInstance();
+
+        $filterCallbackOne = function(Frame $frame) {};
+        $filterCallbackTwo = function(Frame $frame) {};
+
+        $run
+            ->addFrameFilter($filterCallbackOne)
+            ->addFrameFilter($filterCallbackTwo);
+        
+        $frameFilters = $run->getFrameFilters();
+
+        $this->assertCount(2, $frameFilters);
+        $this->assertContains($filterCallbackOne, $frameFilters);
+        $this->assertContains($filterCallbackTwo, $frameFilters);
+        $this->assertInstanceOf("Whoops\\RunInterface", $run);
+    }
+
+    /**
+     * @covers Whoops\Run::clearFrameFilters
+     * @covers Whoops\Run::getFrameFilters
+     */
+    public function testClearFrameFilters()
+    {
+        $run = $this->getRunInstance();
+        $run->addFrameFilter(function(Frame $frame) {});
+        
+        $run = $run->clearFrameFilters();
+
+        $this->assertEmpty($run->getFrameFilters());
+        $this->assertInstanceOf("Whoops\\RunInterface", $run);
     }
 }
