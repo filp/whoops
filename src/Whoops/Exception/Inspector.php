@@ -176,9 +176,12 @@ class Inspector implements InspectorInterface
     /**
      * Returns an iterator for the inspected exception's
      * frames.
+     * 
+     * @param array<callable> $frameFilters
+     * 
      * @return \Whoops\Exception\FrameCollection
      */
-    public function getFrames()
+    public function getFrames(array $frameFilters = [])
     {
         if ($this->frames === null) {
             $frames = $this->getTrace($this->exception);
@@ -233,6 +236,13 @@ class Inspector implements InspectorInterface
                 }
                 $newFrames->prependFrames($outerFrames->topDiff($newFrames));
                 $this->frames = $newFrames;
+            }
+
+            // Apply frame filters callbacks on the frames stack
+            if (!empty($frameFilters)) {
+                foreach ($frameFilters as $filterCallback) {
+                    $this->frames->filter($filterCallback);
+                }
             }
         }
 

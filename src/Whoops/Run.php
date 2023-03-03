@@ -76,6 +76,11 @@ final class Run implements RunInterface
      */
     private $inspectorFactory;
 
+    /**
+     * @var array<callable>
+     */
+    private $frameFilters = [];
+
     public function __construct(SystemFacade $system = null)
     {
         $this->system = $system ?: new SystemFacade;
@@ -173,6 +178,17 @@ final class Run implements RunInterface
     public function clearHandlers()
     {
         $this->handlerStack = [];
+        return $this;
+    }
+
+    public function getFrameFilters()
+    {
+        return $this->frameFilters;
+    }
+
+    public function clearFrameFilters()
+    {
+        $this->frameFilters = [];
         return $this;
     }
 
@@ -511,6 +527,18 @@ final class Run implements RunInterface
         $this->inspectorFactory = $factory;
     }
 
+    public function addFrameFilter($filterCallback)
+    {
+        if (!is_callable($filterCallback)) {
+            throw new \InvalidArgumentException(sprintf(
+                "A frame filter must be of type callable, %s type given.", 
+                gettype($filterCallback)
+            ));
+        }
+
+        $this->frameFilters[] = $filterCallback;
+        return $this;
+    }
 
     /**
      * @param Throwable $exception

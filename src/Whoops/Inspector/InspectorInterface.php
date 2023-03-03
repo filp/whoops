@@ -62,7 +62,10 @@ interface InspectorInterface
     /**
      * Returns an iterator for the inspected exception's
      * frames.
+     * 
+     * @param array<callable> $frameFilters
+     * 
      * @return \Whoops\Exception\FrameCollection
      */
-    public function getFrames();
+    public function getFrames(array $frameFilters = []);
 }
