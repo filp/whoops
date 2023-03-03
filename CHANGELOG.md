@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v2.15.0
+
+* Add addFrameFilter ([#749](https://github.com/filp/whoops/pull/749))
+
 ## v2.14.6
 
 * Upgraded prismJS to version `1.29.0` due to security issue ([#741][i741]).
