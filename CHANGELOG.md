@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v2.15.1
+
+* Fixed bug with PrettyPageHandler "*Calling `getFrameFilters` method on null*" ([#751](https://github.com/filp/whoops/pull/751)).
+
 ## v2.15.0
 
 * Add addFrameFilter ([#749](https://github.com/filp/whoops/pull/749))
