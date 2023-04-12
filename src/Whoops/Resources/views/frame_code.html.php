@@ -31,6 +31,7 @@
         ?>
             <pre class="code-block line-numbers"
               data-line="<?php echo $line ?>"
+              data-line-offset="<?php echo $start ?>"
               data-start="<?php echo $start ?>"
             ><code class="language-php"><?php echo $tpl->escape($code) ?></code></pre>
 

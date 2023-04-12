@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## Unreleased
+
+* Fixed missing code highlight, which additionally led to issue with switching tabs, between application and all frames ([#747](https://github.com/filp/whoops/issues/747)).
+
 ## v2.15.1
 
 * Fixed bug with PrettyPageHandler "*Calling `getFrameFilters` method on null*" ([#751](https://github.com/filp/whoops/pull/751)).
