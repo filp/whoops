@@ -99,6 +99,10 @@ Run::handleError(int $level, string $message, string $file = null, int $line = n
 // through the current stack:
 Run::handleShutdown()
  #=> null
+
+// adds a new frame filter callback to the frame filters stack
+Run::addFrameFilter()
+ #=> Whoops\Run
 ```
 
 ## <a name="handler-abstract"></a> `Whoops\Handler\Handler` & `Whoops\Handler\HandlerInterface`
