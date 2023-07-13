@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v2.15.3
+
+* Improve performance of the syntax highlighting (#758).
+
 ## v2.15.2
 
 * Fixed missing code highlight, which additionally led to issue with switching tabs, between application and all frames ([#747](https://github.com/filp/whoops/issues/747)).
