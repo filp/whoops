@@ -290,13 +290,12 @@ header {
       border-radius: 6px;
       background-color: rgba(255, 255, 255, .05);
     }
-      .frame-comment a {
-        font-weight: bold;
-        text-decoration: none;
-      }
-        .frame-comment a:hover {
-          color: #4bb1b1;
-        }
+
+    .frame-comment a {
+      font-weight: bold;
+      text-decoration: underline;
+      color: #c6c6c6;
+    }
 
     .frame-comment:not(:last-child) {
       border-bottom: 1px dotted rgba(0, 0, 0, .3);
