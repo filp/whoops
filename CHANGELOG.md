@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v2.15.4
+
+* Improve link color in comments.
+
 ## v2.15.3
 
 * Improve performance of the syntax highlighting (#758).
