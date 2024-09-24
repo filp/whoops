@@ -233,7 +233,7 @@ class TemplateHelper
      *
      * @param string $template
      */
-    public function render($template, array $additionalVariables = null)
+    public function render($template, ?array $additionalVariables = null)
     {
         $variables = $this->getVariables();
 

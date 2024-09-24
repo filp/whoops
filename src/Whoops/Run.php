@@ -81,7 +81,7 @@ final class Run implements RunInterface
      */
     private $frameFilters = [];
 
-    public function __construct(SystemFacade $system = null)
+    public function __construct(?SystemFacade $system = null)
     {
         $this->system = $system ?: new SystemFacade;
         $this->inspectorFactory = new InspectorFactory();
