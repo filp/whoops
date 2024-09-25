@@ -383,7 +383,7 @@ class PrettyPageHandler extends Handler
             throw new InvalidArgumentException('Expecting callback argument to be callable');
         }
 
-        $this->extraTables[$label] = function (\Whoops\Inspector\InspectorInterface $inspector = null) use ($callback) {
+        $this->extraTables[$label] = function (?\Whoops\Inspector\InspectorInterface $inspector = null) use ($callback) {
             try {
                 $result = call_user_func($callback, $inspector);
 
