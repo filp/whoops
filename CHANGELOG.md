@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v2.17.0
+
+* Support cursor IDE.
+
 ## v2.16.0
 
 * Support PHP `8.4`.
