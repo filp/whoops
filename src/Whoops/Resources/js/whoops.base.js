@@ -76,7 +76,7 @@ Zepto(function($) {
 
   });
 
-  var clipboard = new Clipboard('.clipboard');
+  var clipboard = new ClipboardJS('.clipboard');
   var showTooltip = function(elem, msg) {
     elem.classList.add('tooltipped', 'tooltipped-s');
     elem.setAttribute('aria-label', msg);
