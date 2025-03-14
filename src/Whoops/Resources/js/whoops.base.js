@@ -183,6 +183,30 @@ Zepto(function($) {
     setActiveFramesTab($(this));
   });
 
+    // Open editor from code block rows number
+  $(document).delegate('.line-numbers-rows > span', 'click', function(e) {
+    var linkTag = $(this).closest('.frame-code').find('.editor-link');
+    if (!linkTag) return;
+    var editorUrl = linkTag.attr('href');
+    var requiresAjax = linkTag.data('ajax');
+
+    var lineOffset = $(this).closest('[data-line-offset]').data('line-offset');
+    var lineNumber = lineOffset + $(this).index();
+
+    var realLine = $(this).closest('[data-line]').data('line');
+    if (!realLine) return;
+    var fileUrl = editorUrl.replace(
+      new RegExp('([:=])' + realLine),
+      '$1' + lineNumber
+    );
+
+    if (requiresAjax) {
+      $.get(fileUrl);
+    } else {
+      $('<a>').attr('href', fileUrl).trigger('click');
+    }
+  });
+
   // Render late enough for highlightCurrentLine to be ready
   renderCurrentCodeblock();
 });

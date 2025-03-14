@@ -558,3 +558,11 @@ pre.sf-dump {
       .search-for-help li a svg path {
         background-size: contain;
       }
+
+.line-numbers-rows span {
+  pointer-events: auto;
+  cursor: pointer;
+}
+.line-numbers-rows span:hover {
+  text-decoration: underline;
+}
