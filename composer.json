@@ -12,6 +12,7 @@
         }
     ],
     "scripts": {
+        "demo": "php -S localhost:8000 ./examples/example.php",
         "test": "phpunit --testdox tests"
     },
     "require": {
