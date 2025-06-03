@@ -43,8 +43,11 @@ Zepto(function($) {
     });
 
     var line = $activeFrame.find('.code-block .line-highlight').first()[0];
-    line.scrollIntoView();
-    line.parentElement.scrollTop -= 180;
+    // [internal] frames might not contain a code-block
+    if (line) {
+      line.scrollIntoView();
+      line.parentElement.scrollTop -= 180;
+    }
 
     $container.scrollTop(0);
   }
