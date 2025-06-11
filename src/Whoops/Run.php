@@ -507,6 +507,11 @@ final class Run implements RunInterface
         // to the exception handler. Pass that information along.
         $this->canThrowExceptions = false;
 
+        // If we are not currently registered, we should not do anything
+        if (!$this->isRegistered) {
+            return;
+        }
+
         $error = $this->system->getLastError();
         if ($error && Misc::isLevelFatal($error['type'])) {
             // If there was a fatal error,
