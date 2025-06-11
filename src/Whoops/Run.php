@@ -87,6 +87,11 @@ final class Run implements RunInterface
         $this->inspectorFactory = new InspectorFactory();
     }
 
+    public function __destruct()
+    {
+        $this->unregister();
+    }
+
     /**
      * Explicitly request your handler runs as the last of all currently registered handlers.
      *
@@ -531,7 +536,7 @@ final class Run implements RunInterface
     {
         if (!is_callable($filterCallback)) {
             throw new \InvalidArgumentException(sprintf(
-                "A frame filter must be of type callable, %s type given.", 
+                "A frame filter must be of type callable, %s type given.",
                 gettype($filterCallback)
             ));
         }
