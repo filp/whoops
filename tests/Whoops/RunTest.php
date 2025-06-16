@@ -548,7 +548,7 @@ class RunTest extends TestCase
         $run
             ->addFrameFilter($filterCallbackOne)
             ->addFrameFilter($filterCallbackTwo);
-        
+
         $frameFilters = $run->getFrameFilters();
 
         $this->assertCount(2, $frameFilters);
@@ -565,7 +565,7 @@ class RunTest extends TestCase
     {
         $run = $this->getRunInstance();
         $run->addFrameFilter(function(Frame $frame) {});
-        
+
         $run = $run->clearFrameFilters();
 
         $this->assertEmpty($run->getFrameFilters());
