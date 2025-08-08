@@ -94,6 +94,13 @@ class PrettyPageHandler extends Handler
     ];
 
     /**
+     * If your development server is not local map remote files to local
+     *
+     * @var array $editorPathReplacements
+     */
+    protected $editorPathReplacements = [];
+
+    /**
      * An identifier for a known IDE/text editor.
      *
      * Either a string, or a calalble that resolves a string, that can be used
@@ -524,7 +531,7 @@ class PrettyPageHandler extends Handler
         }
 
         $editor['url'] = str_replace("%line", rawurlencode($line), $editor['url']);
-        $editor['url'] = str_replace("%file", rawurlencode($filePath), $editor['url']);
+        $editor['url'] = str_replace("%file", rawurlencode($this->replaceRemotePath($filePath)), $editor['url']);
 
         return $editor['url'];
     }
@@ -574,6 +581,8 @@ class PrettyPageHandler extends Handler
         }
 
         if (is_callable($this->editor) || (isset($this->editors[$this->editor]) && is_callable($this->editors[$this->editor]))) {
+            $filePath = $this->replaceRemotePath($filePath);
+
             if (is_callable($this->editor)) {
                 $callback = call_user_func($this->editor, $filePath, $line);
             } else {
@@ -598,6 +607,65 @@ class PrettyPageHandler extends Handler
         }
 
         return [];
+    }
+
+    /**
+     * Replace remote file path with local file path
+     *
+     * @param string $filePath
+     * @return string
+     */
+    private function replaceRemotePath($filePath)
+    {
+        foreach ($this->editorPathReplacements as $path => $replacement) {
+            if (strpos($filePath, $path) === 0) {
+                $filePath = $replacement . substr($filePath, strlen($path));
+                break;
+            }
+        }
+
+        return $filePath;
+    }
+
+    /**
+     * Shorten the file path by removing the remote path replacements
+     *
+     * @param string $filePath
+     * @return string
+     */
+    public function normalizeFilePath($filePath)
+    {
+        if (empty($filePath)) {
+            return '';
+        }
+
+        foreach (array_keys($this->editorPathReplacements) as $path) {
+            if (strpos($filePath, $path) === 0) {
+                $filePath = substr($filePath, strlen($path));
+                break;
+            }
+        }
+
+        return ltrim(str_replace('\\', '/', $filePath), '/');
+    }
+
+    /**
+     * @param array $editorPathReplacements
+     */
+    public function setEditorPathReplacements($editorPathReplacements)
+    {
+        foreach ($editorPathReplacements as $serverPath => $replacement) {
+            $this->setEditorPathReplacement($serverPath, $replacement);
+        }
+    }
+
+    /**
+     * @param string $serverPath
+     * @param string $replacement
+     */
+    public function setEditorPathReplacement($serverPath, $replacement)
+    {
+        $this->editorPathReplacements[$serverPath] = $replacement;
     }
 
     /**
