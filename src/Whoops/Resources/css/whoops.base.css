@@ -230,10 +230,6 @@ header {
       font-weight: bold;
     }
 
-    .frame-line:before {
-      content: ":";
-    }
-
     .frame-code {
       padding: 5px;
       background: #303030;
