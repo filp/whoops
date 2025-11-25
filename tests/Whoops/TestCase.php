@@ -71,7 +71,7 @@ class TestCase extends BaseTestCase
     public static function callPrivateMethod($class_or_object, $method, $args = [])
     {
         $ref = new \ReflectionMethod($class_or_object, $method);
-
+        // setAccessible does not do anything starting with 8.1, throws starting with 8.5
         if (PHP_VERSION_ID < 80100) {
             $ref->setAccessible(true);
         }
