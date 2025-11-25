@@ -71,7 +71,10 @@ class TestCase extends BaseTestCase
     public static function callPrivateMethod($class_or_object, $method, $args = [])
     {
         $ref = new \ReflectionMethod($class_or_object, $method);
-        $ref->setAccessible(true);
+
+        if (PHP_VERSION_ID < 80100) {
+            $ref->setAccessible(true);
+        }
         $object = is_object($class_or_object) ? $class_or_object : null;
 
         return $ref->invokeArgs($object, $args);
