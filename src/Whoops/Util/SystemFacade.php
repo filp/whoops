@@ -80,6 +80,14 @@ class SystemFacade
     /**
      * @return int
      */
+    public function getOutputBufferLength()
+    {
+        return ob_get_length();
+    }
+
+    /**
+     * @return int
+     */
     public function getOutputBufferLevel()
     {
         return ob_get_level();
