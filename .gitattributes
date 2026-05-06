@@ -10,3 +10,4 @@ tests/ export-ignore
 phpunit.xml.dist export-ignore
 CONTRIBUTING.md export-ignore
 README.md export-ignore
+.mailmap export-ignore
