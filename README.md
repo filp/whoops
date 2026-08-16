@@ -28,7 +28,7 @@ powerful stacked error handling system.
 
 ## Sponsors
 
-<a href="https://blackfire.io/docs/introduction?utm_source=whoops&amp;utm_medium=github_readme&amp;utm_campaign=logo"><img src="https://i.imgur.com/zR8rsqk.png" alt="Blackfire.io" width="254" height="64"></a>
+<a href="https://blackfire.io/docs/introduction?utm_source=whoops&amp;utm_medium=github_readme&amp;utm_campaign=logo"><img src="docs/sponsors/blackfire.png" alt="Blackfire.io" width="275" height="70"></a> <a href="https://oblak.host/"><img src="docs/sponsors/oblak.png" alt="Oblak Host" width="245" height="70"></a>
 
 ## Installing
 If you use Laravel 4, Laravel 5.5+, [Mezzio](https://docs.mezzio.dev/mezzio/) or [ZubZet 1.2+](https://zubzet.com/), you already have Whoops. There are also community-provided instructions on how to integrate Whoops into
