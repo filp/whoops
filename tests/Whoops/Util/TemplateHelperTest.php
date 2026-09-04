@@ -64,6 +64,44 @@ class TemplateHelperTest extends TestCase
     }
 
     /**
+     * @covers Whoops\Util\TemplateHelper::escapeButPreserveUris
+     */
+    public function testEscapeButPreserveUrisRejectsDangerousSchemes()
+    {
+        $dangerous = [
+            'javascript://x.co/?%0Aalert(1)',
+            'vbscript://x.co/?%0Amsgbox(1)',
+            'data://text/html,<script>alert(1)</script>',
+        ];
+
+        foreach ($dangerous as $payload) {
+            $output = $this->helper->escapeButPreserveUris($payload);
+
+            $this->assertStringNotContainsString(
+                '<a href=',
+                $output,
+                "Payload '$payload' must not be turned into a clickable link"
+            );
+        }
+    }
+
+    /**
+     * @covers Whoops\Util\TemplateHelper::escapeButPreserveUris
+     */
+    public function testEscapeButPreserveUrisAllowsHttpAndHttpsSchemes()
+    {
+        $this->assertEquals(
+            "<a href=\"http://google.com\" target=\"_blank\" rel=\"noreferrer noopener\">http://google.com</a>",
+            $this->helper->escapeButPreserveUris('http://google.com')
+        );
+
+        $this->assertEquals(
+            "<a href=\"https://google.com\" target=\"_blank\" rel=\"noreferrer noopener\">https://google.com</a>",
+            $this->helper->escapeButPreserveUris('https://google.com')
+        );
+    }
+
+    /**
      * @covers Whoops\Util\TemplateHelper::breakOnDelimiter
      */
     public function testBreakOnDelimiter()
