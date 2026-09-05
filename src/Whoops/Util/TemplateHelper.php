@@ -80,6 +80,9 @@ class TemplateHelper
      * Escapes a string for output in an HTML document, but preserves
      * URIs within it, and converts them to clickable anchor elements.
      *
+     * Only http and https URIs are linkified; other schemes are left as
+     * plain escaped text so that a link cannot execute script when clicked.
+     *
      * @param  string $raw
      * @return string
      */
@@ -87,7 +90,7 @@ class TemplateHelper
     {
         $escaped = $this->escape($raw);
         return preg_replace(
-            "@([A-z]+?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@",
+            "@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@i",
             "<a href=\"$1\" target=\"_blank\" rel=\"noreferrer noopener\">$1</a>",
             $escaped
         );
