@@ -26,7 +26,7 @@
           <?php foreach ($previousMessages as $i => $previousMessage): ?>
             <li>
               <?php echo $tpl->escape($previousMessage) ?>
-              <span class="prev-exc-code">(<?php echo $previousCodes[$i] ?>)</span>
+              <span class="prev-exc-code">(<?php echo $tpl->escape($previousCodes[$i]) ?>)</span>
             </li>
           <?php endforeach; ?>
         </ul>
@@ -41,7 +41,7 @@
     <ul class="search-for-help">
       <?php if (!empty($docref_url)): ?>
       <li>
-        <a rel="noopener noreferrer" target="_blank" href="<?php echo $docref_url; ?>" title="Search for help in the PHP manual.">
+        <a rel="noopener noreferrer" target="_blank" href="<?php echo $tpl->escape($docref_url) ?>" title="Search for help in the PHP manual.">
           <!-- PHP icon by Icons Solid -->
           <!-- https://www.iconfinder.com/icons/322421/book_icon -->
           <!-- Free for commercial use -->

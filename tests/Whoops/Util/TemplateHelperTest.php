@@ -6,6 +6,7 @@
 
 namespace Whoops\Util;
 
+use Whoops\Exception\FrameCollection;
 use Whoops\TestCase;
 
 class TemplateHelperTest extends TestCase
@@ -148,6 +149,66 @@ class TemplateHelperTest extends TestCase
         $this->assertEquals(
             $output,
             "hello-world\nMy name is B&lt;o&gt;b"
+        );
+    }
+
+    public function testRenderEscapesHeaderHtmlAttributes()
+    {
+        $template = __DIR__ . "/../../../src/Whoops/Resources/views/header.html.php";
+
+        ob_start();
+        $this->helper->render($template, [
+            "name" => ["RuntimeException"],
+            "code" => "500",
+            "message" => "Boom",
+            "previousMessages" => ["Previous boom"],
+            "previousCodes" => ['123"><script>alert(1)</script>'],
+            "docref_url" => 'https://www.php.net/manual/en/test.php?foo=1&bar="baz"',
+            "plain_exception" => "Plain exception",
+        ]);
+        $output = ob_get_clean();
+
+        $this->assertStringContains(
+            'href="https://www.php.net/manual/en/test.php?foo=1&amp;bar=&quot;baz&quot;"',
+            $output
+        );
+        $this->assertStringContains(
+            '(123&quot;&gt;&lt;script&gt;alert(1)&lt;/script&gt;)',
+            $output
+        );
+    }
+
+    public function testRenderEscapesFrameEditorHref()
+    {
+        $template = __DIR__ . "/../../../src/Whoops/Resources/views/frame_code.html.php";
+        $frames = new FrameCollection([[
+            'file' => __DIR__ . '/../../fixtures/frame.lines-test.php',
+            'line' => 2,
+            'args' => [],
+        ]]);
+        $handler = new class {
+            public function getEditorHref()
+            {
+                return 'editor://open?foo=1&bar="baz"';
+            }
+
+            public function getEditorAjax()
+            {
+                return false;
+            }
+        };
+
+        ob_start();
+        $this->helper->render($template, [
+            "frames" => $frames,
+            "has_frames" => true,
+            "handler" => $handler,
+        ]);
+        $output = ob_get_clean();
+
+        $this->assertStringContains(
+            'href="editor://open?foo=1&amp;bar=&quot;baz&quot;"',
+            $output
         );
     }
 
