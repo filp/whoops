@@ -68,6 +68,20 @@ class SystemFacadeTest extends TestCase
         $this->facade->endOutputBuffering();
     }
 
+    public function test_it_reports_a_removable_output_buffer()
+    {
+        self::$runtime->shouldReceive('ob_get_status')->once()->andReturn(['flags' => PHP_OUTPUT_HANDLER_STDFLAGS]);
+
+        $this->assertTrue($this->facade->isOutputBufferRemovable());
+    }
+
+    public function test_it_reports_a_non_removable_output_buffer()
+    {
+        self::$runtime->shouldReceive('ob_get_status')->once()->andReturn(['flags' => PHP_OUTPUT_HANDLER_STDFLAGS & ~PHP_OUTPUT_HANDLER_REMOVABLE]);
+
+        $this->assertFalse($this->facade->isOutputBufferRemovable());
+    }
+
     public function test_it_delegates_flushing_the_current_buffer_to_the_native_implementation()
     {
         self::$runtime->shouldReceive('flush')->once();
@@ -159,6 +173,11 @@ function ob_get_level()
 function ob_end_clean()
 {
     return SystemFacadeTest::delegate('ob_end_clean');
+}
+
+function ob_get_status()
+{
+    return SystemFacadeTest::delegate('ob_get_status');
 }
 
 function flush()

@@ -88,6 +88,16 @@ class SystemFacade
     /**
      * @return bool
      */
+    public function isOutputBufferRemovable()
+    {
+        $status = ob_get_status();
+
+        return isset($status['flags']) && ($status['flags'] & PHP_OUTPUT_HANDLER_REMOVABLE);
+    }
+
+    /**
+     * @return bool
+     */
     public function endOutputBuffering()
     {
         return ob_end_clean();
