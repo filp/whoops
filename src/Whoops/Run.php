@@ -425,8 +425,10 @@ final class Run implements RunInterface
         if ($this->writeToOutput()) {
             // @todo Might be able to clean this up a bit better
             if ($willQuit) {
-                // Cleanup all other output buffers before sending our output:
-                while ($this->system->getOutputBufferLevel() > 0) {
+                // Cleanup all other output buffers before sending our output.
+                // Stop at a buffer that cannot be removed, e.g. zlib output
+                // compression once it has started sending compressed output:
+                while ($this->system->getOutputBufferLevel() > 0 && $this->system->isOutputBufferRemovable()) {
                     $this->system->endOutputBuffering();
                 }
 

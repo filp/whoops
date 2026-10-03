@@ -480,6 +480,46 @@ class RunTest extends TestCase
     }
 
     /**
+     * @covers Whoops\Run::handleException
+     */
+    public function testOutputBufferCleanupStopsAtNonRemovableBuffer()
+    {
+        // A removable buffer on top of one that cannot be removed, like
+        // zlib.output_compression once it has sent compressed output.
+        $removable = [false, true];
+        $test = $this;
+
+        $system = m::mock('Whoops\Util\SystemFacade')->makePartial();
+        $system->shouldReceive('stopExecution');
+        $system->shouldReceive('getOutputBufferLevel')
+            ->andReturnUsing(function () use (&$removable) {
+                return count($removable);
+            });
+        $system->shouldReceive('isOutputBufferRemovable')
+            ->andReturnUsing(function () use (&$removable) {
+                return end($removable);
+            });
+        $system->shouldReceive('endOutputBuffering')
+            ->andReturnUsing(function () use ($test, &$removable) {
+                if (!array_pop($removable)) {
+                    $test->fail('Tried to end an output buffer that cannot be removed');
+                }
+                return true;
+            });
+
+        $run = new Run($system);
+        $run->pushHandler(function () {
+            echo "hello there";
+            return Handler::QUIT;
+        });
+
+        ob_start();
+        $run->handleException(new RuntimeException());
+        $this->assertEquals("hello there", ob_get_clean());
+        $this->assertEquals([false], $removable);
+    }
+
+    /**
      * @covers Whoops\Run::sendHttpCode
      */
     public function testSendHttpCode()
