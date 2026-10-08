@@ -37,18 +37,22 @@ $handler->setEditor(function($file, $line) {
 
 ```
 
+If your development server is not local it's good to map remote files to local
+
+```php
+
+$handler->setEditorPathReplacements([
+    '/My/First/Server/Path'  => '~/Development/PhpStormOpener',
+    '/My/Second/Server/Path' => '~/Development/PhpStormOpener',
+]);
+
+```
+
 You can add [IntelliJ Platform](https://github.com/pinepain/PhpStormOpener#phpstormopener) support like this:
 ```php
 
 $handler->setEditor(
     function ($file, $line) {
-        // if your development server is not local it's good to map remote files to local
-        $translations = array('^' . __DIR__ => '~/Development/PhpStormOpener'); // change to your path
-
-        foreach ($translations as $from => $to) {
-            $file = preg_replace('#' . $from . '#', $to, $file, 1);
-        }
-
         // IntelliJ platform requires that you send an Ajax request, else the browser will quit the page
         return array(
             'url' => "http://localhost:63342/api/file/?file=$file&line=$line",
