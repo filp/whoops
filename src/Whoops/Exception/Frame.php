@@ -109,10 +109,9 @@ class Frame implements Serializable
     public function getFileContents()
     {
         if ($this->fileContentsCache === null && $filePath = $this->getFile()) {
-            // Leave the stage early when 'Unknown' or '[internal]' is passed
-            // this would otherwise raise an exception when
-            // open_basedir is enabled.
-            if ($filePath === "Unknown" || $filePath === '[internal]') {
+            // Native virtual source names do not identify a readable source file.
+            // Reading them may report a warning through the application's handler.
+            if (in_array($filePath, ["Unknown", '[internal]', 'Standard input code', 'Command line code'], true)) {
                 return null;
             }
 
