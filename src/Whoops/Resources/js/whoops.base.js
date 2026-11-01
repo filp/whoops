@@ -9,6 +9,7 @@ Zepto(function($) {
   var $ajaxEditors    = $('.editor-link[data-ajax]');
   var $header         = $('header');
 
+  $header.addClass('header-collapsible');
   $header.on('mouseenter', function () {
     if ($header.find('.exception').height() >= 145) {
       $header.addClass('header-expand');

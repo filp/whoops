@@ -43,12 +43,16 @@ header {
   box-sizing: border-box;
   background-color: #2a2a2a;
   padding: 35px 40px;
-  max-height: 180px;
-  overflow: hidden;
   transition: 0.5s;
 }
 
-  header.header-expand {
+  /* Collapsing is enabled by JS, so without JS (e.g. Firefox devtools preview) the full message shows. */
+  header.header-collapsible {
+    max-height: 180px;
+    overflow: hidden;
+  }
+
+  header.header-collapsible.header-expand {
     max-height: 1000px;
   }
 
