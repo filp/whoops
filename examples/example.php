@@ -66,6 +66,9 @@ $run->pushHandler(function ($exception, $inspector, $run) {
 
 });
 
+// Showing the error page is this example's purpose, so respond with success
+$run->sendHttpCode(false);
+
 $run->register();
 
 function fooBar()

@@ -46,6 +46,9 @@ if (\Whoops\Util\Misc::isAjaxRequest()) {
     $run->pushHandler($jsonHandler);
 }
 
+// Showing the error page is this example's purpose, so respond with success
+$run->sendHttpCode(false);
+
 // That's it! Register Whoops and throw a dummy exception:
 $run->register();
 throw new RuntimeException("Oh fudge napkins!");
