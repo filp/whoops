@@ -227,6 +227,65 @@ class PrettyPageHandlerTest extends TestCase
         );
     }
 
+    public function testSetEditorPathMappings()
+    {
+        $handler = $this->getHandler();
+        $this->assertEquals($handler, $handler->setEditor('sublime', [
+            'pathMappings' => ['/var/www' => '/home/me/app', '/var/www/vendor/' => '/home/me/vendor'],
+        ]));
+
+        $this->assertEquals(
+            'subl://open?url=file://%2Fhome%2Fme%2Fapp%2Fsrc%2Fa.php&line=3',
+            $handler->getEditorHref('/var/www/src/a.php', 3)
+        );
+        $this->assertEquals(
+            'subl://open?url=file://%2Fvar%2Fwww2%2Fa.php&line=3',
+            $handler->getEditorHref('/var/www2/a.php', 3)
+        );
+        $this->assertEquals(
+            'subl://open?url=file://%2Fhome%2Fme%2Fvendor%2Fx.php&line=1',
+            $handler->getEditorHref('/var/www/vendor/x.php', 1)
+        );
+
+        $handler->setEditor('sublime');
+        $this->assertEquals(
+            'subl://open?url=file://%2Fvar%2Fwww%2Fsrc%2Fa.php&line=3',
+            $handler->getEditorHref('/var/www/src/a.php', 3)
+        );
+    }
+
+    public function testSetEditorPathMappingsWithCallable()
+    {
+        $handler = $this->getHandler();
+        $received = null;
+        $handler->setEditor(function ($file, $line) use (&$received) {
+            $received = $file;
+            return "x://$file";
+        }, ['pathMappings' => ['/srv' => '/local']]);
+
+        $handler->getEditorHref('/srv/a.php', 1);
+        $this->assertEquals('/local/a.php', $received);
+    }
+
+    public function testSetEditorRejectsBadOptions()
+    {
+        $handler = $this->getHandler();
+        $handler->setEditor('sublime', ['pathMappings' => ['/a' => '/b']]);
+
+        foreach ([['pathMapping' => []], ['pathMappings' => ['/a' => 5]], ['pathMappings' => 'nope']] as $options) {
+            try {
+                $handler->setEditor('vscode', $options);
+                $this->fail('Expected InvalidArgumentException');
+            } catch (\InvalidArgumentException $e) {
+                if (isset($options['pathMapping'])) {
+                    $this->assertStringContainsString('pathMappings', $e->getMessage());
+                }
+            }
+        }
+
+        $this->assertEquals('subl://open?url=file://%2Fb%2Fc.php&line=1', $handler->getEditorHref('/a/c.php', 1));
+    }
+
     /**
      * @covers Whoops\Handler\PrettyPageHandler::setEditor
      * @covers Whoops\Handler\PrettyPageHandler::getEditorHref

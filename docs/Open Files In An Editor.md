@@ -37,18 +37,26 @@ $handler->setEditor(function($file, $line) {
 
 ```
 
+If PHP runs somewhere else (Docker, a VM, a remote server), map server paths to
+your local checkout with the `pathMappings` option. It works with built-in and
+custom editors; use absolute local paths, since editors do not expand `~`.
+Prefixes match whole directories, and the longest matching prefix wins.
+
+```php
+
+$handler->setEditor('vscode', [
+    'pathMappings' => [
+        '/var/www/app' => '/Users/me/code/app',
+    ],
+]);
+
+```
+
 You can add [IntelliJ Platform](https://github.com/pinepain/PhpStormOpener#phpstormopener) support like this:
 ```php
 
 $handler->setEditor(
     function ($file, $line) {
-        // if your development server is not local it's good to map remote files to local
-        $translations = array('^' . __DIR__ => '~/Development/PhpStormOpener'); // change to your path
-
-        foreach ($translations as $from => $to) {
-            $file = preg_replace('#' . $from . '#', $to, $file, 1);
-        }
-
         // IntelliJ platform requires that you send an Ajax request, else the browser will quit the page
         return array(
             'url' => "http://localhost:63342/api/file/?file=$file&line=$line",

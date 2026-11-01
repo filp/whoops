@@ -394,6 +394,13 @@ PrettyPageHandler::setEditor(function ($file, $line) {
         );
     }
 )
+
+// An optional options array is accepted as the second argument:
+//   'pathMappings' => array<string, string> of server path prefix => local path prefix,
+//   applied to file paths before editor links are built (whole directories, longest prefix wins).
+// Each call resets omitted options to their defaults.
+PrettyPageHandler::setEditor($editor, array $options = [])
+PrettyPageHandler::setEditor('vscode', ['pathMappings' => ['/var/www/app' => '/Users/me/code/app']])
  #=> null
 
 // Similar to PrettyPageHandler::setEditor, but allows you
