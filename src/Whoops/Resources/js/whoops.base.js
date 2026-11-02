@@ -46,8 +46,7 @@ Zepto(function($) {
     var line = $activeFrame.find('.code-block .line-highlight').first()[0];
     // [internal] frames might not contain a code-block
     if (line) {
-      line.scrollIntoView();
-      line.parentElement.scrollTop -= 180;
+      line.parentElement.scrollTop = line.offsetTop - (line.parentElement.clientHeight - line.offsetHeight) / 2;
     }
 
     $container.scrollTop(0);
