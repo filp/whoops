@@ -302,6 +302,7 @@ The `JSON` body has the following format:
   "error": {
     "type": "RuntimeException",
     "message": "Something broke!",
+    "code": 0,
     "file": "/var/project/foo/bar.php",
     "line": 22,
 
@@ -318,6 +319,23 @@ The `JSON` body has the following format:
 }
 ```
 
+With `JsonResponseHandler::setJsonApi(true)`, the same error object is wrapped in an `errors` array instead, as the [json:api](https://jsonapi.org/) spec expects. The trace is included the same way:
+
+```json
+{
+  "errors": [
+    {
+      "type": "RuntimeException",
+      "message": "Something broke!",
+      "code": 0,
+      "file": "/var/project/foo/bar.php",
+      "line": 22,
+      "trace": [ ... ]
+    }
+  ]
+}
+```
+
 ### Methods
 
 ```php
@@ -326,6 +344,10 @@ The `JSON` body has the following format:
 // JSON payload body?
 JsonResponseHandler::addTraceToOutput(bool $yes = null)
  #=> bool
+
+// Output errors[] instead of error, per the json:api spec
+JsonResponseHandler::setJsonApi(bool $jsonApi = false)
+ #=> JsonResponseHandler
 
 JsonResponseHandler::handle()
  #=> int | null
