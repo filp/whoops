@@ -17,18 +17,27 @@ use Whoops\Util\TemplateHelper;
 
 class PrettyPageHandler extends Handler
 {
+    const EDITOR_ANTIGRAVITY = "antigravity";
     const EDITOR_SUBLIME = "sublime";
     const EDITOR_TEXTMATE = "textmate";
+    const EDITOR_TRAE = "trae";
+    const EDITOR_FLEET = "fleet";
     const EDITOR_EMACS = "emacs";
+    const EDITOR_KIRO = "kiro";
     const EDITOR_MACVIM = "macvim";
+    const EDITOR_NEOVIM = "neovim";
     const EDITOR_PHPSTORM = "phpstorm";
     const EDITOR_IDEA = "idea";
     const EDITOR_VSCODE = "vscode";
+    const EDITOR_VSCODIUM = "vscodium";
     const EDITOR_ATOM = "atom";
     const EDITOR_ESPRESSO = "espresso";
     const EDITOR_XDEBUG = "xdebug";
     const EDITOR_NETBEANS = "netbeans";
     const EDITOR_CURSOR = "cursor";
+    const EDITOR_NOVA = "nova";
+    const EDITOR_WINDSURF = "windsurf";
+    const EDITOR_ZED = "zed";
 
     /**
      * Search paths to be scanned for resources.
@@ -121,17 +130,26 @@ class PrettyPageHandler extends Handler
      * @var array
      */
     protected $editors = [
+        "antigravity" => "antigravity://file/%file:%line",
         "sublime"  => "subl://open?url=file://%file&line=%line",
         "textmate" => "txmt://open?url=file://%file&line=%line",
+        "trae"     => "trae://file/%file:%line",
+        "fleet"    => "fleet://open?file=%file&line=%line",
         "emacs"    => "emacs://open?url=file://%file&line=%line",
+        "kiro"     => "kiro://file/%file:%line",
         "macvim"   => "mvim://open/?url=file://%file&line=%line",
+        "neovim"   => "nvim://open?url=file://%file&line=%line",
         "phpstorm" => "phpstorm://open?file=%file&line=%line",
         "idea"     => "idea://open?file=%file&line=%line",
         "vscode"   => "vscode://file/%file:%line",
+        "vscodium" => "vscodium://file/%file:%line",
         "atom"     => "atom://core/open/file?filename=%file&line=%line",
         "espresso" => "x-espresso://open?filepath=%file&lines=%line",
         "netbeans" => "netbeans://open/?f=%file:%line",
         "cursor"   => "cursor://file/%file:%line",
+        "nova"     => "nova://open?path=%file&line=%line",
+        "windsurf" => "windsurf://file/%file:%line",
+        "zed"      => "zed://file/%file:%line",
     ];
 
     /**
